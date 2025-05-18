@@ -1,0 +1,67 @@
+// all components and pages and layouts !!!
+
+
+// ------------------layouts------------------------------------------------------------------------
+
+export {default as LoginLayout} from "../layout/LoginLayout";
+export {default as UserLayout} from "../layout/UserLayout";
+export {default as ExpertLayout} from "../layout/ExpertLayout";
+
+// ------------------pages--------------------------------------------------------------------------
+
+// ----------[login]---------
+
+export {default as LoginPageMain} from "../pages/LoginPage/LoginPageMain";
+export {default as SignupPage} from "../pages/LoginPage/SignupPage";
+export {default as VerifyPage} from "../pages/LoginPage/VerifyPage";
+export {default as ForgetpasswordPage} from "../pages/LoginPage/ForgetpasswordPage";
+export {default as ForgetpasswordVerifyPage} from "../pages/LoginPage/ForgetpasswordVerifyPage";
+export {default as ChangePasswordPage} from "../pages/LoginPage/ChangePasswordPage";
+
+// ----------[user]----------
+
+export {default as StartRequestPage} from "../pages/UserPage/StartRequestPage";
+export {default as UpdateUserBaseInfoHimselfPage} from "../pages/UserPage/UpdateUserBaseInfoHimselfPage";
+export {default as UpdateUserBaseInfoAnotherPage} from "../pages/UserPage/UpdateUserBaseInfoAnotherPage";
+export {default as CreateUserInsuranceDesPage} from "../pages/UserPage/CreateUserInsuranceDesPage";
+export {default as CreateUserInsuranceOriginPage} from "../pages/UserPage/CreateUserInsuranceOriginPage";
+export {default as CreateUserInsuranceResponsePage} from "../pages/UserPage/CreateUserInsuranceResponsePage";
+
+// ----------[expert]--------
+
+// ------------------components----------------------------------------------------------------------
+
+// ----------[general]-------
+
+export {default as MainNavbar} from "./General/MainNavbar";
+export {default as MainInput} from "./General/MainInput";
+export {default as MainChekbox} from "./General/MainChekbox";
+export {default as MainButton} from "./General/MainButton";
+export {default as MainTopAll} from "./General/MainTopAll";
+export {default as MainModal} from "./General/MainModal";
+export {default as MainExplanation} from "./General/MainExplanation";
+export {default as MainRadioInput} from "./General/MainRadioInput";
+export {default as UploadFile} from "./General/UploadFile";
+export {default as MainPicText} from "./General/MainPicText";
+
+// ----------[login]---------
+
+export {default as LoginNavbar} from "./Login/LoginNavbar";
+export {default as LoginNavbarResponsive} from "./Login/LoginNavbarResponsive";
+export {default as LoginMain} from "./Login/LoginMain";
+export {default as SignupMain} from "./Login/SignupMain";
+export {default as ForgetpasswordMain} from "./Login/ForgetpasswordMain";
+export {default as ChangePasswordMain} from "./Login/ChangePasswordMain";
+export {default as VerifyMain} from "./Login/VerifyMain";
+
+// ----------[user]----------
+
+export {default as UserStartRequest} from "./User/UserStartRequest";
+export {default as CreateUserInsuranceDes} from "./User/CreateUserInsuranceDes";
+export {default as CreateUserInsuranceOrigin} from "./User/CreateUserInsuranceOrigin";
+export {default as UpdateUserBaseInfoHimself} from "./User/UpdateUserBaseInfoHimself";
+export {default as UpdateUserBaseInfoAnother} from "./User/UpdateUserBaseInfoAnother";
+export {default as UserDataInsuranceOrigin} from "./User/UserDataInsuranceOrigin";
+export {default as CreateUserInsuranceResponse} from "./User/CreateUserInsuranceResponse";
+
+// ----------[expert]--------
