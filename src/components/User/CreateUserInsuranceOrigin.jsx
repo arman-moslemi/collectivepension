@@ -31,7 +31,7 @@ const CreateUserInsuranceOrigin = () => {
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-buttonBlue"></div>
                     <div className="rounded-full h-[48px] w-[48px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">3</p></div></div>
-                    <p className="font-IRANYekanBold text-[15px] text-buttonBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
                 </div>
             </div>
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'}/></div>

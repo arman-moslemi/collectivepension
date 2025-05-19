@@ -1,75 +1,50 @@
-import {MainExplanation, MainInput, MainButton, MainRadioInput} from "../../components";
+import OkIcon from "../../assets/icon/general/OkIcon";
+import {MainButton, MainPicText} from "../../components";
 import { useNavigate } from "react-router-dom";
+import RequestResponsePic from "../../assets/img/user/RequestResponsePic.png";
+import { useState } from "react";
+
 
 const CreateUserInsuranceResponse = () => {
 
      let navigate=useNavigate();
+     const [webService, setWebService ] = useState(true);
 
 
     return (
-        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
+        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] pt-[40px] pb-[15px]">
             <div className="flex justify-start items-center">
                 <div className="flex justify-start items-center">
-                    <div className="rounded-full h-[48px] w-[48px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">1</p></div></div>
-                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات هویتی متقاضی</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue"></div>
+                    <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon/></p></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
                 </div>
                 <div className="flex justify-start items-center">
-                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
-                    <div className="rounded-full w-[40px] h-[40px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">2</p></div>
-                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
+                    <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon/></p></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
                 </div>
                 <div className="flex justify-start items-center">
-                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
-                    <div className="rounded-full w-[40px] h-[40px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
-                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
+                    <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon/></p></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
                 </div>
             </div>
-            <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'}/></div>
-            <div className="px-[90px] w-full grid grid-cols-3 gap-4">
-                <div className="mb-5">
-                    <MainInput label={'نام'} value={'علی'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'نام خانوادگی'} value={'علیزاده تهرانی'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'نام پدر'} value={'محمد هادی'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'تاریخ تولد'} value={'1346/04/16'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'کدملی'} value={'0020456787'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'شماره شناسنامه'} holder={'مثلا 8888'} necessary={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'جنسیت'} value={'مرد'} necessary={true} disable={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'شماره تلفن ثابت'} holder={'مثلا 02144665522'} necessary={true}/>
-                </div>
-                <div className="mb-5">
-                    <MainInput label={'شماره تلفن همراه'} holder={'مثلا 09123333333'} necessary={true}/>
-                </div>
-                <div className="col-span-3 mb-5">
-                    <MainInput label={'آدرس'} holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'} necessary={true}/>
-                </div>
-                <div className="col-span-3">
-                    <MainRadioInput title={'نوع درخواست مستمری جمع'} radioName={'abs'} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'}/>
-                </div>
-                <div className="col-span-3 mt-[33px] flex justify-end items-center">
-                    <div className="w-[140px]"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام بعدی'}/></div>
-                </div>
-
-
-
-
-
+            {webService?
+            <div className="w-full">
+                <MainPicText pic={RequestResponsePic} 
+                text={<div ><p className="text-mainBlue">بر اساس اطلاعات اولیه ثبت‌شده، شما در حال حاضر شرایط اولیه برای بررسی امکان دریافت مستمری را دارید. لطفاً برای ادامه فرآیند، سوابق اعلام‌شده توسط صندوق‌های بیمه‌گر را بررسی نمایید. در صورت تأیید سوابق و تکمیل اطلاعات، امکان محاسبه مبلغ مستمری و ادامه روند بررسی فراهم خواهد شد.</p><p className="text-mainBlue">توجه داشته باشید که برخی از سوابق به‌صورت لحظه‌ای قابل مشاهده هستند، اما دریافت اطلاعات از برخی صندوق‌ها ممکن است تا ۲۰ روز زمان‌بر باشد.</p><p className="text-mainBlue">نتیجه نهایی واجد شرایط بودن شما، پس از بررسی کامل سوابق و اطلاعات بیمه‌پردازی مشخص خواهد شد. در صورتی که نسبت به نتیجه اعلام‌شده اعتراضی دارید، می‌توانید با کلیک روی دکمه "ثبت اعتراض"، درخواست خود را ثبت نمایید.</p></div>}
+                pageButton={<div className="flex"><div className="ml-3 w-[186px]"><MainButton label={'مشاهده سوابق'}/></div><div className="w-[186px]"><MainButton label={'ثبت اعتراض'} red={true}/></div></div>} />
             </div>
+             :
+             <div className="w-full">
+                <MainPicText pic={RequestResponsePic} 
+                text={<div ><p className="text-mainBlue text-[19px] font-IRANYekanBold">درخواست شما با موفقیت ثبت شد.</p><p className="text-mainBlue">ابتدا شرایط شما برای دریافت مستمری جمع بررسی می‌شود. در صورتی که واجد شرایط باشید، نتیجه به شما اعلام خواهد شد و سپس فرآیند استعلام سوابق از صندوق‌ها آغاز می‌شود.</p><p className="text-mainBlue">فرآیند استعلام ممکن است تا ۲۰ روز کاری به طول انجامد. لطفاً پس از دریافت پیامک و گذشت مدت‌زمان اعلام‌شده، به پنل کاربری خود مراجعه کنید و سوابق اعلام‌شده را مشاهده و بررسی نمایید.</p></div>}
+                pageButton={<div className="w-[186px]"><MainButton label={'بازگشت به میزکار'}/></div>} />
+            </div>
+             }
+            
         </div>
     );
   };

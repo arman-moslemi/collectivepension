@@ -26,6 +26,8 @@ export {default as UpdateUserBaseInfoAnotherPage} from "../pages/UserPage/Update
 export {default as CreateUserInsuranceDesPage} from "../pages/UserPage/CreateUserInsuranceDesPage";
 export {default as CreateUserInsuranceOriginPage} from "../pages/UserPage/CreateUserInsuranceOriginPage";
 export {default as CreateUserInsuranceResponsePage} from "../pages/UserPage/CreateUserInsuranceResponsePage";
+export {default as DashboardProcessPage} from "../pages/UserPage/DashboardProcessPage";
+export {default as DashboardRejectedPage} from "../pages/UserPage/DashboardRejectedPage";
 
 // ----------[expert]--------
 
@@ -63,5 +65,7 @@ export {default as UpdateUserBaseInfoHimself} from "./User/UpdateUserBaseInfoHim
 export {default as UpdateUserBaseInfoAnother} from "./User/UpdateUserBaseInfoAnother";
 export {default as UserDataInsuranceOrigin} from "./User/UserDataInsuranceOrigin";
 export {default as CreateUserInsuranceResponse} from "./User/CreateUserInsuranceResponse";
+export {default as DashboardProcess} from "./User/DashboardProcess";
+export {default as DashboardRejected} from "./User/DashboardRejected";
 
 // ----------[expert]--------

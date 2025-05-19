@@ -14,6 +14,8 @@ module.exports = {
       mainGreen: '#16c31d',
       midGreen: '#0f956d',
       mainRed: '#f44336',
+      redError: '#d9004c',
+      redErrorHover: '#610c04',
       buttonHoverBlue: '#04978c',
       navBlue: '#0b307d',
       white: '#ffffff',
@@ -50,6 +52,7 @@ module.exports = {
         'navShadow': '0 3px 8px 0 rgba(0, 0, 0, 0.25)',
         'topShadow': '0 2px 11px 11px rgba(106, 105, 105, 0.19)',
         'buttonShadow': '-2px 4px 11px 0 rgba(0, 193, 178, 0.46)',
+        'redbuttonShadow': '0 4px 4px 0 rgba(217, 0, 76, 0.2)',
         'mainBoxShadow': '0 0 8px 10px rgba(194, 194, 194, 0.12)',
 
         'button': '-30px 30px 30px 30px ',

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     ForgetpasswordVerifyPage, ChangePasswordPage, UserLayout, StartRequestPage,
     UpdateUserBaseInfoHimselfPage, UpdateUserBaseInfoAnotherPage, CreateUserInsuranceDesPage,
-    CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage } from "../components";
+    CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage, DashboardProcessPage, DashboardRejectedPage } from "../components";
 
 
 
@@ -57,7 +57,9 @@ export const router =createBrowserRouter([
             { path: 'updateUserBaseInfoAnother', element: <UpdateUserBaseInfoAnotherPage /> },
             { path: 'createUserInsuranceDes', element: <CreateUserInsuranceDesPage /> },
             { path: 'createUserInsuranceOrigin', element: <CreateUserInsuranceOriginPage /> },
-            { path: 'CreateUserInsuranceResponse', element: <CreateUserInsuranceResponsePage />},
+            { path: 'createUserInsuranceResponse', element: <CreateUserInsuranceResponsePage />},
+            { path: 'dashboardProcess', element: <DashboardProcessPage />},
+            { path: 'dashboardRejected', element: <DashboardRejectedPage />},
             
         ]
     },
