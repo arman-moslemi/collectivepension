@@ -20,7 +20,42 @@ const listItems = [
       name: 'چهارم',
       },
 ]
-
+const provinceList = [
+    {
+      id: 1,
+      name: 'تهران',
+      },
+    {
+      id: 2,
+      name: 'شیراز',
+     },
+    {
+      id: 3,
+      name: 'اصفهان',
+      },
+    {
+      id: 4,
+      name: 'خراسان رضوی',
+      },
+]
+const cityList = [
+    {
+      id: 1,
+      name: 'دماوند',
+      },
+    {
+      id: 2,
+      name: 'فیروزکوه',
+     },
+    {
+      id: 3,
+      name: 'ورامین',
+      },
+    {
+      id: 4,
+      name: 'پاکدشت',
+      },
+]
 const CreateUserInsuranceDes = () => {
 
      let navigate=useNavigate();
@@ -46,7 +81,8 @@ const CreateUserInsuranceDes = () => {
                     <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
                 </div>
             </div>
-            <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'}/></div>
+            <div className="w-full mt-[32px] mb-[40px]">
+                <MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'}/></div>
             <div className="px-[90px] w-full grid grid-cols-3 gap-4">
                 <div className="mb-5">
                     <MainInput label={'نام صندوق بازنشستگی'} listBox={true} listItems={listItems} necessary={true} />
@@ -54,8 +90,17 @@ const CreateUserInsuranceDes = () => {
                 <div className="mb-5 col-span-2">
                     <MainInput label={'نام دستگاه اجرایی'} holder={'مثلا وزرات تعاون'} necessary={true}/>
                 </div>
-                <div className="mb-5 col-span-3">
-                    <MainRadioInput title={'وضعیت استخدامی'} radioName={'abp'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'مشمول قوانین خاص'}/>
+                <div className="mb-5">
+                    <MainInput label={'استان محل اشتغال'} listBox={true} listItems={provinceList} necessary={true} />
+                </div>
+                <div className="mb-5">
+                    <MainInput label={'شهر محل اشتغال'} listBox={true} listItems={cityList} necessary={true} />
+                </div>
+                <div className="mb-5 col-span-2">
+                    <MainRadioInput title={'وضعیت بیمه‌پردازی'} radioName={'abp'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'سایر'}/>
+                </div>
+                <div className="mb-5 col-span-1">
+                    <MainRadioInput title={'مشترک فعال صندوق بازنشستگی'} radioName={'abp'} text1={'بله'} text2={'خیر'} />
                 </div>
                 <div className="mb-5 ">
                     <MainInput label={'شماره شناسایی بیمه'} holder={'053268986'} necessary={true}/>
@@ -74,6 +119,10 @@ const CreateUserInsuranceDes = () => {
                 </div>
                 <div className="mb-5 ">
                     <MainInput label={<div className="flex items-center"><p className="font-IRANYekanBold text-[16px] text-mainBlue">آخرین محل اشتغال به کار</p><p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]"> (دستگاه اجرایی/کارگاه)</p></div>} holder={'مثلا ...'} necessary={true}/>
+                </div>
+                <div className="col-span-3">
+                <MainExplanation color={'yellow'} text={'چنانچه صندوق بازنشستگی مقصد، مربوط به سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات باشد، متقاضی (بیمه‌شده اصلی، بازمانده/وظیفه بگیر بیمه شده اصلی) از شمول درخواست مستمری جمع خارج است.'}/>
+
                 </div>
                 <div className="col-span-3 mt-[33px] flex justify-end items-center">
                     <div className="flex">

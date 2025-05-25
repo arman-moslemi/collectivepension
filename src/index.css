@@ -149,3 +149,6 @@ font-size: 12px;
   font-family: IRANYekanMedium !important;
 }
 
+input:disabled{
+  background-color: #f1f1f1 !important;
+}

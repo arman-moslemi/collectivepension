@@ -1,4 +1,4 @@
-import {MainExplanation, MainInput, MainButton, MainRadioInput,} from "../../components";
+import { MainInput,  MainRadioInput,} from "../../components";
 import Cross from "../../assets/icon/general/Cross";
 
 const listItems = [
@@ -19,6 +19,42 @@ const listItems = [
       name: 'چهارم',
       },
 ]
+const provinceList = [
+    {
+      id: 1,
+      name: 'تهران',
+      },
+    {
+      id: 2,
+      name: 'شیراز',
+     },
+    {
+      id: 3,
+      name: 'اصفهان',
+      },
+    {
+      id: 4,
+      name: 'خراسان رضوی',
+      },
+]
+const cityList = [
+    {
+      id: 1,
+      name: 'دماوند',
+      },
+    {
+      id: 2,
+      name: 'فیروزکوه',
+     },
+    {
+      id: 3,
+      name: 'ورامین',
+      },
+    {
+      id: 4,
+      name: 'پاکدشت',
+      },
+]
 
 const UserDataInsuranceOrigin = ({number, handleRemoveLastForm}) => {
     return (
@@ -35,8 +71,14 @@ const UserDataInsuranceOrigin = ({number, handleRemoveLastForm}) => {
                 <div className="mb-5 col-span-2">
                     <MainInput label={'نام دستگاه اجرایی'} holder={'مثلا وزرات تعاون'} necessary={true}/>
                 </div>
+                <div className="mb-5">
+                                    <MainInput label={'استان محل اشتغال'} listBox={true} listItems={provinceList} necessary={true} />
+                                </div>
+                                <div className="mb-5">
+                                    <MainInput label={'شهر محل اشتغال'} listBox={true} listItems={cityList} necessary={true} />
+                                </div>
                 <div className="mb-5 col-span-3">
-                    <MainRadioInput title={'وضعیت استخدامی'} radioName={'abp'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'مشمول قوانین خاص'}/>
+                    <MainRadioInput title={'وضعیت بیمه‌پردازی'} radioName={'abp'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'مشمول قوانین خاص'}/>
                 </div>
                 <div className="mb-5 ">
                     <MainInput label={'شماره شناسایی بیمه'} holder={'053268986'} necessary={true}/>
