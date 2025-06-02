@@ -1,5 +1,5 @@
 import * as React from "react";
-const ExistingRecords = (props) => (
+const ExistingRecordsIcon = (props) => (
   <svg
     width={32}
     height={32}
@@ -18,4 +18,4 @@ const ExistingRecords = (props) => (
     />
   </svg>
 );
-export default ExistingRecords;
+export default ExistingRecordsIcon;

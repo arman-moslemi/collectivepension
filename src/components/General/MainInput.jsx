@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
+import { div } from 'framer-motion/client';
 
 
 
-const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listItems}) => {
+const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listItems,longText}) => {
 
     const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
 
@@ -63,6 +64,9 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listIt
                     </div>
                 </Listbox>
             </div>
+            :
+            longText?
+              <textarea className="border-[1px] p-2 w-full mt-2 border-borderGray rounded-[6px] focus-visible:outline-none font-IRANYekanMedium text-[16px]" rows={5} name="" id=""></textarea>
             :
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
             <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />

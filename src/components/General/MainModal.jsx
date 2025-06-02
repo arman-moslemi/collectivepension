@@ -1,12 +1,12 @@
 import Cross from "../../assets/icon/general/Cross";
 
-const MainModal = ({title,text,modalButton,noCross,setShowModal}) => {
+const MainModal = ({title,text,modalButton,noCross,setShowModal,big}) => {
     return(
         <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className={`relative mx-auto w-[35%]`}>
+            <div className={`relative mx-auto mb-10 mt-24 ${big? 'w-[65%]' : 'w-[35%]'}`}>
 
               <div className="border-0 rounded-[6px]  shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {title ? 
@@ -16,7 +16,13 @@ const MainModal = ({title,text,modalButton,noCross,setShowModal}) => {
                     <button onClick={()=>setShowModal(false)}><Cross/></button>
                     }
                 </div>
-                : null }
+                : 
+                <div className="w-full  border-b-[1px] px-[15px] py-[10px] border-borderGray flex justify-between items-center">
+                    <p className="font-IRANYekanBold text-[20px] text-mainBlue"></p>
+                    {noCross ? null :
+                    <button onClick={()=>setShowModal(false)}><Cross/></button>
+                    }
+                </div> }
                 <div className="p-[25px] w-full">
                     <p className="font-IRANYekanBold text-[15px]">{text}</p>
                 </div>

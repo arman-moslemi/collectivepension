@@ -4,7 +4,7 @@ import { MainNavbar, LoginNavbar, LoginNavbarResponsive } from "../components";
 import SidebarMainIcon from "../assets/icon/general/SidebarMainIcon";
 import WorkTableIcon from "../assets/icon/user/WorkTableIcon";
 import PensionRequestIcon from "../assets/icon/user/PensionRequestIcon";
-import ExistingRecords from "../assets/icon/user/ExistingRecords";
+import ExistingRecordsIcon from "../assets/icon/user/ExistingRecordsIcon";
 import CalledPension from "../assets/icon/user/CalledPension";
 import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
@@ -53,16 +53,16 @@ const UserLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/user/updateUserBaseInfoHimself" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/user/updateUserBaseInfoHimself") && (
+                        <Link to="/user/existingRecords" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/user/existingRecords") && (
                             <>
-                            <ExistingRecords color={'#00c1b2'}/>
+                            <ExistingRecordsIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">کلیه سوابق موجود</p>
                             </>
                         )}
-                        {isActive("/user/updateUserBaseInfoHimself") ? null:
+                        {isActive("/user/existingRecords") ? null:
                         <>
-                            <ExistingRecords color={'#ffffff'}/>
+                            <ExistingRecordsIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">کلیه سوابق موجود</p>
                             </>
                         }

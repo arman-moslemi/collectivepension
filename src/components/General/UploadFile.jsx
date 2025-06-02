@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 import Styles from "./Styles/ImageUpload..module.css";
 import { apiUrl } from "../../commons/inFormTypes";
 import axios from "axios";
-import { div } from "framer-motion/client";
+import { div, small } from "framer-motion/client";
 // import { Typography } from '@mui/material';
 
 const UploadFile = (props) => {
@@ -131,7 +131,7 @@ const UploadFile = (props) => {
           //   marginBottom:10
           // }}>choose file</a>
           <div
-            className={`${Styles["image-upload__preview"]} bg-backGray cursor-pointer rounded-full border-[1px] border-dashed border-darkGray w-[463px] h-[36px]`}
+            className={`${Styles["image-upload__preview"]} bg-backGray cursor-pointer rounded-full border-[1px] border-dashed border-darkGray ${props.small? 'w-[346px]' : 'w-[463px]'} h-[36px]`}
             style={{ display: 'flex', flexDirection: 'column' }}
           // onClick={pickImageHandler}
           >

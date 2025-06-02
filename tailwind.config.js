@@ -24,6 +24,8 @@ module.exports = {
       borderGray: '#e7e7e7',
       darkGray: '#7b7b7d',
       disableGray: '#f1f1f1',
+      ddGray: '#D5D5D5',
+      tableGray: 'rgba(10, 40, 103, 0.25)',
 
       textColor: '#263238',
       secondColor: '#2E3F59',
@@ -54,6 +56,7 @@ module.exports = {
         'buttonShadow': '-2px 4px 11px 0 rgba(0, 193, 178, 0.46)',
         'redbuttonShadow': '0 4px 4px 0 rgba(217, 0, 76, 0.2)',
         'mainBoxShadow': '0 0 8px 10px rgba(194, 194, 194, 0.12)',
+        'sandoghShadow': '0 0 4px 0 rgba(0, 0, 0, 0.25)',
 
         'button': '-30px 30px 30px 30px ',
         'navbar': '0px 4px 50px 0px rgba(224, 224, 224, 0.49)',

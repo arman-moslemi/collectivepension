@@ -1,13 +1,32 @@
-import {MainPicText, MainButton} from "../../components";
-import RequestResponsePic from "../../assets/img/user/RequestResponsePic.png";
+import { useState } from 'react';
+import {MainPicText, MainButton, MainModal, UserDataInsuranceOrigin} from "../../components";
+import DashboardProcessPic from "../../assets/img/user/DashboardProcessPic.svg";
 
 
 const DashboardProcess = () => {
+
+    const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
+
+    const AddOriginBoxModalFunction = () => {
+        setShowAddOriginBoxModal(false);
+    }
+
     return(
         <div>
-            <MainPicText pic={RequestResponsePic} 
-                text={<div ><p className="text-mainBlue text-[19px] font-IRANYekanBold">درخواست شما با موفقیت ثبت شد.</p><p className="text-mainBlue">ابتدا شرایط شما برای دریافت مستمری جمع بررسی می‌شود. در صورتی که واجد شرایط باشید، نتیجه به شما اعلام خواهد شد و سپس فرآیند استعلام سوابق از صندوق‌ها آغاز می‌شود.</p><p className="text-mainBlue">فرآیند استعلام ممکن است تا ۲۰ روز کاری به طول انجامد. لطفاً پس از دریافت پیامک و گذشت مدت‌زمان اعلام‌شده، به پنل کاربری خود مراجعه کنید و سوابق اعلام‌شده را مشاهده و بررسی نمایید.</p></div>}
-                pageButton={<div className="w-[186px]"><MainButton label={'بازگشت به میزکار'}/></div>} />
+            <MainPicText pic={DashboardProcessPic} 
+                text={<div ><p className="text-[15px] font-IRANYekanMedium">فرآیند بررسی درخواست شما همچنان در حال انجام است.</p><p className="text-[15px] font-IRANYekanMedium">خواهشمند است تا دریافت نتیجه، شکیبا باشید.</p><p className="text-[15px] font-IRANYekanMedium"> اگر در فرم خوداظهاری، اعلام یک یا چند صندوق را فراموش کرده‌اید، می‌توانید با استفاده از دکمه زیر، صندوق موردنظر را به سوابق خوداظهاری خود اضافه کنید.</p></div>}
+                pageButton={<div className="w-[186px]"><MainButton onClickFunction={()=>{setShowAddOriginBoxModal(true)}} label={'+ افزودن صندوق مبدا'}/></div>} />
+
+
+
+            {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
+                       text={<div className="w-full flex flex-col items-center">
+                        <UserDataInsuranceOrigin inModal={true}/>
+                        </div>}
+                       modalButton={<div className="w-full flex justify-center">
+                        <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'}/></div>
+                       </div>}
+                        /> : null}
         </div>
     )
 }

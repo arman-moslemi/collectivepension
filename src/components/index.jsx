@@ -28,6 +28,7 @@ export {default as CreateUserInsuranceOriginPage} from "../pages/UserPage/Create
 export {default as CreateUserInsuranceResponsePage} from "../pages/UserPage/CreateUserInsuranceResponsePage";
 export {default as DashboardProcessPage} from "../pages/UserPage/DashboardProcessPage";
 export {default as DashboardRejectedPage} from "../pages/UserPage/DashboardRejectedPage";
+export {default as ExistingRecordsPage} from "../pages/UserPage/ExistingRecordsPage";
 
 // ----------[expert]--------
 
@@ -45,6 +46,7 @@ export {default as MainExplanation} from "./General/MainExplanation";
 export {default as MainRadioInput} from "./General/MainRadioInput";
 export {default as UploadFile} from "./General/UploadFile";
 export {default as MainPicText} from "./General/MainPicText";
+export {default as MainTable} from "./General/MainTable";
 
 // ----------[login]---------
 
@@ -67,5 +69,10 @@ export {default as UserDataInsuranceOrigin} from "./User/UserDataInsuranceOrigin
 export {default as CreateUserInsuranceResponse} from "./User/CreateUserInsuranceResponse";
 export {default as DashboardProcess} from "./User/DashboardProcess";
 export {default as DashboardRejected} from "./User/DashboardRejected";
+export {default as ExistingRecords} from "./User/ExistingRecords";
+export {default as ExistingRecordsMainBox} from "./User/ExistingRecordsMainBox";
+export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated";
+export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
+export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
 
 // ----------[expert]--------
