@@ -1,12 +1,16 @@
 import { useState } from "react";
-import {MainExplanation, MainButton, UserDataInsuranceOrigin} from "../../components";
+import {MainExplanation, MainButton, UserDataInsuranceOrigin,MainModal,MainChekbox} from "../../components";
 import { useNavigate } from "react-router-dom";
 import OkIcon from "../../assets/icon/general/OkIcon";
 
 const CreateUserInsuranceOrigin = () => {
+    const [showUnderTakingModal, setShowUnderTakingModal] = useState(false);
 
+    const underTakingModalFunction = () => {
+        setShowUnderTakingModal(true);
+      }
     let navigate=useNavigate();
-    const [forms, setForms] = useState([0]); // شروع با یک فرم
+    const [forms, setForms] = useState([0]); 
     const handleAddForm = () => {
         setForms(prev => [...prev, prev.length]);
     };
@@ -50,10 +54,42 @@ const CreateUserInsuranceOrigin = () => {
                     </div>
                     <div className="flex">
                         <div className="w-[140px] ml-4"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام قبلی'}/></div>
-                        <div className="w-[140px]"><MainButton onClickFunction={() => navigate('../createUserInsuranceResponse')} label={'گام بعدی'}/></div>
+                        <div className="w-[140px]"><MainButton onClickFunction={underTakingModalFunction} label={'گام بعدی'}/></div>
                     </div>
 
                 </div>
+                {showUnderTakingModal && (
+  <MainModal
+    title={'تعهدنامه'}
+    noCross={true}
+    setShowModal={setShowUnderTakingModal}
+    text={
+      <div className="w-full flex flex-col items-center">
+        <p className="font-IRANYekanMedium  text-[14px] text-mainBlue text-justify leading-7">
+        اینجانب 
+        <span className="font-IRANYekanExtra mx-2">علی علیزاده</span>
+         متعهد می‌گردم در هیچ یک از صندوق‌های بازنشستگی از مزایای مستمری بازنشستگی/ ازکارافتادگی کلی/ بازماندگان استفاده ننموده‌ام و در صورت برقراری مستمری جمع و احراز شرایط برقراری مستمری استحقاقی در هر یک از صندوق‌ها و تمایل به بهره‌مندی از مزایای آن صندوق (بدون احتساب مزایای مستمری جمع)، مراتب انصراف خود را از برقراری مستمری جمع اعلام نمایم.
+        </p>
+    <div className="mt-5 w-full">
+    <MainChekbox
+     label={'موارد فوق الذکر مورد تایید اینجانب می‌باشد.'}
+     />
+     </div>
+      </div>
+    }
+    modalButton={
+      <div className="w-[140px] flex">
+        
+          <MainButton
+            onClickFunction={() => navigate('../createUserInsuranceResponse')}
+            label={'ثبت و ارسال'}
+          />
+        
+        
+      </div>
+    }
+  />
+)}
 
             </div>
         </div>

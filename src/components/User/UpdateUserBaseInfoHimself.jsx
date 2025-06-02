@@ -58,8 +58,12 @@ const UpdateUserBaseInfoHimself = () => {
                 <div className="col-span-3 mb-5">
                     <MainInput label={'آدرس'} holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'} necessary={true}/>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-2">
                     <MainRadioInput title={'نوع درخواست مستمری جمع'} radioName={'abs'} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'}/>
+                </div>
+                <div className="col-span-1">
+                <MainInput label={'کد پرسنلی'} holder={'مثلا 12569'} necessary={true}/>
+
                 </div>
                 <div className="col-span-3 mt-[33px] flex justify-end items-center">
                     <div className="w-[140px]"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام بعدی'}/></div>

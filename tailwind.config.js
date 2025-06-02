@@ -11,6 +11,8 @@ module.exports = {
       backBlue: 'rgba(0, 193, 178, 0.18)',
       backGreen: 'rgba(22, 195, 29, 0.19)',
       backRed: 'rgba(244, 67, 54, 0.18)',
+      backYellow:'rgba(255, 207, 116, 0.24)',
+      darkYellow:'#F9AB43',
       mainGreen: '#16c31d',
       midGreen: '#0f956d',
       mainRed: '#f44336',
