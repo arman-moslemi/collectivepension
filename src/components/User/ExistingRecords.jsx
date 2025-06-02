@@ -1,4 +1,5 @@
-import { MainButton, MainExplanation, ExistingRecordsMainBox } from "../../components";
+import { useState } from 'react';
+import { MainButton, MainExplanation, MainModal, ExistingRecordsMainBox, UserDataInsuranceOrigin } from "../../components";
 import DayIcon from "../../assets/icon/user/DayIcon";
 import MonthIcon from "../../assets/icon/user/MonthIcon";
 import YearIcon from "../../assets/icon/user/YearIcon";
@@ -6,10 +7,16 @@ import YearIcon from "../../assets/icon/user/YearIcon";
 
 const ExistingRecords = () => {
 
+    const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
+    
+        const AddOriginBoxModalFunction = () => {
+            setShowAddOriginBoxModal(false);
+        }
+
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
             <div className="w-full flex justify-end">
-                <div className="w-[186px] ml-4"><MainButton label={'+ افزودن صندوق مبدا'}/></div>
+                <div className="w-[186px] ml-4"><MainButton onClickFunction={()=>{setShowAddOriginBoxModal(true)}} label={'+ افزودن صندوق مبدا'}/></div>
                 <div className="w-[97px]"><MainButton gray={true} label={'تایید سوابق'}/></div>
             </div>
             <div className="w-full my-3">
@@ -70,6 +77,15 @@ const ExistingRecords = () => {
 
             </div>
             
+        {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
+                       text={<div className="w-full flex flex-col items-center">
+                        <UserDataInsuranceOrigin inModal={true}/>
+                        </div>}
+                       modalButton={<div className="w-full flex justify-center">
+                        <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'}/></div>
+                       </div>}
+                        /> : null}
+
 
         </div>
     );
