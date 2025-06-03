@@ -68,6 +68,7 @@ module.exports = {
         'yellow': '0px 3px 16px 1px #FFC72745',
         '3xl': '0px 2px 20px 0px rgba(105, 105, 105, 0.28)',
         'bigbox': '0px 4px 10px 0px rgba(0, 0, 0, 0.16)',
+        'calculbox': '0 0 4px 0 rgba(0, 0, 0, 0.25)',
         
       },
       backgroundImage: {

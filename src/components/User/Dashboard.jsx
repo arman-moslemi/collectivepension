@@ -81,7 +81,7 @@ const Dashboard = () => {
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-[15px]">حکم بازنشستگی</p>
                     <img src={DashboardPic5} alt="pic" />
                     <p className="font-IRANYekanBold text-[18px] text-mainBlue my-[17px]">دریافت و دانلود حکم</p>
-                    <div className="w-[162px]"><MainButton label={'ذخیره و دریافت'} gray={true} /></div>
+                    <div className="w-[162px]"><MainButton label={'ذخیره و دریافت'} /></div>
                 </div>
             </div>
 

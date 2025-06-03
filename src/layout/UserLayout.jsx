@@ -67,14 +67,14 @@ const UserLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/user/updateUserBaseInfoHimself" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/user/updateUserBaseInfoHimself") && (
+                        <Link to="/user/calculatedPension" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/user/calculatedPension") && (
                             <>
                             <CalledPension color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">مستمری محاسبه شده</p>
                             </>
                         )}
-                        {isActive("/user/updateUserBaseInfoHimself") ? null:
+                        {isActive("/user/calculatedPension") ? null:
                         <>
                             <CalledPension color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">مستمری محاسبه شده</p>

@@ -29,7 +29,9 @@ export {default as CreateUserInsuranceResponsePage} from "../pages/UserPage/Crea
 export {default as DashboardPage} from "../pages/UserPage/DashboardPage";
 export {default as DashboardProcessPage} from "../pages/UserPage/DashboardProcessPage";
 export {default as DashboardRejectedPage} from "../pages/UserPage/DashboardRejectedPage";
+export {default as DashboardRejectedReasonEmploymentPage} from "../pages/UserPage/DashboardRejectedReasonEmploymentPage";
 export {default as ExistingRecordsPage} from "../pages/UserPage/ExistingRecordsPage";
+export {default as CalculatedPensionPage} from "../pages/UserPage/CalculatedPensionPage";
 
 // ----------[expert]--------
 
@@ -71,10 +73,13 @@ export {default as CreateUserInsuranceResponse} from "./User/CreateUserInsurance
 export {default as Dashboard} from "./User/Dashboard";
 export {default as DashboardProcess} from "./User/DashboardProcess";
 export {default as DashboardRejected} from "./User/DashboardRejected";
+export {default as DashboardRejectedReasonEmployment} from "./User/DashboardRejectedReasonEmployment";
 export {default as ExistingRecords} from "./User/ExistingRecords";
 export {default as ExistingRecordsMainBox} from "./User/ExistingRecordsMainBox";
 export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated";
 export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
 export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
+export {default as CalculatedPension} from "./User/CalculatedPension";
+export {default as CalculatedPensionBox} from "./User/CalculatedPensionBox";
 
 // ----------[expert]--------
