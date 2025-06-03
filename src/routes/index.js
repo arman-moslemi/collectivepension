@@ -4,7 +4,7 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     UpdateUserBaseInfoHimselfPage, UpdateUserBaseInfoAnotherPage, CreateUserInsuranceDesPage,
     CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage, DashboardProcessPage,
     DashboardRejectedPage, ExistingRecordsPage, DashboardPage, DashboardRejectedReasonEmploymentPage,
-    CalculatedPensionPage } from "../components";
+    CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage } from "../components";
 
 
 
@@ -66,6 +66,8 @@ export const router =createBrowserRouter([
             { path: 'dashboardRejectedReasonEmployment', element: <DashboardRejectedReasonEmploymentPage />},
             { path: 'existingRecords', element: <ExistingRecordsPage />},
             { path: 'calculatedPension', element: <CalculatedPensionPage />},
+            { path: 'registeredProtests', element: <RegisteredProtestsPage />},
+            { path: 'viewProtest', element: <ViewProtestPage />},
             
         ]
     },

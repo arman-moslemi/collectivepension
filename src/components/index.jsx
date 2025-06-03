@@ -32,6 +32,8 @@ export {default as DashboardRejectedPage} from "../pages/UserPage/DashboardRejec
 export {default as DashboardRejectedReasonEmploymentPage} from "../pages/UserPage/DashboardRejectedReasonEmploymentPage";
 export {default as ExistingRecordsPage} from "../pages/UserPage/ExistingRecordsPage";
 export {default as CalculatedPensionPage} from "../pages/UserPage/CalculatedPensionPage";
+export {default as RegisteredProtestsPage} from "../pages/UserPage/RegisteredProtestsPage";
+export {default as ViewProtestPage} from "../pages/UserPage/ViewProtestPage";
 
 // ----------[expert]--------
 
