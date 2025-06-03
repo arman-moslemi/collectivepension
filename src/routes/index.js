@@ -3,7 +3,7 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     ForgetpasswordVerifyPage, ChangePasswordPage, UserLayout, StartRequestPage,
     UpdateUserBaseInfoHimselfPage, UpdateUserBaseInfoAnotherPage, CreateUserInsuranceDesPage,
     CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage, DashboardProcessPage,
-    DashboardRejectedPage, ExistingRecordsPage } from "../components";
+    DashboardRejectedPage, ExistingRecordsPage, DashboardPage } from "../components";
 
 
 
@@ -59,6 +59,7 @@ export const router =createBrowserRouter([
             { path: 'createUserInsuranceDes', element: <CreateUserInsuranceDesPage /> },
             { path: 'createUserInsuranceOrigin', element: <CreateUserInsuranceOriginPage /> },
             { path: 'createUserInsuranceResponse', element: <CreateUserInsuranceResponsePage />},
+            { path: 'dashboard', element: <DashboardPage />},
             { path: 'dashboardProcess', element: <DashboardProcessPage />},
             { path: 'dashboardRejected', element: <DashboardRejectedPage />},
             { path: 'existingRecords', element: <ExistingRecordsPage />},
