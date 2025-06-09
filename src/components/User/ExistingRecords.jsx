@@ -1,8 +1,41 @@
 import { useState } from 'react';
-import { MainButton, MainExplanation, MainModal, ExistingRecordsMainBox, UserDataInsuranceOrigin } from "../../components";
+import { MainButton, MainExplanation, MainModal, ExistingRecordsMainBox, UserDataInsuranceOrigin, MainTable } from "../../components";
 import DayIcon from "../../assets/icon/user/DayIcon";
 import MonthIcon from "../../assets/icon/user/MonthIcon";
 import YearIcon from "../../assets/icon/user/YearIcon";
+import DetailTableIcon from '../../assets/icon/general/DetailTableIcon';
+
+
+const titleRow = ["ردیف","استان","شهر","شعبه","محل خدمت/نام کارگاه","شماره دستگاه/کارگاه","شماره شناسایی بیمه","سابقه (تعداد روز)","مشاهده"];
+
+const list = [
+  {
+    item1: "1",
+    item2: "سیستان و بلوچستان",
+    item3: "کنارک",
+    item4: "15",
+    item5: "شرکت توسعه هوشمند ورنا ایرانیان",
+    item6: "14008759695",
+    item7: "14008759695",
+    item8: "25963",
+    item9: <div className='w-[38px] h-[38px] rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    
+  },
+  {
+    item1: "1",
+    item2: "سیستان و بلوچستان",
+    item3: "کنارک",
+    item4: "15",
+    item5: "شرکت توسعه هوشمند ورنا ایرانیان",
+    item6: "14008759695",
+    item7: "14008759695",
+    item8: "25963",
+    item9: <div className='w-[38px] h-[38px] rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    
+  },
+  
+  
+  ];
 
 
 const ExistingRecords = () => {
@@ -26,6 +59,39 @@ const ExistingRecords = () => {
                     <p>در صورتی که هنگام تکمیل فرم خوداظهاری، فراموش کرده‌اید صندوقی را اعلام کنید، می‌توانید با استفاده از دکمه «افزودن صندوق جدید» در بالای صفحه، آن صندوق را به سوابق خوداظهاری خود اضافه نمایید.</p>
                     </div>}/>
             </div>
+            <div className='w-full flex justify-between items-center mt-3 mb-11'>
+                <div>
+                    <div className='flex mb-[14px]'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>نام و نام خانوادگی :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'> علی علیزاده</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>جنسیت :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>مرد</p>
+                    </div>
+                </div>
+                <div>
+                    <div className='flex mb-[14px]'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>کد ملی :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>0020145896</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>کد پرسنلی :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>125698</p>
+                    </div>
+                </div>
+                <div className='flex flex-col items-end'>
+                    <div className='flex mb-[14px]'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>تاریخ تولد :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>1346/05/25</p>
+                    </div>
+                    <div className='flex'>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>تاریخ ثبت درخواست :</p>
+                        <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>1346/05/25</p>
+                    </div>
+                </div>
+
+            </div>
             <div className="w-[490px]">
                 <div className="w-full flex justify-between mb-2">
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
@@ -46,35 +112,13 @@ const ExistingRecords = () => {
                     <p className="font-IRANYekanExtra text-[15px] text-darkGray">درحال برررسی</p>
                 </div>
             </div>
-            <div className="w-full flex justify-between mt-10">
+            <div className="w-full flex justify-between mt-14 mb-14">
                 <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق بازنشستگی کشوری'} des={'14560 روز'}/></div>  
                 <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق حمایت از پژوهشگران و فناوران'} des={'در حال بررسی'}/></div>
                 <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق بیمه اجتماعی کشاورزان، روستاییان و عشایر'} des={'212 روز'}/></div>
             </div>
-            <div className="w-full px-[24px] grid grid-cols-12 gap-4  my-[38px]">
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-                <div className="w-[82px]"><ExistingRecordsMainBox small={true} title={'1375'} des={'365 روز'}/></div>
-
-
+            <div className="w-full mb-[32px]">
+                <MainTable center3={true} list={list} titleRow={titleRow}/>
             </div>
             
         {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}

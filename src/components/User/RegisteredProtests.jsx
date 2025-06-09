@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import {MainButton, MainModal, MainExplanation, CalculatedPensionBox, MainInput, UploadFile, MainTable, MainRadioInput } from "../../components";
+import {useNavigate, Link} from "react-router-dom";
+import { MainInput, MainTable } from "../../components";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DetailTableIcon from '../../assets/icon/general/DetailTableIcon';
 import TableRightIcon from '../../assets/icon/general/TableRightIcon';
@@ -34,7 +35,7 @@ const list = [
     item4: "1376",
     item5: "1402/02/08",
     item6: <div className='rounded-[50px] bg-yellowTable mx-auto w-[109px] h-[28px] flex justify-center items-center'><p className='font-IRANYekanMedium text-[15px] text-white'>در حال برررسی</p></div>,
-    item7: <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -43,7 +44,7 @@ const list = [
     item4: "1376",
     item5: "1402/02/08",
     item6: <div className='rounded-[50px] bg-redError mx-auto w-[72px] h-[28px] flex justify-center items-center'><p className='font-IRANYekanMedium text-[15px] text-white'>رد شده</p></div>,
-    item7: <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -52,7 +53,7 @@ const list = [
     item4: "1376",
     item5: "1402/02/08",
     item6: <div className='rounded-[50px] bg-greenTable mx-auto w-[84px] h-[28px] flex justify-center items-center'><p className='font-IRANYekanMedium text-[15px] text-white'>تایید شده</p></div>,
-    item7: <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   
   ];
@@ -73,7 +74,7 @@ const RegisteredProtests = () => {
             <div className='w-full mb-[10px]'>
                 <MainTable center1={true} list={list} titleRow={titleRow}/>
             </div>
-            <div className='w-full mb-[30px] flex justify-between items-center'>
+            <div className='w-full mb-[10px] flex justify-between items-center'>
                 <div className='flex justify-start items-center'>
                     <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>
                     <div className='w-[90px]'><MainInput listBoxM1={true} listItems={cityList} listBoxHolder={'5 تا'}/></div>

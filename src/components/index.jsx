@@ -34,6 +34,7 @@ export {default as ExistingRecordsPage} from "../pages/UserPage/ExistingRecordsP
 export {default as CalculatedPensionPage} from "../pages/UserPage/CalculatedPensionPage";
 export {default as RegisteredProtestsPage} from "../pages/UserPage/RegisteredProtestsPage";
 export {default as ViewProtestPage} from "../pages/UserPage/ViewProtestPage";
+export {default as VerdictsIssuedPage} from "../pages/UserPage/VerdictsIssuedPage";
 
 // ----------[expert]--------
 
@@ -80,9 +81,13 @@ export {default as ExistingRecords} from "./User/ExistingRecords";
 export {default as ExistingRecordsMainBox} from "./User/ExistingRecordsMainBox";
 export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated";
 export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
+export {default as ExistingRecordsMainDetails} from "./User/ExistingRecordsMainDetails";
 export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
 export {default as CalculatedPension} from "./User/CalculatedPension";
 export {default as CalculatedPensionBox} from "./User/CalculatedPensionBox";
 export {default as RegisteredProtests} from "./User/RegisteredProtests";
+export {default as ViewProtest} from "./User/ViewProtest";
+export {default as ViewProtestTable} from "./User/ViewProtestTable";
+export {default as VerdictsIssued} from "./User/VerdictsIssued";
 
 // ----------[expert]--------

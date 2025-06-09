@@ -1,5 +1,5 @@
 import { MainPicText, MainButton, MainModal, MainExplanation } from "../../components";
-import React, { PureComponent } from 'react';
+import { useNavigate } from "react-router-dom";
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import DashboardPic1 from "../../assets/img/user/DashboardPic1.svg";
 import DashboardPic2 from "../../assets/img/user/DashboardPic2.svg";
@@ -33,6 +33,8 @@ const data = [
 
 
 const Dashboard = () => {
+
+    let navigate = useNavigate();
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
@@ -80,8 +82,7 @@ const Dashboard = () => {
                 <div className="h-[323px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-[15px]">حکم بازنشستگی</p>
                     <img src={DashboardPic5} alt="pic" />
-                    <p className="font-IRANYekanBold text-[18px] text-mainBlue my-[17px]">دریافت و دانلود حکم</p>
-                    <div className="w-[162px]"><MainButton label={'ذخیره و دریافت'} /></div>
+                    <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
                 </div>
             </div>
 
