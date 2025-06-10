@@ -2,12 +2,40 @@ import { useState } from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
+import { DatePicker } from "zaman";
 
 
 
 
-const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBoxM1,listItems,listBoxHolder,longText,search}) => {
+const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,onChange,
+  listBoxM1,listItems,listBoxHolder,longText,search,error,errorText,date}) => {
+    const fixNumbers = function (str) {
+        var
+            persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+            arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g]
+        if (typeof str === 'string') {
+            for (var i = 0; i < 10; i++) {
+                str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+            }
+        }
+        return str;
+    };
+    const formatDateTime = (sDate) => {
+        console.log(sDate)
+        var lDate = new Date(sDate).toLocaleDateString('fa-IR');
+        console.log(555)
+        console.log(lDate)
+        var d = fixNumbers(lDate.split('/')[2]);
+        var dd = d < 10 ? '0' + d : d;
+        var yyyy = fixNumbers(lDate.split('/')[0]);
+        var mon = fixNumbers(lDate.split('/')[1]);
+        var mm = (mon < 10 ? '0' + mon : mon);
 
+
+        return yyyy + '/' + mm + '/' + dd;
+
+
+    }
     const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
 
     return (
@@ -19,10 +47,13 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             :null}
             </div>
             {disable?
-            <div className="border-[1px] bg-disableGray h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[16px] text-darkGray" value={value} type="text" disabled name="" id="" />
+            <div className={`border-[1px] bg-disableGray h-[48px] w-full mt-2  ${error? 'border-redError':'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+            <input onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[16px] text-darkGray" value={value} type="text" disabled name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
+  
+  
+  
             :
             listBox?
             <div className='w-full mt-2 '>
@@ -115,21 +146,30 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             </div>
             :
             longText?
-              <textarea className="border-[1px] p-2 w-full mt-2 border-borderGray rounded-[6px] focus-visible:outline-none font-IRANYekanMedium text-[16px]" rows={5} name="" id=""></textarea>
+              <textarea onChange={onChange} className="border-[1px] p-2 w-full mt-2 border-borderGray rounded-[6px] focus-visible:outline-none font-IRANYekanMedium text-[16px]" rows={5} name="" id=""></textarea>
             :
             search?
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[50px] shadow-searchShadow flex justify-start items-center px-4">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} type="text" name="" id="" />
+            <input onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} type="text" name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
             :
-            <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
+            date?
+  <div className={`border-[1px] h-[48px] w-full mt-2  ${error? 'border-redError':'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+            <DatePicker id="test"  onChange={(e)=>onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
+            <div className="mr-3">{leftIcon}</div>
+            </div>
+            :
+            <div className={`border-[1px] h-[48px] w-full mt-2  ${error? 'border-redError':'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+            <input onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
 
             }
-            
+              {error?
+    <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errorText}</p>
+    :
+    null}
         </div>
     );
   };
