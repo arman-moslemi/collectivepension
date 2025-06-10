@@ -83,6 +83,7 @@ export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated
 export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
 export {default as ExistingRecordsMainDetails} from "./User/ExistingRecordsMainDetails";
 export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
+export {default as ExistingRecordsYearBox} from "./User/ExistingRecordsYearBox";
 export {default as CalculatedPension} from "./User/CalculatedPension";
 export {default as CalculatedPensionBox} from "./User/CalculatedPensionBox";
 export {default as RegisteredProtests} from "./User/RegisteredProtests";

@@ -8,7 +8,18 @@ import DetailTableIcon from '../../assets/icon/general/DetailTableIcon';
 
 const titleRow = ["ردیف","استان","شهر","شعبه","محل خدمت/نام کارگاه","شماره دستگاه/کارگاه","شماره شناسایی بیمه","سابقه (تعداد روز)","مشاهده"];
 
-const list = [
+
+const ExistingRecords = ({setSelectedYearBox}) => {
+
+    const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
+    const [selectedBox, setSelectedBox] = useState(false);
+    
+        const AddOriginBoxModalFunction = () => {
+            setShowAddOriginBoxModal(false);
+        }
+
+
+        const list = [
   {
     item1: "1",
     item2: "سیستان و بلوچستان",
@@ -18,7 +29,7 @@ const list = [
     item6: "14008759695",
     item7: "14008759695",
     item8: "25963",
-    item9: <div className='w-[38px] h-[38px] rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    item9: <div onClick={() => setSelectedYearBox(true)} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
     
   },
   {
@@ -30,21 +41,12 @@ const list = [
     item6: "14008759695",
     item7: "14008759695",
     item8: "25963",
-    item9: <div className='w-[38px] h-[38px] rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
+    item9: <div onClick={() => setSelectedYearBox(true)} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>,
     
   },
   
   
   ];
-
-
-const ExistingRecords = () => {
-
-    const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
-    
-        const AddOriginBoxModalFunction = () => {
-            setShowAddOriginBoxModal(false);
-        }
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
@@ -113,13 +115,16 @@ const ExistingRecords = () => {
                 </div>
             </div>
             <div className="w-full flex justify-between mt-14 mb-14">
-                <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق بازنشستگی کشوری'} des={'14560 روز'}/></div>  
-                <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق حمایت از پژوهشگران و فناوران'} des={'در حال بررسی'}/></div>
-                <div className="w-[32%]"><ExistingRecordsMainBox title={'صندوق بیمه اجتماعی کشاورزان، روستاییان و عشایر'} des={'212 روز'}/></div>
+                <div className="w-[32%] cursor-pointer" onClick={() => setSelectedBox(true)}><ExistingRecordsMainBox title={'صندوق بازنشستگی کشوری'} des={'14560 روز'}/></div>  
+                <div className="w-[32%] cursor-pointer" onClick={() => setSelectedBox(true)}><ExistingRecordsMainBox title={'صندوق حمایت از پژوهشگران و فناوران'} des={'در حال بررسی'}/></div>
+                <div className="w-[32%] cursor-pointer" onClick={() => setSelectedBox(true)}><ExistingRecordsMainBox title={'صندوق بیمه اجتماعی کشاورزان، روستاییان و عشایر'} des={'212 روز'}/></div>
             </div>
+            {selectedBox?
             <div className="w-full mb-[32px]">
                 <MainTable center3={true} list={list} titleRow={titleRow}/>
             </div>
+            :
+            null}
             
         {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
                        text={<div className="w-full flex flex-col items-center">
