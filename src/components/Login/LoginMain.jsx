@@ -126,7 +126,7 @@ const LoginMain = () => {
                     .catch(function (error) {
                         console.log(error);
                         handleClick()
-                        setErPass(true)
+                        // setErPass(true)
                         setSnipper(false)
                         captchaRef.current.initializeCaptcha()
 

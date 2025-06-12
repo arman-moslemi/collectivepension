@@ -135,7 +135,7 @@ const SignupMain = () => {
                                         error={touched.captcha && errors.captcha}
                                         errorText={errors.captcha}
                                     />
-                                    <div className="flex mr-2 mb-2">
+                                    <div className={`flex  mr-2 ${touched.captcha && errors.captcha?"mb-[22px]":"mb-2"}`}>
                                         <Captcha
                                             className="flex"
                                             setWord={setCaptcha}

@@ -78,7 +78,7 @@ export const axiosReq = async (url,kind, params, type) => {
 
             if (response.status == 200 || response.status == 201) {
 
-                const items = response.data
+                const items = response
                 return items
             }
   else if (response.status == 401 || response.status == 403) {
