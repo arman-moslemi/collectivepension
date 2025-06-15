@@ -6,7 +6,7 @@ import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
 
 
 
-const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBoxM1,listItems,listBoxHolder,longText,search}) => {
+const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBoxM1,listItems,listBoxHolder,longText,search,Custom1}) => {
 
     const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
 
@@ -121,6 +121,11 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[50px] shadow-searchShadow flex justify-start items-center px-4">
             <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} type="text" name="" id="" />
             <div className="mr-3">{leftIcon}</div>
+            </div>
+            :
+            Custom1?
+            <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
+            <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
             </div>
             :
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">

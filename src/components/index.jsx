@@ -38,6 +38,11 @@ export {default as VerdictsIssuedPage} from "../pages/UserPage/VerdictsIssuedPag
 
 // ----------[expert]--------
 
+export {default as ExpertDashboardPage} from "../pages/ExpertPage/ExpertDashboardPage";
+export {default as ExpertRequestsPage} from "../pages/ExpertPage/ExpertRequestsPage";
+export {default as ExpertRequestsDetailsPage} from "../pages/ExpertPage/ExpertRequestsDetailsPage";
+export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRequestsPensionPage";
+
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -83,6 +88,7 @@ export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated
 export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
 export {default as ExistingRecordsMainDetails} from "./User/ExistingRecordsMainDetails";
 export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
+export {default as ExistingRecordsDetailsMonthsEdit} from "./User/ExistingRecordsDetailsMonthsEdit";
 export {default as ExistingRecordsYearBox} from "./User/ExistingRecordsYearBox";
 export {default as CalculatedPension} from "./User/CalculatedPension";
 export {default as CalculatedPensionBox} from "./User/CalculatedPensionBox";
@@ -92,3 +98,6 @@ export {default as ViewProtestTable} from "./User/ViewProtestTable";
 export {default as VerdictsIssued} from "./User/VerdictsIssued";
 
 // ----------[expert]--------
+
+export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
+export {default as ExpertRequests} from "./Expert/ExpertRequests";
