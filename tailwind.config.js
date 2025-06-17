@@ -17,6 +17,7 @@ module.exports = {
       midGreen: '#0f956d',
       mainRed: '#f44336',
       redError: '#d9004c',
+      yellowError: '#FFCF74',
       redErrorHover: '#610c04',
       buttonHoverBlue: '#04978c',
       navBlue: '#0b307d',

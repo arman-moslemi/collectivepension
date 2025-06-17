@@ -101,3 +101,4 @@ export {default as VerdictsIssued} from "./User/VerdictsIssued";
 
 export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
 export {default as ExpertRequests} from "./Expert/ExpertRequests";
+export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";

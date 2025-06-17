@@ -1,11 +1,6 @@
 import { MainButton, MainModal, MainExplanation } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import DashboardPic1 from "../../assets/img/user/DashboardPic1.svg";
-import DashboardPic2 from "../../assets/img/user/DashboardPic2.svg";
-import DashboardPic3 from "../../assets/img/user/DashboardPic3.svg";
-import DashboardPic4 from "../../assets/img/user/DashboardPic4.svg";
-import DashboardPic5 from "../../assets/img/user/DashboardPic5.svg";
 import ExportDashboardIcon1 from "../../assets/icon/expert/ExportDashboardIcon1";
 import ExportDashboardIcon2 from "../../assets/icon/expert/ExportDashboardIcon2";
 import ExportDashboardIcon3 from "../../assets/icon/expert/ExportDashboardIcon3";
