@@ -6,6 +6,7 @@
 export {default as LoginLayout} from "../layout/LoginLayout";
 export {default as UserLayout} from "../layout/UserLayout";
 export {default as ExpertLayout} from "../layout/ExpertLayout";
+export {default as MainAdminLayout} from "../layout/MainAdminLayout";
 
 // ------------------pages--------------------------------------------------------------------------
 
@@ -42,6 +43,13 @@ export {default as ExpertDashboardPage} from "../pages/ExpertPage/ExpertDashboar
 export {default as ExpertRequestsPage} from "../pages/ExpertPage/ExpertRequestsPage";
 export {default as ExpertRequestsDetailsPage} from "../pages/ExpertPage/ExpertRequestsDetailsPage";
 export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRequestsPensionPage";
+
+
+// ----------[MainAdmin]-------
+
+export {default as MainAdminDashboardPage} from "../pages/MainAdminPage/MainAdminDashboardPage";
+export {default as MainAdminAdminListPage} from "../pages/MainAdminPage/MainAdminAdminListPage";
+export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/MainAdminExpertActivityPage';
 
 // ------------------components----------------------------------------------------------------------
 
@@ -102,3 +110,10 @@ export {default as VerdictsIssued} from "./User/VerdictsIssued";
 export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
 export {default as ExpertRequests} from "./Expert/ExpertRequests";
 export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";
+
+
+// ----------[Mainadmin]-------
+
+export {default as MainAdminDashboard} from "./MainAdmin/MainAdminDashboard";
+export {default as MainAdminAdminList} from "./MainAdmin/MainAdminAdminList";
+export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertActivity";

@@ -33,7 +33,14 @@ const MainTopAll = ({role,icon,title,text,adminRole}) => {
                         <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>کارشناس صندوق بازنشستگی کشوری خوش آمدید !</p> 
                         } 
                     </div>
-                :null }
+                : role === 'mainAdmin' ?
+                <div className='flex w-full justify-center items-center'>
+                
+                <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>ادمین کل سامانه خوش آمدید !</p>  
+                
+            </div>
+                :null
+            }
                 </div>
 
             </div>

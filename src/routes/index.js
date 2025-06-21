@@ -6,7 +6,10 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     DashboardRejectedPage, ExistingRecordsPage, DashboardPage, DashboardRejectedReasonEmploymentPage,
     CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage, VerdictsIssuedPage,
     ExpertLayout, ExpertDashboardPage, ExpertRequestsPage, ExpertRequestsDetailsPage, 
-    ExpertRequestsPensionPage, } from "../components";
+    ExpertRequestsPensionPage, 
+    MainAdminDashboardPage,
+    MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage
+} from "../components";
 
 
 
@@ -91,6 +94,17 @@ export const router =createBrowserRouter([
 
         ]
     },
+    {
+        element: <MainAdminLayout />,
+        path: '/mainAdmin',
+        errorElement: <h3 className="text-center">Nothing !</h3>,
+        children: [
+            
+            { path: 'dashboard', element: <MainAdminDashboardPage />},
+            { path: 'adminList', element: <MainAdminAdminListPage />},
+            { path: 'expertActivity', element: <MainAdminExpertActivityPage />},
 
+      ]
+    },
 
 ])
