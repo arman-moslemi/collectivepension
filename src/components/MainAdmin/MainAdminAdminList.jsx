@@ -2,6 +2,9 @@ import { MainInput,MainButton,MainTable,MainModal } from "..";
 import { useNavigate,Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
+import Trash from "../../assets/icon/main/Trash";
+import Pencil from "../../assets/icon/main/Pencil";
+import Block from "../../assets/icon/main/Block";
 import { useState } from "react";
 const listItems = [
     {
@@ -33,13 +36,35 @@ const list = [
     item6: "مدیرعامل",
     item7: "09120478965",
     item8: 
-    <div className="flex">
-                <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backRed flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-                <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-                <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-mainBlue flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-
-        <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-    </div>
+    <div className="flex justify-center">
+    <Link to="../../user/viewProtest" className="relative group">
+     <div className='w-[38px] h-[38px] mx-auto rounded-full bg-trashBg flex justify-center items-center ml-1'>
+       <Trash />
+     </div>
+     <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       حذف
+     </div>
+   </Link>
+       <Link className="relative group" to="../../user/viewProtest">
+       <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil/></div>
+       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       ویرایش
+     </div>
+       </Link>
+       <Link className="relative group" to="../../user/viewProtest">
+       <div className='w-[38px] h-[38px] mx-auto rounded-full bg-blockBg flex justify-center items-center ml-1'><Block/></div>
+       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       غیرفعال کردن
+     </div>
+       </Link>
+   
+   <Link className="relative group" to="../../user/viewProtest">
+   <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div>
+   <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       مشاهده
+     </div>
+   </Link>
+   </div>
     ,
   },
   {
@@ -50,7 +75,36 @@ const list = [
     item5: "Aa@123456",
     item6: "مدیرعامل",
     item7: "09120478965",
-    item8: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item8: 
+    <div className="flex justify-center">
+    <Link to="../../user/viewProtest" className="relative group">
+     <div className='w-[38px] h-[38px] mx-auto rounded-full bg-trashBg flex justify-center items-center ml-1'>
+       <Trash />
+     </div>
+     <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       حذف
+     </div>
+   </Link>
+       <Link className="relative group" to="../../user/viewProtest">
+       <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil/></div>
+       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       ویرایش
+     </div>
+       </Link>
+       <Link className="relative group" to="../../user/viewProtest">
+       <div className='w-[38px] h-[38px] mx-auto rounded-full bg-blockBg flex justify-center items-center ml-1'><Block/></div>
+       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       غیرفعال کردن
+     </div>
+       </Link>
+   
+   <Link className="relative group" to="../../user/viewProtest">
+   <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div>
+   <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+       مشاهده
+     </div>
+   </Link>
+   </div>
   },
   {
     item1: "1",
@@ -60,7 +114,36 @@ const list = [
     item5: "Aa@123456",
     item6: "مدیرعامل",
     item7: "09120478965",
-    item8: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item8:
+    <div className="flex justify-center">
+ <Link to="../../user/viewProtest" className="relative group">
+  <div className='w-[38px] h-[38px] mx-auto rounded-full bg-trashBg flex justify-center items-center ml-1'>
+    <Trash />
+  </div>
+  <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    حذف
+  </div>
+</Link>
+    <Link className="relative group" to="../../user/viewProtest">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil/></div>
+    <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    ویرایش
+  </div>
+    </Link>
+    <Link className="relative group" to="../../user/viewProtest">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full bg-blockBg flex justify-center items-center ml-1'><Block/></div>
+    <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    غیرفعال کردن
+  </div>
+    </Link>
+
+<Link className="relative group" to="../../user/viewProtest">
+<div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div>
+<div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    مشاهده
+  </div>
+</Link>
+</div>
   },
   {
     item1: "1",
@@ -70,7 +153,36 @@ const list = [
     item5: "Aa@123456",
     item6: "مدیرعامل",
     item7: "09120478965",
-    item8: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item8:
+    <div className="flex justify-center">
+ <Link to="../../user/viewProtest" className="relative group">
+  <div className='w-[38px] h-[38px] mx-auto rounded-full bg-trashBg flex justify-center items-center ml-1'>
+    <Trash />
+  </div>
+  <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    حذف
+  </div>
+</Link>
+    <Link className="relative group" to="../../user/viewProtest">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil/></div>
+    <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    ویرایش
+  </div>
+    </Link>
+    <Link className="relative group" to="../../user/viewProtest">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full bg-blockBg flex justify-center items-center ml-1'><Block/></div>
+    <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    غیرفعال کردن
+  </div>
+    </Link>
+
+<Link className="relative group" to="../../user/viewProtest">
+<div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div>
+<div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+    مشاهده
+  </div>
+</Link>
+</div>
   },
   
   ];
@@ -99,7 +211,7 @@ const MainAdminAdminList = () => {
 
                 </div>
                 <div className='w-full my-[20px]'>
-                <MainTable center1={true} ic={false} list={list} titleRow={titleRow}/>
+                <MainTable center2={true} ic={false} list={list} titleRow={titleRow}/>
             </div>
                 </div>
            

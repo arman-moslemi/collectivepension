@@ -8,7 +8,7 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     ExpertLayout, ExpertDashboardPage, ExpertRequestsPage, ExpertRequestsDetailsPage, 
     ExpertRequestsPensionPage, 
     MainAdminDashboardPage,
-    MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage
+    MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage
 } from "../components";
 
 
@@ -103,6 +103,8 @@ export const router =createBrowserRouter([
             { path: 'dashboard', element: <MainAdminDashboardPage />},
             { path: 'adminList', element: <MainAdminAdminListPage />},
             { path: 'expertActivity', element: <MainAdminExpertActivityPage />},
+            { path: 'userList', element: <MainAdminUserListPage />}
+            ,
 
       ]
     },

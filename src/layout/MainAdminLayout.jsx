@@ -3,12 +3,9 @@ import {useLocation, Link} from "react-router-dom";
 import { MainNavbar} from "../components";
 import SidebarMainIcon from "../assets/icon/general/SidebarMainIcon";
 import WorkTableIcon from "../assets/icon/user/WorkTableIcon";
-import PensionRequestIcon from "../assets/icon/user/PensionRequestIcon";
-import ExistingRecordsIcon from "../assets/icon/user/ExistingRecordsIcon";
-import CalledPension from "../assets/icon/user/CalledPension";
 import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
-
+import Admins from "../assets/icon/main/Admins";
 
 const MainAdminLayout = () => {
 
@@ -42,13 +39,13 @@ const MainAdminLayout = () => {
                         <Link to="/mainAdmin/adminList" className="flex items-center cursor-pointer mb-10">
                         {isActive("/mainAdmin/adminList") && (
                             <>
-                            <PensionRequestIcon color={'#00c1b2'}/>
+                            <Admins color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">مدیران صندوق‌ها</p>
                             </>
                         )}
                         {isActive("/mainAdmin/adminList") ? null:
                         <>
-                            <PensionRequestIcon color={'#ffffff'}/>
+                            <Admins color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">مدیران صندوق‌ها</p>
                             </>
                         }
@@ -56,27 +53,27 @@ const MainAdminLayout = () => {
                         <Link to="/mainAdmin/expertActivity" className="flex items-center cursor-pointer mb-10">
                         {isActive("/mainAdmin/expertActivity") && (
                             <>
-                            <ExistingRecordsIcon color={'#00c1b2'}/>
+                            <WorkTableIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">گزارش عملکرد صندوق‌ها</p>
                             </>
                         )}
                         {isActive("/mainAdmin/expertActivity") ? null:
                         <>
-                            <ExistingRecordsIcon color={'#ffffff'}/>
+                            <WorkTableIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">گزارش عملکرد صندوق‌ها</p>
                             </>
                         }
                         </Link>
-                        <Link to="/url" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/url") && (
+                        <Link to="/mainAdmin/userList" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/mainAdmin/userList") && (
                             <>
-                            <CalledPension color={'#00c1b2'}/>
+                            <Admins color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">کاربران سامانه</p>
                             </>
                         )}
-                        {isActive("/url") ? null:
+                        {isActive("/mainAdmin/userList") ? null:
                         <>
-                            <CalledPension color={'#ffffff'}/>
+                            <Admins color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">کاربران سامانه</p>
                             </>
                         }
@@ -98,13 +95,13 @@ const MainAdminLayout = () => {
                         <Link to="/url" className="flex items-center cursor-pointer mb-10">
                         {isActive("/url") && (
                             <>
-                            <ExitIcon color={'#00c1b2'}/>
+                            <ProtestsIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">اعتراضات ثبت شده</p>
                             </>
                         )}
                         {isActive("/url") ? null:
                         <>
-                            <ExitIcon color={'#ffffff'}/>
+                            <ProtestsIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">اعتراضات ثبت شده</p>
                             </>
                         }

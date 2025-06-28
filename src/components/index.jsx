@@ -50,7 +50,7 @@ export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRe
 export {default as MainAdminDashboardPage} from "../pages/MainAdminPage/MainAdminDashboardPage";
 export {default as MainAdminAdminListPage} from "../pages/MainAdminPage/MainAdminAdminListPage";
 export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/MainAdminExpertActivityPage';
-
+export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -117,3 +117,4 @@ export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";
 export {default as MainAdminDashboard} from "./MainAdmin/MainAdminDashboard";
 export {default as MainAdminAdminList} from "./MainAdmin/MainAdminAdminList";
 export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertActivity";
+export {default as MainAdminUserList} from "./MainAdmin/MainAdminUserList";
