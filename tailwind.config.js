@@ -28,6 +28,7 @@ module.exports = {
       darkGray: '#7b7b7d',
       disableGray: '#f1f1f1',
       ddGray: '#D5D5D5',
+      dGray: '#D9D9D9',
       tableGray: 'rgba(10, 40, 103, 0.25)',
       yellowTable: '#fed070',
       greenTable: '#11720e',
