@@ -1,6 +1,6 @@
 import { MainExplanation, MainInput, MainButton, MainRadioInput } from "../../components";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -21,18 +21,18 @@ const cityList = [
 
 const CreateUserInsuranceDes = () => {
   const navigate = useNavigate();
-  
+  const [provinces, setProvinces] = useState([])
+  const [insurances, setInsurances] = useState([])
+
   const initialValues = {
     InsuranceId: 0,
-    IsEndingInsurance: false,
-    RequestDate: new Date().toISOString(),
+    IsEndingInsurance: true,
     DepartmentName: '',
     CityId: 0,
     InsuranceIdNumber: '',
     TrackRecordType: '',
     TrackRecordDays: '',
     LastWorkplace: '',
-    EmploymentStatusId: 0,
     QuitReason: '',
     QuitDate: '',
     StartedDate: '',
@@ -58,11 +58,10 @@ const CreateUserInsuranceDes = () => {
       // Prepare data for API
       const payload = {
         ...values,
-        RequestDate: new Date().toISOString() // Use current date as request date
       };
 
       const response = await axiosReq("Insurance/CreateUserInsurance", "post", payload);
-      
+
       if (response?.status === 200) {
         navigate('../createUserInsuranceOrigin');
       }
@@ -76,14 +75,28 @@ const CreateUserInsuranceDes = () => {
   const handlePrevious = () => {
     navigate('../updateUserBaseInfoHimself');
   };
+  const GetData = async () => {
+    try {
+      // Prepare data for API
 
+      const response = await axiosReq("user/GetProvinces", "get");
+      setProvinces(response)
+      const response2 = await axiosReq("Insurances/GetInsurances", "get");
+      setInsurances(response2)
+    } catch (error) {
+      console.error("Error creating insurance:", error);
+    } 
+  };
+  useEffect(() => {
+    GetData()
+  }, [])
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
       {/* Stepper Section */}
       <div className="flex justify-start items-center">
         <div className="flex justify-start items-center">
           <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center">
-            <p className="font-IRANYekanBold text-[18px] text-white"><OkIcon/></p>
+            <p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p>
           </div>
           <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
           <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
@@ -108,7 +121,7 @@ const CreateUserInsuranceDes = () => {
       </div>
 
       <div className="w-full mt-[32px] mb-[40px]">
-        <MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'}/>
+        <MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} />
       </div>
 
       <Formik
@@ -287,8 +300,8 @@ const CreateUserInsuranceDes = () => {
             </div>
 
             <div className="col-span-3">
-              <MainExplanation 
-                color={'yellow'} 
+              <MainExplanation
+                color={'yellow'}
                 text={'چنانچه صندوق بازنشستگی مقصد، مربوط به سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات باشد، متقاضی (بیمه‌شده اصلی، بازمانده/وظیفه بگیر بیمه شده اصلی) از شمول درخواست مستمری جمع خارج است.'}
               />
             </div>
@@ -296,14 +309,14 @@ const CreateUserInsuranceDes = () => {
             <div className="col-span-3 mt-[33px] flex justify-end items-center">
               <div className="flex">
                 <div className="w-[140px] ml-4">
-                  <MainButton 
+                  <MainButton
                     type="button"
-                    onClickFunction={handlePrevious} 
+                    onClickFunction={handlePrevious}
                     label={'گام قبلی'}
                   />
                 </div>
                 <div className="w-[140px]">
-                  <MainButton 
+                  <MainButton
                     type="submit"
                     label={isSubmitting ? 'در حال ذخیره...' : 'گام بعدی'}
                     disabled={isSubmitting}
