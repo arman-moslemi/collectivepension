@@ -129,7 +129,7 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             </div>
             :
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[14px]" placeholder={holder} type="text" name="" id="" />
+            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} value={value} type="text" name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
 
