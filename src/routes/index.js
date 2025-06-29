@@ -4,7 +4,13 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     UpdateUserBaseInfoHimselfPage, UpdateUserBaseInfoAnotherPage, CreateUserInsuranceDesPage,
     CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage, DashboardProcessPage,
     DashboardRejectedPage, ExistingRecordsPage, DashboardPage, DashboardRejectedReasonEmploymentPage,
-    CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage, VerdictsIssuedPage } from "../components";
+    CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage, VerdictsIssuedPage,
+    ExpertLayout, ExpertDashboardPage, ExpertRequestsPage, ExpertRequestsDetailsPage, 
+    ExpertRequestsPensionPage, 
+    MainAdminDashboardPage,
+    MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage,
+    MainAdminRequestPage,MainAdminRequestsDetailsPage
+} from "../components";
 
 
 
@@ -72,6 +78,38 @@ export const router =createBrowserRouter([
             
         ]
     },
+    {
+        element: <ExpertLayout />,
+        path: '/expert',
+        errorElement: <h3 className="text-center">Nothing !</h3>,
+        children: [
+            
+            { path: 'dashboard', element: <ExpertDashboardPage />},
+            { path: 'requests', element: <ExpertRequestsPage />},
+            { path: 'requestsPension', element: <ExpertRequestsPensionPage />},
+            { path: 'requestsDetails', element: <ExpertRequestsDetailsPage />},
+            // { path: 'expertRequestsAllRecordsWithWebService', element: <ExpertDashboardPage />},
+            // { path: 'expertrequestsAllRecordsNoWebService', element: <ExpertDashboardPage />},
+            // { path: 'expertrequestsMainDetail', element: <ExpertDashboardPage />},
+            // { path: 'expertrequestsMainDetail', element: <ExpertDashboardPage />},
 
+        ]
+    },
+    {
+        element: <MainAdminLayout />,
+        path: '/mainAdmin',
+        errorElement: <h3 className="text-center">Nothing !</h3>,
+        children: [
+            
+            { path: 'dashboard', element: <MainAdminDashboardPage />},
+            { path: 'adminList', element: <MainAdminAdminListPage />},
+            { path: 'expertActivity', element: <MainAdminExpertActivityPage />},
+            { path: 'userList', element: <MainAdminUserListPage />},
+            { path: 'request', element: <MainAdminRequestPage />},
+            { path: 'requestDetail', element: <MainAdminRequestsDetailsPage />},
+
+
+      ]
+    },
 
 ])

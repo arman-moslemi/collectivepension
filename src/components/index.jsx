@@ -6,6 +6,7 @@
 export {default as LoginLayout} from "../layout/LoginLayout";
 export {default as UserLayout} from "../layout/UserLayout";
 export {default as ExpertLayout} from "../layout/ExpertLayout";
+export {default as MainAdminLayout} from "../layout/MainAdminLayout";
 
 // ------------------pages--------------------------------------------------------------------------
 
@@ -38,6 +39,20 @@ export {default as VerdictsIssuedPage} from "../pages/UserPage/VerdictsIssuedPag
 
 // ----------[expert]--------
 
+export {default as ExpertDashboardPage} from "../pages/ExpertPage/ExpertDashboardPage";
+export {default as ExpertRequestsPage} from "../pages/ExpertPage/ExpertRequestsPage";
+export {default as ExpertRequestsDetailsPage} from "../pages/ExpertPage/ExpertRequestsDetailsPage";
+export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRequestsPensionPage";
+
+
+// ----------[MainAdmin]-------
+
+export {default as MainAdminDashboardPage} from "../pages/MainAdminPage/MainAdminDashboardPage";
+export {default as MainAdminAdminListPage} from "../pages/MainAdminPage/MainAdminAdminListPage";
+export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/MainAdminExpertActivityPage';
+export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
+export {default as MainAdminRequestPage} from "../pages/MainAdminPage/MainAdminRequestPage";
+export {default as MainAdminRequestsDetailsPage} from "../pages/MainAdminPage/MainAdminRequestsDetailsPage";
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -50,9 +65,11 @@ export {default as MainTopAll} from "./General/MainTopAll";
 export {default as MainModal} from "./General/MainModal";
 export {default as MainExplanation} from "./General/MainExplanation";
 export {default as MainRadioInput} from "./General/MainRadioInput";
+export {default as MainRadioInput2} from "./General/MainRadioInput2";
 export {default as UploadFile} from "./General/UploadFile";
 export {default as MainPicText} from "./General/MainPicText";
 export {default as MainTable} from "./General/MainTable";
+export {default as ScrollToTop} from "./General/ScrollToTop";
 
 // ----------[login]---------
 
@@ -83,6 +100,8 @@ export {default as ExistingRecordsRepeated} from "./User/ExistingRecordsRepeated
 export {default as ExistingRecordsDetails} from "./User/ExistingRecordsDetails";
 export {default as ExistingRecordsMainDetails} from "./User/ExistingRecordsMainDetails";
 export {default as ExistingRecordsDetailsMonths} from "./User/ExistingRecordsDetailsMonths";
+export {default as ExistingRecordsDetailsMonthsEdit} from "./User/ExistingRecordsDetailsMonthsEdit";
+export {default as ExistingRecordsYearBox} from "./User/ExistingRecordsYearBox";
 export {default as CalculatedPension} from "./User/CalculatedPension";
 export {default as CalculatedPensionBox} from "./User/CalculatedPensionBox";
 export {default as RegisteredProtests} from "./User/RegisteredProtests";
@@ -91,3 +110,20 @@ export {default as ViewProtestTable} from "./User/ViewProtestTable";
 export {default as VerdictsIssued} from "./User/VerdictsIssued";
 
 // ----------[expert]--------
+
+export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
+export {default as ExpertRequests} from "./Expert/ExpertRequests";
+export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";
+export {default as ExpertPensionRequestForm} from "./Expert/ExpertPensionRequestForm";
+export {default as ExpertAllRecords} from "./Expert/ExpertAllRecords";
+export {default as ExpertPensionAmount} from "./Expert/ExpertPensionAmount";
+
+
+// ----------[Mainadmin]-------
+
+export {default as MainAdminDashboard} from "./MainAdmin/MainAdminDashboard";
+export {default as MainAdminAdminList} from "./MainAdmin/MainAdminAdminList";
+export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertActivity";
+export {default as MainAdminUserList} from "./MainAdmin/MainAdminUserList";
+export {default as MainAdminRequest} from "./MainAdmin/MainAdminRequest";
+export {default as MainAdminRequestsDetails} from "./MainAdmin/MainAdminRequestsDetails";

@@ -8,7 +8,7 @@ import { DatePicker } from "zaman";
 
 
 const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox, onChange,
-  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password }) => {
+  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password,Custom1 }) => {
   const fixNumbers = function (str) {
     var
       persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -19,7 +19,11 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
       }
     }
     return str;
-  };
+  }
+    const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
+
+  
+
   const formatDateTime = (sDate) => {
     console.log(sDate)
     var lDate = new Date(sDate).toLocaleDateString('fa-IR');
@@ -36,7 +40,6 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
 
 
   }
-  const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
     const [show, setShow] = useState(false)
 
   return (
@@ -159,7 +162,11 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                   <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
                     <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
                     <div className="mr-3">{leftIcon}</div>
-                  </div>
+                  </div>:
+                      Custom1?
+            <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
+            <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
+            </div>
                   :
                   password ?
 

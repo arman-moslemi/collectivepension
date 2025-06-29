@@ -1,0 +1,18 @@
+import { useState } from "react";
+import { ExpertRequests, MainTopAll } from "../../components";
+import PensionRequestIcon from "../../assets/icon/user/PensionRequestIcon";
+
+
+const ExpertRequestsPensionPage = () => {
+
+    const [adminRole, setAdminRole] = useState(false);
+
+    return (
+        <div className="pr-[20px] pl-[60px] py-[55px]">
+            <div className="mb-[10px] w-full "><MainTopAll title={'درخواست‌های بازنشستگی'} icon={<PensionRequestIcon color={'#0a2867'}/>} role={'expert'} adminRole={adminRole}/></div>
+            <div className="w-full"><ExpertRequests/></div>   
+        </div>
+    );
+  };
+  
+  export default ExpertRequestsPensionPage;
