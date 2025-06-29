@@ -1,4 +1,4 @@
-import { MainExplanation, MainInput, MainButton, MainRadioInput } from "../../components";
+import { MainExplanation, MainInput, MainButton, MainRadioInput, MainRadioInput2 } from "../../components";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
@@ -22,7 +22,10 @@ const cityList = [
 const CreateUserInsuranceDes = () => {
   const navigate = useNavigate();
   const [provinces, setProvinces] = useState([])
+  const [province, setProvince] = useState()
   const [insurances, setInsurances] = useState([])
+  const [cities, setCities] = useState([])
+  const [des, setDes] = useState('')
 
   const initialValues = {
     InsuranceId: 0,
@@ -58,9 +61,10 @@ const CreateUserInsuranceDes = () => {
       // Prepare data for API
       const payload = {
         ...values,
+        EmploymentStatusDescription: des
       };
 
-      const response = await axiosReq("Insurance/CreateUserInsurance", "post", payload);
+      const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
       if (response?.status === 200) {
         navigate('../createUserInsuranceOrigin');
@@ -77,15 +81,46 @@ const CreateUserInsuranceDes = () => {
   };
   const GetData = async () => {
     try {
-      // Prepare data for API
-
-      const response = await axiosReq("user/GetProvinces", "get");
-      setProvinces(response)
       const response2 = await axiosReq("Insurances/GetInsurances", "get");
-      setInsurances(response2)
+      var insu = []
+      console.log(response2.data)
+      response2?.data?.forEach(element => {
+        insu.push({ id: element.insuranceId, name: element.name })
+      });
+      setInsurances(insu)
+
+
+      const response = await axiosReq("Users/GetProvinces", "get");
+      var prov = []
+      console.log(response.data)
+
+      response?.data.forEach(element => {
+        prov.push({ id: element.provinceId, name: element.provinceName })
+      });
+      setProvinces(prov)
+
     } catch (error) {
       console.error("Error creating insurance:", error);
-    } 
+    }
+  };
+
+  const GetCity = async (id) => {
+    try {
+
+
+
+      const response = await axiosReq("Users/GetCities", "post", { provinceId: id });
+      var prov = []
+      console.log(response.data)
+
+      response.data.forEach(element => {
+        prov.push({ id: element.cityId, name: element.cityName })
+      });
+      setCities(prov)
+
+    } catch (error) {
+      console.error("Error creating insurance:", error);
+    }
   };
   useEffect(() => {
     GetData()
@@ -132,34 +167,84 @@ const CreateUserInsuranceDes = () => {
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
           <Form className="px-[90px] w-full grid grid-cols-3 gap-4">
             {/* Department Name */}
-            <div className="mb-5 col-span-2">
+            <div className="mb-5 col-span-1">
               <MainInput
-                label={'نام دستگاه اجرایی'}
-                value={values.DepartmentName}
-                onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
+                label={'نام صندوق بازنشستگی'}
+                value={values.InsuranceId}
+                onChange={(e) => setFieldValue('InsuranceId', e.id)}
                 holder={'مثلا وزارت تعاون'}
+                listBox={true}
+                listItems={insurances}
                 necessary={true}
-                error={touched.DepartmentName && errors.DepartmentName}
-                errorText={errors.DepartmentName}
+                error={touched.InsuranceId && errors.InsuranceId}
+                errorText={errors.InsuranceId}
               />
             </div>
 
             {/* City */}
-            <div className="mb-5">
+            <div className="mb-5 col-span-2">
               <MainInput
-                label={'شهر محل اشتغال'}
+                label={'نام دستگاه اجرایی'}
+                onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
+                value={values.DepartmentName}
+
+                necessary={true}
+                holder={'مثلا وزرات تعاون'}
+
+                // value={cityList.find(c => c.id === values.CityId) || null}
+
+                error={touched.DepartmentName && errors.DepartmentName}
+                errorText={errors.DepartmentName}
+                listBoxHolder="انتخاب کنید"
+              />
+            </div>
+            <div className="mb-5 col-span-1">
+              <MainInput
+                label={'استان محل اشتغال'}
                 listBox={true}
-                listItems={cityList}
+                listItems={provinces}
+                value={province}
+
+                necessary={true}
+                // value={cityList.find(c => c.id === values.CityId) || null}
+                onChange={(e) => {
+                  GetCity(e.id)
+                }}
+                // error={touched.CityId && errors.CityId}
+                // errorText={errors.CityId}
+                listBoxHolder="انتخاب کنید"
+              />
+            </div>
+            <div className="mb-5 col-span-1">
+              <MainInput
+                label={'شهر'}
+                listBox={true}
+                listItems={cities}
+
                 necessary={true}
                 value={cityList.find(c => c.id === values.CityId) || null}
                 onChange={(value) => {
-                  setFieldValue('CityId', value?.id || 0);
-                  setFieldValue('CityName', value?.name || '');
+                  setFieldValue('CityId', value?.id || 0)
                 }}
                 error={touched.CityId && errors.CityId}
                 errorText={errors.CityId}
                 listBoxHolder="انتخاب کنید"
               />
+            </div>
+            <div className="mb-5 col-span-2">
+              <MainRadioInput value1={1} value2={2} value3={3}
+                onChange={(value) => setFieldValue('EmploymentStatusId', value)} column={true}
+                title={'وضعیت بیمه پردازی'}
+                text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
+                text2={'مشمول قانون کار'} text3={'سایر'} onChangeInput={(e) => setDes(e)}
+                selectedValue={values.EmploymentStatusId}
+
+                input={true} />
+            </div>
+            <div className="mb-5 col-span-1">
+              <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
+                onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
+                title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
             </div>
 
             {/* Insurance ID Number */}
@@ -176,33 +261,9 @@ const CreateUserInsuranceDes = () => {
             </div>
 
             {/* Employment Status */}
-            <div className="mb-5 col-span-2">
-              <MainRadioInput
-                title={'وضعیت اشتغال'}
-                radioName={'EmploymentStatusId'}
-                options={employmentStatusOptions.map(status => ({
-                  value: status.id,
-                  text: status.name
-                }))}
-                selectedValue={values.EmploymentStatusId}
-                onChange={(value) => setFieldValue('EmploymentStatusId', value)}
-                error={touched.EmploymentStatusId && errors.EmploymentStatusId}
-              />
-            </div>
 
             {/* Is Ending Insurance */}
-            <div className="mb-5 col-span-1">
-              <MainRadioInput
-                title={'آیا بیمه به پایان رسیده است؟'}
-                radioName={'IsEndingInsurance'}
-                text1={'بله'}
-                value1={true}
-                text2={'خیر'}
-                value2={false}
-                selectedValue={values.IsEndingInsurance}
-                onChange={(value) => setFieldValue('IsEndingInsurance', value)}
-              />
-            </div>
+
 
             {/* Started Date */}
             <div className="mb-5">
@@ -233,29 +294,10 @@ const CreateUserInsuranceDes = () => {
             </div>
 
             {/* Quit Date (conditional) */}
-            {values.IsEndingInsurance && (
-              <div className="mb-5">
-                <MainInput
-                  label={'تاریخ ترک کار'}
-                  value={values.QuitDate}
-                  onChange={(value) => setFieldValue('QuitDate', value)}
-                  holder={'1402/05/04'}
-                  date={true}
-                />
-              </div>
-            )}
+
 
             {/* Quit Reason (conditional) */}
-            {values.IsEndingInsurance && (
-              <div className="mb-5 col-span-2">
-                <MainInput
-                  label={'دلیل ترک کار'}
-                  value={values.QuitReason}
-                  onChange={(e) => setFieldValue('QuitReason', e.target.value)}
-                  holder={'مثلا بازنشستگی'}
-                />
-              </div>
-            )}
+
 
             {/* Track Record Type */}
             <div className="mb-5">
@@ -286,18 +328,23 @@ const CreateUserInsuranceDes = () => {
               />
             </div>
 
-            {/* Last Workplace */}
-            <div className="mb-5 col-span-3">
+            <div className="mb-5">
               <MainInput
-                label={'آخرین محل اشتغال'}
+                label={<div className="flex items-center">
+                  <p className="font-IRANYekanBold text-[16px] text-mainBlue">آخرین محل اشتغال به کار</p>
+                  <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p>
+                </div>}
                 value={values.LastWorkplace}
                 onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
-                holder={'مثلا وزارت تعاون، کار و رفاه اجتماعی'}
+                holder={'مثلا 0...'}
                 necessary={true}
                 error={touched.LastWorkplace && errors.LastWorkplace}
                 errorText={errors.LastWorkplace}
               />
             </div>
+
+            {/* Last Workplace */}
+
 
             <div className="col-span-3">
               <MainExplanation
