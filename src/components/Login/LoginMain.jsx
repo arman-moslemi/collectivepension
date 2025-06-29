@@ -23,6 +23,7 @@ const LoginMain = () => {
     const [guid, setGuid] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [countdown, setCountdown] = useState(5); 
+    
     let navigate = useNavigate();
 
     const handleClick = event => {
@@ -164,10 +165,10 @@ const LoginMain = () => {
                             <MainInput onChange={(e) => setUser(e.target.value)} error={erUser} errorText={"نام کاربری وارد کنید"} label={'کدملی'} />
                         </div>
                         <div className='mt-[30px]'>
-                            <MainInput onChange={(e) => setPass(e.target.value)} label={'رمز عبور'} error={erPass} errorText={"رمز عبور را وارد کنید"} leftIcon={<PassIcon />} />
+                            <MainInput password={true} onChange={(e) => setPass(e.target.value)} label={'رمز عبور'} error={erPass} errorText={"رمز عبور را وارد کنید"} leftIcon={<PassIcon />} />
                         </div>
                         <div className='mt-[30px] flex items-end'>
-                            <MainInput onChange={(e) => setCaptchaIn(e.target.value)} label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
+                            <MainInput  onChange={(e) => setCaptchaIn(e.target.value)} label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
                             <div className="flex mr-2 mb-2">
                                 <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
                                     persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" />

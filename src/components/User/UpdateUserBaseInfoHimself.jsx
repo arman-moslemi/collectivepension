@@ -60,7 +60,14 @@ const UpdateUserBaseInfoHimself = () => {
                 mobileNumber: values.mobileNumber,
                 address: values.address,
                 isRetirement: values.isRetirement,
-                personnelCode: values.personnelCode
+                personnelCode: values.personnelCode,
+                BirthDate:values.birthDate,
+                AgentAddress:"",
+                NationalCode:values.nationalCode,
+                Relationship:"",
+                AgentPhoneNumber:"",
+                AgentIdcardNumber:"",
+                AgentMobileNumber:""
             };
 
             const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);

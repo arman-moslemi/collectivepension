@@ -8,7 +8,7 @@ import { DatePicker } from "zaman";
 
 
 const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox, onChange,
-  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date }) => {
+  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password }) => {
   const fixNumbers = function (str) {
     var
       persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -37,6 +37,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
 
   }
   const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
+    const [show, setShow] = useState(false)
 
   return (
     <div className="w-full ">
@@ -160,10 +161,17 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                     <div className="mr-3">{leftIcon}</div>
                   </div>
                   :
-                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                    <input value={value} onChange={onChange}  className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
-                    <div className="mr-3">{leftIcon}</div>
-                  </div>
+                  password ?
+
+                    <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+                      <input value={value} onChange={onChange} type={show?"text":"password"} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} name="" id="" />
+                      <div className="mr-3  cursor-pointer" onClick={()=>setShow(!show)}>{leftIcon}</div>
+                    </div>
+                    :
+                    <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+                      <input value={value} onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
+                      <div className="mr-3">{leftIcon}</div>
+                    </div>
 
       }
       {error ?
