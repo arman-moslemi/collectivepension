@@ -1,4 +1,4 @@
-const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,ml,mr}) => {
+const MainRadioInput2 = ({title,text1,text2,text3,radioName,smallBlack,ml,mr}) => {
     return (
         <div className="w-full">
             {title? <p className="font-IRANYekanBold text-[18px] text-mainBlue mb-[22px]">{title}</p> : null}
@@ -24,4 +24,4 @@ const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,ml,mr}) =>
     );
   };
   
-  export default MainRadioInput;
+  export default MainRadioInput2;

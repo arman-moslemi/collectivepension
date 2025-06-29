@@ -1,4 +1,4 @@
-import { MainButton,MainInput, MainTable, MainExplanation, ExpertPensionRequestForm } from "../../components";
+import { MainButton,MainInput, MainTable, MainExplanation } from "../../components";
 import { useNavigate, Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
@@ -8,7 +8,7 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import { div } from "framer-motion/client";
 
 
-const ExpertRequestsDetails = () => {
+const ExpertPensionAmount = () => {
 
     let navigate = useNavigate();
 
@@ -41,12 +41,42 @@ const ExpertRequestsDetails = () => {
                 }
                 />
             </div>
-            <div className="w-full">
-                <ExpertPensionRequestForm/>
+            <div className="w-full px-[73px] mb-6">
+                <p className="text-[18px] font-IRANYekanExtra">اطلاعات هویتی متقاضی</p>
             </div>
-            
+            <div className="w-full px-[120px] mb-8 grid grid-cols-3 gap-4">
+                <div>
+                    <MainInput label={'نام'} value={'علی'}/>
+                </div>
+                <div>
+                    <MainInput label={'نام خانوادگی '} value={'علیزاده تهرانی'}/>
+                </div>
+                <div>
+                    <MainInput label={'نام پدر'} value={'محمد هادی'}/>
+                </div>
+                <div>
+                    <MainInput label={'تاریخ تولد'} value={'1346/04/16'}/>
+                </div>
+                <div>
+                    <MainInput label={'کدملی'} value={'0020456787'}/>
+                </div>
+                <div>
+                    <MainInput label={'شماره شناسنامه '} value={'مثلا 8888'}/>
+                </div>
+                <div>
+                    <MainInput label={'جنسیت'} value={'مرد'}/>
+                </div>
+                <div>
+                    <MainInput label={'شماره تلفن ثابت '} value={'مثلا 02144665522'}/>
+                </div>
+                <div>
+                    <MainInput label={'شماره تلفن همراه'} value={'مثلا 09123333333'}/>
+                </div>
+
+            </div>
+
         </div>
     )
 }
 
-export default ExpertRequestsDetails;
+export default ExpertPensionAmount;
