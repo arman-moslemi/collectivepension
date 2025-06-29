@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { MainNavbar, LoginNavbar, LoginNavbarResponsive } from "../components";
+import { MainNavbar, LoginNavbar, LoginNavbarResponsive,ScrollToTop } from "../components";
 
 
 const LoginLayout = () => {
     return (
-        <div className="w-full h-screen  ">
+       <>
+       <ScrollToTop/>
+       <div className="w-full h-screen  ">
             <MainNavbar/>
             <div className="bg-Pic2-bg bg-no-repeat bg-cover  w-full h-full">
                 <div className="c550:hidden"><LoginNavbar/></div>
@@ -13,6 +15,7 @@ const LoginLayout = () => {
             </div>
             
         </div>
+       </>
     );
   };
   

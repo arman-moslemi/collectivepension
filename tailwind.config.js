@@ -32,7 +32,8 @@ module.exports = {
       tableGray: 'rgba(10, 40, 103, 0.25)',
       yellowTable: '#fed070',
       greenTable: '#11720e',
-
+      trashBg:'rgba(217, 0, 76, 0.2)',
+      blockBg:'rgba(10, 40, 103, 0.25)',
       textColor: '#263238',
       secondColor: '#2E3F59',
       mainColor: '#F7BA34',

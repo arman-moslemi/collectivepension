@@ -35,8 +35,8 @@ const ExpertRequestsDetails = () => {
                 <MainExplanation color={'green'}
                 text={
                     <div>
-                        <p className="text-mainGreen text-[20px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
-                        <p className="text-[15px] font-IRANYekanBold text-black">در ابتدا درخواست متقاضی به دلیل عدم احراز شرایط لازم، رد شده بود؛ اما با اعلام صندوق جدید و بررسی سوابق مرتبط، شرایط لازم احراز و درخواست در حال حاضر تأیید شده است.</p>
+                        <p className="text-mainGreen text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
+                        <p className="text-[14px] font-IRANYekanBold text-black">در ابتدا درخواست متقاضی به دلیل عدم احراز شرایط لازم، رد شده بود؛ اما با اعلام صندوق جدید و بررسی سوابق مرتبط، شرایط لازم احراز و درخواست در حال حاضر تأیید شده است.</p>
                     </div>
                 }
                 />

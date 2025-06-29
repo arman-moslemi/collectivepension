@@ -13,14 +13,14 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
     return (
         <div className="w-full ">
             <div className="flex">
-            <label className="font-IRANYekanBold text-[16px] text-mainBlue">{label}</label>
+            <label className="font-IRANYekanBold text-[14px] text-mainBlue">{label}</label>
             {necessary?
-            <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
+            <p className="font-IRANYekanBold text-[14px] text-errorRed mr-[2px]">*</p>
             :null}
             </div>
             {disable?
             <div className="border-[1px] bg-disableGray h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[16px] text-darkGray" value={value} type="text" disabled name="" id="" />
+            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[14px] text-darkGray" value={value} type="text" disabled name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
             :
@@ -32,13 +32,13 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
                     <ListboxButton className="relative w-full h-[48px] cursor-default rounded-md bg-white py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6">
                         <span className="flex items-center">
                         {selectedNumberOfContents.name ?
-                        <span className="ml-3 block truncate font-IRANYekanMedium text-[16px]">{selectedNumberOfContents.name}</span>
+                        <span className="ml-3 block truncate font-IRANYekanMedium text-[14px]">{selectedNumberOfContents.name}</span>
                     
                     :
                     listBoxHolder?
-                    <span className="ml-3 block truncate font-IRANYekanMedium text-[16px] text-darkGray">{listBoxHolder}</span>
+                    <span className="ml-3 block truncate font-IRANYekanMedium text-[14px] text-darkGray">{listBoxHolder}</span>
                     :
-                    <span className="ml-3 block truncate font-IRANYekanMedium text-[16px] text-darkGray">انتخاب کنید</span>
+                    <span className="ml-3 block truncate font-IRANYekanMedium text-[14px] text-darkGray">انتخاب کنید</span>
                     }    
                             
                         </span>
