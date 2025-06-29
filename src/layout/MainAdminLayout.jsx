@@ -78,14 +78,14 @@ const MainAdminLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/url" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/url") && (
+                        <Link to="/mainAdmin/request" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/mainAdmin/request") && (
                             <>
                             <ProtestsIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">درخواست‌ها</p>
                             </>
                         )}
-                        {isActive("/url") ? null:
+                        {isActive("/mainAdmin/request") ? null:
                         <>
                             <ProtestsIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">درخواست‌ها</p>
@@ -106,14 +106,14 @@ const MainAdminLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/url" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/url") && (
+                        <Link to="/login" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/login") && (
                             <>
                             <ExitIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">خروج</p>
                             </>
                         )}
-                        {isActive("/url") ? null:
+                        {isActive("/login") ? null:
                         <>
                             <ExitIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">خروج</p>

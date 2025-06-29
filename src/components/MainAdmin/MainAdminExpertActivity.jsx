@@ -3,6 +3,7 @@ import { useNavigate,Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
+import Download from "../../assets/icon/main/Download";
 import { useState } from "react";
 
 const titleRow = ["ردیف","نام صندوق","درخواست بازنشستگی در انتظار","درخواست بازنشستگی صادر شده","سوابق اعلام شده","مبلغ مستمری در انتظار اعلام","مبلغ مستمری اعلام شده","اعتراضات در انتظار بررسی","اعتراضات پاسخ داده شده","دریافت"];
@@ -20,7 +21,9 @@ const list = [
     item9:"23",
     item10: 
     <div className="flex">
-       <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
+       <Link to="#">
+       <div className='w-[38px] h-[38px] mx-auto rounded-full flex justify-center items-center ml-1'>
+        <Download/></div></Link>
     </div>
     
   },
@@ -36,8 +39,10 @@ const list = [
     item9:"23",
     item10: 
     <div className="flex">
-       <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-    </div>
+    <Link to="#">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full flex justify-center items-center ml-1'>
+     <Download/></div></Link>
+ </div>
     
   },
   {
@@ -52,8 +57,10 @@ const list = [
     item9:"23",
     item10: 
     <div className="flex">
-       <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon/></div></Link>
-    </div>
+    <Link to="#">
+    <div className='w-[38px] h-[38px] mx-auto rounded-full flex justify-center items-center ml-1'>
+     <Download/></div></Link>
+ </div>
     
   },
   

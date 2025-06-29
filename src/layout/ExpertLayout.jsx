@@ -23,7 +23,7 @@ const ExpertLayout = () => {
         <div className="w-full h-full  ">
             <MainNavbar/>
             <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
-                <div className="w-[308px] bg-white h-auto relative">
+                <div className="w-[18%] min-w-[18%] bg-white h-auto relative">
                     <div className="absolute z-10 top-12"><SidebarMainIcon/></div>
                     <div className="absolute z-30 top-32 mr-[14px]">
 
@@ -116,7 +116,7 @@ const ExpertLayout = () => {
                     </div>
 
                 </div>
-                <div className="w-full"><Outlet/></div>
+                <div className="w-[82%] min-w-[82%]"><Outlet/></div>
             </div>
             
         </div>

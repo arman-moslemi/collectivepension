@@ -51,6 +51,7 @@ export {default as MainAdminDashboardPage} from "../pages/MainAdminPage/MainAdmi
 export {default as MainAdminAdminListPage} from "../pages/MainAdminPage/MainAdminAdminListPage";
 export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/MainAdminExpertActivityPage';
 export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
+export {default as MainAdminRequestPage} from "../pages/MainAdminPage/MainAdminRequestPage";
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -118,3 +119,4 @@ export {default as MainAdminDashboard} from "./MainAdmin/MainAdminDashboard";
 export {default as MainAdminAdminList} from "./MainAdmin/MainAdminAdminList";
 export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertActivity";
 export {default as MainAdminUserList} from "./MainAdmin/MainAdminUserList";
+export {default as MainAdminRequest} from "./MainAdmin/MainAdminRequest"
