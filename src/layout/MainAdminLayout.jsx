@@ -6,7 +6,7 @@ import WorkTableIcon from "../assets/icon/user/WorkTableIcon";
 import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import Admins from "../assets/icon/main/Admins";
-
+import {ScrollToTop} from "../components";
 const MainAdminLayout = () => {
 
     const location = useLocation(); // دریافت مسیر فعلی
@@ -14,7 +14,9 @@ const MainAdminLayout = () => {
     const isActive = (path) => location.pathname === path; // بررسی لینک فعال
     
     return (
-        <div className="w-full h-full  ">
+       <>
+       <ScrollToTop/>
+       <div className="w-full h-full  ">
             <MainNavbar/>
             <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
                 <div className="w-[18%] min-w-[18%] bg-white h-auto relative">
@@ -127,6 +129,7 @@ const MainAdminLayout = () => {
             </div>
             
         </div>
+       </>
     );
   };
   

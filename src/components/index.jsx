@@ -52,6 +52,7 @@ export {default as MainAdminAdminListPage} from "../pages/MainAdminPage/MainAdmi
 export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/MainAdminExpertActivityPage';
 export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
 export {default as MainAdminRequestPage} from "../pages/MainAdminPage/MainAdminRequestPage";
+export {default as MainAdminRequestsDetailsPage} from "../pages/MainAdminPage/MainAdminRequestsDetailsPage";
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -67,6 +68,7 @@ export {default as MainRadioInput} from "./General/MainRadioInput";
 export {default as UploadFile} from "./General/UploadFile";
 export {default as MainPicText} from "./General/MainPicText";
 export {default as MainTable} from "./General/MainTable";
+export {default as ScrollToTop} from "./General/ScrollToTop";
 
 // ----------[login]---------
 
@@ -119,4 +121,5 @@ export {default as MainAdminDashboard} from "./MainAdmin/MainAdminDashboard";
 export {default as MainAdminAdminList} from "./MainAdmin/MainAdminAdminList";
 export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertActivity";
 export {default as MainAdminUserList} from "./MainAdmin/MainAdminUserList";
-export {default as MainAdminRequest} from "./MainAdmin/MainAdminRequest"
+export {default as MainAdminRequest} from "./MainAdmin/MainAdminRequest";
+export {default as MainAdminRequestsDetails} from "./MainAdmin/MainAdminRequestsDetails";

@@ -47,7 +47,7 @@ const list = [
     item5: "1402/02/08",
     item6:'بازنشستگی کشوری',
     item7: 'در انتظار اعلام سوابق',
-    item8: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item8: <Link to="../../mainAdmin/requestDetail"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -57,7 +57,7 @@ const list = [
     item5: "1402/02/08",
     item6:'بازنشستگی کشوری',
     item7: 'در انتظار اعلام سوابق',
-    item8: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item8: <Link to="../../mainAdmin/requestDetail"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   
   ];

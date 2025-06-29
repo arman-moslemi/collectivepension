@@ -9,7 +9,7 @@ import ExistingRecordsIcon from "../assets/icon/user/ExistingRecordsIcon";
 import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import BoxExpertIcon from "../assets/icon/expert/BoxExpertIcon";
-
+import {ScrollToTop} from "../components";
 
 const ExpertLayout = () => {
 
@@ -20,6 +20,8 @@ const ExpertLayout = () => {
     const isActive = (path) => location.pathname === path; // بررسی لینک فعال
     
     return (
+      <>
+      <ScrollToTop/>
         <div className="w-full h-full  ">
             <MainNavbar/>
             <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
@@ -120,6 +122,7 @@ const ExpertLayout = () => {
             </div>
             
         </div>
+      </>
     );
   };
   

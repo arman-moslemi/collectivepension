@@ -35,7 +35,7 @@ const list = [
     item4: "در قید حیات",
     item5: "1402/02/08",
     item6: 'در انتظار اعلام سوابق',
-    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item7: <Link to="../../expert/requestsDetails"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -44,7 +44,7 @@ const list = [
     item4: "در قید حیات",
     item5: "1402/02/08",
     item6: 'در انتظار اعلام سوابق',
-    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item7: <Link to="../../expert/requestsDetails"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -53,7 +53,7 @@ const list = [
     item4: "فوت شده",
     item5: "1402/02/08",
     item6: 'در انتظار اعلام مبلغ',
-    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item7: <Link to="../../expert/requestsDetails"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   {
     item1: "1",
@@ -62,7 +62,7 @@ const list = [
     item4: "فوت شده",
     item5: "1402/02/08",
     item6: 'در انتظار تایید بازمانده',
-    item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+    item7: <Link to="../../expert/requestsDetails"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
   },
   
   ];
