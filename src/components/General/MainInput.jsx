@@ -115,7 +115,7 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             </div>
             :
             longText?
-              <textarea className="border-[1px] p-2 w-full mt-2 border-borderGray rounded-[6px] focus-visible:outline-none font-IRANYekanMedium text-[14px]" rows={5} name="" id=""></textarea>
+              <textarea className="border-[1px] p-2 w-full mt-2 border-borderGray rounded-[6px] focus-visible:outline-none font-IRANYekanMedium text-[16px]" value={value} placeholder={holder} rows={5} name="" id=""></textarea>
             :
             search?
             <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[50px] shadow-searchShadow flex justify-start items-center px-4">
