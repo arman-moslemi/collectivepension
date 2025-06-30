@@ -17,8 +17,9 @@ const ExpertLayout = () => {
 
     const location = useLocation(); // دریافت مسیر فعلی
 
-    const isActive = (path) => location.pathname === path; // بررسی لینک فعال
-    
+    const isActive = (path) => {
+        return location.pathname === path || location.pathname.startsWith(`${path}/`);
+      };
     return (
       <>
       <ScrollToTop/>

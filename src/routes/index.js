@@ -6,7 +6,7 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     DashboardRejectedPage, ExistingRecordsPage, DashboardPage, DashboardRejectedReasonEmploymentPage,
     CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage, VerdictsIssuedPage,
     ExpertLayout, ExpertDashboardPage, ExpertRequestsPage, ExpertRequestsDetailsPage, 
-    ExpertRequestsPensionPage,ExpertProtestListPage, 
+    ExpertRequestsPensionPage,ExpertProtestListPage,ExpertProtestDetailPage, 
     MainAdminDashboardPage,
     MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage,
     MainAdminRequestPage,MainAdminRequestsDetailsPage
@@ -89,6 +89,8 @@ export const router =createBrowserRouter([
             { path: 'requestsPension', element: <ExpertRequestsPensionPage />},
             { path: 'requestsDetails', element: <ExpertRequestsDetailsPage />},
             { path: 'protestList', element: <ExpertProtestListPage />},
+            { path: 'protestList/:id', element: <ExpertProtestDetailPage />},
+
             // { path: 'expertRequestsAllRecordsWithWebService', element: <ExpertDashboardPage />},
             // { path: 'expertrequestsAllRecordsNoWebService', element: <ExpertDashboardPage />},
             // { path: 'expertrequestsMainDetail', element: <ExpertDashboardPage />},

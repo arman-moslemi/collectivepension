@@ -6,40 +6,18 @@ import ExportDashboardIcon2 from "../../assets/icon/expert/ExportDashboardIcon2"
 import ExportDashboardIcon3 from "../../assets/icon/expert/ExportDashboardIcon3";
 
 
-const data = [
-    {
-        name: 'درخواست های بازنشستگی در انتظار',
-        uv: 270,
-    },
-    {
-        name: 'احکام بازنشستگی صادر شده',
-        uv: 240,
-    },
-    {
-        name: 'سوابق در انتظار تایید',
-        uv: 730,
-    },
-    {
-        name: 'سوابق اعلام شده',
-        uv: 650,
-    },
-    {
-        name: 'مبلغ مستمری در انتظار تایید',
-        uv: 180,
-    },
-    {
-        name: 'مبلغ مستمری اعلام شده',
-        uv: 100,
-    },
-    {
-        name: 'اعتراضات در انتظار بررسی',
-        uv: 500,
-    },
-    {
-        name: 'اعتراضات پاسخ داده شده',
-        uv: 950,
-    },
-];
+
+    const data = [
+        { name: 'احکام صادرشده', uv: 200 },
+        { name: 'اعتراضات پاسخ‌داده', uv: 950 },
+        { name: 'اعتراضات باز', uv: 500 },
+        { name: 'انتظار تایید ثانویه', uv: 100 },
+        { name: 'مبلغ اعلام‌شده', uv: 180 },
+        { name: 'در انتظار مبلغ', uv: 650 },
+        { name: 'سابقه اعلام‌شده', uv: 730 },
+        { name: 'در انتظار سابقه', uv: 240 },
+        { name: 'انتظار تایید اولیه', uv: 200 },
+      ];
 
 
 const ExpertDashboard = () => {
@@ -67,10 +45,10 @@ const ExpertDashboard = () => {
                     <ExportDashboardIcon3/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px]">اعتراضات رسیده</p>
                 </div>
-                <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
+                <div className="h-[323px] p-6 px-2 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">گزارش عملکرد</p>
                     <div className="w-full h-full ">
-                    <ResponsiveContainer width="100%" height="90%">
+                    <ResponsiveContainer width="100%" height="90%" >
                         <BarChart
                             width={500}
                             height={300}
@@ -81,9 +59,10 @@ const ExpertDashboard = () => {
                                 left: 20,
                                 bottom: 5,
                             }}
+                            
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis tickMargin={6} dataKey="name" />
+                            <XAxis tickMargin={5} dataKey="name" tick={{ fontSize: 8 }} />
                             <YAxis tickMargin={24} />
                             <Bar dataKey="uv" barSize={30} fill="#00c1b2"  />
                         </BarChart>

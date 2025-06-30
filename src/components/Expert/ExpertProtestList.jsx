@@ -1,4 +1,4 @@
-import {MainButton, MainInput, MainTable} from "..";
+import {MainButton, MainInput, MainTable,MainModal} from "..";
 import {useNavigate, Link} from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
@@ -57,30 +57,51 @@ const titleRow = [
 
 const list = [
     {
-        item1: "1",
-        item2: "علی علیزاده",
-        item3: "0020163258",
-        item4: "1402/02/08",
-        item5: 'اعتراض به احراز شرایط',
-        item6: 'در انتظار بررسی',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
-    }, {
-        item1: "1",
-        item2: "علی علیزاده",
-        item3: "0020163258",
-        item4: "1402/02/08",
-        item5: 'اعتراض به احراز شرایط',
-        item6: 'در انتظار بررسی',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
+      id: "1",
+      fullName: "علی علیزاده",
+      nationalCode: "0020163258",
+      date: "1402/02/08",
+      protestType: "RECORD", 
+      protestTypeLabel: "اعتراض به سابقه اعلامی",
+      status: "در انتظار بررسی",
     },
-];
-
+    {
+        id: "2",
+        fullName: "علی علیزاده",
+        nationalCode: "0020163258",
+        date: "1402/02/08",
+        protestType: "AMOUNT", 
+        protestTypeLabel: "اعتراض به مبلغ مستمری",
+        status: "در انتظار بررسی",
+      },
+      {
+        id: "3",
+        fullName: "علی علیزاده",
+        nationalCode: "0020163258",
+        date: "1402/02/08",
+        protestType: "GENERAL", 
+        protestTypeLabel: "اعتراض به احراز شرایط",
+        status: "در انتظار بررسی",
+      },
+  ];
+  const tableData = list.map((item) => ({
+    item1: item.id,
+    item2: item.fullName,
+    item3: item.nationalCode,
+    item4: item.date,
+    item5: item.protestTypeLabel,
+    item6: item.status,
+    item7: (
+        <Link
+        to={`/expert/protestList/${item.id}`}
+        state={{ type: item.protestType, data: item }}
+      >
+        <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
+          <DetailTableIcon />
+        </div>
+      </Link>
+    ),
+  }));
 const ExpertProtestList = () => {
 
     let navigate = useNavigate();
@@ -124,7 +145,7 @@ const ExpertProtestList = () => {
             </div>
             </div>
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={true} list={list} titleRow={titleRow}/>
+                <MainTable center1={true} ic={true} list={tableData} titleRow={titleRow}/>
             </div>
             <div className='w-full flex justify-between items-center'>
                 <div className='flex justify-start items-center'>
@@ -140,7 +161,7 @@ const ExpertProtestList = () => {
                 </div>
 
             </div>
-
+        
         </div>
     )
 }
