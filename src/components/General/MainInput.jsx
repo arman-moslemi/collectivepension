@@ -2,14 +2,45 @@ import { useState } from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
+import { DatePicker } from "zaman";
 
 
 
+const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,
+  listBoxM1,listItems,listBoxHolder,longText,search,error,errorText,date,password,Custom1,onChange,}) => {
 
-const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBoxM1,listItems,listBoxHolder,longText,search,Custom1}) => {
-
-    const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
-
+    const fixNumbers = function (str) {
+      var
+        persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+        arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g]
+      if (typeof str === 'string') {
+        for (var i = 0; i < 10; i++) {
+          str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+        }
+      }
+      return str;
+    }
+      const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
+  
+    
+  
+    const formatDateTime = (sDate) => {
+      console.log(sDate)
+      var lDate = new Date(sDate).toLocaleDateString('fa-IR');
+      console.log(555)
+      console.log(lDate)
+      var d = fixNumbers(lDate.split('/')[2]);
+      var dd = d < 10 ? '0' + d : d;
+      var yyyy = fixNumbers(lDate.split('/')[0]);
+      var mon = fixNumbers(lDate.split('/')[1]);
+      var mm = (mon < 10 ? '0' + mon : mon);
+  
+  
+      return yyyy + '/' + mm + '/' + dd;
+  
+  
+    }
+      const [show, setShow] = useState(false)
     return (
         <div className="w-full ">
             <div className="flex">
@@ -123,6 +154,11 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             <div className="mr-3 hover:cursor-pointer">{leftIcon}</div>
             </div>
             :
+            date ?
+                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+                    <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
+                    <div className="mr-3">{leftIcon}</div>
+                  </div>:
             Custom1?
             <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
             <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
