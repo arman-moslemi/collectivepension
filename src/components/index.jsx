@@ -43,6 +43,7 @@ export {default as ExpertDashboardPage} from "../pages/ExpertPage/ExpertDashboar
 export {default as ExpertRequestsPage} from "../pages/ExpertPage/ExpertRequestsPage";
 export {default as ExpertRequestsDetailsPage} from "../pages/ExpertPage/ExpertRequestsDetailsPage";
 export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRequestsPensionPage";
+export {default as ExpertProtestListPage} from "../pages/ExpertPage/ExpertProtestListPage";
 
 
 // ----------[MainAdmin]-------
@@ -53,6 +54,8 @@ export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/Mai
 export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
 export {default as MainAdminRequestPage} from "../pages/MainAdminPage/MainAdminRequestPage";
 export {default as MainAdminRequestsDetailsPage} from "../pages/MainAdminPage/MainAdminRequestsDetailsPage";
+
+
 // ------------------components----------------------------------------------------------------------
 
 // ----------[general]-------
@@ -113,7 +116,10 @@ export {default as VerdictsIssued} from "./User/VerdictsIssued";
 export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
 export {default as ExpertRequests} from "./Expert/ExpertRequests";
 export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";
-
+export {default as ExpertProtestList} from "./Expert/ExpertProtestList";
+export {default as RecordProtestDetail} from "./Expert/RecordProtestDetail";
+export {default as AmountProtestDetail} from "./Expert/AmountProtestDetail";
+export {default as GeneralProtestDetail} from "./Expert/GeneralProtestDetail";
 
 // ----------[Mainadmin]-------
 

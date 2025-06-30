@@ -87,28 +87,28 @@ const ExpertLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/expert/dashboard" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/expert/dashboard") && (
+                        <Link to="/expert/protestList" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/expert/protestList") && (
                             <>
                             <ProtestsIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">اعتراضات ثبت شده</p>
                             </>
                         )}
-                        {isActive("/expert/dashboard") ? null:
+                        {isActive("/expert/protestList") ? null:
                         <>
                             <ProtestsIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">اعتراضات ثبت شده</p>
                             </>
                         }
                         </Link>
-                        <Link to="/expert/dashboard" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/expert/dashboard") && (
+                        <Link to="/login" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/login") && (
                             <>
                             <ExitIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">خروج</p>
                             </>
                         )}
-                        {isActive("/expert/dashboard") ? null:
+                        {isActive("/login") ? null:
                         <>
                             <ExitIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">خروج</p>

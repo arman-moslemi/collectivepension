@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExpertRequestsDetails, MainTopAll } from "../../components";
+import { MainAdminRequestsDetails, MainTopAll } from "../../components";
 import PensionRequestIcon from "../../assets/icon/user/PensionRequestIcon";
 
 
@@ -10,7 +10,7 @@ const MainAdminRequestsDetailsPage = () => {
     return (
         <div className="pr-[20px] pl-[60px] py-[55px]">
             <div className="mb-[10px] w-full "><MainTopAll title={'مشاهده درخواست بازنشستگی'} icon={<PensionRequestIcon color={'#0a2867'}/>} role={'mainAdmin'} adminRole={adminRole}/></div>
-            <div className="w-full"><ExpertRequestsDetails/></div>   
+            <div className="w-full"><MainAdminRequestsDetails/></div>   
         </div>
     );
   };
