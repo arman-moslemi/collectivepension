@@ -155,8 +155,8 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,
             </div>
             :
             date ?
-                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                    <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
+                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'} dateInput rounded-[6px] flex justify-start items-center px-2`}>
+                    <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value} className=" h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
                     <div className="mr-3">{leftIcon}</div>
                   </div>:
             Custom1?
