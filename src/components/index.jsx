@@ -75,6 +75,7 @@ export {default as UploadFile} from "./General/UploadFile";
 export {default as MainPicText} from "./General/MainPicText";
 export {default as MainTable} from "./General/MainTable";
 export {default as ScrollToTop} from "./General/ScrollToTop";
+export {default as MainSuccessToast} from "./General/MainSuccessToast";
 
 // ----------[login]---------
 

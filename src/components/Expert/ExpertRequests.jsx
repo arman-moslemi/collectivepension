@@ -5,7 +5,7 @@ import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
-
+import { useState } from "react";
 const status = [
     {
         id: 1,
@@ -21,7 +21,7 @@ const status = [
         name: 'تکمیل شده'
     }
 ]
-
+ 
 const titleRow = [
     "ردیف",
     "نام و نام خانوادگی",
@@ -94,7 +94,12 @@ const list = [
 const ExpertRequests = () => {
 
     let navigate = useNavigate();
-
+    const [dateError,
+        setDateError] = useState("");
+        const [endDate,
+            setEndDate] = useState("");
+            const [startDate,
+                setStartDate] = useState("");
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
@@ -109,11 +114,27 @@ const ExpertRequests = () => {
                 </div>
 
                 <div className="lg:col-span-2 md:col-span-2 sm:col-span-1 col-span-2">
-                    <MainInput holder={"از تاریخ"} leftIcon={< DateIcon />}/>
+               <div className="font-IRANYekanBold">
+               <MainInput
+                        holder={'از تاریخ'}
+                        date={true}
+                        leftIcon={< DateIcon />}
+                        value={startDate}
+                        onChange={(val) => setStartDate(val)}
+                        error={dateError}/>
+               </div>
                 </div>
 
                 <div className="lg:col-span-2 md:col-span-2 sm:col-span-1 col-span-2">
-                    <MainInput holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
+               <div className="font-IRANYekanBold">
+               <MainInput
+                        holder={'تا تاریخ'}
+                        date={true}
+                        leftIcon={< DateIcon />}
+                        value={endDate}
+                        onChange={(val) => setEndDate(val)}
+                        error={dateError}/>
+               </div>
                 </div>
 
                 <div className="lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-2">

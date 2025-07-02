@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
@@ -7,8 +7,15 @@ import { DatePicker } from "zaman";
 
 
 const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabled,
-  listBoxM1,listItems,listBoxHolder,longText,search,error,errorText,date,password,Custom1,onChange,}) => {
+  listBoxM1,listItems,listBoxHolder,longText,search,error,errorText,date,password,Custom1,onChange,...rest}) => {
+    const dateInputRef = useRef(null);
 
+    const handleContainerClick = () => {
+      if (date) {
+        const input = dateInputRef.current?.querySelector("input");
+        if (input) input.focus();
+      }
+    };
     const fixNumbers = function (str) {
       var
         persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -41,6 +48,7 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
   
     }
       const [show, setShow] = useState(false)
+     
     return (
         <div className="w-full ">
             <div className="flex">
@@ -155,17 +163,38 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
             </div>
             :
             date ?
-                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'} dateInput rounded-[6px] flex justify-start items-center px-2`}>
-                    <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value}  className=" h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} disabled={disabled} type="text" name="" />
-                    <div className="mr-3">{leftIcon}</div>
-                  </div>:
+            <div
+            ref={dateInputRef}
+            onClick={handleContainerClick}
+            className={`relative border-[1px] h-[48px] w-full mt-2 ${
+              error ? "border-redError" : "border-borderGray"
+            } dateInput rounded-[6px] flex items-center px-2 cursor-pointer`}
+          >
+            <DatePicker
+              portal={false} // ⭐ خیلی مهم
+              value={value}
+              onChange={(e) => onChange(formatDateTime(e.value))}
+              className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]"
+              disabled={disabled}
+            />
+            {!value && (
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#b3b3b3] font-IRANYekanMedium text-sm pointer-events-none">
+                {holder}
+              </span>
+            )}
+            <div className="mr-3">{leftIcon}</div>
+          </div>
+          
+          
+          
+          :
             Custom1?
             <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
             <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} type="text" name="n" id="n" />
             </div>
             :
-            <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} value={value} type="text" name="" id="" />
+            <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray shadow-searchShadow rounded-[6px] flex justify-start items-center px-2">
+            <input onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[13px]" placeholder={holder} value={value} type="text" name="" id="" />
             <div className="mr-3 hover:cursor-pointer">{leftIcon}</div>
             </div>
 
