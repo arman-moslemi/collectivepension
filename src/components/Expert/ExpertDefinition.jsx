@@ -3,7 +3,7 @@ import { MainButton, MainModal, MainExplanation, MainPicText, MainInput, MainTab
 import { useNavigate } from "react-router-dom";
 import RequestResponsePic from "../../assets/img/user/RequestResponsePic.png";
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { div } from "framer-motion/client";
+import { div } from " ";
 import DefExpertPenIcon from "../../assets/icon/expert/DefExpertPenIcon";
 
 
