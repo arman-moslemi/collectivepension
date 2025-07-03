@@ -162,12 +162,12 @@ input:disabled{
   z-index: 10000 !important;
   /* top:10% !important; */
 }
-/* این برای زمانی که Zaman تقویم رو توی div معمولی می‌سازه */
+
 .zaman-datepicker-container {
   top: auto !important;
   bottom: auto !important;
-  inset: unset !important; /* حذف هر موقعیت‌دهی مطلق */
-  z-index: 9999 !important; /* مطمئن شو تقویم روی همه چیز هست */
+  inset: unset !important; 
+  z-index: 9999 !important;
 }
 
 .dateInput input{
