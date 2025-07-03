@@ -8,7 +8,7 @@ import { DatePicker } from "zaman";
 
 
 const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox, onChange,
-  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password,Custom1 }) => {
+  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password, Custom1,defaultVal }) => {
   const fixNumbers = function (str) {
     var
       persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -20,9 +20,9 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
     }
     return str;
   }
-    const [selectedNumberOfContents, setSelectedNumberOfContents] = useState("")
+  const [selectedNumberOfContents, setSelectedNumberOfContents] = useState(defaultVal?defaultVal:"")
 
-  
+
 
   const formatDateTime = (sDate) => {
     console.log(sDate)
@@ -40,7 +40,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
 
 
   }
-    const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false)
 
   return (
     <div className="w-full ">
@@ -61,7 +61,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
         :
         listBox ?
           <div className='w-full mt-2 '>
-            <Listbox value={selectedNumberOfContents} onChange={(e)=>{setSelectedNumberOfContents(e);onChange(e)}}>
+            <Listbox value={selectedNumberOfContents} onChange={(e) => { setSelectedNumberOfContents(e); onChange(e) }}>
               {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
               <div className="relative w-full">
                 <ListboxButton className="relative w-full h-[48px] cursor-default rounded-md bg-white py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6">
@@ -160,25 +160,25 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                 :
                 date ?
                   <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                    <DatePicker id="test" onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
+                    <DatePicker id="test" defaultValue={defaultVal} onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
                     <div className="mr-3">{leftIcon}</div>
-                  </div>:
-                      Custom1?
-            <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
-            <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
-            </div>
-                  :
-                  password ?
-
-                    <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                      <input value={value} onChange={onChange} type={show?"text":"password"} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} name="" id="" />
-                      <div className="mr-3  cursor-pointer" onClick={()=>setShow(!show)}>{leftIcon}</div>
+                  </div> :
+                  Custom1 ?
+                    <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
+                      <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
                     </div>
                     :
-                    <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                      <input value={value} onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
-                      <div className="mr-3">{leftIcon}</div>
-                    </div>
+                    password ?
+
+                      <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+                        <input value={value} onChange={onChange} type={show ? "text" : "password"} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} name="" id="" />
+                        <div className="mr-3  cursor-pointer" onClick={() => setShow(!show)}>{leftIcon}</div>
+                      </div>
+                      :
+                      <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
+                        <input value={value} onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" id="" />
+                        <div className="mr-3">{leftIcon}</div>
+                      </div>
 
       }
       {error ?
