@@ -49,7 +49,10 @@ const list = [
 
 
 const WorkExperienceNoWebService = () => {
-
+    const [startDate,
+        setStartDate] = useState("");
+        const [endDate,
+            setEndDate] = useState("");
     const [mainOpen, setMainOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [secondStep, setSecondStep] = useState(false);
@@ -60,10 +63,12 @@ const WorkExperienceNoWebService = () => {
         setOpenModal(false);
         setSecondStep(true);
     } 
+    const [showDiv, setShowDiv] = useState(true);
+
 
     return (
         <div className="w-full rounded-[10px] shadow-firstBoxShadow ">
-            <div className={`flex py-[27px] justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
+            <div onClick={()=>setMainOpen(!mainOpen)} className={`hover:cursor-pointer flex py-[27px] justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
             <div className="flex items-center mr-5">
                 <p className="text-[16px] text-mainBlue font-IRANYekanExtra ml-2">محل خدمت / کارگاه :</p>
                 <p className="text-[16px] text-mainBlue font-IRANYekanBold">شرکت توسعه هوشمند ورنا ایرانیان</p>
@@ -79,13 +84,15 @@ const WorkExperienceNoWebService = () => {
                     <p className="text-[14px] text-mainBlue font-IRANYekanBold leading-6 mb-7">در این بخش بازه‌های بیمه‌پردازی کاربر در این کارگاه را ثبت کنید.برای تعریف بازه جدید، روی افزودن بازه کلیک کنید.پس از وارد کردن تمامی بازه‌ها روی دکمه ثبت نهایی کلیک کنید سپس دستمزد مشمول کسر حق بیمه به ازای هر سال را وارد کنید.</p>
                 </div>
                 {secondStep? null:
-                <div>
-                    <MainInput necessary={true} leftIcon={<DateIcon/>} holder={'تاریخ شروع را وارد کنید'} label={'تاریخ شروع بیمه پردازی'}/>
+                <div className="font-IRANYekanMedium">
+                    <MainInput date={true} necessary={true} value={startDate}
+                        onChange={(val1) => setStartDate(val1)} leftIcon={<DateIcon/>} holder={'تاریخ شروع را وارد کنید'} label={'تاریخ شروع بیمه پردازی'}/>
                 </div>
                 }
                 {secondStep? null:
-                <div>
-                    <MainInput necessary={true} leftIcon={<DateIcon/>} holder={'تاریخ پایان را وارد کنید'} label={'تاریخ پایان بیمه پردازی'}/>
+                <div className="font-IRANYekanMedium">
+                    <MainInput date={true} necessary={true} value={startDate}
+                        onChange={(val2) => setStartDate(val2)} leftIcon={<DateIcon/>} holder={'تاریخ پایان را وارد کنید'} label={'تاریخ پایان بیمه پردازی'}/>
                 </div>
                 }
                 {secondStep? null:
@@ -99,22 +106,20 @@ const WorkExperienceNoWebService = () => {
             </div>
             <div className={`w-full flex flex-wrap items-center ${secondStep?'mt-0':'mt-[33px]'}`}>
                 <p className="text-mainBlue text-[16px] font-IRANYekanExtra ml-[19px]">بازه‌های ثبت شده :</p>
-                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px]">
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">1372/01/01</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">تا</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4">1376/01/01</p>
-                    <div className="w-[36px] h-[36px] rounded-full bg-buttonBlue flex justify-center items-center">
-                        <p className="font-IRANYekanBold text-[20px] text-white">X</p>
-                    </div>
-                </div>
-                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px]">
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">1372/01/01</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">تا</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4">1376/01/01</p>
-                    <div className="w-[36px] h-[36px] rounded-full bg-buttonBlue flex justify-center items-center">
-                        <p className="font-IRANYekanBold text-[20px] text-white">X</p>
-                    </div>
-                </div>
+               
+                {showDiv && (
+        <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px]">
+          <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">1372/01/01</p>
+          <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">تا</p>
+          <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4">1376/01/01</p>
+          <div
+            className="w-[36px] h-[36px] rounded-full bg-buttonBlue flex justify-center items-center hover:cursor-pointer"
+            onClick={() => setShowDiv(false)}
+          >
+            <p className="font-IRANYekanBold text-[20px] text-white">X</p>
+          </div>
+        </div>
+      )}
             </div>
             {secondStep?
             <div className="w-full mt-[34px]">

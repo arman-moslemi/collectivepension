@@ -121,7 +121,7 @@ const ExistingRecords = ({setSelectedYearBox}) => {
             </div>
             {selectedBox?
             <div className="w-full mb-[32px]">
-                <MainTable center3={true} list={list} titleRow={titleRow}/>
+                <MainTable center3={true} list={list} titleRow={titleRow} record1={true}/>
             </div>
             :
             null}

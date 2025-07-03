@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef ,useEffect} from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
@@ -48,7 +48,17 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
   
     }
       const [show, setShow] = useState(false)
-     
+      useEffect(() => {
+        const popup = document.querySelector(".zaman-datepicker-popup"); // کلاس واقعی popup رو جایگزین کن
+        if (popup && dateInputRef.current) {
+          const rect = dateInputRef.current.getBoundingClientRect();
+          popup.style.position = "absolute";
+          popup.style.top = `${rect.bottom + window.scrollY}px`;
+          popup.style.left = `${rect.left + window.scrollX}px`;
+          popup.style.zIndex = 1000;
+          popup.style.minWidth = `${rect.width}px`;
+        }
+      }, [value]);
     return (
         <div className="w-full ">
             <div className="flex">
@@ -171,6 +181,8 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
             } dateInput rounded-[6px] flex items-center px-2 cursor-pointer`}
           >
             <DatePicker
+              
+              appendTo="self"
               portal={false} // ⭐ خیلی مهم
               value={value}
               onChange={(e) => onChange(formatDateTime(e.value))}

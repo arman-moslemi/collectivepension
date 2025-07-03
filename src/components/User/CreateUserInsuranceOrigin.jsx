@@ -61,7 +61,7 @@ const CreateUserInsuranceOrigin = () => {
                 {showUnderTakingModal && (
   <MainModal
     title={'تعهدنامه'}
-    noCross={true}
+    noCross={false}
     setShowModal={setShowUnderTakingModal}
     text={
       <div className="w-full flex flex-col items-center">

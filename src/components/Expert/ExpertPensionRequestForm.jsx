@@ -95,7 +95,7 @@ const ExpertPensionRequestForm = ({admin,webService,des}) => {
                 <div>
                     <MainInput label={'میزان سابقه (به روز)'} value={'756 روز'}/>
                 </div>
-                <div>
+                <div className="col-span-2">
                     <MainInput label={'آخرین محل اشتغال به کار (دستگاه اجرایی/کارگاه)'} value={'مثلا 0...'}/>
                 </div>
                 
@@ -138,7 +138,7 @@ const ExpertPensionRequestForm = ({admin,webService,des}) => {
                 <div>
                     <MainInput label={'میزان سابقه (به روز)'} value={'756 روز'}/>
                 </div>
-                <div>
+                <div className="col-span-2">
                     <MainInput label={'آخرین محل اشتغال به کار (دستگاه اجرایی/کارگاه)'} value={'مثلا 0...'}/>
                 </div>
                 <div>
@@ -188,7 +188,7 @@ const ExpertPensionRequestForm = ({admin,webService,des}) => {
                 <div>
                     <MainInput label={'میزان سابقه (به روز)'} value={'756 روز'}/>
                 </div>
-                <div>
+                <div className="col-span-2">
                     <MainInput label={'آخرین محل اشتغال به کار (دستگاه اجرایی/کارگاه)'} value={'مثلا 0...'}/>
                 </div>
                 <div>

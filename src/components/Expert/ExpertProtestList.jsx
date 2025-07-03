@@ -5,6 +5,7 @@ import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
+import {useState} from "react";
 
 const status = [
     {
@@ -105,7 +106,10 @@ const list = [
 const ExpertProtestList = () => {
 
     let navigate = useNavigate();
-
+    const [startDate,
+        setStartDate] = useState("");
+        const [endDate,
+            setEndDate] = useState("");
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
@@ -119,11 +123,13 @@ const ExpertProtestList = () => {
                 </div>
 
                 <div className="col-span-2">
-                    <MainInput holder={"از تاریخ"} leftIcon={< DateIcon />}/>
+                    <MainInput date={true} value={startDate}
+                        onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
 
                 <div className="col-span-2">
-                    <MainInput holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
+                    <MainInput date={true} value={endDate}
+                        onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
                 <div className="col-span-2">
                     <MainInput

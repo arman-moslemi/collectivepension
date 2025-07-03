@@ -150,7 +150,7 @@ const ExpertRequests = () => {
             </div>
 
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={true} list={list} titleRow={titleRow}/>
+                <MainTable  ic={true} list={list} titleRow={titleRow}/>
             </div>
             <div className='w-full flex justify-between items-center'>
                 <div className='flex justify-start items-center'>

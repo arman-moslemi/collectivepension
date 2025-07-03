@@ -7,13 +7,13 @@ const list = [
     item1: "1",
     item2: "07/01 - 07/30",
     item3: "15 روز",
-    item4: <div className=""><MainRadioInput smallBlack={true} text1={'بازنشستگی کشوری'} text2={'بازنشستگان فولاد'} radioName={'tblI1'}/></div>,
+    item4: <div className=""><MainRadioInput jCenter={true} smallBlack={true} text1={'بازنشستگی کشوری'} text2={'بازنشستگان فولاد'} radioName={'tblI1'}/></div>,
   },
   {
     item1: "1",
     item2: "07/01 - 07/30",
     item3: "15 روز",
-    item4: <div className=""><MainRadioInput smallBlack={true} text1={'بازنشستگی کشوری'} text2={'بازنشستگان فولاد'} radioName={'tblI2'}/></div>,
+    item4: <div className=""><MainRadioInput jCenter={true} smallBlack={true} text1={'بازنشستگی کشوری'} text2={'بازنشستگان فولاد'} radioName={'tblI2'}/></div>,
   }
   
   ];
@@ -31,7 +31,7 @@ const ExistingRecordsRepeated = () => {
                 <MainExplanation text={'توجه داشته باشید که پس از انتخاب یکی از صندوق‌ها در هر ردیف امکان ویرایش صندوق انتخاب شده وجود ندارد، لذا در انتخاب صندوق دقت داشته باشید.'}/>
             </div>
             <div className="w-full mb-7">
-                <MainTable titleRow={titleRow} list={list}/>
+                <MainTable titleRow={titleRow} list={list} record1={true} />
             </div>
             
 
