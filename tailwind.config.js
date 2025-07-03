@@ -65,6 +65,7 @@ module.exports = {
         'mainBoxShadow': '0 0 8px 10px rgba(194, 194, 194, 0.12)',
         'sandoghShadow': '0 0 4px 0 rgba(0, 0, 0, 0.25)',
         'searchShadow' : '-2px 4px 11px 0 rgba(217, 217, 217, 0.36)',
+        'firstBoxShadow' : '0 5px 14px 1px rgba(128, 128, 128, 0.31)',
 
         'button': '-30px 30px 30px 30px ',
         'navbar': '0px 4px 50px 0px rgba(224, 224, 224, 0.49)',

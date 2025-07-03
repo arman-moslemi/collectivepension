@@ -1,4 +1,5 @@
-import { MainButton,MainInput, MainTable, MainExplanation, MainRadioInput, MainRadioInput2 } from "../../components";
+import { useState } from "react";
+import { MainButton,MainInput, MainTable, MainExplanation, MainRadioInput, MainRadioInput2, UploadFile } from "../../components";
 import { useNavigate, Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
@@ -7,7 +8,9 @@ import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 
 
-const ExpertPensionRequestForm = () => {
+const ExpertPensionRequestForm = ({admin,webService,des}) => {
+
+    const [disapproval, setDisapproval] = useState(false);
 
     let navigate = useNavigate();
 
@@ -197,17 +200,29 @@ const ExpertPensionRequestForm = () => {
                 
 
             </div>
+            {des && !webService && !admin ?
             <div className="w-full px-[120px] flex justify-end items-center">
-                <div className="w-[97px] ml-[10px]"><MainButton label={'تایید'}/></div>
-                <div className="w-[97px]"><MainButton label={'عدم تایید'} red={true}/></div>
+                <div className="w-[107px] ml-[10px]"><MainButton label={'تایید'}/></div>
+                <div className="w-[107px]"><MainButton onClickFunction={()=>setDisapproval(true)} label={'عدم تایید'} red={true}/></div>
             </div>
+            :null }
+            {disapproval?
             <div className="w-full px-[120px]">
                 <div className="w-full">
                     <MainInput longText={true} label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'} holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'} />
                 </div>
+                <div className="w-full flex justify-between items-center mt-2">
+                    <div className="w-full flex items-center">
+                    <p className="text-[14px] font-IRANYekanMedium text-mainBlue ml-3">انتخاب فایل</p>
+                    <div className="w-fit"><UploadFile/></div>
+                    </div>
+                    <div className="w-[125px]"><MainButton label={'ارسال'}/></div>
+
+                </div>
 
                 
             </div>
+            :null}
 
 
         </div>

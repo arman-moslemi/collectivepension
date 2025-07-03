@@ -52,7 +52,7 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
     return (
         <div className="w-full ">
             <div className="flex">
-            <label className="font-IRANYekanBold text-[14px] text-mainBlue">{label}</label>
+            <label className="font-IRANYekanBold text-[16px] text-mainBlue">{label}</label>
             {necessary?
             <p className="font-IRANYekanBold text-[14px] text-errorRed mr-[2px]">*</p>
             :null}

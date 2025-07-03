@@ -125,10 +125,19 @@ export {default as RecordProtestDetail} from "./Expert/RecordProtestDetail";
 export {default as AmountProtestDetail} from "./Expert/AmountProtestDetail";
 export {default as GeneralProtestDetail} from "./Expert/GeneralProtestDetail";
 export {default as ExpertPensionRequestForm} from "./Expert/ExpertPensionRequestForm";
-export {default as ExpertAllRecords} from "./Expert/ExpertAllRecords";
+export {default as ExpertAllRecordsWithWebService} from "./Expert/ExpertAllRecordsWithWebService";
+export {default as ExpertAllRecordsNoWebService} from "./Expert/ExpertAllRecordsNoWebService";
 export {default as ExpertPensionAmount} from "./Expert/ExpertPensionAmount";
 export {default as AcceptedRecordModal} from "./Expert/AcceptedRecordModal";
 export {default as ExpertInsurancePremium} from "./Expert/ExpertInsurancePremium";
+export {default as ExpertPensionAmountInput} from "./Expert/ExpertPensionAmountInput";
+export {default as WorkExperienceWithWebService} from "./Expert/WorkExperienceWithWebService";
+export {default as WorkExperienceNoWebService} from "./Expert/WorkExperienceNoWebService";
+export {default as TotalWorkRecords} from "./Expert/TotalWorkRecords";
+export {default as AddWorkPlace} from "./Expert/AddWorkPlace";
+export {default as ExpertAgents} from "./Expert/ExpertAgents";
+export {default as ExpertAgentForm} from "./Expert/ExpertAgentForm";
+
 
 // ----------[Mainadmin]-------
 
