@@ -46,6 +46,7 @@ export {default as ExpertRequestsPensionPage} from "../pages/ExpertPage/ExpertRe
 export {default as ExpertProtestListPage} from "../pages/ExpertPage/ExpertProtestListPage";
 export {default as ExpertProtestDetailPage} from "../pages/ExpertPage/ExpertProtestDetailPage";
 export {default as ExpertInsurancePremiumPage} from "../pages/ExpertPage/ExpertInsurancePremiumPage";
+export {default as ExpertDefinitionPage} from "../pages/ExpertPage/ExpertDefinitionPage";
 
 
 // ----------[MainAdmin]-------
@@ -137,6 +138,8 @@ export {default as TotalWorkRecords} from "./Expert/TotalWorkRecords";
 export {default as AddWorkPlace} from "./Expert/AddWorkPlace";
 export {default as ExpertAgents} from "./Expert/ExpertAgents";
 export {default as ExpertAgentForm} from "./Expert/ExpertAgentForm";
+export {default as ExpertDefinition} from "./Expert/ExpertDefinition";
+
 
 
 // ----------[Mainadmin]-------
