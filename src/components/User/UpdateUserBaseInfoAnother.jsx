@@ -1,10 +1,90 @@
 import {MainExplanation, MainInput, MainButton, UploadFile} from "../../components";
 import { useNavigate } from "react-router-dom";
 import Dot from "../../assets/icon/general/Dot";
-
+import React, { useState, useEffect } from "react";
+import { axiosReq } from "../../commons/axiosReq";
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 const UpdateUserBaseInfoAnother = () => {
 
      let navigate=useNavigate();
+    const [initialValues, setInitialValues] = useState({
+        name: '',
+        family: '',
+        fatherName: '',
+        birthDate: '',
+        nationalCode: '',
+        isMan: '',
+        // Editable fields:
+        idcardNumber: '',
+        phoneNumber: '',
+        mobileNumber: '',
+        address: '',
+        isRetirement: '', // 'بازنشستگی' or 'از کار افتادگی کلی'
+        personnelCode: ''
+    });
+
+    const validationSchema = Yup.object().shape({
+        idcardNumber: Yup.string().required('شماره شناسنامه الزامی است'),
+        phoneNumber: Yup.string().required('شماره ثابت الزامی است').matches(/^[0-9]{8,11}$/, 'شماره تلفن ثابت معتبر نیست'),
+        mobileNumber: Yup.string()
+            .required('شماره همراه الزامی است')
+            .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
+        address: Yup.string().required('آدرس الزامی است'),
+        personnelCode: Yup.string().required('کد پرسنلی الزامی است'),
+        isRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
+    });
+
+    const getUser = async () => {
+        try {
+            const response = await axiosReq("Users/GetUser", "get");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                setInitialValues(prev => ({
+                    ...prev,
+                    ...response.data,
+                    // Map API response to our form fields if needed
+                }));
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
+    const handleSubmit = async (values, { setSubmitting }) => {
+        try {
+            // Prepare only editable fields for API
+            const updateData = {
+                idcardNumber: values.idcardNumber,
+                phoneNumber: values.phoneNumber,
+                mobileNumber: values.mobileNumber,
+                address: values.address,
+                isRetirement: values.isRetirement,
+                personnelCode: values.personnelCode,
+                BirthDate:values.birthDate,
+                // AgentAddress:"",
+                NationalCode:values.nationalCode,
+                // Relationship:"",
+                // AgentPhoneNumber:"",
+                // AgentIdcardNumber:"",
+                // AgentMobileNumber:""
+            };
+
+            const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+            if (response?.status === 200) {
+                navigate('../createUserInsuranceDes');
+            }
+        } catch (error) {
+            console.error("Update failed:", error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    useEffect(() => {
+        getUser();
+    }, []);
 
 
     return (
@@ -29,43 +109,111 @@ const UpdateUserBaseInfoAnother = () => {
             </div>
             <div className="w-full mt-[32px] px-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است ! در فرم زیر اطلاعات مربوط به متوفی را با دقت وارد کنید.'}/></div>
             <div className="w-full ">
-                <div className="w-full px-[122px] ">
-                    <div className="flex justify-start items-center">
+                <div className="w-full px-[32px] ">
+                    <div className="flex justify-start items-center mb-10 mx-20">
                         <Dot/>
                         <p className="font-IRANYekanExtra text-[20px] mr-[5px] text-mainBlue">اطلاعات متوفی</p>
 
                     </div>
-                    <div className="w-full grid grid-cols-3 gap-4 mt-5">
-                                    <div className="mb-5">
-                                        <MainInput label={'کدملی متوفی'} holder={'0020456787'} necessary={true} />
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'تاریخ تولد متوفی'} holder={'1346/04/16'} necessary={true} />
-                                    </div>
-                                    <div className="mb-5 flex items-end">
-                                        <MainButton label={'استعلام'}/>
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'نام'} value={'علی'} necessary={true} disable={true}/>
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'نام خانوادگی'} value={'علیزاده تهرانی'} necessary={true} disable={true}/>
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'نام پدر'} value={'محمد هادی'} necessary={true} disable={true}/>
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'جنسیت'} value={'مرد'} necessary={true} disable={true}/>
-                                    </div>
-                                    <div className="mb-5">
-                                        <MainInput label={'شماره شناسنامه'} holder={'مثلا 8888'} necessary={true}/>
-                                    </div>
-                    
-                    
-                    
-                    
-                    
-                    </div>
+                    {/* <div className="w-full grid grid-cols-3 gap-4 mt-5"> */}
+                           <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+                enableReinitialize
+            >
+                {({ values, setFieldValue, isSubmitting, errors, touched }) => (
+                    <Form className="px-[90px] w-full grid grid-cols-3 gap-4">
+                        {/* Read-only fields */}
+                        <div className="mb-5">
+                            <MainInput label={'نام'} value={values.name} necessary={true} disable={true} />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput label={'نام خانوادگی'} value={values.family} necessary={true} disable={true} />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput label={'نام پدر'} value={values.fatherName} necessary={true} disable={true} />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput label={'تاریخ تولد'} value={values.birthDate} necessary={true} disable={true} />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput label={'کدملی'} value={values.nationalCode} necessary={true} disable={true} />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput label={'جنسیت'} value={values.isMan ? "مرد" : "زن"} necessary={true} disable={true} />
+                        </div>
+
+                        {/* Editable fields */}
+                        <div className="mb-5">
+                            <MainInput
+                                label={'شماره شناسنامه'}
+                                value={values.idcardNumber}
+                                onChange={(e) => setFieldValue('idcardNumber', e.target.value)}
+                                holder={'مثلا 8888'}
+                                necessary={true}
+                                error={touched.idcardNumber && errors.idcardNumber}
+                                errorText={errors.idcardNumber}
+                            />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput
+                                label={'شماره تلفن ثابت'}
+                                value={values.phoneNumber}
+                                onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
+                                holder={'مثلا 02144665522'}
+                                necessary={true}
+                                error={touched.phoneNumber && errors.phoneNumber}
+                                errorText={errors.phoneNumber}
+                            />
+                        </div>
+                        <div className="mb-5">
+                            <MainInput
+                                label={'شماره تلفن همراه'}
+                                value={values.mobileNumber}
+                                onChange={(e) => setFieldValue('mobileNumber', e.target.value)}
+                                holder={'مثلا 09123333333'}
+                                necessary={true}
+                                error={touched.mobileNumber && errors.mobileNumber}
+                                errorText={errors.mobileNumber}
+                            />
+                        </div>
+                        <div className="col-span-3 mb-5">
+                            <MainInput
+                                label={'آدرس'}
+                                value={values.address}
+                                onChange={(e) => setFieldValue('address', e.target.value)}
+                                holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'}
+                                necessary={true}
+                                error={touched.address && errors.address}
+                                errorText={errors.address}
+                            />
+                        </div>
+                   
+                        <div className="col-span-1">
+                            <MainInput
+                                label={'کد پرسنلی'}
+                                value={values.personnelCode}
+                                onChange={(e) => setFieldValue('personnelCode', e.target.value)}
+                                holder={'مثلا 12569'}
+                                necessary={true}
+                                error={touched.personnelCode && errors.personnelCode}
+                                errorText={errors.personnelCode}
+                            />
+                        </div>
+                        <div className="col-span-3 mt-[33px] flex justify-end items-center">
+                            <div className="w-[140px]">
+                                <MainButton
+                                    type="submit"
+                                    label={isSubmitting ? 'در حال ذخیره...' : 'گام بعدی'}
+                                    disabled={isSubmitting}
+                                />
+                            </div>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
+                {/* </div> */}
                 </div>
                 <div className="w-full my-[40px] border-b-[1px] border-dashed border-darkGray"></div>
                 <div className="w-full px-[122px] ">

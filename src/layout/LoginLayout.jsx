@@ -6,7 +6,7 @@ const LoginLayout = () => {
     return (
        <>
        <ScrollToTop/>
-       <div className="w-full h-screen  ">
+       <div className="w-full min-h-screen  ">
             <MainNavbar/>
             <div className="bg-Pic2-bg bg-no-repeat bg-cover  w-full h-full">
                 <div className="c550:hidden"><LoginNavbar/></div>

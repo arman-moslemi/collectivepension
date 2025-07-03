@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { MainInput, MainButton } from "../../components";
+import { MainInput, MainButton, MainRadioInput, MainChekbox } from "../../components";
 import PassIcon from "../../assets/icon/general/InputPassIcon";
 import Reload from '../../assets/icon/login/Return';
 import Left from '../../assets/icon/login/LeftPic';
@@ -84,7 +84,7 @@ const SignupMain = () => {
                     onSubmit={handleSubmit}
                 >
                     {({ isSubmitting, setFieldValue, values, errors, touched }) => (
-                        <Form className="w-[100%] bg-white shadow-mainBoxShadow h-[590px] md:h-[960px] py-[35px] px-[24px] mb-2 rounded-[15px]">
+                        <Form className="w-[100%] bg-white shadow-mainBoxShadow h-auto md:h-[960px] py-[35px] px-[24px] mb-2 rounded-[15px]">
                             <div className='flex justify-center mb-[39px]'>
                                 <p className='font-IRANYekanExtra text-[20px] text-mainBlue'>ثبت نام در سامانه</p>
                             </div>
@@ -179,7 +179,37 @@ const SignupMain = () => {
                                     errorText={errors.confirmPassword}
                                 />
                             </div>
+                             <div className="my-4">
+                                                            <MainChekbox label={'من نماینده متوفی هستم'}  />                  
 
+                                </div>         
+                                <div className="my-4 pt-4 border-t border-borderGray">
+                                    <span className="text-mainBlue font-IRANYekanExtra">
+                                    اطلاعات متوفی
+                                    </span> 
+                                          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 mt-4">
+                                {/* National Code */}
+                                <MainInput
+                                    label="کدملی"
+                                    necessary={true}
+                                    value={values.nationalCode}
+                                    onChange={(e) => setFieldValue('nationalCode', e.target.value)}
+                                    error={touched.nationalCode && errors.nationalCode}
+                                    errorText={errors.nationalCode}
+                                />
+
+                                {/* Birth Date */}
+                                <MainInput
+                                    label="تاریخ تولد"
+                                    necessary={true}
+                                    date={true}
+                                    value={values.birthDate}
+                                    onChange={(value) => setFieldValue('birthDate', value)}
+                                    error={touched.birthDate && errors.birthDate}
+                                    errorText={errors.birthDate}
+                                />
+                                </div>
+                                    </div> 
                             <div className="mt-[31px] w-[100%] flex justify-center">
                                 <div className="w-[40%] c550:w-[100%]">
                                     <MainButton
@@ -200,7 +230,7 @@ const SignupMain = () => {
                     )}
                 </Formik>
 
-                <div className="w-[100%] bg-none flex justify-center">
+                <div className="w-[100%] bg-none flex justify-center mb-4">
                     <p className="font-IRANYekanBold text-[10px] text-mainBlue">تمامی حقوق مادی و معنوی این سامانه، متعلق به وزارت تعاون، کار و رفاه اجتماعی می‌باشد.</p>
                 </div>
             </div>
