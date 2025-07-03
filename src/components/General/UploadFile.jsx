@@ -115,6 +115,7 @@ const UploadFile = (props) => {
   }, [previewUrl]);
 
   return (
+    
     <>
       <div
         {...getRootProps()}
@@ -154,13 +155,13 @@ const UploadFile = (props) => {
 
             {previewUrl && !previewUrl.includes("undefined") && (
               <>
-              <img
+              {/* <img
                 src={previewUrl}
                 alt="Preview"
                 style={props.userImageStyle}
                 onClick={() => setImageClick(true)}
-              />
-              {/* <p>{file?.name}</p> */}
+              /> */}
+              <p className="py-1 px-4 font-IRANYekanBold">{file?.name}</p> 
               </>
             )}
             {!previewUrl && (
@@ -186,6 +187,7 @@ const UploadFile = (props) => {
         )}
       </div>
     </>
+    
   );
 };
 export default UploadFile;

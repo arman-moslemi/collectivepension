@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { useState, useRef } from 'react'
+import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
 import { DatePicker } from "zaman";
@@ -7,8 +7,16 @@ import { DatePicker } from "zaman";
 
 
 
+
 const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox, onChange,
-  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password, Custom1,defaultVal }) => {
+  listBoxM1, listItems, listBoxHolder, longText, search, error, errorText, date, password, Custom1,defaultVal,...rest }) => {
+        const dateInputRef = useRef(null);
+   const handleContainerClick = () => {
+      if (date) {
+        const input = dateInputRef.current?.querySelector("input");
+        if (input) input.focus();
+      }
+    };
   const fixNumbers = function (str) {
     var
       persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
@@ -21,6 +29,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
     return str;
   }
   const [selectedNumberOfContents, setSelectedNumberOfContents] = useState(defaultVal?defaultVal:"")
+      const [show, setShow] = useState(false)
 
 
 
@@ -34,13 +43,10 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
     var yyyy = fixNumbers(lDate.split('/')[0]);
     var mon = fixNumbers(lDate.split('/')[1]);
     var mm = (mon < 10 ? '0' + mon : mon);
-
-
-    return yyyy + '/' + mm + '/' + dd;
+      return yyyy + '/' + mm + '/' + dd;
 
 
   }
-  const [show, setShow] = useState(false)
 
   return (
     <div className="w-full ">
@@ -159,8 +165,26 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                 </div>
                 :
                 date ?
-                  <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                    <DatePicker id="test" defaultValue={defaultVal} onChange={(e) => onChange(formatDateTime(e.value))} value={value} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type="text" name="" />
+                     <div
+            ref={dateInputRef}
+            onClick={handleContainerClick}
+            className={`relative border-[1px] h-[48px] w-full mt-2 ${
+              error ? "border-redError" : "border-borderGray"
+            } dateInput rounded-[6px] flex items-center px-2 cursor-pointer`}
+          >
+            <DatePicker
+              portal={false} 
+                    id="test" defaultValue={defaultVal} 
+                    onChange={(e) => onChange(formatDateTime(e.value))} value={value} 
+                    className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} 
+                    type="text" name=""
+                    
+                    />
+                     {!value && (
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#b3b3b3] font-IRANYekanMedium text-sm pointer-events-none">
+                {holder}
+              </span>
+            )}
                     <div className="mr-3">{leftIcon}</div>
                   </div> :
                   Custom1 ?

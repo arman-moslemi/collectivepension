@@ -156,3 +156,27 @@ input:disabled{
 #test input:focus-visible{
 	outline-color: transparent !important;
 }
+#modalDatepicker .datepicker-plot-area {
+	z-index: 1151 !important;
+}
+#modalDatepicker {
+	z-index: 100000 !important;
+}
+.css-1m8qzkt{
+  z-index: 10000 !important;
+  /* top:10% !important; */
+}
+
+.zaman-datepicker-container {
+  top: auto !important;
+  bottom: auto !important;
+  inset: unset !important; 
+  z-index: 9999 !important;
+}
+
+.dateInput input{
+  width:80% !important;
+}
+.dateInput input:focus-visible{
+  outline: none !important;
+}
