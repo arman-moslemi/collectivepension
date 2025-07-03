@@ -115,8 +115,16 @@ export {default as ExpertDashboard} from "./Expert/ExpertDashboard";
 export {default as ExpertRequests} from "./Expert/ExpertRequests";
 export {default as ExpertRequestsDetails} from "./Expert/ExpertRequestsDetails";
 export {default as ExpertPensionRequestForm} from "./Expert/ExpertPensionRequestForm";
-export {default as ExpertAllRecords} from "./Expert/ExpertAllRecords";
+export {default as ExpertAllRecordsWithWebService} from "./Expert/ExpertAllRecordsWithWebService";
+export {default as ExpertAllRecordsNoWebService} from "./Expert/ExpertAllRecordsNoWebService";
 export {default as ExpertPensionAmount} from "./Expert/ExpertPensionAmount";
+export {default as ExpertPensionAmountInput} from "./Expert/ExpertPensionAmountInput";
+export {default as WorkExperienceWithWebService} from "./Expert/WorkExperienceWithWebService";
+export {default as WorkExperienceNoWebService} from "./Expert/WorkExperienceNoWebService";
+export {default as TotalWorkRecords} from "./Expert/TotalWorkRecords";
+export {default as AddWorkPlace} from "./Expert/AddWorkPlace";
+export {default as ExpertAgents} from "./Expert/ExpertAgents";
+export {default as ExpertAgentForm} from "./Expert/ExpertAgentForm";
 
 
 // ----------[Mainadmin]-------

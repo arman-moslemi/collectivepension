@@ -116,6 +116,7 @@ const UploadFile = (props) => {
   }, [previewUrl]);
 
   return (
+    
     <>
       <div
         {...getRootProps()}
@@ -187,6 +188,7 @@ const UploadFile = (props) => {
         )}
       </div>
     </>
+    
   );
 };
 export default UploadFile;

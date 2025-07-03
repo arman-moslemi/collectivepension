@@ -88,10 +88,6 @@ export const router =createBrowserRouter([
             { path: 'requests', element: <ExpertRequestsPage />},
             { path: 'requestsPension', element: <ExpertRequestsPensionPage />},
             { path: 'requestsDetails', element: <ExpertRequestsDetailsPage />},
-            // { path: 'expertRequestsAllRecordsWithWebService', element: <ExpertDashboardPage />},
-            // { path: 'expertrequestsAllRecordsNoWebService', element: <ExpertDashboardPage />},
-            // { path: 'expertrequestsMainDetail', element: <ExpertDashboardPage />},
-            // { path: 'expertrequestsMainDetail', element: <ExpertDashboardPage />},
 
         ]
     },

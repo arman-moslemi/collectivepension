@@ -1,82 +1,112 @@
-import { MainButton,MainInput, MainTable, MainExplanation } from "../../components";
+import { MainButton,MainInput, MainTable, MainExplanation, WorkExperienceWithWebService, TotalWorkRecords } from "..";
 import { useNavigate, Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
-import { div } from "framer-motion/client";
 
 
-const ExpertPensionAmount = () => {
+const titleRow = ["ردیف","نام صندوق","مبلغ اعلام شده","تعداد روز"];
+
+const titleRow2 = ["ردیف","نام نماینده","نسبت","شماره حساب","نام بانک","شعبه"];
+
+const list = [
+  {
+    item1: "1",
+    item2: "صندوق بازنشستگی کشوری",
+    item3: "1000000 تومان",
+    item4: "3560 روز",
+  },
+  {
+    item1: "2",
+    item2: "صندوق تامین اجتماعی",
+    item3: "25000 تومان",
+    item4: "120 روز",
+  },
+  {
+    item1: "3",
+    item2: "صندوق بازنشستگان فولاد",
+    item3: "در حال بررسی",
+    item4: "127 روز",
+  }, 
+  ];
+
+  const list2 = [
+  {
+    item1: "1",
+    item2: "علی امیری زاده",
+    item3: "فرزند",
+    item4: "569878959654654654",
+    item5: "آینده",
+    item6: "28 کوروش",
+  },
+  {
+    item1: "1",
+    item2: "علی امیری زاده",
+    item3: "فرزند",
+    item4: "569878959654654654",
+    item5: "آینده",
+    item6: "28 کوروش",
+  },
+  {
+    item1: "1",
+    item2: "علی امیری زاده",
+    item3: "فرزند",
+    item4: "569878959654654654",
+    item5: "آینده",
+    item6: "28 کوروش",
+  },
+  ];
+
+
+
+
+const ExpertPensionAmountInput = ({another}) => {
 
     let navigate = useNavigate();
 
     return (
-        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[17px] pt-[17px] pb-[38px]">
-            <div className="w-full mb-6">
-                <p className="text-[15px] text-mainBlue font-IRANYekanBold">لطفا جزئیات پرونده را با دقت بررسی کنید.</p>
+        <div className="w-full py-4 px-6">
+            <div className="w-full flex justify-center items-center mb-12 mt-8">
+                <p className="font-IRANYekanExtra text-[18px] text-mainBlue ml-3">مجموع مستمری محاسبه شده :</p>
+                <p className="font-IRANYekanExtra text-[20px] text-mainBlue">درحال بررسی</p>
             </div>
-            <div className="w-full px-[73px] mb-[30px]">
-                <div className="w-full flex justify-center">
-                    <div className="w-[197px] h-[41px] bg-buttonBlue rounded-t-[6px] ml-4 flex justify-center items-center">
-                        <p className="text-[15px] text-white font-IRANYekanExtra">فرم درخواست مستمری</p>
+            {another? null:
+            <div className="w-full flex flex-col items-center justify-center  mb-[22px]">
+                <p className="text-[18px] text-mainBlue font-IRANYekanExtra mb-5">اطلاعات حساب بانکی</p>
+                <div className="flex justify-center items-center">
+                    <div className="ml-[120px]">
+                        <p className="text-[16px] font-IRANYekanExtra">نام بانک</p>
+                        <p className="text-[15px] font-IRANYekanMedium">آینده</p>
                     </div>
-                    <div className="w-[197px] h-[41px] bg-mainBlue rounded-t-[6px] ml-4 flex justify-center items-center">
-                        <p className="text-[15px] text-white font-IRANYekanMedium">کلیه سوابق</p>
+                    <div className="ml-[120px]">
+                        <p className="text-[16px] font-IRANYekanExtra">شماره حساب</p>
+                        <p className="text-[15px] font-IRANYekanMedium">569878959654654654</p>
                     </div>
-                    <div className="w-[197px] h-[41px] bg-mainBlue rounded-t-[6px] ml-4 flex justify-center items-center">
-                        <p className="text-[15px] text-white font-IRANYekanMedium">مبلغ مستمری </p>
-                    </div>
-                </div>
-                <div className=" w-full border-b border-[2px] border-dGray "></div>
-            </div>
-            <div className="w-full px-[16px] mb-4">
-                <MainExplanation color={'green'}
-                text={
                     <div>
-                        <p className="text-mainGreen text-[20px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
-                        <p className="text-[15px] font-IRANYekanBold text-black">در ابتدا درخواست متقاضی به دلیل عدم احراز شرایط لازم، رد شده بود؛ اما با اعلام صندوق جدید و بررسی سوابق مرتبط، شرایط لازم احراز و درخواست در حال حاضر تأیید شده است.</p>
+                        <p className="text-[16px] font-IRANYekanExtra">شعبه</p>
+                        <p className="text-[15px] font-IRANYekanMedium">28 کوروش</p>
                     </div>
-                }
-                />
+                </div>
             </div>
-            <div className="w-full px-[73px] mb-6">
-                <p className="text-[18px] font-IRANYekanExtra">اطلاعات هویتی متقاضی</p>
+            }
+            <div className="w-full flex justify-center">
+                <div className="w-[75%]"><MainTable cen6={true} list={list} titleRow={titleRow}/></div>
             </div>
-            <div className="w-full px-[120px] mb-8 grid grid-cols-3 gap-4">
-                <div>
-                    <MainInput label={'نام'} value={'علی'}/>
-                </div>
-                <div>
-                    <MainInput label={'نام خانوادگی '} value={'علیزاده تهرانی'}/>
-                </div>
-                <div>
-                    <MainInput label={'نام پدر'} value={'محمد هادی'}/>
-                </div>
-                <div>
-                    <MainInput label={'تاریخ تولد'} value={'1346/04/16'}/>
-                </div>
-                <div>
-                    <MainInput label={'کدملی'} value={'0020456787'}/>
-                </div>
-                <div>
-                    <MainInput label={'شماره شناسنامه '} value={'مثلا 8888'}/>
-                </div>
-                <div>
-                    <MainInput label={'جنسیت'} value={'مرد'}/>
-                </div>
-                <div>
-                    <MainInput label={'شماره تلفن ثابت '} value={'مثلا 02144665522'}/>
-                </div>
-                <div>
-                    <MainInput label={'شماره تلفن همراه'} value={'مثلا 09123333333'}/>
-                </div>
-
+            {another?
+            <div className="w-full flex flex-col items-center justify-center mt-10">
+                <p className="text-[18px] text-mainBlue font-IRANYekanExtra mb-7">بازماندگان</p>
+                <div className="w-[90%]"><MainTable cen6={true} list={list2} titleRow={titleRow2}/></div>
             </div>
+            :null}
+            <div className="mt-[30px] mb-[107px] w-full flex justify-end">
+                <div className="w-[190px]"><MainButton  label={'صدور حکم بازنشستگی'}/></div>
+            </div>
+           
 
         </div>
     )
 }
 
-export default ExpertPensionAmount;
+export default ExpertPensionAmountInput;

@@ -2,7 +2,7 @@ import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
 
 
-const MainTable = ({list, titleRow, center1, center2, center3, ic}) => {
+const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6, ic}) => {
    
     const lastColIndex = titleRow.reduce((last, curr, i) => curr ? i : last, -1);
 
@@ -52,10 +52,10 @@ const MainTable = ({list, titleRow, center1, center2, center3, ic}) => {
             :
              <table className={`w-full`}>
                 <tr className="bg-tableGray h-[66px] ">
-                    {titleRow[0]? <td className={`font-IRANYekanBold  text-[12px] text-right ${lastColIndex === 0 ? 'text-center' : 'text-right'} ${center3? 'px-3':'px-2'} whitespace-nowrap w-[40px] pr-4 text-right`}>{titleRow[0]}</td> : null}
-                    {titleRow[1]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[1]}</td> : null}
-                    {titleRow[2]? <td className={`font-IRANYekanBold text-[12px] ${center2 ? 'text-center' : (lastColIndex === 2 ? 'text-center' : 'text-right')} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[2]}</td> : null}
-                    {titleRow[3]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[3]}</td> : null}
+                    {titleRow[0]? <td className={`font-IRANYekanBold  text-[12px] text-right ${lastColIndex === 0 ? 'text-center' : 'text-right'} ${center3? 'px-3':cen4? 'px-5':cen6? 'pl-5': 'px-2'} whitespace-nowrap w-[40px] pr-4 text-right`}>{titleRow[0]}</td> : null}
+                    {titleRow[1]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5':cen5? 'w-28 pr-14 pl-28': 'px-2'}`}>{titleRow[1]}</td> : null}
+                    {titleRow[2]? <td className={`font-IRANYekanBold text-[12px] ${cen5?'w-[250px]': cen6?'w-[200px]':'w-full'} ${center2 ? 'text-center' : (lastColIndex === 2 ? 'text-center' : 'text-right')} ${center3 ? 'px-1' : cen4? 'px-5': 'px-2'}`}>{titleRow[2]}</td> : null}
+                    {titleRow[3]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{titleRow[3]}</td> : null}
                     {titleRow[4]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 4 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[4]}</td> : null}
                     {titleRow[5]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 5 ? 'text-center' : 'text-right'} ${center1 ? 'text-center' : (lastColIndex === 5 ? 'text-center' : 'text-right')} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[5]}</td> : null}
                     {titleRow[6]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center1 ? 'text-center' : (lastColIndex === 6 ? 'text-center' : 'text-right')} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[6]}</td> : null}
@@ -66,10 +66,10 @@ const MainTable = ({list, titleRow, center1, center2, center3, ic}) => {
                 
                 {list.map((item, index) => (
                     <tr key={index} className="h-[58px] border-t-[1px] border-dashed border-borderGray">
-                        {item.item1 ? <td className={`font-IRANYekanMedium text-[12px] text-right ${lastColIndex === 0 ? 'text-center' : 'text-right'} ${center3? 'px-3':'px-2'} whitespace-nowrap w-[40px] pr-4 text-right`}>{index+1}</td> : null}
-                        {item.item2 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item2}</td> : null}
-                        {item.item3 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 2 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item3}</td> : null}
-                        {item.item4 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item4}</td> : null}
+                        {item.item1 ? <td className={`font-IRANYekanMedium text-[12px] text-right ${lastColIndex === 0 ? 'text-center' : 'text-right'} ${center3? 'px-3':cen4? 'px-5':cen6? 'pl-5': 'px-2'} whitespace-nowrap w-[40px] pr-4 text-right`}>{index+1}</td> : null}
+                        {item.item2 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5':cen5? 'w-28 pr-14 pl-28': 'px-2'}`}>{item.item2}</td> : null}
+                        {item.item3 ? <td className={`font-IRANYekanMedium text-[12px] ${cen5?'w-[250px]': cen6?'w-[200px]':'w-full'} ${lastColIndex === 2 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item3}</td> : null}
+                        {item.item4 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item4}</td> : null}
                         {item.item5 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 4 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item5}</td> : null}
                         {item.item6 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 5 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item6}</td> : null}
                         {item.item7 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item7}</td> : null}

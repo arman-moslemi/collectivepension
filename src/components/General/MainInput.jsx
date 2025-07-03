@@ -13,14 +13,14 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
     return (
         <div className="w-full ">
             <div className="flex">
-            <label className="font-IRANYekanBold text-[14px] text-mainBlue">{label}</label>
+            <label className="font-IRANYekanBold text-[16px] text-mainBlue">{label}</label>
             {necessary?
             <p className="font-IRANYekanBold text-[14px] text-errorRed mr-[2px]">*</p>
             :null}
             </div>
             {disable?
             <div className="border-[1px] bg-disableGray h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[14px] text-darkGray" value={value} type="text" disabled name="" id="" />
+            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[15px] text-darkGray" value={value} type="text" disabled name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
             :
@@ -128,8 +128,8 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,listBo
             <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
             </div>
             :
-            <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray rounded-[6px] flex justify-start items-center px-2">
-            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} value={value} type="text" name="" id="" />
+            <div className="border-[1px] h-[48px] w-full mt-2 border-borderGray  rounded-[6px] flex justify-start items-center px-2">
+            <input className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[15px]" placeholder={holder} value={value} type="text" name="" id="" />
             <div className="mr-3">{leftIcon}</div>
             </div>
 
