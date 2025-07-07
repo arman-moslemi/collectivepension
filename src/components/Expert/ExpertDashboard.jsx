@@ -28,7 +28,7 @@ const ExpertDashboard = () => {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'red'} text={'شما دارای ۲ درخواست با مهلت در حال اتمام هستید.لطفاً در اسرع وقت نسبت به بررسی و رسیدگی به این درخواست‌ها اقدام نمایید تا از بروز تأخیر جلوگیری شود.'} /></div>
             <div className="w-full grid grid-cols-3 gap-4">
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon1/>
                     <div className="flex items-center mt-[15px]">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue ">درخواست‌های بازنشستگی</p>
@@ -37,11 +37,11 @@ const ExpertDashboard = () => {
                     </div>
                     </div>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon2/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px]">درخواست‌ ها</p>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon3/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px]">اعتراضات رسیده</p>
                 </div>
