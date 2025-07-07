@@ -13,7 +13,7 @@ import {ScrollToTop} from "../components";
 
 const ExpertLayout = () => {
 
-    const [adminRole, setAdminRole] = useState(false);
+    const [adminRole, setAdminRole] = useState(true);
 
     const location = useLocation(); // دریافت مسیر فعلی
 
@@ -45,14 +45,14 @@ const ExpertLayout = () => {
                         }
                         </Link>
                         {adminRole?
-                        <Link to="/expert/dashboard" className="flex items-center cursor-pointer mb-10">
-                        {isActive("/expert/dashboard") && (
+                        <Link to="/expert/expertDefinition" className="flex items-center cursor-pointer mb-10">
+                        {isActive("/expert/expertDefinition") && (
                             <>
                             <BoxExpertIcon color={'#00c1b2'}/>
                             <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">کارشناس صندوق</p>
                             </>
                         )}
-                        {isActive("/expert/dashboard") ? null:
+                        {isActive("/expert/expertDefinition") ? null:
                         <>
                             <BoxExpertIcon color={'#ffffff'}/>
                             <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">کارشناس صندوق</p>
@@ -102,6 +102,7 @@ const ExpertLayout = () => {
                             </>
                         }
                         </Link>
+                        
                         <Link to="/expert/insurancePremium" className="flex items-center cursor-pointer mb-10">
                         {isActive("/expert/insurancePremium") && (
                             <>
@@ -116,6 +117,7 @@ const ExpertLayout = () => {
                             </>
                         }
                         </Link>
+                        
                         <Link to="/login" className="flex items-center cursor-pointer mb-10">
                         {isActive("/login") && (
                             <>
