@@ -47,8 +47,8 @@ const UserStartRequest = () => {
             <p className="font-IRANYekanBold w-[387px] mt-1 text-[15px] text-center leading-7">با توجه به انتخاب شما، اطلاعات و بخش‌های مربوط به همان نقش نمایش داده خواهد شد.</p>
             </div>}
            modalButton={<div className="w-full flex">
-            <div className="w-[49%] ml-[2%]"><MainButton onClickFunction={()=>handleSubmit(true)} label={'درخواست مستمری برای خودم'}/></div>
-            <div className="w-[49%]"><MainButton onClickFunction={()=>handleSubmit(false)} label={'درخواست مستمری برای متوفی'}/></div>
+            <div className="w-[49%] ml-[2%]"><MainButton onClickFunction={()=>handleSubmit(false)} label={'درخواست مستمری برای خودم'}/></div>
+            <div className="w-[49%]"><MainButton onClickFunction={()=>handleSubmit(true)} label={'درخواست مستمری برای متوفی'}/></div>
            </div>}
             /> : null}
         </div>

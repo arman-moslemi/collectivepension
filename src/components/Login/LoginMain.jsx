@@ -114,7 +114,7 @@ const LoginMain = () => {
                             if (response.data.role == "Agent") {
                                 cookies.set('Role', response.data.role)
 
-                                navigate("/mainadmin/mainadminTicketList");
+                                navigate("/user/startRequest");
                             }
                         }
                         else {

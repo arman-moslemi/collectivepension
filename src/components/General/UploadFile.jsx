@@ -77,7 +77,7 @@ const UploadFile = (props) => {
         // formData.append("FileTypeId", props.FileTypeID);
         // formData.append("OrganizationId", props.OrganizationID);
 
-       const dataFile= await axios.post(apiUrl + "Admins/UploadPhoto", formData, {
+       const dataFile= await axios.post(apiUrl + "Users/UploadFile", formData, {
       //  const dataFile= await axios.post("https://api.amirhosseinmofid.ir/api/Organizations/UploadPhoto", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -88,7 +88,7 @@ const UploadFile = (props) => {
         if (dataFile?.status == 200 || dataFile?.status == 204 || dataFile?.status == 201) {
           // const pieces = dataFile?.data?.split('/')
           console.log(dataFile?.data)
-          props.setPhoto(dataFile?.data)
+          props.setFile(dataFile?.data?.fileName)
           alert("فایل با موفقیت آپلود شد")
           // props.setFiles(true)
          }
