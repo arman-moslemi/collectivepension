@@ -1,11 +1,15 @@
 import React from "react";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import {useLocation} from "react-router-dom";
-import {MainModal, MainButton, AcceptedRecordModal, MainInput, UploadFile} from "..";
+import {MainModal, MainButton, AcceptedRecordModal, MainInput, UploadFile,roles} from "..";
 import {useState} from "react";
 import ViewFileIcon from '../../assets/icon/general/ViewFileIcon';
 
-const RecordProtestDetail = () => {
+
+const RecordProtestDetail = ({role}) => {
+    const isAdmin = role === roles.mainAdmin;
+  const isExpert = role === roles.expert;
+
     const [showAcceptedContent,
         setShowAcceptedContent] = useState(false);
     const [showDeclineContent,
@@ -97,7 +101,8 @@ const RecordProtestDetail = () => {
                 return '';
         }
     };
-    return ( <> <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
+    return ( <> 
+    <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
         <div className="col-span-1 md:col-span-2">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 نام و نام خانوادگی :
@@ -134,7 +139,21 @@ const RecordProtestDetail = () => {
                 </span>
             </span>
         </div>
+     {
+        isExpert?
 
+        null
+    :
+    <div className="col-span-1 md:col-span-2 flex justify-start md:justify-start">
+        <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+             نام صندوق : 
+            <span className="font-IRANYekanBold mr-1">
+                {data
+                    ?.name}
+            </span>
+        </span>
+    </div>
+     }
     </div> < div className = "pt-[17px]" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
         جزئیات اعتراض ثبت شده
 
@@ -211,7 +230,7 @@ const RecordProtestDetail = () => {
                 <p className='font-IRANYekanMedium text-[15px] text-white'>تاریخ شروع بیمه‌پردازی.pdf</p>
                 <div
                     className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon/></div>
-            </div> </div> {showAcceptedContent && ( <div className="mt-6"> <AcceptedRecordModal /> </div>)
+            </div> </div> {showAcceptedContent &&  ! ( <div className="mt-6"> <AcceptedRecordModal /> </div>)
         }
         {
             showDeclineContent && (
@@ -229,7 +248,12 @@ const RecordProtestDetail = () => {
                 </div>
             )
         } </>}
-                modalButton={<div className = "w-full flex justify-center" > <div className="w-[140px]">
+                modalButton={
+                isAdmin ?
+
+                null
+            :
+            <div className = "w-full flex justify-center" > <div className="w-[140px]">
                 <MainButton
                     onClickFunction={handleAccept}
                     label={`${showAcceptedContent || showDeclineContent
@@ -239,7 +263,9 @@ const RecordProtestDetail = () => {
                 `w-[140px] mr-2 ${showAcceptedContent || showDeclineContent
                     ? 'hidden'
                     : 'block'}`
-            } > <MainButton onClickFunction={handleDecline} red={true} label={"عدم تایید"}/> </div> </div >}/>
+            } > <MainButton onClickFunction={handleDecline} red={true} label={"عدم تایید"}/> </div> </div >
+        
+        }/>
         )
     } </>
     )

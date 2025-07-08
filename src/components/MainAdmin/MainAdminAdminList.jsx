@@ -197,10 +197,10 @@ const MainAdminAdminList = () => {
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]">
-                <div className="flex justify-between">
-                <div className='w-[440px] ml-3'><MainInput search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon/>}/></div>
+                <div className="grid grid-cols-12 gap-4 justify-between">
+                <div className='col-span-8 md:col-span-12 w-full ml-3'><MainInput search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon/>}/></div>
 
-                <div className="flex">
+                <div className="flex col-span-4 mt-2 md:col-span-12 md:justify-center">
                     <div className="w-[120px]">
                     <MainButton label={'+ تعریف ادمین'} onClickFunction={()=>setShowAddModal(true)}/>
                     </div>
@@ -211,7 +211,7 @@ const MainAdminAdminList = () => {
 
                 </div>
                 <div className='w-full my-[20px]'>
-                <MainTable center2={true} ic={false} list={list} titleRow={titleRow}/>
+                <MainTable center2={false} record1={true} record2={true} record3={true} record4={false} ic={false} list={list} titleRow={titleRow}/>
             </div>
                 </div>
            

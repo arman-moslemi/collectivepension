@@ -1,8 +1,12 @@
 import {useLocation} from "react-router-dom";
 import ViewFileIcon from "../../assets/icon/general/ViewFileIcon";
-import {MainButton,MainInput,UploadFile} from "..";
+import {MainButton,MainInput,UploadFile,roles} from "..";
 import { useState } from "react";
-const AmountProtestDetail = () => {
+const AmountProtestDetail = ({role}) => {
+      const isAdmin = role === roles.mainAdmin;
+      const isExpert = role === "expert"; // یا roles.expert اگه داری
+      
+  console.log("ROLE IS:", role);
     const location = useLocation();
     const {data} = location.state || {};
 
@@ -46,7 +50,21 @@ const AmountProtestDetail = () => {
                 </span>
             </span>
         </div>
+        {
+        role === "mainAdmin" ?
 
+        <div className="col-span-1 md:col-span-2 flex justify-start md:justify-start">
+        <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+             نام صندوق : 
+            <span className="font-IRANYekanBold mr-1">
+                {data
+                    ?.name}
+            </span>
+        </span>
+    </div>
+    :
+    null
+     }
     </div> < div className = "my-4" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue ">
 
         جزئیات اعتراض ثبت شده
@@ -69,7 +87,10 @@ const AmountProtestDetail = () => {
                  <p className='font-IRANYekanMedium text-[15px] text-white'>تاریخ شروع بیمه‌پردازی.pdf</p > <div
         className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon/></div> </div> </div > </div>
         
-        <div className={`flex mt-5 w-full justify-end ${showAccepted || showDeclined ? 'hidden' : 'block' }`}>
+        {
+            role === "expert" ? 
+
+            <div className={`flex mt-5 w-full justify-end ${showAccepted || showDeclined ? 'hidden' : 'block' }`}>
             <div className="w-[140px] ml-2">
                 <MainButton label={'تایید'} onClickFunction={()=>setShowAccepted(true)}/>
             </div>
@@ -77,6 +98,9 @@ const AmountProtestDetail = () => {
                 <MainButton label={'عدم تایید'} red={true} onClickFunction={() =>setShowDeclined(true)}/>
             </div>
         </div>
+        :
+        null
+        }
         {showAccepted ? 
     <>
     <div className="w-full border-t border-t-borderGray p-4">

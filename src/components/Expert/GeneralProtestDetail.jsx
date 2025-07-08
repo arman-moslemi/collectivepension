@@ -1,11 +1,12 @@
 import {useLocation} from "react-router-dom";
 import ViewFileIcon from "../../assets/icon/general/ViewFileIcon";
-import { MainButton,MainInput,UploadFile} from "..";
+import { MainButton,MainInput,UploadFile,roles} from "..";
 import { useState } from "react";
-const GeneralProtestDetail = () => {
+const GeneralProtestDetail = ({role}) => {
     const location = useLocation();
     const {data} = location.state || {};
-
+     const isAdmin = role === roles.mainAdmin;
+      const isExpert = role === roles.expert;
    
     const [showDeclined,setShowDeclined] = useState(false);
     return ( <>
@@ -46,7 +47,21 @@ const GeneralProtestDetail = () => {
                 </span>
             </span>
         </div>
+        {
+        role === "mainAdmin" ?
 
+        <div className="col-span-1 md:col-span-2 flex justify-start md:justify-start">
+        <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+             نام صندوق : 
+            <span className="font-IRANYekanBold mr-1">
+                {data
+                    ?.name}
+            </span>
+        </span>
+    </div>
+    :
+    null
+     }
     </div> < div className = "my-4" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue ">
 
         جزئیات اعتراض ثبت شده
@@ -62,7 +77,8 @@ const GeneralProtestDetail = () => {
                  className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
                  <p className='font-IRANYekanMedium text-[15px] text-white'>تاریخ شروع بیمه‌پردازی.pdf</p > <div
         className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon/></div> </div> </div > </div>
-        
+         {
+            role === "expert" ? 
         <div className={`flex mt-5 w-full justify-end ${showDeclined ? 'hidden' : 'block' }`}>
             <div className="w-[140px] ml-2">
                 <MainButton label={'تایید'}/>
@@ -71,7 +87,8 @@ const GeneralProtestDetail = () => {
                 <MainButton label={'عدم تایید'} red={true} onClickFunction={() =>setShowDeclined(true)}/>
             </div>
         </div>
-   
+   :
+   null}
     {showDeclined ? 
 <>
 <div className="mt-6 border-t border-t-borderGray p-4">
