@@ -82,7 +82,6 @@ const LoginMain = () => {
                         if (response.request.status == 200) {
                             const cookies = new Cookies();
                             cookies.set('token', response.data.token, { path: '/' })
-                            cookies.set('ID', response.data.id, { path: '/' })
 
                             // console.log(response.data.token)
                             setSnipper(false)

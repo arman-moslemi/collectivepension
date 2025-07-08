@@ -23,20 +23,20 @@ export const axiosReq = async (url,kind, params, type) => {
             })
             console.log(777)
             console.log(response)
-            if (response.status == 200 || response.status == 201 ||response.status == 204 ) {
+            if (response?.status == 200 || response?.status == 201 ||response?.status == 204 ) {
                 console.log(777)
 
                 const items = response
                 return items
             }
-            else if (response.status == 401 || response.status == 403) {
+            else if (response?.status == 401 || response?.status == 403) {
                    cookies.remove("role")
                 cookies.remove("token")
                 console.log(555)
                 console.log(response)
 
                 alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
-                window.location.href="/admin";
+                window.location.href="/login";
             }
             else {
 
@@ -44,18 +44,25 @@ export const axiosReq = async (url,kind, params, type) => {
             }
         }
         catch (err) {
-            if (err.response.status == 401 || err.response.status == 403) {
-                cookies.remove("Role")
-                 cookies.remove("token")
-                alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
-                console.log(222)
-                window.location.href="/admin";
-                console.log(err)
-            }
-            else {
+            if(err?.response){
 
-                // return "BadRequest"
-                return err.response
+                if (err.response?.status == 401 || err.response?.status == 403) {
+                    cookies.remove("Role")
+                     cookies.remove("token")
+                    alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
+                    console.log(222)
+                    window.location.href="/login";
+                    console.log(err)
+                }
+                else {
+    
+                    // return "BadRequest"
+                    return err.response
+                }
+            }
+            else{
+                            return err
+
             }
         }
     }
@@ -85,7 +92,7 @@ export const axiosReq = async (url,kind, params, type) => {
                    cookies.remove("role")
                 cookies.remove("token")
                 alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
-                window.location.href="/admin";
+                window.location.href="/login";
             }
             else {
 
@@ -98,7 +105,7 @@ export const axiosReq = async (url,kind, params, type) => {
                  cookies.remove("token")
                 alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
                 console.log(222)
-                window.location.href="/admin";
+                window.location.href="/login";
                 console.log(err)
             }
             else {
@@ -132,7 +139,7 @@ export const axiosReq = async (url,kind, params, type) => {
                 cookies.remove("role")
              cookies.remove("token")
              alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
-             window.location.href="/admin";
+             window.location.href="/login";
          }
             else {
 
@@ -169,7 +176,7 @@ export const axiosReq = async (url,kind, params, type) => {
              console.log(response)
 
              alert("نشست شما به اتمام رسیده است. لطفا دوباره وارد شوید.")
-             window.location.href="/admin";
+             window.location.href="/login";
          }
             else {
                 return response
