@@ -82,8 +82,9 @@ const MainAdminRequest = () => {
                 </div>
             </div>
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={false} list={list} titleRow={titleRow}/>
+                <MainTable  ic={false} list={list} titleRow={titleRow}/>
             </div>
+            
             <div className='w-full flex justify-between items-center'>
                 <div className='flex justify-start items-center'>
                     <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>

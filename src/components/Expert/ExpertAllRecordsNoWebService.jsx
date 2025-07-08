@@ -13,7 +13,7 @@ const ExpertAllRecordsNoWebService = () => {
     let navigate = useNavigate();
 
     return (
-        <div className="w-full py-4 px-6">
+        <div className="w-full py-4 px-6 lg:px-0">
             <div className="w-full mb-[25px]"><AddWorkPlace/></div>
             <div className="w-full mb-[25px]"><WorkExperienceNoWebService/></div>
             <div className="w-full mb-[25px]"><WorkExperienceNoWebService/></div>

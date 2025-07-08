@@ -10,8 +10,8 @@ const AmountProtestDetail = () => {
     const [showDeclined,setShowDeclined] = useState(false);
     return ( <>
      <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
-        <div className="col-span-1">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+        <div className="col-span-1 lg:col-span-2">
+            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
                 نام و نام خانوادگی :
                 <span className="font-IRANYekanBold mr-1">
                     {data
@@ -19,8 +19,8 @@ const AmountProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1  flex justify-end">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+        <div className="col-span-1  flex justify-end lg:col-span-2 lg:justify-start">
+            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
                 تاریخ ثبت اعتراض :
                 <span className="font-IRANYekanBold mr-1">
                     {data
@@ -28,8 +28,8 @@ const AmountProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+        <div className="col-span-1 lg:col-span-2">
+            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
                 کدملی :
                 <span className="font-IRANYekanBold mr-1">
                     {data
@@ -37,8 +37,8 @@ const AmountProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1  flex justify-end">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+        <div className="col-span-1  flex justify-end lg:justify-start lg:w-full">
+            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
                 نوع اعتراض :
                 <span className="font-IRANYekanBold mr-1">
                     {data
@@ -101,8 +101,8 @@ const AmountProtestDetail = () => {
                             necessary={true}
                             label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'}
                             holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'}/>
-                        <div className='w-full flex items-center mt-4'>
-                            <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
+                        <div className='w-full flex items-center lg:flex-wrap mt-4'>
+                            <p className='font-IRANYekanMedium text-[14px] lg:my-2 text-mainBlue ml-3'>انتخاب فایل</p>
                             <div><UploadFile small={false}/></div>
                         </div>
                     </div>

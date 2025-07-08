@@ -17,12 +17,12 @@ const ExpertAgents = ({admin,webService,des}) => {
     let navigate = useNavigate();
 
     return (
-        <div className="w-full py-4 px-[70px]">
+        <div className="w-full py-4 px-[70px] lg:px-0">
             {des && !admin ?
-            <div className="w-full flex items-center justify-between mb-6">
+            <div className="w-full flex items-center justify-between mb-6 flex-wrap">
                 <p className="text-[18px] font-IRANYekanExtra">اطلاعات هویتی بازمانده تازه</p>
-                <div className="w-[153px] h-[40px] rounded-full bg-yellowError flex justify-center items-center">
-                    <p className="text-[16px] font-IRANYekanExtra text-white">در انتظار بررسی</p>
+                <div className="w-[153px] lg:w-fit lg:px-[12px] lg:mr-auto lg:mt-2 h-[40px] rounded-full bg-yellowError flex justify-center items-center">
+                    <p className="text-[16px] lg:text-[12px] font-IRANYekanExtra text-white">در انتظار بررسی</p>
                 </div>
             </div>
             :null}

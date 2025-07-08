@@ -2,12 +2,12 @@ const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,ml,mr,jCen
     return (
         <div className="w-full">
             {title? <p className="font-IRANYekanBold text-[18px] text-mainBlue mb-[22px]">{title}</p> : null}
-            <div className={`flex ${jCenter ? "justify-center" : "justify-start"} items-center`}>
-                <div className={`flex justify-start items-center  ${ml==='100'? 'ml-[100px]':'ml-[60px]'} `}>
+            <div className={`flex ${jCenter ? "justify-center lg:justify-between" : "justify-start lg:justify-between"} items-center`}>
+                <div className={`flex justify-start items-center  ${ml==='100'? 'ml-[100px] lg:ml-0':'ml-[60px] lg:ml-0'} `}>
                 <input className="w-[18px] h-[18px]" name={radioName} type="radio" />
                 <label className={`${smallBlack? 'font-IRANYekanMedium text-[15px]' : 'font-IRANYekanBold text-[16px] text-mainBlue'}  mr-2`}>{text1}</label>
                 </div>
-                <div className="flex justify-start items-center ml-[60px] my-2">
+                <div className="flex justify-start items-center ml-[60px] lg:ml-0 my-2">
                 <input className="w-[18px] h-[18px]" name={radioName} type="radio" />
                 <label className={`${smallBlack? 'font-IRANYekanMedium text-[15px]' : 'font-IRANYekanBold text-[16px] text-mainBlue'} mr-2`}>{text2}</label>
                 </div>

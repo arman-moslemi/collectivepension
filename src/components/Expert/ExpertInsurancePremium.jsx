@@ -123,9 +123,9 @@ import {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
           <MainExplanation text="کارشناس محترم، لطفاً برای هر سال، نرخ حق بیمه را به‌صورت دقیق ثبت نمایید. توجه داشته باشید با آغاز هر سال جدید، ثبت نرخ مربوط به آن سال الزامی است. همچنین در صورتی که سال مورد نظر شما در لیست وجود نداشت، می‌توانید با استفاده از دکمه 'افزودن سال'، سال جدید را تعریف و سپس نرخ مربوطه را ثبت نمایید." />
   
-          <div className="w-[80%] mx-auto my-5">
+          <div className="w-[80%] mx-auto my-5 xl:w-full">
             <div className="grid grid-cols-8 items-center gap-2">
-              <div className="col-span-3">
+              <div className="col-span-3 xl:col-span-8">
                 <MainInput
                   label="جستجو"
                   search={true}
@@ -136,8 +136,8 @@ import {
                 />
               </div>
   
-              <div className="col-span-3">
-                <div className="flex">
+              <div className="col-span-3 xl:col-span-8">
+                <div className="flex xs:flex-wrap">
                 <MainInput
   listBoxM1={true}
   label="انتخاب سال"
@@ -149,7 +149,7 @@ import {
   }}
 />
 
-                  <div className="mr-2">
+                  <div className="mr-2 xs:mr-0 xs:mt-2">
                     <MainInput
                       label="نرخ حق بیمه"
                       holder="% نرخ حق بیمه"
@@ -160,14 +160,14 @@ import {
                 </div>
               </div>
   
-              <div className="col-span-2">
-                <div className="flex justify-end mt-7 mr-2">
+              <div className="col-span-2 xl:col-span-8">
+                <div className="flex justify-end b1115:justify-center mt-7 mr-2 flex-wrap xs:flex-wrap">
                   <div className="w-[80px]">
                     <MainButton label="ثبت" onClickFunction={handleAddRate} />
                   </div>
                   <div
                     onClick={() => setShowModal(true)}
-                    className="border-b border-dashed border-buttonBlue w-[100px] text-center mr-4 hover:cursor-pointer"
+                    className="border-b border-dashed border-buttonBlue w-[100px] text-center mr-4 xs:mr-2 hover:cursor-pointer"
                   >
                     <span className="text-[15px] text-buttonBlue font-IRANYekanBold">
                       افزودن سال
@@ -177,9 +177,12 @@ import {
               </div>
             </div>
   
-            <div className="my-5 w-[30%] mx-auto max-h-[400px] overflow-y-auto">
+            <div className="my-5 w-[30%] xl:w-[80%] mx-auto max-h-[400px] ">
               <MainTable
-                center1={true}
+              record2={false}
+              record3={false}
+              record1={false}
+                center1={false}
                 ic={false}
                 list={filteredList}
                 titleRow={titleRow}

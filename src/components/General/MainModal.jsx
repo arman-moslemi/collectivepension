@@ -6,7 +6,7 @@ const MainModal = ({title,text,modalButton,noCross,setShowModal,big}) => {
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className={`relative mx-auto mb-10 mt-10 ${big? 'w-[65%] max-h-[750px] overflow-auto' : 'w-[35%]'}`}>
+            <div className={`relative mx-auto mb-10 mt-10 ${big? 'w-[65%] max-h-[750px] overflow-auto md:w-[95%] z940:w-[80%]' : 'w-[35%] md:w-[95%] z940:w-[80%]'}`}>
 
               <div className="border-0 rounded-[6px]  shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {title ? 

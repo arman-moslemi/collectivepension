@@ -14,10 +14,10 @@ const MainRadioInput2 = ({title,text1,text2,text3,radioName,smallBlack,ml,input}
                 <label className={`${smallBlack? 'font-IRANYekanMedium text-[15px]' : 'font-IRANYekanBold text-[16px] text-mainBlue'} mr-2`}>{text2}</label>
                 </div>
                 {text3 ? 
-                <div className="flex justify-start items-center  mt-3">
+                <div className="flex justify-start flex-wrap items-center  mt-3 lg:w-full">
                 <input className="w-[18px] h-[18px]" name={radioName} type="radio" />
                 <label className="font-IRANYekanBold text-[16px] text-mainBlue mr-2">{text3}</label>
-                {input? <div className="mr-2 w-[400px]"><MainInput/></div> : null}
+                {input? <div className="mr-2 w-[400px] lg:w-full"><MainInput/></div> : null}
                 </div>
                 : null }
 

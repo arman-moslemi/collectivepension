@@ -14,8 +14,8 @@ const TotalWorkRecords = ({button}) => {
 
     return (
         <div className="w-full rounded-[10px] shadow-firstBoxShadow  flex flex-col items-center justify-center py-[30px]">
-            <p className="text-[20px] text-mainBlue font-IRANYekanExtra mb-[14px]">مقدار محاسبه شده مجموع سابقه کاربر در صندوق شما</p>
-            <div className="flex mb-[14px]">
+            <p className="text-[20px] text-mainBlue font-IRANYekanExtra mb-[14px] lg:text-[12px]">مقدار محاسبه شده مجموع سابقه کاربر در صندوق شما</p>
+            <div className="flex mb-[14px] flex-wrap">
                 <div className="ml-[13px] flex flex-col items-center">
                     <p className="text-[16px] text-mainBlue font-IRANYekanBold mb-[7px]">روز</p>
                     <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">125 روز</p>

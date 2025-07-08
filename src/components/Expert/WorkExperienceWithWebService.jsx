@@ -51,8 +51,8 @@ const WorkExperienceWithWebService = () => {
 
     return (
         <div className="w-full rounded-[10px] shadow-firstBoxShadow ">
-            <div className={`flex py-[27px] justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
-            <div className="flex items-center mr-5">
+            <div className={`flex py-[27px] lg:px-0 justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
+            <div className="flex items-center mr-5 flex-wrap">
                 <p className="text-[16px] text-mainBlue font-IRANYekanExtra ml-2">محل خدمت / کارگاه :</p>
                 <p className="text-[16px] text-mainBlue font-IRANYekanBold">شرکت توسعه هوشمند ورنا ایرانیان</p>
             </div>
@@ -61,24 +61,24 @@ const WorkExperienceWithWebService = () => {
             </div>
             </div>
             {mainOpen?
-            <div className="w-full px-[28px] py-[35px]">
+            <div className="w-full px-[28px] py-[35px] lg:px-0">
             <div className="w-full grid grid-cols-3 gap-4">
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'12569'} label={'شماره شناسایی بیمه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'تهران'} label={'استان محل اشتغال'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'تهران'} label={'شهر'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'شعبه 1'} label={'شعبه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'شرکت توسعه هوشمند ورنا ایرانیان'} label={'محل خدمت / نام کارگاه '}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'12569'} label={'شماره دستگاه / کارگاه '}/>
                 </div>
 

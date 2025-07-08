@@ -51,30 +51,48 @@ const ExpertRequestsDetails = ({admin,webService,des,another}) => {
             <div className="w-full mb-6">
                 <p className="text-[15px] text-mainBlue font-IRANYekanBold">لطفا جزئیات پرونده را با دقت بررسی کنید.</p>
             </div>
-            <div className="w-full px-[73px] mb-[20px]">
-                <div className="w-full flex justify-center">
-                    <div onClick={expertPensionRequestFormOnClick} className={`w-[186px] cursor-pointer h-[41px] bg-buttonBlue ${expertPensionRequestForm? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 flex justify-center items-center`}>
-                        <p className={`text-[15px] text-white ${expertPensionRequestForm? 'font-IRANYekanExtra':'font-IRANYekanMedium'} `}>فرم درخواست مستمری</p>
-                    </div>
-                    {another?
-                    <div onClick={expertLeftoversOnClick} className={`w-[186px] cursor-pointer h-[41px] ${expertLeftovers? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 flex justify-center items-center`}>
-                        <p className={`text-[15px] text-white ${expertLeftovers? 'font-IRANYekanExtra':'font-IRANYekanMedium'}`}>بازماندگان</p>
-                    </div>
-                    :null}
-                    <div onClick={expertAllRecordsOnClick} className={`w-[186px] cursor-pointer h-[41px] ${expertAllRecords? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 flex justify-center items-center`}>
-                        <p className={`text-[15px] text-white ${expertAllRecords? 'font-IRANYekanExtra':'font-IRANYekanMedium'}`}>کلیه سوابق</p>
-                    </div>
-                    <div onClick={expertPensionAmountOnClick} className={`w-[186px] cursor-pointer h-[41px] ${expertPensionAmount? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 flex justify-center items-center`}>
-                        <p className={`text-[15px] text-white ${expertPensionAmount? 'font-IRANYekanExtra':'font-IRANYekanMedium'}`}>مبلغ مستمری </p>
-                    </div>
+            <div className="w-full px-[20px] mb-[20px]">
+  <div className="w-full overflow-x-auto">
+    <div className="min-w-[800px] md:min-w-[500px] flex justify-center">
+      <div
+        onClick={expertPensionRequestFormOnClick}
+        className={`w-[186px] h800:w-fit h800:px-3 h800:h-fit h800:py-2 cursor-pointer h-[41px] ${expertPensionRequestForm ? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 h800:ml-2 flex justify-center items-center`}
+      >
+        <p className={`text-[15px] h800:text-[12px] text-white ${expertPensionRequestForm ? 'font-IRANYekanExtra' : 'font-IRANYekanMedium'}`}>
+          فرم درخواست مستمری
+        </p>
+      </div>
 
-                </div>
-                <div className=" w-full border-b border-[2px] border-dGray "></div>
-            </div>
+      {another && (
+        <div
+          onClick={expertLeftoversOnClick}
+          className={`w-[186px] h800:w-fit h800:px-3 h800:h-fit h800:py-2 cursor-pointer h-[41px] ${expertLeftovers ? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 h800:ml-2 flex justify-center items-center`}
+        >
+          <p className={`text-[15px] h800:text-[12px] text-white ${expertLeftovers ? 'font-IRANYekanExtra' : 'font-IRANYekanMedium'}`}>بازماندگان</p>
+        </div>
+      )}
+
+      <div
+        onClick={expertAllRecordsOnClick}
+        className={`w-[186px] h800:w-fit h800:px-3 h800:h-fit h800:py-2 cursor-pointer h-[41px] ${expertAllRecords ? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 h800:ml-2 flex justify-center items-center`}
+      >
+        <p className={`text-[15px] h800:text-[12px] text-white ${expertAllRecords ? 'font-IRANYekanExtra' : 'font-IRANYekanMedium'}`}>کلیه سوابق</p>
+      </div>
+
+      <div
+        onClick={expertPensionAmountOnClick}
+        className={`w-[186px] h800:w-fit h800:px-3 h800:h-fit h800:py-2 cursor-pointer h-[41px] ${expertPensionAmount ? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 h800:ml-2 flex justify-center items-center`}
+      >
+        <p className={`text-[15px] h800:text-[12px] text-white ${expertPensionAmount ? 'font-IRANYekanExtra' : 'font-IRANYekanMedium'}`}>مبلغ مستمری </p>
+      </div>
+    </div>
+  </div>
+  <div className="w-full border-b border-[2px] border-dGray"></div>
+</div>
 
 
             {expertPensionRequestForm?
-            <div className="w-full px-[16px] pt-[10px] mb-4">
+            <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
                 <MainExplanation color={'green'}
                 text={
                     <div>
@@ -85,11 +103,11 @@ const ExpertRequestsDetails = ({admin,webService,des,another}) => {
                 />
             </div>
             :expertAllRecords && webService ?
-            <div className="w-full px-[16px] pt-[10px] mb-4">
+            <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
                 <MainExplanation text={'لطفا سوابق اعلام شده از طریق وب‌سرویس را دقیق بررسی کنید.'}/>
             </div>
             :expertAllRecords && !webService && !admin  ?
-            <div className="w-full px-[16px] pt-[10px] mb-4">
+            <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
                 <MainExplanation text={'لطفاً اطلاعات مربوط به شرکت یا کارگاه محل اشتغال کاربر (استان، شهر، شعبه، کد پرسنلی بیمه، و نام کارگاه) را به‌دقت وارد کنید. پس از ثبت اطلاعات کارگاه، بازه‌های زمانی اشتغال در آن کارگاه را ثبت نمایید. برای هر بازه‌ی ثبت‌شده، سیستم به‌صورت خودکار سال‌های داخل بازه را محاسبه کرده و فیلدهایی برای وارد کردن دستمزد مشمول کسر حق بیمه در هر سال در اختیار شما قرار می‌دهد.در صورت نیاز، می‌توانید چندین کارگاه را تعریف و برای هرکدام به‌صورت جداگانه بازه‌ها و دستمزدهای مرتبط را وارد کنید. در پایین صفحه، مجموع سوابق اشتغال ثبت‌شده به‌صورت خودکار نمایش داده می‌شود. لطفاً قبل از ثبت نهایی، از صحت بازه‌های زمانی و دستمزدهای وارد شده اطمینان حاصل فرمایید.'}/>
             </div>
             :null} 

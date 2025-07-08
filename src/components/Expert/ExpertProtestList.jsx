@@ -115,29 +115,29 @@ const ExpertProtestList = () => {
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
             <div className="w-full grid grid-cols-12 gap-2 items-end mb-2">
 
-                <div className="col-span-3 flex items-center">
+                <div className="col-span-3 b1115:col-span-12 flex items-center">
                     <MainInput
                         search={true}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />}/>
                 </div>
 
-                <div className="col-span-2">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput date={true} value={startDate}
                         onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
 
-                <div className="col-span-2">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput date={true} value={endDate}
                         onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput
                         listBoxM1={true}
                         listItems={protestType}
                         listBoxHolder={"نوع اعتراض"}/>
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput listBoxM1={true} listItems={status} listBoxHolder={"وضعیت"}/>
                 </div>
 
@@ -153,12 +153,12 @@ const ExpertProtestList = () => {
             <div className='w-full mb-[10px]'>
                 <MainTable center1={true} ic={true} list={tableData} titleRow={titleRow}/>
             </div>
-            <div className='w-full flex justify-between items-center'>
-                <div className='flex justify-start items-center'>
-                    <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>
+            <div className='w-full flex justify-between items-center md:items-end flex-wrap'>
+                <div className='flex justify-start items-center md:flex-col md:items-start'>
+                    <p className='font-IRANYekanMedium text-[14px] pt-2 ml-[11px] md:ml-0'>تعداد نمایش در صفحه</p>
                     <div className='w-[90px]'><MainInput listBoxM1={true} listItems={num} listBoxHolder={'5 تا'}/></div>
                 </div>
-                <div className='flex justify-start items-center'>
+                <div className='flex justify-start items-center k395:mt-3'>
                     <div
                         className='ml-[5px] bg-tableGray w-[38px] h-[38px] rounded-[6px] flex justify-center items-center'><TableRightIcon/></div>
                     <div

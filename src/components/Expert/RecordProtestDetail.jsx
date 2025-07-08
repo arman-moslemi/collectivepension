@@ -98,7 +98,7 @@ const RecordProtestDetail = () => {
         }
     };
     return ( <> <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
-        <div className="col-span-1">
+        <div className="col-span-1 md:col-span-2">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 نام و نام خانوادگی :
                 <span className="font-IRANYekanBold mr-1">
@@ -107,7 +107,7 @@ const RecordProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1  flex justify-end">
+        <div className="col-span-1 md:col-span-2 flex justify-end md:justify-start">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 تاریخ ثبت اعتراض :
                 <span className="font-IRANYekanBold mr-1">
@@ -116,7 +116,7 @@ const RecordProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1">
+        <div className="col-span-1 md:col-span-2">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 کدملی :
                 <span className="font-IRANYekanBold mr-1">
@@ -125,7 +125,7 @@ const RecordProtestDetail = () => {
                 </span>
             </span>
         </div>
-        <div className="col-span-1  flex justify-end">
+        <div className="col-span-1 md:col-span-2 flex justify-end md:justify-start">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 نوع اعتراض :
                 <span className="font-IRANYekanBold mr-1">
@@ -138,68 +138,65 @@ const RecordProtestDetail = () => {
     </div> < div className = "pt-[17px]" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
         جزئیات اعتراض ثبت شده
 
-    </span> < div className = "min-w-[80%] w-[80%] mx-auto mt-6 border-[1px] border-borderGray rounded-[10px] overflow-hidden" > <table className="min-w-[100%] table-auto text-right">
-                <thead>
-                    <tr className="bg-tableGray h-[60px]">
-                        <th className="font-IRANYekanBold text-[15px] pr-4">نوع</th>
-                        <th className="font-IRANYekanBold text-[15px]">سال</th>
-                        <th className="font-IRANYekanBold text-[15px]">ماه</th>
-                        <th className="font-IRANYekanBold text-[15px]">بازه بیمه پردازی</th>
-                        <th className="font-IRANYekanBold text-[15px]">تعداد روز</th>
-                        <th className="font-IRANYekanBold text-[15px] text-center">وضعیت کارشناس</th>
-                        <th colSpan={2} className="font-IRANYekanBold text-[15px] text-center pl-4">عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableData.map((group, groupIndex) => (
-                        <React.Fragment key={groupIndex}>
-                            {group
-                                .rows
-                                .map((row, rowIndex) => (
-                                    <tr
-                                        key={`${groupIndex}-${rowIndex}`}
-                                        className="h-[58px] text-[14px] font-IRANYekanMedium">
-                                        <td className="px-2 py-1 pr-4 ">{row.type}</td>
-                                        <td className="px-2 py-1">{row.year}</td>
-                                        <td className="px-2 py-1">{row.month}</td>
-                                        <td className="px-2 py-1">{row.range}</td>
-                                        <td className="px-2 py-1">{row.days}</td>
+    </span> <div className="w-full overflow-x-auto mt-6">
+  <div className="min-w-[900px] w-[80%] mx-auto border-[1px] border-borderGray rounded-[10px] overflow-hidden">
+    <table className="min-w-full table-auto text-right">
+      <thead>
+        <tr className="bg-tableGray h-[60px]">
+          <th className="font-IRANYekanBold text-[15px] pr-4">نوع</th>
+          <th className="font-IRANYekanBold text-[15px]">سال</th>
+          <th className="font-IRANYekanBold text-[15px]">ماه</th>
+          <th className="font-IRANYekanBold text-[15px]">بازه بیمه پردازی</th>
+          <th className="font-IRANYekanBold text-[15px]">تعداد روز</th>
+          <th className="font-IRANYekanBold text-[15px] text-center">وضعیت کارشناس</th>
+          <th colSpan={2} className="font-IRANYekanBold text-[15px] text-center pl-4">عملیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        {tableData.map((group, groupIndex) => (
+          <React.Fragment key={groupIndex}>
+            {group.rows.map((row, rowIndex) => (
+              <tr key={`${groupIndex}-${rowIndex}`} className="h-[58px] text-[14px] font-IRANYekanMedium">
+                <td className="px-2 py-1 pr-4">{row.type}</td>
+                <td className="px-2 py-1">{row.year}</td>
+                <td className="px-2 py-1">{row.month}</td>
+                <td className="px-2 py-1">{row.range}</td>
+                <td className="px-2 py-1">{row.days}</td>
 
-                                        {rowIndex === 0 && ( <> <td
-                                            rowSpan={group.rows.length}
-                                            className={`px-2 py-1 text-center align-middle rounded-md font-IRANYekanMedium`}>
-                                            <div
-                                                className={`${getStatusBgClass(group.expertStatus)} w-fit px-4 py-1 rounded-full mx-auto`}>
-                                                {group.expertStatus}
-                                            </div>
+                {rowIndex === 0 && (
+                  <>
+                    <td rowSpan={group.rows.length} className="px-2 py-1 text-center align-middle rounded-md font-IRANYekanMedium">
+                      <div className={`${getStatusBgClass(group.expertStatus)} w-fit px-4 py-1 rounded-full mx-auto`}>
+                        {group.expertStatus}
+                      </div>
+                    </td>
+                    <td rowSpan={group.rows.length} colSpan={2} className="px-2 py-1 text-center align-middle pl-4">
+                      <button
+                        onClick={() => setShowModal(true)}
+                        className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center"
+                      >
+                        <DetailTableIcon />
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
 
-                                        </td> < td rowSpan = {
-                                            group.rows.length
-                                        }
-                                        colSpan = {
-                                            2
-                                        }
-                                        className = "px-2 py-1 text-center align-middle pl-4" > <button
-                                            onClick={() => setShowModal(true)}
-                                            className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
-                                            <DetailTableIcon/>
-                                        </button> </td>
-            </>)}
-                                    </tr>
-                                ))}
+            {groupIndex !== tableData.length - 1 && (
+              <tr>
+                <td colSpan={9}>
+                  <div className="border-b-[1px] border-borderGray w-full my-1"></div>
+                </td>
+              </tr>
+            )}
+          </React.Fragment>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-                            {/* فقط اگر گروه آخر نیست، خط زیرش بیاد */}
-                            {groupIndex !== tableData.length - 1 && (
-                                <tr>
-                                    <td colSpan={9}>
-                                        <div className="border-b-[1px] border-borderGray w-full my-1"></div>
-                                    </td>
-                                </tr>
-                            )}
-                        </React.Fragment>
-                    ))}
-                </tbody>
-            </table> </div>
        </div > {
         showModal && (
             <MainModal
