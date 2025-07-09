@@ -1,7 +1,7 @@
 import { MainButton,MainInput} from "../../components";
 
 const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,
-    value1,value2,value3,onChange,selectedValue,ml,mr,column,input,onChangeInput}) => {
+    value1,value2,value3,onChange,selectedValue,ml,mr,column,input,onChangeInput,jCenter}) => {
 
     return (
         
@@ -32,7 +32,7 @@ const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,
             :
         <div className="w-full">
             {title? <p className="font-IRANYekanBold text-[18px] text-mainBlue mb-[22px]">{title}</p> : null}
-            <div className="flex justify-start items-center">
+            <div className={`flex ${jCenter ? "justify-center lg:justify-between" : "justify-start lg:justify-between"} items-center`}>
                 <div className={`flex justify-start items-center  ${ml==='100'? 'ml-[100px]':'ml-[60px]'} `}>
                 <input className="w-[18px] h-[18px]" name={radioName} value={value1}
                  checked={value1==selectedValue}  onChange={() => onChange(value1)} type="radio" />

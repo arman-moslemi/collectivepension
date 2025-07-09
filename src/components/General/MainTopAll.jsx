@@ -9,34 +9,34 @@ const MainTopAll = ({role,icon,title,text,adminRole}) => {
             setShowUserTypeModal(true);
           }
     return (
-        <div className="flex w-full justify-between items-center">
+        <div className="flex w-full justify-between items-center md:block">
             <div className="flex justify-start items-center">
                 <div>{icon}</div>
                 <p className="font-IRANYekanExtra text-mainBlue text-[15px] mr-2">{title}</p>
             </div>
-            <div className='flex items-center'>
-                <Link className="font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px]">راهنمای استفاده از سامانه</Link>
-                <div className="w-fit h-[40px] bg-white py-[7px] px-[12px] rounded-[6px] mr-[11px]">
+            <div className='flex items-center md:justify-end md:flex-wrap'>
+                <Link className="font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px] y408:mb-2">راهنمای استفاده از سامانه</Link>
+                <div className="w-fit h-[40px] bg-white py-[7px] px-[12px] rounded-[6px] mr-[11px] flex">
                     {role === 'user' ? 
                     <div className='flex w-[320px] justify-between items-center'>
                         <div className='flex justify-start items-center'>
-                            <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>علی علیزاده</p>
-                            <p className='font-IRANYekanMedium text-[15px] text-mainBlue mr-1'>(کاربر اصلی)</p>
+                            <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>علی علیزاده</p>
+                            <p className='font-IRANYekanMedium text-[15px] text-mainBlue mr-1 md:text-[10px]'>(کاربر اصلی)</p>
                         </div>
                         <Link onClick={userTypeModalFunction} className='font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px]'>تغییر نقش</Link>
                     </div>
                     : role === 'expert' ? 
                     <div className='flex w-full justify-center items-center'>
                         {adminRole?
-                        <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>ادمین صندوق بازنشستگی کشوری خوش آمدید !</p>  
+                        <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>ادمین صندوق بازنشستگی کشوری خوش آمدید !</p>  
                         :
-                        <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>کارشناس صندوق بازنشستگی کشوری خوش آمدید !</p> 
+                        <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>کارشناس صندوق بازنشستگی کشوری خوش آمدید !</p> 
                         } 
                     </div>
                 : role === 'mainAdmin' ?
                 <div className='flex w-full justify-center items-center'>
                 
-                <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>ادمین کل سامانه خوش آمدید !</p>  
+                <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>ادمین کل سامانه خوش آمدید !</p>  
                 
             </div>
                 :null

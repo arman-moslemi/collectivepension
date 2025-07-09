@@ -52,7 +52,7 @@ const MainAdminDashboard = () => {
             <div className="w-full grid grid-cols-3 gap-4">
               
              
-                <div className="h-[340px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
+                <div className=" p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
                    <div className="flex justify-between mt-4 mb-5">
                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">گزارش عملکرد</p>
 
@@ -60,113 +60,117 @@ const MainAdminDashboard = () => {
                    <MainButton  label={'گزارش‌گیری'}/>
                    </div>
                    </div>
-                    <div className="w-full h-full ">
-                    <ResponsiveContainer width="100%" height="80%">
-                        <BarChart
-                            width={500}
-                            height={300}
-                            data={data}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis tickMargin={6} dataKey="name" />
-                            <YAxis tickMargin={24} />
-                            <Bar dataKey="uv" barSize={30} fill="#00c1b2"  />
-                        </BarChart>
-                    </ResponsiveContainer>
-                    </div>
+                   <div className="w-full h-full overflow-x-auto flex justify-center md:block">
+  <div className="min-w-[600px]">
+    <ResponsiveContainer width={1000} height={300}>
+      <BarChart
+        width={600} 
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis tickMargin={6} dataKey="name" />
+        <YAxis tickMargin={24} />
+        <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+
+
                 </div>
 
                 <div className="mt-[40px] col-span-3 grid grid-cols-3 w-[80%] mx-auto gap-4">
-                    <div className="col-span-1">
-                        <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                        <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra lg:text-center text-[15px] mb-[10px] text-black">
                                 درخواست‌های بازنشستگی در انتظار
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold lg:text-center text-darkGray text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra lg:text-center text-[15px] mb-[10px] text-black">
                                احکام بازنشستگی صادر شده
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold lg:text-center text-darkGray text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra lg:text-center text-[15px] mb-[10px] text-black">
                                 سوابق در انتظار اعلام
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold lg:text-center text-darkGray text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                        <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                        <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra  lg:text-center text-[15px] mb-[10px] text-black">
                                 سوابق اعلام شده
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold lg:text-center text-darkGray text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra lg:text-center text-[15px] mb-[10px] text-black">
                               مبلغ مستمری در انتظار
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold lg:text-center text-darkGray text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra text-[15px] lg:text-center mb-[10px] text-black">
                                 مبالغ مستمری اعلام شده
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold text-darkGray lg:text-center text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra text-[15px]  lg:text-center mb-[10px] text-black">
                               اعتراضات در انتظار بررسی
                             </span>
                             <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            <span className="font-IRANYekanBold text-darkGray lg:text-center text-[15px]">
                                 157 عدد
                             </span>
                         </div>
                     </div>
-                    <div className="col-span-1">
-                    <div className="w-full shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
-                            <span className="font-IRANYekanExtra text-[15px] mb-[10px] text-black">
+                    <div className="col-span-1 lg:col-span-3">
+                    <div className="w-full flex flex-col justify-start lg:justify-center  shadow-calculbox border-r-buttonBlue border-r-[8px] rounded-[5px] px-[15px] py-[5px]">
+                            <span className="font-IRANYekanExtra text-[15px] lg:text-center mb-[10px] text-black">
                                اعتراضات پاسخ داده شده
                             </span>
-                            <br/>
-                            <span className="font-IRANYekanBold text-darkGray text-[15px]">
+                            
+                            <span className="font-IRANYekanBold text-darkGray lg:text-center text-[15px]">
                                 157 عدد
                             </span>
                         </div>

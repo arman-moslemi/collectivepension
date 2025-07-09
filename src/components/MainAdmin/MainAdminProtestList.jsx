@@ -53,6 +53,7 @@ const titleRow = [
     "تاریخ ثبت اعتراض",
     "نوع",
     "وضعیت",
+    "نام صندوق",
     "مشاهده"
 ];
 
@@ -65,6 +66,7 @@ const list = [
       protestType: "RECORD", 
       protestTypeLabel: "اعتراض به سابقه اعلامی",
       status: "در انتظار بررسی",
+      name:"بازنشستگی کشوری"
     },
     {
         id: "2",
@@ -74,6 +76,7 @@ const list = [
         protestType: "AMOUNT", 
         protestTypeLabel: "اعتراض به مبلغ مستمری",
         status: "در انتظار بررسی",
+        name:"تامین اجتماعی"
       },
       {
         id: "3",
@@ -83,6 +86,7 @@ const list = [
         protestType: "GENERAL", 
         protestTypeLabel: "اعتراض به احراز شرایط",
         status: "در انتظار بررسی",
+        name:"عشایر"
       },
   ];
   const tableData = list.map((item) => ({
@@ -92,9 +96,10 @@ const list = [
     item4: item.date,
     item5: item.protestTypeLabel,
     item6: item.status,
-    item7: (
+    item7:item.name,
+    item8: (
         <Link
-        to={`/expert/protestList/${item.id}`}
+        to={`/mainAdmin/protestList/${item.id}`}
         state={{ type: item.protestType, data: item }}
       >
         <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
@@ -103,7 +108,7 @@ const list = [
       </Link>
     ),
   }));
-const ExpertProtestList = () => {
+const MainAdminProtestList = () => {
 
     let navigate = useNavigate();
     const [startDate,
@@ -122,22 +127,22 @@ const ExpertProtestList = () => {
                         leftIcon={< SearchIcon />}/>
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput date={true} value={startDate}
                         onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput date={true} value={endDate}
                         onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput
                         listBoxM1={true}
                         listItems={protestType}
                         listBoxHolder={"نوع اعتراض"}/>
                 </div>
-                <div className="col-span-2 md:col-span-12 b1115:col-span-6 ">
+                <div className="col-span-2 b1115:col-span-6">
                     <MainInput listBoxM1={true} listItems={status} listBoxHolder={"وضعیت"}/>
                 </div>
 
@@ -151,7 +156,7 @@ const ExpertProtestList = () => {
             </div>
             </div>
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={true} list={tableData} titleRow={titleRow}/>
+                <MainTable center1={false} ic={true} list={tableData} titleRow={titleRow}/>
             </div>
             <div className='w-full flex justify-between items-center md:items-end flex-wrap'>
                 <div className='flex justify-start items-center md:flex-col md:items-start'>
@@ -172,4 +177,4 @@ const ExpertProtestList = () => {
     )
 }
 
-export default ExpertProtestList;
+export default MainAdminProtestList;

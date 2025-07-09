@@ -41,22 +41,22 @@ const AddWorkPlace = () => {
         <div className="w-full rounded-[10px] shadow-firstBoxShadow ">
             <div className="w-full px-[28px] pt-[35px]">
             <div className="w-full grid grid-cols-3 gap-4">
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} holder={'شماره شناسایی بیمه را وارد کنید'} label={'شماره شناسایی بیمه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} listBox={true} listItems={cityList} label={'استان محل اشتغال'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} listBox={true} listItems={cityList} label={'شهر'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} holder={'شعبه را وارد کنید'} label={'شعبه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} holder={'محل خدمت / نام کارگاه را وارد کنید'} label={'محل خدمت / نام کارگاه '}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput necessary={true} holder={'شماره دستگاه / کارگاه  را وارد کنید'} label={'شماره دستگاه / کارگاه '}/>
                 </div>
 

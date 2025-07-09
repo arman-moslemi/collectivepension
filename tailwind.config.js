@@ -54,6 +54,7 @@ module.exports = {
       IRANYekanLight :["IRANYekanLight","sans-serif"],
       IRANYekanNormal :["IRANYekanNormal","sans-serif"],
       TimesNewRoman :["TimesNewRoman","sans-serif"],
+      Nastaligh : ["Nastaligh","sans-serif"],
     },
     extend: {
       boxShadow: {
@@ -97,7 +98,7 @@ module.exports = {
         'ss1440': {'min' : '1440px'},
         'minxl':{'max':'1336px'},
         'xl': {'max': '1280px'},
-        'b1115': {'max':'1115px'},
+        'b1115': {'max':'1160px'},
         'lg': {'max': '1024px'},
         'z940' : {'max': '940px'},
         'h800' : {'max': '800px'},

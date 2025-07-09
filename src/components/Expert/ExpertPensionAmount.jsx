@@ -67,26 +67,26 @@ const ExpertPensionAmountInput = ({another}) => {
     let navigate = useNavigate();
 
     return (
-        <div className="w-full py-4 px-6">
-            <div className="w-full flex justify-center items-center mb-12 mt-8">
-                <p className="font-IRANYekanExtra text-[18px] text-mainBlue ml-3">مجموع مستمری محاسبه شده :</p>
-                <p className="font-IRANYekanExtra text-[20px] text-mainBlue">درحال بررسی</p>
+        <div className="w-full py-4 px-6 lg:px-0">
+            <div className="w-full flex justify-center items-center mb-12 mt-8 lg:flex-col">
+                <p className="font-IRANYekanExtra text-[18px] lg:text-[16px] text-mainBlue ml-3">مجموع مستمری محاسبه شده :</p>
+                <p className="font-IRANYekanExtra text-[20px] lg:text-[18px] text-mainBlue">درحال بررسی</p>
             </div>
             {another? null:
             <div className="w-full flex flex-col items-center justify-center  mb-[22px]">
-                <p className="text-[18px] text-mainBlue font-IRANYekanExtra mb-5">اطلاعات حساب بانکی</p>
-                <div className="flex justify-center items-center">
-                    <div className="ml-[120px]">
-                        <p className="text-[16px] font-IRANYekanExtra">نام بانک</p>
-                        <p className="text-[15px] font-IRANYekanMedium">آینده</p>
+                <p className="text-[18px] lg:text-[14px] text-mainBlue font-IRANYekanExtra mb-5">اطلاعات حساب بانکی</p>
+                <div className="flex justify-center flex-wrap items-center">
+                    <div className="ml-[120px] lg:ml-1">
+                        <p className="text-[16px] lg:text-[14px] font-IRANYekanExtra">نام بانک</p>
+                        <p className="text-[15px] lg:text-[13px] font-IRANYekanMedium">آینده</p>
                     </div>
-                    <div className="ml-[120px]">
-                        <p className="text-[16px] font-IRANYekanExtra">شماره حساب</p>
-                        <p className="text-[15px] font-IRANYekanMedium">569878959654654654</p>
+                    <div className="ml-[120px] lg:ml-1">
+                        <p className="text-[16px] lg:text-[14px] font-IRANYekanExtra">شماره حساب</p>
+                        <p className="text-[15px] lg:text-[13px] font-IRANYekanMedium">569878959654654654</p>
                     </div>
                     <div>
-                        <p className="text-[16px] font-IRANYekanExtra">شعبه</p>
-                        <p className="text-[15px] font-IRANYekanMedium">28 کوروش</p>
+                        <p className="text-[16px] lg:text-[14px] font-IRANYekanExtra">شعبه</p>
+                        <p className="text-[15px] lg:text-[13px] font-IRANYekanMedium">28 کوروش</p>
                     </div>
                 </div>
             </div>

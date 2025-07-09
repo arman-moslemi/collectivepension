@@ -104,16 +104,16 @@ const ExpertRequests = () => {
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
             <div
-                className="w-full grid grid-cols-12 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-4 items-end mb-7">
+                className="w-full grid grid-cols-12  gap-4 items-end mb-7">
 
-                <div className="lg:col-span-4 md:col-span-4 sm:col-span-2 col-span-3">
+                <div className="lg:col-span-12 xs:col-span-12 col-span-3">
                     <MainInput
                         search={true}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />}/>
                 </div>
 
-                <div className="lg:col-span-2 md:col-span-2 sm:col-span-1 col-span-2">
+                <div className="lg:col-span-6 xs:col-span-12 col-span-2">
                <div className="font-IRANYekanBold">
                <MainInput
                         holder={'از تاریخ'}
@@ -125,7 +125,7 @@ const ExpertRequests = () => {
                </div>
                 </div>
 
-                <div className="lg:col-span-2 md:col-span-2 sm:col-span-1 col-span-2">
+                <div className="lg:col-span-6 xs:col-span-12 col-span-2">
                <div className="font-IRANYekanBold">
                <MainInput
                         holder={'تا تاریخ'}
@@ -137,12 +137,12 @@ const ExpertRequests = () => {
                </div>
                 </div>
 
-                <div className="lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-2">
+                <div className="lg:col-span-6 xs:col-span-12 col-span-2">
                     <MainInput listBoxM1={true} listItems={status} listBoxHolder={"وضعیت"}/>
                 </div>
 
                 <div
-                    className="lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-3 justify-self-end sm:justify-self-end">
+                    className="lg:col-span-6 xs:col-span-12 col-span-3 justify-self-end sm:justify-self-end">
                     <div className="w-[150px]">
                     <MainButton label={"گزارش‌ گیری"}/>
                     </div>
@@ -150,14 +150,14 @@ const ExpertRequests = () => {
             </div>
 
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={true} list={list} titleRow={titleRow}/>
+                <MainTable  ic={true} list={list} titleRow={titleRow}/>
             </div>
-            <div className='w-full flex justify-between items-center'>
-                <div className='flex justify-start items-center'>
-                    <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>
+            <div className='w-full flex justify-between items-center md:items-end flex-wrap'>
+                <div className='flex justify-start items-center md:flex-col md:items-start'>
+                    <p className='font-IRANYekanMedium text-[14px] pt-2 ml-[11px] md:ml-0'>تعداد نمایش در صفحه</p>
                     <div className='w-[90px]'><MainInput listBoxM1={true} listItems={num} listBoxHolder={'5 تا'}/></div>
                 </div>
-                <div className='flex justify-start items-center'>
+                <div className='flex justify-start items-center k395:mt-3'>
                     <div
                         className='ml-[5px] bg-tableGray w-[38px] h-[38px] rounded-[6px] flex justify-center items-center'><TableRightIcon/></div>
                     <div

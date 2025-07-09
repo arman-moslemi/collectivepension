@@ -1,20 +1,21 @@
-import Logo from "../../assets/icon/general/NavbarLogo";
+import Logo from "../../assets/img/general/logowhite.png"
 
 const MainNavbar = () => {
     return (
-        <div className="w-full flex shadow-topShadow bg-Pic1-navbar h-[194px] ss1440:bg-fixed ss1440:bg-contain bg-no-repeat lg:bg-left-bottom-[-200px]  px-[20px] py-[8px]">
-            <div className="w-[30%] md:w-[50%] flex justify-center items-end">
-                <Logo/>
-            </div>
-            <div className="w-[70%] md:w-[50%] flex lg:flex-col lg:justify-between lg:items-start">
-            <div className="w-[70%] lg:w-full flex justify-center lg:justify-start items-center lg:mt-11">
-                <p className="font-IRANYekanExtra text-[30px] md:text-[22px] text-white">سامانه مستمری جمع</p>
-            </div>
-            <div className="w-[30%] lg:w-full flex justify-end items-end pl-8 lg:pl-0">
-                <div className="w-fit px-3 h-[32px] md:h-[26px] flex justify-center items-center bg-black rounded-full bg-opacity-60">
-                    <p className="font-IRANYekanBold text-[15px] md:text-[12px] text-white">شنبه 16 فروردین 1404</p>
+        <div className="w-full flex shadow-topShadow bg-cover bg-Pic1-navbar h-[150px] min-h-[90px] md:h-fit xl:h-fit   bg-no-repeat   px-[20px] md:px-0 py-[0px]">
+        
+            <div className="w-[90%]  mx-auto grid grid-cols-3 md:w-full md:h-fit">
+                <div className="col-span-1 flex items-end md:col-span-2">
+                <img src={Logo} alt="" className="w-[300px] md:w-[200px]"/>
                 </div>
-            </div>
+                <div className="col-span-1 flex justify-center items-end">
+                <p className="font-Nastaligh text-[40px]  text-white mb-5 md:mb-0 md:text-[25px] q339:text-[18px] z940:ml-2">سامانه مستمری جمع</p>
+                </div>
+                <div className="col-span-1 flex justify-end items-end md:col-span-3">
+                <div className="w-fit px-3 mb-1 h-[32px] md:h-[26px] flex justify-center items-center md:ml-2 bg-black rounded-full bg-opacity-60">
+                    <p className="font-IRANYekanBold  text-[15px]  md:text-[12px] text-white">شنبه 16 فروردین 1404</p>
+                </div>
+                </div>
             </div>
         </div>
     );

@@ -160,21 +160,21 @@ const ExistingRecords = ({ setSelectedYearBox }) => {
                     })
                 }
             </div>
-            {selectedBox ?
-                <div className="w-full mb-[32px]">
-                    <MainTable center3={true} list={list} titleRow={titleRow} />
-                </div>
-                :
-                null}
-
-            {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
-                text={<div className="w-full flex flex-col items-center">
-                    <UserDataInsuranceOrigin inModal={true} />
-                </div>}
-                modalButton={<div className="w-full flex justify-center">
-                    <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'} /></div>
-                </div>}
-            /> : null}
+            {selectedBox?
+            <div className="w-full mb-[32px]">
+                <MainTable center3={true} list={list} titleRow={titleRow} record1={true}/>
+            </div>
+            :
+            null}
+            
+        {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
+                       text={<div className="w-full flex flex-col items-center">
+                        <UserDataInsuranceOrigin inModal={true}/>
+                        </div>}
+                       modalButton={<div className="w-full flex justify-center">
+                        <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'}/></div>
+                       </div>}
+                        /> : null}
 
 
         </div>
