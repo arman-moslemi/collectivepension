@@ -9,10 +9,11 @@ import { axiosReq } from "../../commons/axiosReq";
 const titleRow = ["ردیف", "استان", "شهر", "شعبه", "محل خدمت/نام کارگاه", "شماره دستگاه/کارگاه", "شماره شناسایی بیمه", "سابقه (تعداد روز)", "مشاهده"];
 
 
-const ExistingRecords = ({ setSelectedYearBox }) => {
+const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYear}) => {
 
     const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
     const [selectedBox, setSelectedBox] = useState(false);
+    const [props, setProps] = useState([]);
 
     const AddOriginBoxModalFunction = () => {
         setShowAddOriginBoxModal(false);
@@ -35,38 +36,11 @@ const ExistingRecords = ({ setSelectedYearBox }) => {
         insuNameDuration: []
     });
 
-    const list = [
-        {
-            item1: "1",
-            item2: "سیستان و بلوچستان",
-            item3: "کنارک",
-            item4: "15",
-            item5: "شرکت توسعه هوشمند ورنا ایرانیان",
-            item6: "14008759695",
-            item7: "14008759695",
-            item8: "25963",
-            item9: <div onClick={() => setSelectedYearBox(true)} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
 
-        },
-        {
-            item1: "1",
-            item2: "سیستان و بلوچستان",
-            item3: "کنارک",
-            item4: "15",
-            item5: "شرکت توسعه هوشمند ورنا ایرانیان",
-            item6: "14008759695",
-            item7: "14008759695",
-            item8: "25963",
-            item9: <div onClick={() => setSelectedYearBox(true)} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
-
-        },
-
-
-    ];
     useEffect(() => {
-        getUser();
+        getInsurances();
     }, []);
-    const getUser = async () => {
+    const getInsurances = async () => {
         try {
             const response = await axiosReq("Users/GetUserInsurances", "get");
             console.log(response)
@@ -82,6 +56,43 @@ const ExistingRecords = ({ setSelectedYearBox }) => {
             console.error("Error fetching user data:", error);
         }
     };
+    const getInsurancesProps = async (id) => {
+        try {
+            const response = await axiosReq("Users/GetUserInsuranceProps?insuranceId=" + id, "get");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                var propss = [];
+
+                response.data.map((item, index) => {
+                    propss.push({
+                        item1: index + 1,
+                        item2: item.provinceName,
+                        item3: item.cityName,
+                        item4: item.branch,
+                        item5: item.workplace,
+                        item6: item.workplaceNumber,
+                        item7: item.insuranceIdNumber,
+                        item8: item.duration,
+                        item9: <div onClick={() =>{console.log(selectedYearBox);setObjYear({
+                            InsuranceId:id,
+                            InsuranceIdNumber: item.insuranceIdNumber,
+                            Branch: item.branch,
+                            Workplace: item.workplace,
+                            WorkplaceNumber: item.workplaceNumber,
+                            CityId: item.cityId
+                        });setSelectedYearBox(!selectedYearBox)}} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
+
+                    })
+                })
+                setProps(propss);
+                setSelectedBox(true)
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
             <div className="w-full flex justify-end">
@@ -153,28 +164,30 @@ const ExistingRecords = ({ setSelectedYearBox }) => {
                     initialValues?.insuNameDuration?.map((item) => {
                         return (
 
-                            <div className="w-[32%] mt-5 cursor-pointer" onClick={() => setSelectedBox(true)}>
+                            <div className="w-[32%] mt-5 cursor-pointer" onClick={() => getInsurancesProps(item?.insuranceId)}>
                                 <ExistingRecordsMainBox title={item.insuranceName} des={item.duration != -1 ? item.duration + 'روز' : "درحال بررسی"} />
                             </div>
                         )
                     })
                 }
             </div>
-            {selectedBox?
-            <div className="w-full mb-[32px]">
-                <MainTable center3={true} list={list} titleRow={titleRow} record1={true}/>
-            </div>
-            :
-            null}
-            
-        {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
-                       text={<div className="w-full flex flex-col items-center">
-                        <UserDataInsuranceOrigin inModal={true}/>
-                        </div>}
-                       modalButton={<div className="w-full flex justify-center">
-                        <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'}/></div>
-                       </div>}
-                        /> : null}
+            {selectedBox ?
+
+                <div className="w-full mb-[32px]">
+
+                    <MainTable center3={true} list={props} titleRow={titleRow} record1={true} />
+                </div>
+                :
+                null}
+
+            {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
+                text={<div className="w-full flex flex-col items-center">
+                    <UserDataInsuranceOrigin inModal={true} />
+                </div>}
+                modalButton={<div className="w-full flex justify-center">
+                    <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'} /></div>
+                </div>}
+            /> : null}
 
 
         </div>
