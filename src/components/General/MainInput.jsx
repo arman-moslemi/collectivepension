@@ -194,7 +194,7 @@ const MainInput = ({label,leftIcon,necessary,disable,value,holder,listBox,disabl
                 {holder}
               </span>
             )}
-            <div className="mr-3">{leftIcon}</div>
+            <div className="mr-auto">{leftIcon}</div>
           </div>
           
           

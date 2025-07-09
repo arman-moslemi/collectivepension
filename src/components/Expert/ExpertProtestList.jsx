@@ -122,22 +122,22 @@ const ExpertProtestList = () => {
                         leftIcon={< SearchIcon />}/>
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
                     <MainInput date={true} value={startDate}
                         onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
                     <MainInput date={true} value={endDate}
                         onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
                 </div>
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
                     <MainInput
                         listBoxM1={true}
                         listItems={protestType}
                         listBoxHolder={"نوع اعتراض"}/>
                 </div>
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 md:col-span-12 b1115:col-span-6 ">
                     <MainInput listBoxM1={true} listItems={status} listBoxHolder={"وضعیت"}/>
                 </div>
 

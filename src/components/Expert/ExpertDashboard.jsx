@@ -28,20 +28,20 @@ const ExpertDashboard = () => {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px] md:px-[10px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'red'} text={'شما دارای ۲ درخواست با مهلت در حال اتمام هستید.لطفاً در اسرع وقت نسبت به بررسی و رسیدگی به این درخواست‌ها اقدام نمایید تا از بروز تأخیر جلوگیری شود.'} /></div>
             <div className="w-full grid grid-cols-3 gap-4 md:gap-2">
-                <div className="col-span-1 hover:cursor-pointer md:col-span-3 h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+                <div onClick={()=> navigate('/expert/requestsPension')} className="col-span-1 hover:cursor-pointer md:col-span-3 h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon1/>
-                    <div className="flex items-center mt-[15px]">
+                    <div className="flex items-center mt-[15px]" >
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue h800:text-[14px] ">درخواست‌های بازنشستگی</p>
                     <div className="mr-[5px] w-[23px] h-[23px] md:h-[18px] md:w-[18px] rounded-full flex items-center justify-center bg-redError">
                         <p className="text-[15px] text-white font-IRANYekanExtra md:text-[10px]">5</p>
                     </div>
                     </div>
                 </div>
-                <div className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+                <div onClick={()=> navigate('/expert/requests')} className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon2/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">درخواست‌ ها</p>
                 </div>
-                <div className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+                <div onClick={()=> navigate('/expert/protestList')} className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
                     <ExportDashboardIcon3/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">اعتراضات رسیده</p>
                 </div>

@@ -76,17 +76,19 @@ const MainAdminExpertActivity = () => {
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]">
-            <div className='w-full flex justify-between items-center mb-[28px]'>
-                <div className="w-fit flex justify-start items-center">
-                <div className='w-[440px] ml-3'><MainInput search={true} holder={'جستجو بر اساس نام صندوق'} leftIcon={<SearchIcon/>}/></div>
-                <div className='flex justify-start items-center'>
-                    <div className='ml-3 w-[150px]'><MainInput holder={'از تاریخ'} leftIcon={<DateIcon/>}/></div>
-                    <div className='ml-3 w-[150px]'><MainInput holder={'تا تاریخ'} leftIcon={<DateIcon/>}/></div>
-                </div>
-                </div>
-                <div className="w-[123px]">
+            <div className='w-full grid gap-2 grid-cols-12 mb-[28px]'>
+               
+                <div className='col-span-4 w-full lg:col-span-12'><MainInput search={true} holder={'جستجو بر اساس نام صندوق'} leftIcon={<SearchIcon/>}/></div>
+                
+                    <div className='col-span-2 md:col-span-12'><MainInput date={true} holder={'از تاریخ'} leftIcon={<DateIcon/>}/></div>
+                    <div className='col-span-2 md:col-span-12'><MainInput date={true} holder={'تا تاریخ'} leftIcon={<DateIcon/>}/></div>
+             
+                
+               <div className="col-span-4 flex justify-end md:col-span-12">
+               <div className="w-[123px]">
                     <MainButton label={'گزارش‌ گیری'}/>
                 </div>
+               </div>
             </div>
                 <div className='w-full my-[20px]'>
                 <MainTable center1={true} ic={false} list={list} titleRow={titleRow}/>

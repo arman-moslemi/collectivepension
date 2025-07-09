@@ -177,8 +177,9 @@ import {
               </div>
             </div>
   
-            <div className="my-5 w-[30%] xl:w-[80%] mx-auto max-h-[400px] ">
+            <div className="my-5 flex justify-center  xl:w-[100%] mx-auto max-h-[400px] ">
               <MainTable
+              minw={true}
               record2={false}
               record3={false}
               record1={false}

@@ -62,9 +62,9 @@ const MainAdminDashboard = () => {
                    </div>
                    <div className="w-full h-full overflow-x-auto flex justify-center md:block">
   <div className="min-w-[600px]">
-    <ResponsiveContainer width={600} height={300}>
+    <ResponsiveContainer width={1000} height={300}>
       <BarChart
-        width={600} // عرض ثابت تا ResponsiveContainer کار کنه
+        width={600} 
         height={300}
         data={data}
         margin={{
