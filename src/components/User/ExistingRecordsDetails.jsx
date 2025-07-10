@@ -114,7 +114,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
       console.log('month')
       console.log(objMonth)
       if (objMonth) {
-        const response = await axiosReq("Users/TimeFrameProtest", "put", {
+        const response = await axiosReq("Users/TimeFrameProtest", "post", {
           InsuranceId: objMonth.InsuranceId,
           InsuranceIdNumber: objMonth.InsuranceIdNumber,
           Branch: objMonth.Branch,
