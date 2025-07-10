@@ -189,7 +189,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                   </div> :
                   Custom1 ?
                     <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
-                      <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
+                      <input value={value} defaultValue={defaultVal} onChange={onChange} className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
                     </div>
                     :
                     password ?

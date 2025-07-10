@@ -1,83 +1,9 @@
 import { MainButton, MainExplanation, ExistingRecordsDetailsMonths, ExistingRecordsYearBox } from "../../components";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
-const list = [
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
-  {
-    year: "1375",
-    days: "356",
-    insuranceRate: "7%",
-    wage: "125000",
-  },
 
-];
 
-const ExistingRecordsMainDetails = ({selectedYearBox,setSelectedMonthBox, objYear }) => {
+const ExistingRecordsMainDetails = ({selectedYearBox,setSelectedMonthBox, objYear,setObjMonth }) => {
   const [data, setData] = useState([]);
 
   const getInsurancesYears = async () => {
@@ -119,7 +45,15 @@ const ExistingRecordsMainDetails = ({selectedYearBox,setSelectedMonthBox, objYea
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white pt-[30px] pb-[40px] px-[55px]">
       <div className="w-full grid grid-cols-6 gap-4">
         {data?.map((item, index) => (
-          <div onClick={() => setSelectedMonthBox(true)} className="cursor-pointer"><ExistingRecordsYearBox data={item} /></div>
+          <div onClick={() => {setSelectedMonthBox(true);setObjMonth({
+             InsuranceId: objYear.InsuranceId,
+          InsuranceIdNumber: objYear.InsuranceIdNumber,
+          Branch: objYear.Branch,
+          Workplace: objYear.Workplace,
+          WorkplaceNumber: objYear.WorkplaceNumber,
+          CityId: objYear.CityId,
+          Year:item.year
+          })}} className="cursor-pointer"><ExistingRecordsYearBox data={item} /></div>
         ))}
       </div>
     </div>

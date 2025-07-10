@@ -74,14 +74,14 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                         item6: item.workplaceNumber,
                         item7: item.insuranceIdNumber,
                         item8: item.duration,
-                        item9: <div onClick={() =>{console.log(selectedYearBox);setObjYear({
+                        item9: <div onClick={() =>{console.log(selectedYearBox);setSelectedYearBox(!selectedYearBox);setObjYear({
                             InsuranceId:id,
                             InsuranceIdNumber: item.insuranceIdNumber,
                             Branch: item.branch,
                             Workplace: item.workplace,
                             WorkplaceNumber: item.workplaceNumber,
                             CityId: item.cityId
-                        });setSelectedYearBox(!selectedYearBox)}} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
+                        });}} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
 
                     })
                 })
