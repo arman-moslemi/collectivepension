@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
-import { MainButton, MainExplanation, ExistingRecordsDetailsMonths, ExistingRecordsDetailsMonthsEdit } from "../../components";
+import {
+  MainButton, MainModal, ExistingRecordsDetailsMonths,
+  ExistingRecordsDetailsMonthsEdit, MainInput, UploadFile
+} from "../../components";
+import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 
 const list = [
   {
@@ -72,7 +76,10 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
   const [protestMode, setProtestMode] = useState(false);
   const [data, setData] = useState([]);
   const [protest, setProtest] = useState([]);
-
+  const [showDeclined, setShowDeclined] = useState(false);
+  const [file, setFile] = useState();
+  const [files, setFiles] = useState([]);
+  const [des, setDes] = useState();
   const getInsurancesMonth = async () => {
     try {
       console.log('month')
@@ -122,35 +129,49 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
           WorkplaceNumber: objMonth.WorkplaceNumber,
           CityId: objMonth.CityId,
           Year: objMonth.Year,
-          TimeFrameProtest: protest
+          TimeFrameProtest: protest,
+          ProtestDescription: des,
+          ProtestFiles: files
         });
         console.log(response)
 
         if (response?.status === 200 || response?.status === 204) {
-          alert("اعتراض با موفقیت ثبت شد")
+setShowDeclined(false)
+          alert("اعتراض شما به سابقه اعلامی این صندوق با موفقیت ثبت شد.نتیجه ی اعتراض شما، از طریق پیامک اطلاع رسانی خواهد شد.")
         }
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
+  useEffect(() => {
+    handleFileChange()
+  }, [file]);
+  const handleFileChange = () => {
+
+    if (file?.length > 0) {
+      console.log("change")
+      console.log(111)
+      setFiles([...files, file])
+    }
+  }
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
       <div className="w-full flex justify-end items-center mb-[21px]">
-        {!protestMode?
-        <div className="w-[97px] flex">
-          <MainButton onClickFunction={() => setProtestMode(!protestMode)} label={'اعتراض'} red={true} />
-        </div>:null}
-                <div className="w-[150px] flex mr-10">
+        {!protestMode ?
+          <div className="w-[97px] flex">
+            <MainButton onClickFunction={() => setProtestMode(!protestMode)} label={'اعتراض'} red={true} />
+          </div> : null}
+        <div className="w-[150px] flex mr-10">
 
-          {protestMode ? <MainButton onClickFunction={() => createProtest()} label={'ثبت نهایی اعتراض'} green={true} /> : null}
-      </div>
+          {protestMode ? <MainButton onClickFunction={() => setShowDeclined(true)} label={'ثبت نهایی اعتراض'} green={true} /> : null}
+        </div>
       </div>
       {protestMode ?
         <div className="w-full  grid grid-cols-2 gap-4">
           {data?.map((item) => {
             return (
-              <div><ExistingRecordsDetailsMonthsEdit list2={item} setData={setData} setProtest={setProtest} /></div>
+              <div><ExistingRecordsDetailsMonthsEdit list2={item} setData={setData} setProtest={setProtest} data={data} /></div>
             )
           })
           }
@@ -169,7 +190,51 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
         </div>
       }
 
+      {showDeclined && (
 
+        <MainModal
+          big={false}
+          title={"ثبت اعتراض"}
+          setShowModal={setShowDeclined}
+          text={
+
+            <div className="mt-6  p-4">
+              <div className="w-full">
+                <MainInput
+                  longText={true}
+                  necessary={true}
+                  onChange={(e) => setDes(e.target.value)}
+                  label={'توضیح خود را اینجا بنویسید .'}
+                  holder={'توضیح خود را اینجا بنویسید .'} />
+                <div className='w-full  items-center mt-4 lg:flex-wrap'>
+                  <p className='font-IRANYekanMedium lg:my-2  mb-5 text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
+                  <div><UploadFile small={false} setFile={setFile} /></div>
+                </div>
+                {
+                  files.map((item) => {
+                    return (
+
+                      <div className="h-[36px] w-fit rounded-full bg-backBlue my-2 flex items-center pr-[20px] pl-[17px]">
+                        <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px]">{item}</p>
+                        <ExportAgentFileIIcon />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          }
+          modalButton={
+            <div className="w-full flex justify-center">
+              <div className="w-[140px]">
+                <MainButton onClickFunction={() => createProtest()} label={'ثبت و ارسال'} />
+              </div>
+            </div>
+          }
+
+        />
+      )
+      }
 
     </div>
   );
