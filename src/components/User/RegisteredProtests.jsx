@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { axiosReq } from "../../commons/axiosReq";
 import {useNavigate, Link} from "react-router-dom";
 import { MainInput, MainTable } from "../../components";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
@@ -61,7 +62,31 @@ const list = [
   ];
 
 const RegisteredProtests = () => {
+ const [data, setData] = useState([]);
+    const [id, setId] = useState();
 
+    const getProtests = async () => {
+        try {
+
+            const response = await axiosReq("Users/GetProtests", "post",{
+              InsuranceId:"",
+              ProtestLeveId:"",
+              ProtestStatusId:""
+            });
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+
+                setData(response.data);
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getProtests();
+    }, []);
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[24px]">
