@@ -1,8 +1,11 @@
 import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
+import TableRightIcon from '../../assets/icon/general/TableRightIcon';
+import TableLeftIcon from '../../assets/icon/general/TableLeftIcon';
 
-
-const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6, ic,record1,record2,record3,record4,record5,record6,minw}) => {
+const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6,
+     ic,record1,record2,record3,record4,record5,record6,minw,
+     count, page, setPage, row, setRow}) => {
    
     const lastColIndex = titleRow.reduce((last, curr, i) => curr ? i : last, -1);
 
@@ -80,6 +83,52 @@ const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6, ic
                 ))}
             </table>
             }
+                <div className="  w-full py-3 px-3">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <p className="text-sm text-right px-4 font-IRANYekanMedium">
+                                تعداد ردیف در هر صفحه :
+                            </p>
+                            <div className="flex flex-col w-[80px] ml-20 font-IRANYekanMedium">
+                                <div class=" ">
+
+                                    <select
+                                        name="rowNumber"
+                                        id="rowNumber"
+                                        onChange={(e) => { setRow(e.target.value); setPage(1) }}
+                                        className="   text-right  bg-white border border-gray-300 text-gray-900 text-sm rounded-md  focus:ring-mainColor focus:border-mainColor block w-full px-2 py-1">
+                                        <option value="5" className=" ">۵ </option>
+                                        <option value="10" selected className=" ">۱۰</option>
+                                        <option value="25" className=" ">۲۵</option>
+
+
+                                    </select>
+                                    {/* <input
+                              type="text"
+                              id="input-group-1"
+                              disabled="true"
+                              class="pr-9   text-right right-6 bg-white border border-gray-300 text-gray-900 text-sm rounded-md  focus:ring-mainColor focus:border-mainColor block w-full pl-10 p-2.5  "
+                              placeholder="آرمان"/> */}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex items-center font-IRANYekanMedium">
+                            
+                            <p className="text-sm text-right pr-4 mx-2">
+                                {((page - 1) * row) + 1}-{count < row * page ? count : row * page} از {count}
+                            </p>
+                            <div className="flex mr-2">
+                                <button onClick={() => setPage(page + 1)} disabled={count < row * page ? true : false} className="mx-2">
+                                    <TableRightIcon />
+                                </button>
+                                <button onClick={() => setPage(page - 1)} disabled={page == 1 ? true : false} className="mx-2">
+                                    <TableLeftIcon />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
         </div>
         </div>
     )
