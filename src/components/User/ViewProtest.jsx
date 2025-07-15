@@ -45,24 +45,15 @@ const ViewProtest = () => {
             if (response?.status === 200 || response?.status === 204) {
                 var prot = []
                 setMainData(response.data)
-                response.data?.records?.map((item, index) => {
-                    prot.push({
-                        item1: index + 1,
-                        item2: item.protestLevel,
-                        item3: item.insuranceName,
-                        item4: item.year ? item.year : "..",
-                        item5: item.protestDate,
-                        item6: <div className={`rounded-[50px] ${item.statusDescription == "رد اعتراض" ? "bg-redError" : "bg-greenTable"} mx-auto w-[170px] h-[28px] flex justify-center items-center`}><p className='font-IRANYekanMedium text-[15px] text-white'>{item.statusDescription}</p></div>,
-
-                    })
-                })
-                setData(prot);
+               
+                setData(response.data?.records);
             }
 
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
     };
+    
     useEffect(() => {
         getProtests();
     }, []);
@@ -126,7 +117,9 @@ const ViewProtest = () => {
             </div>
             <div className='w-full p-[24px]'>
                 <p className='font-IRANYekanExtra text-[15px] text-mainBlue mb-[24px]'>جزئیات اعتراض ثبت شده</p>
-                <div className='w-full mb-7'><ViewProtestTable list1={list1} list2={list2} titleRow={titleRow} /></div>
+                <div className='w-full mb-7'>
+                    <ViewProtestTable list1={list1} list2={list2} titleRow={titleRow} data={data} />
+                    </div>
 
             </div>
         </div>

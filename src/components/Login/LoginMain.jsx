@@ -22,8 +22,8 @@ const LoginMain = () => {
     const [snipper, setSnipper] = useState(false);
     const [guid, setGuid] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [countdown, setCountdown] = useState(5); 
-    
+    const [countdown, setCountdown] = useState(5);
+
     let navigate = useNavigate();
 
     const handleClick = event => {
@@ -87,8 +87,26 @@ const LoginMain = () => {
                             setSnipper(false)
                             if (response.data.role == "User") {
                                 cookies.set('Role', response.data.role, { path: '/' })
-
-                                navigate("/user/startRequest");
+                                cookies.set('Status', response.data.userStatusId, { path: '/' })
+                                if (response.data.userStatusId==1){
+                                    
+                                    navigate("/user/startRequest");
+                                }
+                                 else if (response.data.userStatusId==2){
+                                    
+                                    navigate("/user/dashboardProcess");
+                                }
+                                else if (response.data.userStatusId==4){
+                                    
+                                    navigate("/user/dashboardProcess");
+                                }
+                                else if (response.data.userStatusId==7){
+                                    
+                                    navigate("/user/dashboardRejectedReasonEmployment");
+                                }
+                                else {
+                                    navigate("/user/dashboard"); 
+                                }
                             }
                             if (response.data.role == "Expert") {
                                 cookies.set('Role', response.data.role, { path: '/' })
@@ -136,18 +154,18 @@ const LoginMain = () => {
 
         }
     }
-   
-  useEffect(() => {
-    if (isModalOpen && countdown > 0) {
-      const timer = setTimeout(() => {
-        setCountdown(countdown - 1); // کاهش زمان هر ثانیه
-      }, 1000); // هر ۱۰۰۰ میلی‌ثانیه = ۱ ثانیه
 
-      return () => clearTimeout(timer); // پاکسازی تایمر
-    } else if (countdown === 0) {
-      setIsModalOpen(false); // بستن مدال وقتی زمان به صفر رسید
-    }
-  }, [isModalOpen, countdown]);
+    useEffect(() => {
+        if (isModalOpen && countdown > 0) {
+            const timer = setTimeout(() => {
+                setCountdown(countdown - 1); // کاهش زمان هر ثانیه
+            }, 1000); // هر ۱۰۰۰ میلی‌ثانیه = ۱ ثانیه
+
+            return () => clearTimeout(timer); // پاکسازی تایمر
+        } else if (countdown === 0) {
+            setIsModalOpen(false); // بستن مدال وقتی زمان به صفر رسید
+        }
+    }, [isModalOpen, countdown]);
     return (
         <div className="w-full bg-none flex justify-center">
             <div className='w-[35%] xl:w-[55%] xl:md:w-[85%] xl:md:xs:w-[96%]'>
@@ -167,7 +185,7 @@ const LoginMain = () => {
                             <MainInput password={true} onChange={(e) => setPass(e.target.value)} label={'رمز عبور'} error={erPass} errorText={"رمز عبور را وارد کنید"} leftIcon={<PassIcon />} />
                         </div>
                         <div className='mt-[30px] flex items-end'>
-                            <MainInput  onChange={(e) => setCaptchaIn(e.target.value)} label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
+                            <MainInput onChange={(e) => setCaptchaIn(e.target.value)} label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
                             <div className="flex mr-2 mb-2">
                                 <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
                                     persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" />
@@ -186,9 +204,9 @@ const LoginMain = () => {
 
                 </div>
                 {isModalOpen ?
-              <Alert error={true} text={"نام کاربری یا رمز عبور نادرست می باشد"} title={"خطا"} />
-              :
-              null}
+                    <Alert error={true} text={"نام کاربری یا رمز عبور نادرست می باشد"} title={"خطا"} />
+                    :
+                    null}
                 <div className="w-[100%] bg-none flex justify-center">
                     <p className="font-IRANYekanBold text-[10px] text-mainBlue">تمامی حقوق مادی و معنوی این سامانه، متعلق به وزارت تعاون، کار و رفاه اجتماعی می‌باشد.</p>
                 </div>

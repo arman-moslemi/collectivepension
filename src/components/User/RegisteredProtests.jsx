@@ -63,20 +63,26 @@ const list = [
 
 const RegisteredProtests = () => {
   const [data, setData] = useState([]);
+  const [insurances, setInsurances] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [statues, setStatues] = useState([]);
   const [id, setId] = useState();
   const [name, setName] = useState();
   const [status, setStatus] = useState();
   const [type, setType] = useState();
   const [text, setText] = useState();
+  const [count, setCount] = useState();
+  const [page, setPage] = useState(1);
+  const [row, setRow] = useState(10);
   const navigate = useNavigate();
 
   const getProtests = async () => {
     try {
 
-      const response = await axiosReq("Users/GetProtests", "post", {
+      const response = await axiosReq("Users/GetProtests?page=" + page + "&&pageSize=" + row , "post", {
         req: {
           InsuranceId: name,
-          ProtestLeveId:type,
+          ProtestLeveId: type,
           ProtestStatusId: status
         }
       });
@@ -84,6 +90,7 @@ const RegisteredProtests = () => {
 
       if (response?.status === 200 || response?.status === 204) {
         var prot = []
+        setCount(response.data?.count)
         response.data?.data?.map((item, index) => {
           prot.push({
             item1: index + 1,
@@ -105,34 +112,72 @@ const RegisteredProtests = () => {
   };
   useEffect(() => {
     getProtests();
-  }, [name,type,status]);
+  }, [name, type, status,page, row,]);
+const getFilters = async () => {
+    try {
 
+      const response = await axiosReq("Insurances/GetInsuranceByUserId", "get");
+      console.log(response)
+
+      if (response?.status === 200 || response?.status === 204) {
+        var insu = []
+        response.data?.map((item, index) => {
+          insu.push({
+id: item.insuranceId,
+            name: item.name,
+          })
+        })
+        setInsurances(insu);
+      }
+  const response2 = await axiosReq("Users/GetProtestLevels", "get");
+      console.log(response)
+
+      if (response2?.status === 200 || response2?.status === 204) {
+        var typee = []
+        response2.data?.map((item, index) => {
+          typee.push({
+id: item.protestLevelId,
+            name: item.protestLevel,
+          })
+        })
+        setTypes(typee);
+      }
+  const response3 = await axiosReq("Users/GetProtestStatuses", "get");
+      console.log(response)
+
+      if (response3?.status === 200 || response3?.status === 204) {
+        var sta = []
+        response.data?.map((item, index) => {
+          sta.push({
+id: item.protestStatusId,
+            name: item.statusDescription,
+          })
+        })
+        setStatues(insu);
+      }
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+   useEffect(() => {
+    getFilters();
+  }, []);
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[24px]">
       <div className='w-full flex justify-between items-center mb-[20px]'>
         <div className='w-[440px]'><MainInput search={true} onChange={(e) => setText(e.target.value)}
           holder={'جستجو بر اساس متن اعتراض'} leftIcon={<SearchIcon />} /></div>
         <div className='flex justify-start items-center'>
-          <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setName(e.id)} listBoxM1={true} listItems={cityList} listBoxHolder={'نام صندوق'} /></div>
-          <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setType(e.id)} listBoxM1={true} listItems={cityList} listBoxHolder={'نوع اعتراض'} /></div>
-          <div className='w-[150px]'><MainInput onChange={(e) => setStatus(e.id)} listBoxM1={true} listItems={cityList} listBoxHolder={'وضعیت'} /></div>
+          <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setName(e.id)} listBoxM1={true} listItems={insurances} listBoxHolder={'نام صندوق'} /></div>
+          <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setType(e.id)} listBoxM1={true} listItems={types} listBoxHolder={'نوع اعتراض'} /></div>
+          <div className='w-[150px]'><MainInput onChange={(e) => setStatus(e.id)} listBoxM1={true} listItems={statues} listBoxHolder={'وضعیت'} /></div>
         </div>
       </div>
       <div className='w-full mb-[10px]'>
-        <MainTable center1={true} list={data} titleRow={titleRow} />
+        <MainTable center1={true} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
       </div>
-      <div className='w-full mb-[10px] flex justify-between items-center'>
-        <div className='flex justify-start items-center'>
-          <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>
-          <div className='w-[90px]'><MainInput listBoxM1={true} listItems={cityList} listBoxHolder={'5 تا'} /></div>
-        </div>
-        <div className='flex justify-start items-center'>
-          <div className='ml-[5px] bg-tableGray w-[38px] h-[38px] rounded-[6px] flex justify-center items-center'><TableRightIcon /></div>
-          <div className='w-[38px] h-[38px] rounded-[6px] border-[1px] border-ddGray flex justify-center items-center'><TableLeftIcon /></div>
 
-        </div>
-
-      </div>
     </div>
   )
 }
