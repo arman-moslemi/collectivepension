@@ -137,7 +137,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                     transition
                     className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white  text-base shadow-lg ring-1 ring-black/5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
                   >
-                    {listItems.map((item) => (
+                    {listItems?.map((item) => (
                       <ListboxOption
                         key={item.id}
                         value={item}

@@ -147,13 +147,13 @@ id: item.protestLevelId,
 
       if (response3?.status === 200 || response3?.status === 204) {
         var sta = []
-        response.data?.map((item, index) => {
+        response3.data?.map((item, index) => {
           sta.push({
 id: item.protestStatusId,
             name: item.statusDescription,
           })
         })
-        setStatues(insu);
+        setStatues(sta);
       }
 
     } catch (error) {

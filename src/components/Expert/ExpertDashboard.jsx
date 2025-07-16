@@ -4,7 +4,8 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 import ExportDashboardIcon1 from "../../assets/icon/expert/ExportDashboardIcon1";
 import ExportDashboardIcon2 from "../../assets/icon/expert/ExportDashboardIcon2";
 import ExportDashboardIcon3 from "../../assets/icon/expert/ExportDashboardIcon3";
-
+import React, { useState, useEffect } from "react";
+import { axiosReq } from "../../commons/axiosReq";
 
 
     const data = [
@@ -23,7 +24,32 @@ import ExportDashboardIcon3 from "../../assets/icon/expert/ExportDashboardIcon3"
 const ExpertDashboard = () => {
 
     let navigate = useNavigate();
+  const [data, setData] = useState([]);
 
+  const getInsurances = async () => {
+    try {
+
+      const response = await axiosReq("Experts/GetRequestsTypesCount", "get" );
+      console.log(response)
+
+      if (response?.status === 200 || response?.status === 204) {
+        var prot = []
+        response.data?.map((item, index) => {
+          prot.push({
+          name:item.requestType,
+          uv:item.count
+          })
+        })
+        setData(prot);
+      }
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    getInsurances();
+  }, []);
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px] md:px-[10px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'red'} text={'شما دارای ۲ درخواست با مهلت در حال اتمام هستید.لطفاً در اسرع وقت نسبت به بررسی و رسیدگی به این درخواست‌ها اقدام نمایید تا از بروز تأخیر جلوگیری شود.'} /></div>

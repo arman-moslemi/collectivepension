@@ -114,7 +114,7 @@ const LoginMain = () => {
                                 cookies.set('token', response.data.token, { path: '/karshenas' })
                                 cookies.set('token', response.data.token, { path: '/karshenas/viewRequest' })
 
-                                navigate("/karshenas/request");
+                                navigate("/Expert/dashboard");
                             }
                             if (response.data.role == "Admin") {
                                 cookies.set('Role', response.data.role, { path: '/' })
