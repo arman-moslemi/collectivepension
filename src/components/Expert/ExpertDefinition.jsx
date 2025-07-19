@@ -20,7 +20,6 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts';
-import {div} from "framer-motion/client";
 import DefExpertPenIcon from "../../assets/icon/expert/DefExpertPenIcon";
 
 const titleRow = [

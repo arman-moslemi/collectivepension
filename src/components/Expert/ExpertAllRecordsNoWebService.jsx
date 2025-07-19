@@ -5,7 +5,6 @@ import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
-import { div, tr } from "framer-motion/client";
 
 
 const ExpertAllRecordsNoWebService = () => {

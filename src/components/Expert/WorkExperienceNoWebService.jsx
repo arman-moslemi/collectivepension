@@ -8,7 +8,7 @@ import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import DownSide from "../../assets/icon/general/DownSide";
-import { div } from "framer-motion/client";
+ 
 
 
 const titleRow = ["ردیف","سال","دستمزد مشمول کسر حق بیمه","عملیات"];

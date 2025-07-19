@@ -5,7 +5,6 @@ import { useDropzone } from "react-dropzone";
 import Styles from "./Styles/ImageUpload..module.css";
 import { apiUrl } from "../../commons/inFormTypes";
 import axios from "axios";
-import { div, small } from "framer-motion/client";
 // import { Typography } from '@mui/material';
 
 const UploadFile = (props) => {
