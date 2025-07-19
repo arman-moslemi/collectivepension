@@ -113,8 +113,8 @@ const ExpertRequests = ({ IsEnding }) => {
     const [types, setTypes] = useState([]);
     const [statues, setStatues] = useState([]);
     const [id, setId] = useState();
-    const [name, setName] = useState();
-    const [status, setStatus] = useState();
+    const [name, setName] = useState("");
+    const [status, setStatus] = useState(0);
     const [type, setType] = useState();
     const [text, setText] = useState();
     const [count, setCount] = useState();
@@ -124,13 +124,10 @@ const ExpertRequests = ({ IsEnding }) => {
     const getProtests = async () => {
         try {
 
-            const response = await axiosReq("Experts/GetRequests?page=" + page + "&&pageSize=" + row, "post", {
-           
-                    IsEndingInsurance: IsEnding,
-                    InsuranceId: name,
-                    ProtestLeveId: type,
-                    ProtestStatusId: status
-              
+            const response = await axiosReq("Experts/GetRequests?page=" + page + "&&pageSize=" + row+"&&search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&userInsuranceStatusId="+status, "post", {
+
+                IsEndingInsurance: IsEnding,
+          
             });
             console.log(response)
 
@@ -138,6 +135,9 @@ const ExpertRequests = ({ IsEnding }) => {
                 var prot = []
                 setCount(response.data?.count)
                 response.data?.data?.map((item, index) => {
+                    console.log(88)
+                    console.log(item.userInsuranceId)
+                    console.log(88)
                     prot.push({
                         item1: index + 1,
                         item2:
@@ -161,10 +161,10 @@ const ExpertRequests = ({ IsEnding }) => {
                         item4: item.isDeceased,
                         item5: item.requestDate,
                         item6: item.statusDescription,
-                        item7: <Link to="../../expert/requestsDetails">
+                        item7: <button onClick={()=>navigate("/expert/requestsDetails",{state:{id:item.userInsuranceId}})}>
                             <div
                                 className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-                        </Link>,
+                        </button>,
 
                     })
                 })
@@ -177,7 +177,7 @@ const ExpertRequests = ({ IsEnding }) => {
     };
     useEffect(() => {
         getProtests();
-    }, [name, type, status, page, row,]);
+    }, [name, type, status, page, row,startDate,endDate]);
     const getFilters = async () => {
         try {
 
@@ -202,6 +202,25 @@ const ExpertRequests = ({ IsEnding }) => {
     useEffect(() => {
         getFilters();
     }, []);
+      const getExcel = async () => {
+        try {
+
+            const response = await axiosReq("Experts/GetRequestsExcel?search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&userInsuranceStatusId="+status, "post", {
+
+                IsEndingInsurance: IsEnding,
+        
+
+            });
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+           alert("موفقیت آمیز")
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
@@ -211,6 +230,7 @@ const ExpertRequests = ({ IsEnding }) => {
                 <div className="lg:col-span-12 xs:col-span-12 col-span-3">
                     <MainInput
                         search={true}
+                        onChange={(e)=>setName(e.target.value)}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />} />
                 </div>
@@ -246,7 +266,7 @@ const ExpertRequests = ({ IsEnding }) => {
                 <div
                     className="lg:col-span-6 xs:col-span-12 col-span-3 justify-self-end sm:justify-self-end">
                     <div className="w-[150px]">
-                        <MainButton label={"گزارش‌ گیری"} />
+                        <MainButton onClickFunction={()=>getExcel()} label={"گزارش‌ گیری"} />
                     </div>
                 </div>
             </div>

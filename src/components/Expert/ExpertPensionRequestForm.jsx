@@ -1,54 +1,83 @@
-import { useState } from "react";
-import { MainButton,MainInput, MainTable, MainExplanation, MainRadioInput, MainRadioInput2, UploadFile } from "../../components";
+import { useState, useEffect } from "react";
+import { MainButton, MainInput, MainTable, MainExplanation, MainRadioInput, MainRadioInput2, UploadFile } from "../../components";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosReq } from "../../commons/axiosReq";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 
-
-const ExpertPensionRequestForm = ({admin,webService,des}) => {
-
+const ExpertPensionRequestForm = ({admin, webService, des,id}) => {
     const [disapproval, setDisapproval] = useState(false);
-
+    const [formData, setFormData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
     let navigate = useNavigate();
 
-    return (
+    useEffect(() => {
+        const fetchFormData = async () => {
+            try {
+                const response = await axiosReq("Experts/GetUserFormByRequest?userInsuranceId="+id, "get");
+                if (response.data) {
+                    setFormData(response.data);
+                }
+            } catch (err) {
+                console.error("Error fetching form data:", err);
+                setError("خطا در دریافت اطلاعات فرم");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchFormData();
+    }, []);
+
+    if (loading) {
+        return <div className="w-full flex justify-center py-10">در حال بارگزاری...</div>;
+    }
+
+    if (error) {
+        return <div className="w-full flex justify-center py-10 text-red-500">{error}</div>;
+    }
+
+ 
+        return (
         <div className="w-full">
             <div className="w-full px-[73px] h800:px-0 mb-6">
                 <p className="text-[18px] font-IRANYekanExtra">اطلاعات هویتی متقاضی</p>
             </div>
             <div className="w-full px-[120px] h800:px-[15px] mb-8 grid grid-cols-3 gap-4 md:px-2">
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'نام'} value={'علی'}/>
+                    <MainInput label={'نام'} value={formData.name}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'نام خانوادگی '} value={'علیزاده تهرانی'}/>
+                    <MainInput label={'نام خانوادگی '} value={formData.family}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'نام پدر'} value={'محمد هادی'}/>
+                    <MainInput label={'نام پدر'} value={formData.fathername}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'تاریخ تولد'} value={'1346/04/16'}/>
+                    <MainInput label={'تاریخ تولد'} value={formData.birthDay}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'کدملی'} value={'0020456787'}/>
+                    <MainInput label={'کدملی'} value={formData.nationalCode}/>
                 </div>
                 <div className="col-span-1 md:col-span-3"> 
-                    <MainInput label={'شماره شناسنامه '} value={'مثلا 8888'}/>
+                    <MainInput label={'شماره شناسنامه '} value={formData.idcardNumber}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'جنسیت'} value={'مرد'}/>
+                    <MainInput label={'جنسیت'} value={formData?.isMan?"مرد":"زن"}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'شماره تلفن ثابت '} value={'مثلا 02144665522'}/>
+                    <MainInput label={'شماره تلفن ثابت '} value={formData?.phoneNumber}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
-                    <MainInput label={'شماره تلفن همراه'} value={'مثلا 09123333333'}/>
+                    <MainInput label={'شماره تلفن همراه'} value={formData?.mobileNumber}/>
                 </div>
                 <div className="col-span-3">
-                    <MainInput label={'آدرس'} value={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'}/>
+                    <MainInput label={'آدرس'} value={formData?.address}/>
                 </div>
                 <div className="col-span-2 md:col-span-3">
                     <MainRadioInput title={'نوع درخواست مستمری جمع'} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'} ml={'100'} mr={'30'}/>

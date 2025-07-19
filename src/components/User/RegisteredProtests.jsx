@@ -112,7 +112,7 @@ const RegisteredProtests = () => {
   };
   useEffect(() => {
     getProtests();
-  }, [name, type, status,page, row,]);
+  }, [name, type, status,page, row]);
 const getFilters = async () => {
     try {
 
