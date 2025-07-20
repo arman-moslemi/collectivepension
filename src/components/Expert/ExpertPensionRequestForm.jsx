@@ -80,7 +80,7 @@ const ExpertPensionRequestForm = ({admin, webService, des,id}) => {
                     <MainInput label={'آدرس'} value={formData?.address}/>
                 </div>
                 <div className="col-span-2 md:col-span-3">
-                    <MainRadioInput title={'نوع درخواست مستمری جمع'} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'} ml={'100'} mr={'30'}/>
+                    <MainRadioInput title={'نوع درخواست مستمری جمع'} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'}  ml={'100'} mr={'30'}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
                     <MainInput label={'کد پرسنلی'} value={'مثلا 09123333333'}/>
