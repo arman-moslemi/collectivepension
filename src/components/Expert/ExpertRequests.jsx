@@ -43,57 +43,57 @@ const num = [
       name: '15 تا'
   }
 ]
-const list = [
-    {
-        item1: "1",
-        item2: "علی علیزاده",
-        item3: "0020163258",
-        item4: "در قید حیات",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام سوابق',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
-    }, {
-        item1: "1",
-        item2: "علی علیزاده",
-        item3: "0020163258",
-        item4: "در قید حیات",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام سوابق',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
-    }, {
-        item1: "1",
-        item2: "علیرضا احمدآبادی",
-        item3: "0054789635",
-        item4: "فوت شده",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام مبلغ',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
-    }, {
-        item1: "1",
-        item2: "فاطمه سادات نوری زاده",
-        item3: "0054789635",
-        item4: "فوت شده",
-        item5: "1402/02/08",
-        item6: 'در انتظار تایید بازمانده',
-        item7: <Link to="../../expert/requestsDetails">
-                <div
-                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
-            </Link>
-    }
-];
 
 const ExpertRequests = () => {
-
+    
     let navigate = useNavigate();
+    const list = [
+        {
+            item1: "1",
+            item2: "علی علیزاده",
+            item3: "0020163258",
+            item4: "در قید حیات",
+            item5: "1402/02/08",
+            item6: 'در انتظار اعلام سوابق',
+            item7: <button onClick={()=>navigate("/expert/requestsDetails",{state:{id:true}})}>
+                    <div
+                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
+                </button>
+        }, {
+            item1: "1",
+            item2: "علی علیزاده",
+            item3: "0020163258",
+            item4: "در قید حیات",
+            item5: "1402/02/08",
+            item6: 'در انتظار اعلام سوابق',
+            item7:  <button onClick={()=>navigate("/expert/requestsDetails",{state:{id:false}})}>
+                    <div
+                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
+                </button>
+        }, {
+            item1: "1",
+            item2: "علیرضا احمدآبادی",
+            item3: "0054789635",
+            item4: "فوت شده",
+            item5: "1402/02/08",
+            item6: 'در انتظار اعلام مبلغ',
+            item7: <button to="../../expert/requestsDetails">
+                    <div
+                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
+                </button>
+        }, {
+            item1: "1",
+            item2: "فاطمه سادات نوری زاده",
+            item3: "0054789635",
+            item4: "فوت شده",
+            item5: "1402/02/08",
+            item6: 'در انتظار تایید بازمانده',
+            item7: <Link to="../../expert/requestsDetails">
+                    <div
+                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div>
+                </Link>
+        }
+    ];
     const [dateError,
         setDateError] = useState("");
         const [endDate,
