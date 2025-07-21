@@ -7,8 +7,21 @@ import { Captcha } from "@nabidam/react-captcha";
 
 const LoginMain = () => {
     const [captcha, setCaptcha] = useState()
+    const [user, setUser] = useState()
+    const [pass, setPass] = useState()
     const captchaRef = useRef();
-
+    let navigate=useNavigate()
+const login=()=>{
+if(user=="0020121873"){
+    navigate("/user/startRequest")
+}
+else if(user=="expert"){
+    navigate("/expert/dashboard")
+}
+else {
+   navigate("/mainAdmin/dashboard")
+}
+}
     return (
         <div className="w-full bg-none flex justify-center">
             <div className='w-[35%] xl:w-[55%] xl:md:w-[85%] xl:md:xs:w-[96%]'>
@@ -22,10 +35,10 @@ const LoginMain = () => {
                 </div>
                 <div>
                     <div>
-                        <MainInput label={'کدملی'}/>
+                        <MainInput onChange={(e)=>setUser(e.target.value)} label={'کدملی'}/>
                     </div>
                     <div className='mt-[30px]'>
-                        <MainInput label={'رمز عبور'} leftIcon={<PassIcon/>}/>
+                        <MainInput label={'رمز عبور'} onChange={(e)=>setPass(e.target.value)}  leftIcon={<PassIcon/>}/>
                     </div>
                     <div className='mt-[30px] flex items-end'>   
                         <MainInput label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>}/>
@@ -40,7 +53,7 @@ const LoginMain = () => {
                 </div>
                 <div className="mt-[31px]">
                     <div className="mb-2"><MainChekbox label={'مرا به خاطر بسپار'}/></div>
-                    <div className="mb-2"><MainButton label={'ورود'}/></div>
+                    <div className="mb-2"><MainButton onClickFunction={()=>login()} label={'ورود'}/></div>
                     <Link className="font-IRANYekanBold text-[15px] focus:text-buttonBlue focus:border-buttonBlue text-mainBlue border-b-[1px] border-mainBlue border-dashed pb-[2px]">فراموشی رمز عبور</Link>
 
                 </div>
