@@ -7,13 +7,16 @@ import DateIcon from "../../assets/icon/general/DateIcon";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
+import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 
 const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     const [disapproval, setDisapproval] = useState(false);
     const [formData, setFormData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [reason, setReason] = useState(null);
+    const [file, setFile] = useState();
+    const [files, setFiles] = useState([]);
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -33,7 +36,46 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
 
         fetchFormData();
     }, []);
-
+    const submit = async () => {
+        try {
+            const response = await axiosReq("Experts/Approve?userInsuranceId=" + id, "put");
+            if (response.data) {
+                alert("با موفقیت انجام شد");
+            }
+        } catch (err) {
+            console.error("Error fetching form data:", err);
+            setError("خطا در دریافت اطلاعات ");
+        } finally {
+            setLoading(false);
+        }
+    };
+    const disApprove = async () => {
+        try {
+            const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put",{
+                Reason:reason,
+                UserInsuranceFiles:files
+            });
+            if (response.data) {
+                alert("با موفقیت انجام شد");
+            }
+        } catch (err) {
+            console.error("Error fetching form data:", err);
+            setError("خطا در دریافت اطلاعات ");
+        } finally {
+            setLoading(false);
+        }
+    };
+     useEffect(() => {
+            handleFileChange()
+        }, [file]);
+        const handleFileChange = () => {
+    
+            if (file?.length > 0) {
+                console.log("change")
+                console.log(111)
+                setFiles([...files, file])
+            }
+        }
     if (loading) {
         return <div className="w-full flex justify-center py-10">در حال بارگزاری...</div>;
     }
@@ -93,11 +135,11 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
             </div>
             <ViewInsurances isEnding={true} data={formData?.endingInsurance} />
             {
-                formData?.startingInsurances.map((item,index) => {
+                formData?.startingInsurances.map((item, index) => {
                     return (
                         <>
                             <div className="w-full px-[73px] pb-10 h800:px-0">
-                                <p className="text-[18px] font-IRANYekanExtra">اطلاعات فرد در صندوق بازنشستگی مبدا {index+1}</p>
+                                <p className="text-[18px] font-IRANYekanExtra">اطلاعات فرد در صندوق بازنشستگی مبدا {index + 1}</p>
                             </div>
 
                             <ViewInsurances isEnding={false} data={item} />
@@ -110,21 +152,34 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
 
             {des && !webService && !admin ?
                 <div className="w-full px-[120px] flex justify-end items-center lg:px-0 lg:justify-center">
-                    <div className="w-[107px] ml-[10px]"><MainButton label={'تایید'} /></div>
+                    <div className="w-[107px] ml-[10px]"><MainButton onClickFunction={() => submit()} label={'تایید'} /></div>
                     <div className="w-[107px]"><MainButton onClickFunction={() => setDisapproval(true)} label={'عدم تایید'} red={true} /></div>
                 </div>
                 : null}
             {disapproval ?
                 <div className="w-full px-[120px] lg:px-0 lg:my-2">
                     <div className="w-full">
-                        <MainInput longText={true} label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'} holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'} />
+                        <MainInput longText={true} onChange={(e) => setReason(e.target.value)} label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'} holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'} />
                     </div>
                     <div className="w-full flex justify-between items-center mt-2 flex-wrap lg:mr-auto">
                         <div className="w-full flex items-center lg:flex-col lg:items-start">
                             <p className="text-[14px] font-IRANYekanMedium text-mainBlue ml-3">انتخاب فایل</p>
-                            <div className="w-fit"><UploadFile /></div>
+                            <div className="w-fit">
+                                <UploadFile setFile={setFile} />
+                            </div>
                         </div>
-                        <div className="w-[125px] lg:mt-2"><MainButton label={'ارسال'} /></div>
+                        {
+                            files.map((item) => {
+                                return (
+
+                                    <div className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                        <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px]">{item}</p>
+                                        <ExportAgentFileIIcon />
+                                    </div>
+                                )
+                            })
+                        }
+                        <div className="w-[125px] lg:mt-2"><MainButton onClickFunction={() => disApprove()} label={'ارسال'} /></div>
 
                     </div>
 
