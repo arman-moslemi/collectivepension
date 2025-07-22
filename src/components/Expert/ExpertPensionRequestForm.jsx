@@ -8,6 +8,7 @@ import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
+import { apiAsset } from "../../commons/inFormTypes";
 
 const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     const [disapproval, setDisapproval] = useState(false);
@@ -150,7 +151,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
 
             <div className="border-t-[2px] border-dGray border-dashed pb-9 mx-[73px]"></div>
 
-            {des && !webService && !admin ?
+            {des && !webService && !admin &&  formData?.userStatusId==1?
                 <div className="w-full px-[120px] flex justify-end items-center lg:px-0 lg:justify-center">
                     <div className="w-[107px] ml-[10px]"><MainButton onClickFunction={() => submit()} label={'تایید'} /></div>
                     <div className="w-[107px]"><MainButton onClickFunction={() => setDisapproval(true)} label={'عدم تایید'} red={true} /></div>
@@ -172,8 +173,8 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
                             files.map((item) => {
                                 return (
 
-                                    <div className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
-                                        <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px]">{item}</p>
+                                    <div onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                        <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                         <ExportAgentFileIIcon />
                                     </div>
                                 )

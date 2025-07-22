@@ -13,9 +13,12 @@ const ExpertAllRecordsNoWebService = () => {
 
     return (
         <div className="w-full py-4 px-6 lg:px-0">
+                <div className="w-full px-[28px] pt-[24px] pb-7 flex justify-end">
+                <div className="w-[151px]"><MainButton label={'افزودن محل کار'}/></div>
+
+            </div>
             <div className="w-full mb-[25px]"><AddWorkPlace/></div>
-            <div className="w-full mb-[25px]"><WorkExperienceNoWebService/></div>
-            <div className="w-full mb-[25px]"><WorkExperienceNoWebService/></div>
+
             <div className="w-full mb-[25px]"><TotalWorkRecords button={true}/></div>
             
            
