@@ -8,7 +8,7 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
   
 
 
-const TotalWorkRecords = ({button}) => {
+const TotalWorkRecords = ({button,data}) => {
 
     let navigate = useNavigate();
 
@@ -18,20 +18,20 @@ const TotalWorkRecords = ({button}) => {
             <div className="flex mb-[14px] flex-wrap">
                 <div className="ml-[13px] flex flex-col items-center">
                     <p className="text-[16px] text-mainBlue font-IRANYekanBold mb-[7px]">روز</p>
-                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">125 روز</p>
+                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">{data.days} روز</p>
                 </div>
                 <div className="ml-[13px] flex flex-col items-center">
                     <p className="text-[16px] text-mainBlue font-IRANYekanBold mb-[7px]">ماه</p>
-                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">11 ماه</p>
+                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">{data.months} ماه</p>
                 </div>
                 <div className="flex flex-col items-center">
                     <p className="text-[16px] text-mainBlue font-IRANYekanBold mb-[7px]">سال</p>
-                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">12</p>
+                    <p className="text-[15px] font-IRANYekanBold h-[48px] w-[82px] flex justify-center items-center rounded-[6px] border-[1px] border-borderGray">{data?.years}</p>
                 </div>
             </div>
             <div className="flex">
                 <p className="text-[20px] font-IRANYekanMedium text-mainBlue ml-2">مجموع سوابق :</p>
-                <p className="text-[20px] font-IRANYekanMedium text-mainBlue ml-1">1256</p>
+                <p className="text-[20px] font-IRANYekanMedium text-mainBlue ml-1">{data?.totalDays}</p>
                 <p className="text-[20px] font-IRANYekanMedium text-mainBlue">روز</p>
             </div>
             {button?
