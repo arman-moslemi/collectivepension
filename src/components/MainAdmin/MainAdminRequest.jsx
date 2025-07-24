@@ -68,22 +68,23 @@ const MainAdminRequest = () => {
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
-            <div className='w-full flex justify-between items-center mb-[28px]'>
-                <div className="w-fit flex justify-start items-center">
-                <div className='w-[400px] ml-3'><MainInput search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon/>}/></div>
-                <div className='flex justify-start items-center'>
-                    <div className='ml-3 w-[150px]'><MainInput holder={'از تاریخ'} leftIcon={<DateIcon/>}/></div>
-                    <div className='ml-3 w-[150px]'><MainInput holder={'تا تاریخ'} leftIcon={<DateIcon/>}/></div>
-                    <div className='w-[180px]'><MainInput listBoxM1={true} listItems={cityList} listBoxHolder={'وضعیت'}/></div>
+            <div className='w-full grid grid-cols-12 mb-[28px] gap-2'>
+             
+                <div className='w-full col-span-5 lg:col-span-12 ml-3'><MainInput search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon/>}/></div>
+                <div className='grid grid-cols-3 gap-1 col-span-6 lg:col-span-12 '>
+                    <div className='ml-3 w-full col-span-1 lg:col-span-3'><MainInput holder={'از تاریخ'} date={true} leftIcon={<DateIcon/>}/></div>
+                    <div className='ml-3 w-full col-span-1 lg:col-span-3'><MainInput holder={'تا تاریخ'} date={true} leftIcon={<DateIcon/>}/></div>
+                    <div className='w-full col-span-1 lg:col-span-3'><MainInput listBoxM1={true} listItems={cityList} listBoxHolder={'وضعیت'}/></div>
                 </div>
-                </div>
-                <div className="w-[123px]">
+            
+                <div className="w-full col-span-1 mt-2 lg:col-span-12">
                     <MainButton label={'گزارش‌ گیری'}/>
                 </div>
             </div>
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} ic={false} list={list} titleRow={titleRow}/>
+                <MainTable  ic={false} list={list} titleRow={titleRow}/>
             </div>
+            
             <div className='w-full flex justify-between items-center'>
                 <div className='flex justify-start items-center'>
                     <p className='font-IRANYekanMedium text-[15px] pt-2 ml-[11px]'>تعداد نمایش در صفحه</p>

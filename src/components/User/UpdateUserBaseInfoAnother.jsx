@@ -6,6 +6,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
+import { apiAsset } from "../../commons/inFormTypes";
 
 const UpdateUserBaseInfoAnother = () => {
 
@@ -325,8 +326,8 @@ const UpdateUserBaseInfoAnother = () => {
                                         files.map((item) => {
                                             return (
 
-                                                <div className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
-                                                    <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px]">{item}</p>
+                                                <div onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                                    <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                                     <ExportAgentFileIIcon />
                                                 </div>
                                             )

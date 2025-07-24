@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef ,useEffect} from 'react'
 import {  Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
@@ -112,7 +112,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
           :
           listBoxM1 ?
             <div className='w-full mt-2 '>
-              <Listbox value={selectedNumberOfContents} onChange={setSelectedNumberOfContents}>
+              <Listbox value={selectedNumberOfContents} onChange={(e) => { setSelectedNumberOfContents(e); onChange(e) }}>
                 {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
                 <div className="relative w-full">
                   <ListboxButton className="relative w-full h-[48px] cursor-default rounded-md bg-white shadow-searchShadow py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6">
@@ -137,7 +137,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                     transition
                     className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white  text-base shadow-lg ring-1 ring-black/5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
                   >
-                    {listItems.map((item) => (
+                    {listItems?.map((item) => (
                       <ListboxOption
                         key={item.id}
                         value={item}
@@ -189,7 +189,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                   </div> :
                   Custom1 ?
                     <div className="border-[1px] h-[32px] w-full border-borderGray rounded-[6px]  flex justify-start items-center px-[15px]">
-                      <input className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
+                      <input value={value} defaultValue={defaultVal} onChange={onChange} className="h-[21px] border-b-[1px] w-full focus-visible:outline-none font-IRANYekanMedium text-[11px]" placeholder={holder} type="text" name="n" id="n" />
                     </div>
                     :
                     password ?

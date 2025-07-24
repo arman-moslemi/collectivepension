@@ -51,8 +51,8 @@ const WorkExperienceWithWebService = () => {
 
     return (
         <div className="w-full rounded-[10px] shadow-firstBoxShadow ">
-            <div className={`flex py-[27px] justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
-            <div className="flex items-center mr-5">
+            <div className={`flex py-[27px] lg:px-0 justify-between items-center ${mainOpen? 'border-b-[2px] border-dGray' : 'border-none'}  `}>
+            <div className="flex items-center mr-5 flex-wrap">
                 <p className="text-[16px] text-mainBlue font-IRANYekanExtra ml-2">محل خدمت / کارگاه :</p>
                 <p className="text-[16px] text-mainBlue font-IRANYekanBold">شرکت توسعه هوشمند ورنا ایرانیان</p>
             </div>
@@ -61,50 +61,50 @@ const WorkExperienceWithWebService = () => {
             </div>
             </div>
             {mainOpen?
-            <div className="w-full px-[28px] py-[35px]">
+            <div className="w-full px-[28px] py-[35px] lg:px-2">
             <div className="w-full grid grid-cols-3 gap-4">
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'12569'} label={'شماره شناسایی بیمه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'تهران'} label={'استان محل اشتغال'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'تهران'} label={'شهر'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'شعبه 1'} label={'شعبه'}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'شرکت توسعه هوشمند ورنا ایرانیان'} label={'محل خدمت / نام کارگاه '}/>
                 </div>
-                <div>
+                <div className="col-span-1 md:col-span-3">
                     <MainInput value={'12569'} label={'شماره دستگاه / کارگاه '}/>
                 </div>
 
             </div>
             <div className="w-full flex flex-wrap items-center mt-[33px]">
                 <p className="text-mainBlue text-[16px] font-IRANYekanExtra ml-[19px]">بازه‌های ثبت شده :</p>
-                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px]">
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">1372/01/01</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">تا</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4">1376/01/01</p>
-                    <div className="w-[36px] h-[36px] rounded-full bg-buttonBlue flex justify-center items-center">
-                        <p className="font-IRANYekanBold text-[20px] text-white">X</p>
+                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] md:my-1 flex items-center w-fit ml-[10px]">
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-2">1372/01/01</p>
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-2">تا</p>
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-4">1376/01/01</p>
+                    <div className="w-[36px] h-[36px] md:w-[20px] md:h-[20px] rounded-full bg-buttonBlue flex justify-center items-center">
+                        <p className="font-IRANYekanBold text-[20px] md:text-[14px] text-white">X</p>
                     </div>
                 </div>
-                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px]">
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">1372/01/01</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2">تا</p>
-                    <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4">1376/01/01</p>
-                    <div className="w-[36px] h-[36px] rounded-full bg-buttonBlue flex justify-center items-center">
-                        <p className="font-IRANYekanBold text-[20px] text-white">X</p>
+                <div className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] md:my-1 flex items-center w-fit ml-[10px]">
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-2">1372/01/01</p>
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-2">تا</p>
+                    <p className="text-buttonBlue text-[16px] md:text-[14px] font-IRANYekanBold ml-4">1376/01/01</p>
+                    <div className="w-[36px] h-[36px] md:w-[20px] md:h-[20px] rounded-full bg-buttonBlue flex justify-center items-center">
+                        <p className="font-IRANYekanBold text-[20px] md:text-[14px] text-white">X</p>
                     </div>
                 </div>
             </div>
             <div className="w-full mt-[43px] flex justify-center">
-                <div className="w-[50%]">
-                <MainTable cen4={true} list={list} titleRow={titleRow}/>
+                <div className="w-[50%] lg:w-[100%]">
+                <MainTable cen4={false} minw={true} list={list} titleRow={titleRow}/>
                 </div>
             </div>
             </div>

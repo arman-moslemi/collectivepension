@@ -57,7 +57,8 @@ export {default as MainAdminExpertActivityPage} from '../pages/MainAdminPage/Mai
 export {default as MainAdminUserListPage} from "../pages/MainAdminPage/MainAdminUserListPage";
 export {default as MainAdminRequestPage} from "../pages/MainAdminPage/MainAdminRequestPage";
 export {default as MainAdminRequestsDetailsPage} from "../pages/MainAdminPage/MainAdminRequestsDetailsPage";
-
+export {default as MainAdminProtestListPage} from "../pages/MainAdminPage/MainAdminProtestListPage";
+export {default as MainAdminProtestDetailPage} from "../pages/MainAdminPage/MainAdminProtestDetailPage";
 
 // ------------------components----------------------------------------------------------------------
 
@@ -77,6 +78,7 @@ export {default as MainPicText} from "./General/MainPicText";
 export {default as MainTable} from "./General/MainTable";
 export {default as ScrollToTop} from "./General/ScrollToTop";
 export {default as MainSuccessToast} from "./General/MainSuccessToast";
+export {default as ViewInsurances} from "./General/ViewInsurances";
 
 // ----------[login]---------
 
@@ -150,3 +152,12 @@ export {default as MainAdminExpertActivity} from "./MainAdmin/MainAdminExpertAct
 export {default as MainAdminUserList} from "./MainAdmin/MainAdminUserList";
 export {default as MainAdminRequest} from "./MainAdmin/MainAdminRequest";
 export {default as MainAdminRequestsDetails} from "./MainAdmin/MainAdminRequestsDetails";
+export {default as MainAdminProtestList} from "./MainAdmin/MainAdminProtestList";
+
+
+// --------[Roles] ---------
+export const roles = {
+    mainAdmin: "mainAdmin",
+    expert: "expert",
+    
+  };

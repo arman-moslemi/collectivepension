@@ -10,7 +10,10 @@ const AcceptedRecordModal = () => {
         setRecords] = useState([]);
     const [dateError,
         setDateError] = useState("");
-
+    const [showTotal,
+        setShowTotal] = useState(false);
+    const [totalError,
+        setTotalError] = useState("");
     const parseDate = (str) => {
         if (!str) 
             return null;
@@ -59,15 +62,15 @@ const AcceptedRecordModal = () => {
     useEffect(() => {
         setDateError("");
     }, [startDate, endDate]);
-    return ( <> <div className="w-full border-t border-t-borderGray p-4 z-1000">
-        <span className="font-IRANYekanMedium text-[15px] text-mainBlue">
+    return ( <> <div className="w-full border-t border-t-borderGray p-4 z-1000 lg:px-0">
+        <span className="font-IRANYekanMedium text-[15px] text-mainBlue lg:mt-2 lg:pt-2">
             بازه یا بازه‌های جدید را در این ماه، با توجه به اعتراض کاربر ثبت کنید.
 
         </span>
         <div className="my-5">
             {/* فرم ورود بازه جدید */}
-            <div className="grid grid-cols-4 gap-4 w-[80%] mx-auto mb-4">
-                <div className="col-span-1">
+            <div className="grid grid-cols-4 gap-4 w-[80%] mx-auto mb-4 lg:w-full">
+                <div className="col-span-1 lg:col-span-4">
                     <MainInput
                         date={true}
                         leftIcon={< DateIcon />}
@@ -75,7 +78,7 @@ const AcceptedRecordModal = () => {
                         onChange={(val) => setStartDate(val)}
                         error={dateError}/>
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 lg:col-span-4">
                     <MainInput
                         date={true}
                         leftIcon={< DateIcon />}
@@ -83,21 +86,36 @@ const AcceptedRecordModal = () => {
                         onChange={(val) => setEndDate(val)}
                         error={dateError}/>
                 </div>
-                <div className="col-span-2 flex">
+                <div className="col-span-2 flex lg:col-span-4">
                     <div className="w-[140px] ml-2 mt-2">
                         <MainButton label="افزودن بازه جدید" onClickFunction={addNewRow}/>
                     </div>
                     <div className="w-[140px] mt-2">
-                        <MainButton label="محاسبه مجموع سابقه"/>
+                        <MainButton
+                            label="محاسبه مجموع سابقه"
+                            onClickFunction={() => {
+                            if (records.length === 0) {
+                                setTotalError("ابتدا بازه زمانی را ثبت نمایید.");
+                                return;
+                            }
+                            setShowTotal(true);
+                            setTotalError("");
+                        }}/>
+
                     </div>
                 </div>
             </div>
+            {totalError && (
+                <p className="text-errorRed text-sm mt-1 text-center">
+                    {totalError}
+                </p>
+            )}
             {dateError && (
                 <p className="text-errorRed text-sm mt-1 text-right w-[80%] mx-auto">
                     تاریخ شروع باید قبل از تاریخ پایان باشد.
                 </p>
             )}
-         
+
             {records.length > 0 && (
                 <table
                     className="w-[80%] mx-auto mt-4 border border-borderGray text-[14px] font-IRANYekanMedium">
@@ -120,6 +138,17 @@ const AcceptedRecordModal = () => {
                 </table>
             )}
         </div>
+
+        {showTotal
+            ? <> <div className="flex justify-center">
+                <span className="text-mainBlue font-IRANYekanExtra">
+                    مجموع سوابق :
+                    <span className="font-IRANYekanBold">
+                        28 روز
+                    </span>
+                </span>
+            </div> </>    
+    : null}
     </div> </>
     )
 }

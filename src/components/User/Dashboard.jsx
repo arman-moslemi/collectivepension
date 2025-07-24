@@ -1,5 +1,7 @@
 import { MainPicText, MainButton, MainModal, MainExplanation } from "../../components";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { axiosReq } from "../../commons/axiosReq";
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import DashboardPic1 from "../../assets/img/user/DashboardPic1.svg";
 import DashboardPic2 from "../../assets/img/user/DashboardPic2.svg";
@@ -35,20 +37,45 @@ const data = [
 const Dashboard = () => {
 
     let navigate = useNavigate();
+  const [data, setData] = useState([]);
 
+  const getInsurances = async () => {
+    try {
+
+      const response = await axiosReq("Users/GetInsuranceDurations", "get" );
+      console.log(response)
+
+      if (response?.status === 200 || response?.status === 204) {
+        var prot = []
+        response.data?.map((item, index) => {
+          prot.push({
+          name:item.insuranceName,
+          uv:item.days
+          })
+        })
+        setData(prot);
+      }
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    getInsurances();
+  }, []);
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={'در هر لحظه وضعیتی که کاربر در آن قرار دارد اینجا قرار میگیرد.مثلا سوابق اعلام شده در انتظار تایید شما یا مبلغ مستمری محاسبه شده در انتظار تایید'} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer">
                     <img src={DashboardPic1} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">کلیه سوابق موجود</p>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic2} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">مستمری محاسبه شده</p>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
