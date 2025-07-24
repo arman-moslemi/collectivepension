@@ -81,11 +81,9 @@ const CreateUserInsuranceOrigin = () => {
                 <div className="w-full">
                     {forms.map((_, idx) => {
                         console.log(idx)
-                        // console.log(data.length)
                         return (
                             data?.length > idx ?
-                                // console.log(data[idx])
-                                // data[idx]
+                      
                                 <div key={idx} className="mb-6">
                                     <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} />
                                 </div>
