@@ -4,7 +4,8 @@ import {useLocation} from "react-router-dom";
 import {MainModal, MainButton, AcceptedRecordModal, MainInput, UploadFile,roles} from "..";
 import {useState} from "react";
 import ViewFileIcon from '../../assets/icon/general/ViewFileIcon';
-
+import DateIcon from "../../assets/icon/general/DateIcon";
+import { useEffect} from "react";
 
 const RecordProtestDetail = ({role}) => {
     const isAdmin = role === roles.mainAdmin;
@@ -89,6 +90,66 @@ const RecordProtestDetail = ({role}) => {
             ]
         }
     ];
+     const [startDate,
+            setStartDate] = useState("");
+        const [endDate,
+            setEndDate] = useState("");
+        const [records,
+            setRecords] = useState([]);
+        const [dateError,
+            setDateError] = useState("");
+        const [showTotal,
+            setShowTotal] = useState(false);
+        const [totalError,
+            setTotalError] = useState("");
+        const parseDate = (str) => {
+            if (!str) 
+                return null;
+            const parts = str.split('/');
+            if (parts.length !== 3) 
+                return null;
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1;
+            const day = parseInt(parts[2], 10);
+            return new Date(year, month, day);
+        };
+    
+        const resetTime = (date) => {
+            if (!date) 
+                return null;
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        };
+    
+        const addNewRow = () => {
+            const start = resetTime(parseDate(startDate));
+            const end = resetTime(parseDate(endDate));
+    
+            if (!start || !end) {
+                setDateError("لطفا هر دو تاریخ را وارد کنید.");
+                return;
+            }
+    
+            if (start >= end) {
+                setDateError("تاریخ شروع باید قبل از تاریخ پایان باشد.");
+                return;
+            }
+    
+            setDateError("");
+            setRecords((prev) => [
+                ...prev, {
+                    startDate,
+                    endDate
+                }
+            ]);
+            setStartDate("");
+            setEndDate("");
+        };
+    
+        useEffect(() => {
+            setDateError("");
+        }, [startDate, endDate]);
     const getStatusBgClass = (status) => {
         switch (status) {
             case 'در انتظار بررسی':
@@ -230,7 +291,48 @@ const RecordProtestDetail = ({role}) => {
                 <p className='font-IRANYekanMedium text-[15px] text-white'>تاریخ شروع بیمه‌پردازی.pdf</p>
                 <div
                     className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon/></div>
-            </div> </div> {showAcceptedContent &&  ! ( <div className="mt-6"> <AcceptedRecordModal /> </div>)
+                    
+            </div>
+            <div>
+                        <p className="text-right">با توجه به مدارک بارگزاری شده در پیوست، بازه زمانی بیمه پردازی بنده اشتباه ثبت شده است لطفا مجدد بررسی بفرمایید.</p>
+                          <div className="grid grid-cols-4 gap-4 w-[80%] mx-auto mb-4 lg:w-full">
+                <div className="col-span-1 lg:col-span-4">
+                    <MainInput
+                        date={true}
+                        leftIcon={< DateIcon />}
+                        value={startDate}
+                        onChange={(val) => setStartDate(val)}
+                        error={dateError}/>
+                </div>
+                <div className="col-span-1 lg:col-span-4">
+                    <MainInput
+                        date={true}
+                        leftIcon={< DateIcon />}
+                        value={endDate}
+                        onChange={(val) => setEndDate(val)}
+                        error={dateError}/>
+                </div>
+                <div className="col-span-2 flex lg:col-span-4">
+                    <div className="w-[140px] ml-2 mt-2">
+                        <MainButton label="افزودن بازه جدید" onClickFunction={addNewRow}/>
+                    </div>
+                    <div className="w-[140px] mt-2">
+                        <MainButton
+                            label="محاسبه مجموع سابقه"
+                            onClickFunction={() => {
+                            if (records.length === 0) {
+                                setTotalError("ابتدا بازه زمانی را ثبت نمایید.");
+                                return;
+                            }
+                            setShowTotal(true);
+                            setTotalError("");
+                        }}/>
+
+                    </div>
+                </div>
+            </div>
+                    </div>
+             </div> {showAcceptedContent &&  ! ( <div className="mt-6"> <AcceptedRecordModal /> </div>)
         }
         {
             showDeclineContent && (
@@ -259,7 +361,8 @@ const RecordProtestDetail = ({role}) => {
                     label={`${showAcceptedContent || showDeclineContent
                     ? "ثبت"
                     : "تایید"}`}/>
-            </div> < div className = {
+            </div> 
+            < div className = {
                 `w-[140px] mr-2 ${showAcceptedContent || showDeclineContent
                     ? 'hidden'
                     : 'block'}`
