@@ -1,6 +1,7 @@
 
+import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 
-const ViewProtestTable = ({ list1, list2, titleRow, data }) => {
+const ViewProtestTable = ({ list1, list2, titleRow, data,expert,setShowModal }) => {
     console.log(list1);
     return (
         <div className="w-full ">
@@ -12,16 +13,16 @@ const ViewProtestTable = ({ list1, list2, titleRow, data }) => {
                         {titleRow[2] ? <td className="font-IRANYekanBold px-10 text-[15px]">{titleRow[2]}</td> : null}
                         {titleRow[3] ? <td className="font-IRANYekanBold px-10 text-[15px] ">
                             <div className="flex justify-evenly">
-                            {titleRow[3]}
+                                {titleRow[3]}
 
                             </div>
-                            </td> : null}
+                        </td> : null}
                         {titleRow[4] ? <td className="font-IRANYekanBold px-10 text-[15px]">
-                                                        <div className="flex justify-evenly">
+                            <div className="flex justify-evenly">
 
-                            {titleRow[4]}
+                                {titleRow[4]}
                             </div>
-                            </td> : null}
+                        </td> : null}
                         {titleRow[5] ? <td className={`font-IRANYekanBold text-[15px] text-center pl-20`}>{titleRow[5]}</td> : null}
                         {titleRow[6] ? <td className={`font-IRANYekanBold px-10 text-[15px] `}>{titleRow[6]}</td> : null}
                         {titleRow[7] ? <td className="font-IRANYekanBold px-10 text-[15px]">{titleRow[7]}</td> : null}
@@ -74,13 +75,23 @@ const ViewProtestTable = ({ list1, list2, titleRow, data }) => {
                                                         <p className="mt-6">{item2.duration}</p>
                                                     )
                                                 })}
-                                                </div>
+                                            </div>
                                         </td>
                                         <td className="font-IRANYekanMedium text-[15px] pl-20 "><div className='w-[115px] h-[28px] bg-[#0F956D] rounded-[50px] flex justify-center items-center mx-auto'>
                                             <p className='text-[15px] text-white font-IRANYekanMedium'>{item.protestStatus}</p>
                                         </div>
                                         </td>
-
+                                        {
+                                            expert?
+                                        <td  className="px-2 py-1 text-center align-middle pl-4">
+                      <button
+                        onClick={() => setShowModal(true)}
+                        className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center"
+                      >
+                        <DetailTableIcon />
+                      </button>
+                    </td>:null
+                                        }
                                     </tr>
                                 )
                             })

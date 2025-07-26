@@ -1,14 +1,15 @@
 import React from "react";
-import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import {useLocation} from "react-router-dom";
 import {MainModal, MainButton, AcceptedRecordModal, MainInput, UploadFile,roles} from "..";
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import ViewFileIcon from '../../assets/icon/general/ViewFileIcon';
-
+import { ViewProtestTable } from "../../components";
+import { axiosReq } from "../../commons/axiosReq";
 
 const RecordProtestDetail = ({role}) => {
     const isAdmin = role === roles.mainAdmin;
   const isExpert = role === roles.expert;
+const titleRow = ["نوع", "سال", "ماه", "بازه بیمه پردازی", "تعداد روز", "وضعیت","عملیات"];
 
     const [showAcceptedContent,
         setShowAcceptedContent] = useState(false);
@@ -33,7 +34,7 @@ const RecordProtestDetail = ({role}) => {
         setShowAcceptedContent(false);
     }
     const location = useLocation();
-    const {data} = location.state || {};
+     const {id} = location.state || {};
     const tableData = [
         {
 
@@ -101,13 +102,37 @@ const RecordProtestDetail = ({role}) => {
                 return '';
         }
     };
+    const [data, setData] = useState([]);
+        const [maindata, setMainData] = useState();
+    
+        const getProtests = async () => {
+            try {
+    
+                const response = await axiosReq("Experts/GetProtestByIdEXP?protestId=" + id, "get");
+                console.log(response)
+    
+                if (response?.status === 200 || response?.status === 204) {
+                    var prot = []
+                    setMainData(response.data)
+                   
+                    setData(response.data?.records);
+                }
+    
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        
+        useEffect(() => {
+            getProtests();
+        }, []);
     return ( <> 
     <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
         <div className="col-span-1 md:col-span-2">
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 نام و نام خانوادگی :
                 <span className="font-IRANYekanBold mr-1">
-                    {data
+                    {maindata
                         ?.fullName}
                 </span>
             </span>
@@ -116,8 +141,8 @@ const RecordProtestDetail = ({role}) => {
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 تاریخ ثبت اعتراض :
                 <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.date}
+                    {maindata
+                        ?.protestDate}
                 </span>
             </span>
         </div>
@@ -125,7 +150,7 @@ const RecordProtestDetail = ({role}) => {
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 کدملی :
                 <span className="font-IRANYekanBold mr-1">
-                    {data
+                    {maindata
                         ?.nationalCode}
                 </span>
             </span>
@@ -134,8 +159,8 @@ const RecordProtestDetail = ({role}) => {
             <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                 نوع اعتراض :
                 <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.protestTypeLabel}
+                    {maindata
+                        ?.protestLevel}
                 </span>
             </span>
         </div>
@@ -148,7 +173,7 @@ const RecordProtestDetail = ({role}) => {
         <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
              نام صندوق : 
             <span className="font-IRANYekanBold mr-1">
-                {data
+                {maindata
                     ?.name}
             </span>
         </span>
@@ -157,9 +182,12 @@ const RecordProtestDetail = ({role}) => {
     </div> < div className = "pt-[17px]" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
         جزئیات اعتراض ثبت شده
 
-    </span> <div className="w-full overflow-x-auto mt-6">
-  <div className="min-w-[900px] w-[80%] mx-auto border-[1px] border-borderGray rounded-[10px] overflow-hidden">
-    <table className="min-w-full table-auto text-right">
+    </span> 
+                <div className='w-full my-7 '>
+  {/* <div className="min-w-[900px] w-[80%] mx-auto border-[1px] border-borderGray rounded-[10px] overflow-hidden"> */}
+                        <ViewProtestTable  titleRow={titleRow} data={data} expert={true} setShowModal={setShowModal} />
+
+    {/* <table className="min-w-full table-auto text-right">
       <thead>
         <tr className="bg-tableGray h-[60px]">
           <th className="font-IRANYekanBold text-[15px] pr-4">نوع</th>
@@ -212,8 +240,8 @@ const RecordProtestDetail = ({role}) => {
           </React.Fragment>
         ))}
       </tbody>
-    </table>
-  </div>
+    </table> */}
+  {/* </div> */}
 </div>
 
        </div > {

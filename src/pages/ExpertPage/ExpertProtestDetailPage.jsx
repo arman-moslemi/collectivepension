@@ -11,7 +11,7 @@ const userRole = roles.expert;
   const navigate = useNavigate();
 
   const type = state?.type;
-
+console.log(state)
   useEffect(() => {
     if (!state) {
       // اگر کاربر بدون state اومد، برگردش به لیست اعتراضات
@@ -22,7 +22,7 @@ const userRole = roles.expert;
   const renderDetailComponent = () => {
     switch (type) {
       case "RECORD":
-        return <RecordProtestDetail data={state.data} role={userRole} />;
+        return <RecordProtestDetail data={state.data} role={userRole} id={state.id} />;
       case "AMOUNT":
         return <AmountProtestDetail data={state.data} role={userRole} />;
       case "GENERAL":
