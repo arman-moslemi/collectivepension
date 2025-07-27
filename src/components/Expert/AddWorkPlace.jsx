@@ -67,7 +67,7 @@ const list = [
 
 
 const AddWorkPlace = ({ id, setForms
-  , setYearsData, yearsData
+  , setYearsData, yearsData,data
 }) => {
   const [mainOpen, setMainOpen] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
@@ -84,35 +84,24 @@ const AddWorkPlace = ({ id, setForms
   };
   const [formData, setFormData] = useState({
     UserInsuranceId: id,
-    InsuranceIdNumber: "",
-    CityId: 0,
-    Branch: "",
-    Workplace: "",
-    WorkplaceNumber: "",
-    TimeFrames: []
+    InsuranceIdNumber: data?.insuranceIdNumber || "",
+    CityId:data?.cityId || 0,
+    Branch: data?.branch || "",
+    Workplace:  data?.workplace || "",
+    WorkplaceNumber:  data?.workplaceNumber || "",
+    TimeFrames: data?.timeFrames || []
   });
   const [currentTimeFrame, setCurrentTimeFrame] = useState({
-    StartDate: "",
-    EndDate: ""
+    startDate: "",
+    endDate: ""
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   let navigate = useNavigate();
 
-  // Sample data for the table
   const titleRow = ["ردیف", "سال", "دستمزد مشمول کسر حق بیمه"];
-  // const list = [
-  //   { id: 1, col1: '1372', col2: '1,500,000' },
-  //   { id: 2, col1: '1373', col2: '1,800,000' },
-  //   // ... other rows
-  // ];
-
-  const cityList = [
-    { id: 1, name: 'تهران' },
-    { id: 2, name: 'شیراز' },
-    // ... other cities
-  ];
+  
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -146,13 +135,13 @@ const AddWorkPlace = ({ id, setForms
     }
   };
   const handleAddTimeFrame = () => {
-    console.log(currentTimeFrame.StartDate)
-    if (currentTimeFrame.StartDate && currentTimeFrame.EndDate) {
+    console.log(currentTimeFrame.startDate)
+    if (currentTimeFrame.startDate && currentTimeFrame.endDate) {
       setFormData(prev => ({
         ...prev,
         TimeFrames: [...prev.TimeFrames, currentTimeFrame]
       }));
-      setCurrentTimeFrame({ StartDate: "", EndDate: "" });
+      setCurrentTimeFrame({ startDate: "", endDate: "" });
     }
   };
 
@@ -369,8 +358,8 @@ const AddWorkPlace = ({ id, setForms
                 <MainInput
                   date={true}
                   necessary={true}
-                  value={currentTimeFrame.StartDate}
-                  onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, StartDate: val }))}
+                  value={currentTimeFrame.startDate}
+                  onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, startDate: val }))}
                   leftIcon={<DateIcon />}
                   holder={'تاریخ شروع را وارد کنید'}
                   label={'تاریخ شروع بیمه پردازی'}
@@ -380,8 +369,8 @@ const AddWorkPlace = ({ id, setForms
                 <MainInput
                   date={true}
                   necessary={true}
-                  value={currentTimeFrame.EndDate}
-                  onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, EndDate: val }))}
+                  value={currentTimeFrame.endDate}
+                  onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, endDate: val }))}
                   leftIcon={<DateIcon />}
                   holder={'تاریخ پایان را وارد کنید'}
                   label={'تاریخ پایان بیمه پردازی'}
@@ -393,7 +382,7 @@ const AddWorkPlace = ({ id, setForms
                     label={'افزودن بازه جدید'}
                     onClickFunction={handleAddTimeFrame}
 
-                    disabled={!currentTimeFrame.StartDate || !currentTimeFrame.EndDate}
+                    disabled={!currentTimeFrame.startDate || !currentTimeFrame.endDate}
                   />
                 </div>
                 <div className="w-[43%]">
@@ -416,11 +405,11 @@ const AddWorkPlace = ({ id, setForms
           {formData.TimeFrames.map((timeFrame, index) => (
             <div key={index} className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px] mb-2">
               <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2 lg:text-[12px]">
-                {timeFrame.StartDate}
+                {timeFrame.startDate}
               </p>
               <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2 lg:text-[12px]">تا</p>
               <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4 lg:text-[12px]">
-                {timeFrame.EndDate}
+                {timeFrame.endDate}
               </p>
               <div
                 className="w-[36px] h-[36px] lg:w-[20px] lg:h-[20px] rounded-full bg-buttonBlue flex justify-center items-center hover:cursor-pointer"
