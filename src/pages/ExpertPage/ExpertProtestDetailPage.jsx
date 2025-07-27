@@ -24,9 +24,9 @@ console.log(state)
       case "RECORD":
         return <RecordProtestDetail data={state.data} role={userRole} id={state.id} />;
       case "AMOUNT":
-        return <AmountProtestDetail data={state.data} role={userRole} />;
+        return <AmountProtestDetail data={state.data} role={userRole} id={state.id} />;
       case "GENERAL":
-        return <GeneralProtestDetail data={state.data} role={userRole}/>;
+        return <GeneralProtestDetail data={state.data} role={userRole} id={state.id}/>;
       default:
         return <div>نوع اعتراض مشخص نیست</div>;
     }

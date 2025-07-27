@@ -1,7 +1,7 @@
 
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 
-const ViewProtestTable = ({ list1, list2, titleRow, data,expert,setShowModal }) => {
+const ViewProtestTable = ({ list1, list2, titleRow, data,expert,setShowModal,setTimeFrames }) => {
     console.log(list1);
     return (
         <div className="w-full ">
@@ -85,7 +85,7 @@ const ViewProtestTable = ({ list1, list2, titleRow, data,expert,setShowModal }) 
                                             expert?
                                         <td  className="px-2 py-1 text-center align-middle pl-4">
                       <button
-                        onClick={() => setShowModal(true)}
+                        onClick={() => {setShowModal(true);setTimeFrames(item.declaredDates)}}
                         className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center"
                       >
                         <DetailTableIcon />

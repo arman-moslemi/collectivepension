@@ -1,71 +1,100 @@
 import {useLocation} from "react-router-dom";
 import ViewFileIcon from "../../assets/icon/general/ViewFileIcon";
 import {MainButton,MainInput,UploadFile,roles} from "..";
-import { useState } from "react";
-const AmountProtestDetail = ({role}) => {
+import { useState,useEffect } from "react";
+import { axiosReq } from "../../commons/axiosReq";
+import DateIcon from "../../assets/icon/general/DateIcon";
+import { apiAsset } from "../../commons/inFormTypes";
+import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
+import { useNavigate } from "react-router-dom";
+
+const AmountProtestDetail = ({role,id}) => {
       const isAdmin = role === roles.mainAdmin;
       const isExpert = role === "expert"; // یا roles.expert اگه داری
+        const navigate = useNavigate();
       
   console.log("ROLE IS:", role);
     const location = useLocation();
-    const {data} = location.state || {};
 
     const [showAccepted, setShowAccepted] = useState(false);
     const [showDeclined,setShowDeclined] = useState(false);
+      const [data, setData] = useState([]);
+        const [maindata, setMainData] = useState();
+    
+        const getProtests = async () => {
+            try {
+    
+                const response = await axiosReq("Experts/GetProtestByIdEXP?protestId=" + id, "get");
+                console.log(response)
+    
+                if (response?.status === 200 || response?.status === 204) {
+                    var prot = []
+                    setMainData(response.data)
+    
+                    setData(response.data?.records);
+                }
+    
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        useEffect(() => {
+            getProtests();
+        }, []);
     return ( <>
-     <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
-        <div className="col-span-1 lg:col-span-2">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
-                نام و نام خانوادگی :
-                <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.fullName}
+    <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
+            <div className="col-span-1 md:col-span-2">
+                <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+                    نام و نام خانوادگی :
+                    <span className="font-IRANYekanBold mr-1">
+                        {maindata
+                            ?.fullName}
+                    </span>
                 </span>
-            </span>
-        </div>
-        <div className="col-span-1  flex justify-end lg:col-span-2 lg:justify-start">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
-                تاریخ ثبت اعتراض :
-                <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.date}
+            </div>
+            <div className="col-span-1 md:col-span-2 flex justify-end md:justify-start">
+                <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+                    تاریخ ثبت اعتراض :
+                    <span className="font-IRANYekanBold mr-1">
+                        {maindata
+                            ?.protestDate}
+                    </span>
                 </span>
-            </span>
-        </div>
-        <div className="col-span-1 lg:col-span-2">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
-                کدملی :
-                <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.nationalCode}
+            </div>
+            <div className="col-span-1 md:col-span-2">
+                <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+                    کدملی :
+                    <span className="font-IRANYekanBold mr-1">
+                        {maindata
+                            ?.nationalCode}
+                    </span>
                 </span>
-            </span>
-        </div>
-        <div className="col-span-1  flex justify-end lg:justify-start lg:w-full">
-            <span className="font-IRANYekanExtra text-[15px] text-mainBlue lg:text-[14px]">
-                نوع اعتراض :
-                <span className="font-IRANYekanBold mr-1">
-                    {data
-                        ?.protestTypeLabel}
+            </div>
+            <div className="col-span-1 md:col-span-2 flex justify-end md:justify-start">
+                <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+                    نوع اعتراض :
+                    <span className="font-IRANYekanBold mr-1">
+                        {maindata
+                            ?.protestLevel}
+                    </span>
                 </span>
-            </span>
-        </div>
-        {
-        role === "mainAdmin" ?
+            </div>
+            {
+                isExpert ?
 
-        <div className="col-span-1 md:col-span-2 flex justify-start md:justify-start">
-        <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
-             نام صندوق : 
-            <span className="font-IRANYekanBold mr-1">
-                {data
-                    ?.name}
-            </span>
-        </span>
-    </div>
-    :
-    null
-     }
-    </div> < div className = "my-4" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue ">
+                    null
+                    :
+                    <div className="col-span-1 md:col-span-2 flex justify-start md:justify-start">
+                        <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
+                            نام صندوق :
+                            <span className="font-IRANYekanBold mr-1">
+                                {maindata
+                                    ?.name}
+                            </span>
+                        </span>
+                    </div>
+            }
+        </div> < div className = "my-4" > <span className="font-IRANYekanExtra text-[15px] text-mainBlue ">
 
         جزئیات اعتراض ثبت شده
     </span> 
@@ -79,13 +108,24 @@ const AmountProtestDetail = ({role}) => {
         مبلغ اعلام شده توسط کاربر : 2500000 تومان
     </span>
    </div>
-    <p className = "mt-5 text-right font-IRANYekanBold text-mainBlue text-[14px]" > با توجه به مدارک بارگزاری شده در پیوست، بازه زمانی بیمه پردازی بنده اشتباه ثبت شده است لطفا مجدد بررسی بفرمایید. </p>
+    <p className = "mt-5 text-right font-IRANYekanBold text-mainBlue text-[14px]" >{maindata?.description} </p>
    
     
-     < div className = "flex flex-wrap mt-4" > <div
-                 className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
-                 <p className='font-IRANYekanMedium text-[15px] text-white'>تاریخ شروع بیمه‌پردازی.pdf</p > <div
-        className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon/></div> </div> </div > </div>
+     < div className="flex flex-wrap mt-4" >
+                    {
+                                maindata?.fileName?.map((item) => {
+                                    return (
+
+                                        <div onClick={() => window.open(apiAsset + item, '_blank')}
+                                            className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
+                                            <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
+                                            <div
+                                                className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon /></div>
+                                        </div>
+                                    )
+                                })
+                            } </div >
+        </div>
         
         {
             role === "expert" ? 

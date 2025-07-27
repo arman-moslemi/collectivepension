@@ -3,6 +3,7 @@ import { ViewProtestTable } from "../../components";
 import ViewFileIcon from '../../assets/icon/general/ViewFileIcon';
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { axiosReq } from "../../commons/axiosReq";
+import { apiAsset } from "../../commons/inFormTypes";
 
 
 const titleRow = ["نوع", "سال", "ماه", "بازه بیمه پردازی", "تعداد روز", "وضعیت"];
@@ -88,7 +89,7 @@ const ViewProtest = () => {
 
                     {maindata?.fileName.map((item) => {
                         return (
-                            <div className='w-fit mx-3 h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px]'>
+                            <div onClick={() => window.open(apiAsset + item, '_blank')} className='w-fit mx-3 h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px]'>
                                 <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
                                 <div className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon /></div>
                             </div>

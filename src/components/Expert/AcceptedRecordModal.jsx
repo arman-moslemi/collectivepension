@@ -1,13 +1,12 @@
 import {MainInput, MainButton} from "..";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import {useState, useEffect} from "react";
-const AcceptedRecordModal = () => {
+const AcceptedRecordModal = ({records,setRecords}) => {
     const [startDate,
         setStartDate] = useState("");
     const [endDate,
         setEndDate] = useState("");
-    const [records,
-        setRecords] = useState([]);
+  
     const [dateError,
         setDateError] = useState("");
     const [showTotal,
@@ -62,7 +61,8 @@ const AcceptedRecordModal = () => {
     useEffect(() => {
         setDateError("");
     }, [startDate, endDate]);
-    return ( <> <div className="w-full border-t border-t-borderGray p-4 z-1000 lg:px-0">
+    return (
+        <> <div className="w-full border-t border-t-borderGray p-4 z-1000 lg:px-0">
         <span className="font-IRANYekanMedium text-[15px] text-mainBlue lg:mt-2 lg:pt-2">
             بازه یا بازه‌های جدید را در این ماه، با توجه به اعتراض کاربر ثبت کنید.
 
