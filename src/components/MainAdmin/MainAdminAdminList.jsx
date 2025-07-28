@@ -79,7 +79,7 @@ const MainAdminAdminList = () => {
           console.log(88)
           console.log(item)
           setEditId(item.adminId);
-          
+          // console.log(editId);
           console.log(88)
           prot.push({
             item1: index + 1,
