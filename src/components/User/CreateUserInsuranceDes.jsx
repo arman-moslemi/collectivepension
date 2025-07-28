@@ -263,7 +263,8 @@ if(initialValues.UserInsuranceId==0 )
 
             <div className="mb-5 col-span-2">
               <MainRadioInput value1={1} value2={2} value3={3}
-                onChange={(value) => setFieldValue('EmploymentStatusId', value)} column={true}
+                onChange={(value) => setFieldValue('EmploymentStatusId', value)} 
+                column={true}
                 title={'وضعیت بیمه پردازی'}
                 text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
                 text2={'مشمول قانون کار'} text3={'سایر'} onChangeInput={(e) => setDes(e)}
