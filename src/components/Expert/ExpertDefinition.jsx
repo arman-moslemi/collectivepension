@@ -97,10 +97,10 @@ const ExpertDefinition = () => {
     const [thereIsExpert, setThereIsExpert] = useState(false);
     const [expertDefinitionModal, setExpertDefinitionModal] = useState(false);
     const [expertData, setExpertData] = useState(null);
+    const [name, setName] = useState();
     let navigate = useNavigate();
 
     const initialValues = {
-        Name: '',
         Family: '',
         NationalCode: '',
         MobileNumber: '',
@@ -108,15 +108,23 @@ const ExpertDefinition = () => {
         Password: ''
     };
 
-    const handleSubmit = (values, { setSubmitting }) => {
+    const handleSubmit =async (values, { setSubmitting }) => {
         try {
+                 console.log(values)
             // Here you would typically call your API
-            // await axiosReq("Experts/CreateExpert", "post", values);
-            console.log(values)
-            // For demo purposes, we'll just set the data locally
-            setExpertData(values);
-            setThereIsExpert(true);
-            setExpertDefinitionModal(false);
+             const payload = {
+                    ...values,
+                    Name:name
+                  
+                  };
+              const response=  await axiosReq("Experts/CreateExpert", "post", payload);
+            
+            console.log(response)
+            if (response?.status === 200 || response?.status === 204) {
+
+           
+                setThereIsExpert(!thereIsExpert);
+            }
         } catch (error) {
             console.error("Error creating expert:", error);
         } finally {
@@ -124,7 +132,7 @@ const ExpertDefinition = () => {
         }
     };
     const expertSchema = Yup.object().shape({
-        Name: Yup.string().required('نام الزامی است'),
+        Names: Yup.string().required('نام الزامی است'),
         Family: Yup.string().required('نام خانوادگی الزامی است'),
         NationalCode: Yup.string()
             .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد')
@@ -153,17 +161,17 @@ const ExpertDefinition = () => {
     };
     useEffect(() => {
         GetData();
-    }, []);
+    }, [thereIsExpert]);
     return (
-        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
+        <div classNames="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             {thereIsExpert && expertData ? (
-                <div className="w-full">
-                    <div className="w-full flex justify-end items-center mt-3">
-                        <div className="w-[187px]">
+                <div classNames="w-full">
+                    <div classNames="w-full flex justify-end items-center mt-3">
+                        <div classNames="w-[187px]">
                             <MainButton
                                 label={
-                                    <div className="flex">
-                                        <p className="text-[16px] font-IRANYekanBold text-white ml-[15px]">ویرایش کارشناس</p>
+                                    <div classNames="flex">
+                                        <p classNames="text-[16px] font-IRANYekanBold text-white ml-[15px]">ویرایش کارشناس</p>
                                         <DefExpertPenIcon />
                                     </div>
                                 }
@@ -172,25 +180,25 @@ const ExpertDefinition = () => {
                         </div>
                     </div>
 
-                    <div className="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
-                        <div className="flex md:my-2">
-                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کارشناس :</p>
-                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.Name} {expertData.Family}</p>
+                    <div classNames="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
+                        <div classNames="flex md:my-2">
+                            <p classNames="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کارشناس :</p>
+                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.name} {expertData.family}</p>
                         </div>
-                        <div className="flex md:my-2">
-                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کاربری :</p>
-                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.Username}</p>
+                        <div classNames="flex md:my-2">
+                            <p classNames="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کاربری :</p>
+                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.username}</p>
                         </div>
                     </div>
 
                     <div className="w-full flex justify-between flex-wrap items-center mt-4 md:my-2">
                         <div className="flex">
                             <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">کدملی :</p>
-                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.NationalCode}</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.nationalCode}</p>
                         </div>
                         <div className="flex md:my-2">
                             <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">شماره تماس :</p>
-                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.MobileNumber}</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.mobileNumber}</p>
                         </div>
                     </div>
 
@@ -237,11 +245,12 @@ const ExpertDefinition = () => {
                                     <div>
                                         <MainInput
                                             label={'نام'}
-                                            value={values.Name}
-                                            onChange={(value) => setFieldValue('EmploymentStatusId', value)}
+                                            value={values.Names}
+                                            name="Names"
+                                            onChange={(e) => setName( e.target.value)}
                                             holder={'نام را بنویسید'}
-                                            error={touched.Name && errors.Name}
-                                            errorText={errors.Name}
+                                            // error={name.length==0}
+                                            // errorText={'نام را بنویسید'}
                                         />
                                     </div>
                                     <div>
@@ -249,6 +258,7 @@ const ExpertDefinition = () => {
                                             label={'نام خانوادگی'}
                                             name="Family"
                                             value={values.Family}
+                                            onChange={(e) => setFieldValue('Family',  e.target.value)}
                                             holder={'نام خانوادگی را بنویسید'}
                                             error={touched.Family && errors.Family}
                                             errorText={errors.Family}
@@ -259,6 +269,8 @@ const ExpertDefinition = () => {
                                             label={'کدملی'}
                                             name="NationalCode"
                                             value={values.NationalCode}
+                                          onChange={(e) => setFieldValue('NationalCode',  e.target.value)}
+
                                             holder={'کدملی را بنویسید'}
                                             error={touched.NationalCode && errors.NationalCode}
                                             errorText={errors.NationalCode}
@@ -269,6 +281,7 @@ const ExpertDefinition = () => {
                                             label={'شماره تماس'}
                                             name="MobileNumber"
                                             value={values.MobileNumber}
+                                            onChange={(e) => setFieldValue('MobileNumber',  e.target.value)}
                                             holder={'شماره تماس را بنوسید'}
                                             error={touched.MobileNumber && errors.MobileNumber}
                                             errorText={errors.MobileNumber}
@@ -279,6 +292,7 @@ const ExpertDefinition = () => {
                                             label={'نام کاربری'}
                                             name="Username"
                                             value={values.Username}
+                                            onChange={(e) => setFieldValue('Username',  e.target.value)}
                                             holder={'نام کاربری را بنویسید'}
                                             error={touched.Username && errors.Username}
                                             errorText={errors.Username}
@@ -290,16 +304,23 @@ const ExpertDefinition = () => {
                                             name="Password"
                                             type="password"
                                             value={values.Password}
+                                            onChange={(e) => setFieldValue('Password',  e.target.value)}
                                             holder={'رمز عبور را بنویسید'}
                                             error={touched.Password && errors.Password}
                                             errorText={errors.Password}
                                         />
                                     </div>
+                                    <div className="h-full flex justify-center items-end col-span-2 mt-6">
+                                        <div className="w-[60%]">
+
                                     <MainButton
                                         type="submit"
                                         label={isSubmitting ? 'در حال ثبت...' : 'ثبت کارشناس'}
                                         disabled={isSubmitting}
                                     />
+                                        </div>
+
+                                    </div>
                                 </Form>
                             )}
                         </Formik>

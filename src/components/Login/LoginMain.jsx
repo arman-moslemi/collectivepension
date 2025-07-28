@@ -121,7 +121,7 @@ const LoginMain = () => {
 
                                 cookies.set('Role', response.data.role, { path: '/admin' })
 
-                                navigate("/admin/dashboard");
+                                navigate("/Expert/dashboard");
                             }
                             if (response.data.role == "SuperAdmin") {
                                 cookies.set('Role', response.data.role)
