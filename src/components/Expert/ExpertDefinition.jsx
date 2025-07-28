@@ -96,7 +96,7 @@ const data = [
 const ExpertDefinition = () => {
     const [thereIsExpert, setThereIsExpert] = useState(false);
     const [expertDefinitionModal, setExpertDefinitionModal] = useState(false);
-    const [expertData, setExpertData] = useState(null);
+    const [expertData, setExpertData] = useState();
     const [name, setName] = useState();
     let navigate = useNavigate();
 
@@ -108,21 +108,21 @@ const ExpertDefinition = () => {
         Password: ''
     };
 
-    const handleSubmit =async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, { setSubmitting }) => {
         try {
-                 console.log(values)
+            console.log(values)
             // Here you would typically call your API
-             const payload = {
-                    ...values,
-                    Name:name
-                  
-                  };
-              const response=  await axiosReq("Experts/CreateExpert", "post", payload);
-            
+            const payload = {
+                ...values,
+                Name: name
+
+            };
+            const response = await axiosReq("Experts/CreateExpert", "post", payload);
+
             console.log(response)
             if (response?.status === 200 || response?.status === 204) {
 
-           
+
                 setThereIsExpert(!thereIsExpert);
             }
         } catch (error) {
@@ -153,6 +153,7 @@ const ExpertDefinition = () => {
             if (response?.status === 200 || response?.status === 204) {
 
                 setExpertData(response.data);
+                setThereIsExpert(true)
             }
 
         } catch (error) {
@@ -164,7 +165,7 @@ const ExpertDefinition = () => {
     }, [thereIsExpert]);
     return (
         <div classNames="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
-            {thereIsExpert && expertData ? (
+            {expertData ? (
                 <div classNames="w-full">
                     <div classNames="w-full flex justify-end items-center mt-3">
                         <div classNames="w-[187px]">
@@ -183,11 +184,11 @@ const ExpertDefinition = () => {
                     <div classNames="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
                         <div classNames="flex md:my-2">
                             <p classNames="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کارشناس :</p>
-                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.name} {expertData.family}</p>
+                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.fullName}</p>
                         </div>
                         <div classNames="flex md:my-2">
                             <p classNames="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کاربری :</p>
-                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.username}</p>
+                            <p classNames="font-IRANYekanBold text-[14px] text-mainBlue">{expertData.userName}</p>
                         </div>
                     </div>
 
@@ -202,8 +203,47 @@ const ExpertDefinition = () => {
                         </div>
                     </div>
 
-                    {/* ... rest of your existing UI for when there is an expert ... */}
+                    <div className="w-full border-t-[1px] border-borderGray py-8 mt-8"></div>
+                    <div className="w-full overflow-x-auto">
+                        <div className="min-w-[600px]">
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart
+                                    width={600}
+                                    height={300}
+                                    data={data}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis
+                                        tickMargin={5}
+                                        dataKey="name"
+                                        tick={{
+                                            fontSize: 8
+                                        }} />
+                                    <YAxis tickMargin={24} />
+                                    <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+                    <div
+                        className="w-full border-t-[1px] border-borderGray pt-6 flex md:block justify-between items-center mb-5">
+                        <p className="font-IRANYekanExtra
+                             text-[20px] text-mainBlue md:text-[14px]">گزارش عملکرد کارشناس</p>
+                        <div className="w-[129px] md:mr-auto md:w-[100px] md:mt-[10px]"><MainButton label={'گزارش گیری'} /></div>
+
+                    </div>
+                    <div className="w-full mb-16">
+                        <MainTable cen5={true} list={list} titleRow={titleRow} />
+
+                    </div>
                 </div>
+
             ) : (
                 <div className="w-full pt-12 pb-16">
                     <MainPicText
@@ -237,7 +277,7 @@ const ExpertDefinition = () => {
                     text={
                         <Formik
                             initialValues={initialValues}
-                               validationSchema={expertSchema}
+                            validationSchema={expertSchema}
                             onSubmit={handleSubmit}
                         >
                             {({ values, isSubmitting, setFieldValue, errors, touched }) => (
@@ -247,10 +287,10 @@ const ExpertDefinition = () => {
                                             label={'نام'}
                                             value={values.Names}
                                             name="Names"
-                                            onChange={(e) => setName( e.target.value)}
+                                            onChange={(e) => setName(e.target.value)}
                                             holder={'نام را بنویسید'}
-                                            // error={name.length==0}
-                                            // errorText={'نام را بنویسید'}
+                                        // error={name.length==0}
+                                        // errorText={'نام را بنویسید'}
                                         />
                                     </div>
                                     <div>
@@ -258,7 +298,7 @@ const ExpertDefinition = () => {
                                             label={'نام خانوادگی'}
                                             name="Family"
                                             value={values.Family}
-                                            onChange={(e) => setFieldValue('Family',  e.target.value)}
+                                            onChange={(e) => setFieldValue('Family', e.target.value)}
                                             holder={'نام خانوادگی را بنویسید'}
                                             error={touched.Family && errors.Family}
                                             errorText={errors.Family}
@@ -269,7 +309,7 @@ const ExpertDefinition = () => {
                                             label={'کدملی'}
                                             name="NationalCode"
                                             value={values.NationalCode}
-                                          onChange={(e) => setFieldValue('NationalCode',  e.target.value)}
+                                            onChange={(e) => setFieldValue('NationalCode', e.target.value)}
 
                                             holder={'کدملی را بنویسید'}
                                             error={touched.NationalCode && errors.NationalCode}
@@ -281,7 +321,7 @@ const ExpertDefinition = () => {
                                             label={'شماره تماس'}
                                             name="MobileNumber"
                                             value={values.MobileNumber}
-                                            onChange={(e) => setFieldValue('MobileNumber',  e.target.value)}
+                                            onChange={(e) => setFieldValue('MobileNumber', e.target.value)}
                                             holder={'شماره تماس را بنوسید'}
                                             error={touched.MobileNumber && errors.MobileNumber}
                                             errorText={errors.MobileNumber}
@@ -292,7 +332,7 @@ const ExpertDefinition = () => {
                                             label={'نام کاربری'}
                                             name="Username"
                                             value={values.Username}
-                                            onChange={(e) => setFieldValue('Username',  e.target.value)}
+                                            onChange={(e) => setFieldValue('Username', e.target.value)}
                                             holder={'نام کاربری را بنویسید'}
                                             error={touched.Username && errors.Username}
                                             errorText={errors.Username}
@@ -304,7 +344,7 @@ const ExpertDefinition = () => {
                                             name="Password"
                                             type="password"
                                             value={values.Password}
-                                            onChange={(e) => setFieldValue('Password',  e.target.value)}
+                                            onChange={(e) => setFieldValue('Password', e.target.value)}
                                             holder={'رمز عبور را بنویسید'}
                                             error={touched.Password && errors.Password}
                                             errorText={errors.Password}
@@ -313,11 +353,11 @@ const ExpertDefinition = () => {
                                     <div className="h-full flex justify-center items-end col-span-2 mt-6">
                                         <div className="w-[60%]">
 
-                                    <MainButton
-                                        type="submit"
-                                        label={isSubmitting ? 'در حال ثبت...' : 'ثبت کارشناس'}
-                                        disabled={isSubmitting}
-                                    />
+                                            <MainButton
+                                                type="submit"
+                                                label={isSubmitting ? 'در حال ثبت...' : 'ثبت کارشناس'}
+                                                disabled={isSubmitting}
+                                            />
                                         </div>
 
                                     </div>
@@ -325,12 +365,12 @@ const ExpertDefinition = () => {
                             )}
                         </Formik>
                     }
-                    // modalButton={
-                    //     <div className="w-full flex justify-center">
-                    //         <div className="w-[134px]">
-                    //         </div>
-                    //     </div>
-                    // }
+                // modalButton={
+                //     <div className="w-full flex justify-center">
+                //         <div className="w-[134px]">
+                //         </div>
+                //     </div>
+                // }
                 />
             )}
 
