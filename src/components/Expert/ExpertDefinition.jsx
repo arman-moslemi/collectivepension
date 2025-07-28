@@ -98,6 +98,8 @@ const ExpertDefinition = () => {
     const [expertDefinitionModal, setExpertDefinitionModal] = useState(false);
     const [expertData, setExpertData] = useState();
     const [name, setName] = useState();
+    const [cha, setCha] = useState([]);
+    const [data, setData] = useState([]);
     let navigate = useNavigate();
 
     const initialValues = {
@@ -153,6 +155,28 @@ const ExpertDefinition = () => {
             if (response?.status === 200 || response?.status === 204) {
 
                 setExpertData(response.data);
+                var ch = [];
+                response.data?.requestsTypesCountDtos?.map((item) => {
+                    ch.push({ name: item.requestType, uv: item.count })
+                })
+
+                setCha(ch);
+                var dd = [];
+
+                response.data?.getReportDtos?.map((item, index) => {
+                    dd.push({
+                        item1: index + 1,
+                        item2: item?.date,
+                        item3: item?.loginTime,
+                        item4: item?.signOutTime,
+                        item5: item?.duration,
+                        item6: item?.recordDeclared,
+                        item7: item?.pensionDeclared,
+                        item8: item?.protestConsidered,
+                        item9: item?.docsInserted,
+                    })
+                    setData(dd)
+                })
                 setThereIsExpert(true)
             }
 
@@ -164,74 +188,74 @@ const ExpertDefinition = () => {
         GetData();
     }, [thereIsExpert]);
     return (
-        <div classNames="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
+        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             {expertData ? (
                 <div className="w-full">
-                        <div className="w-full flex justify-end items-center mt-3">
-                            <div className="w-[187px]"><MainButton
-                                label={< div className = "flex" > <p className="text-[16px] font-IRANYekanBold text-white ml-[15px]">ویرایش کارشناس</p> < DefExpertPenIcon /></div>}/></div>
+                    <div className="w-full flex justify-end items-center mt-3">
+                        <div className="w-[187px]"><MainButton
+                            label={< div className="flex" > <p className="text-[16px] font-IRANYekanBold text-white ml-[15px]">ویرایش کارشناس</p> < DefExpertPenIcon /></div>} /></div>
+                    </div>
+                    <div className="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
+                        <div className="flex md:my-2">
+                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کارشناس :</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData?.fullName}</p>
                         </div>
-                        <div className="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
-                            <div className="flex md:my-2">
-                                <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کارشناس :</p>
-                                <p className="font-IRANYekanBold text-[14px] text-mainBlue">احمد عبادی کنجانی</p>
-                            </div>
-                            <div className="flex md:my-2">
-                                <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کاربری :</p>
-                                <p className="font-IRANYekanBold text-[14px] text-mainBlue">AHMAD1256</p>
-                            </div>
+                        <div className="flex md:my-2">
+                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">نام کاربری :</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData?.userName}</p>
                         </div>
-                        <div className="w-full flex justify-between flex-wrap items-center mt-4 md:my-2 ">
-                            <div className="flex">
-                                <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">کدملی :</p>
-                                <p className="font-IRANYekanBold text-[14px] text-mainBlue">0020156985</p>
-                            </div>
-                            <div className="flex md:my-2">
-                                <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2 ">شماره تماس :</p>
-                                <p className="font-IRANYekanBold text-[14px] text-mainBlue">0212253636</p>
-                            </div>
+                    </div>
+                    <div className="w-full flex justify-between flex-wrap items-center mt-4 md:my-2 ">
+                        <div className="flex">
+                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2">کدملی :</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData?.nationalCode}</p>
                         </div>
-                       
-                        <div className="w-full border-t-[1px] border-borderGray py-8 mt-8"></div>
-                        <div className="w-full overflow-x-auto">
+                        <div className="flex md:my-2">
+                            <p className="font-IRANYekanExtra text-[15px] text-mainBlue ml-2 ">شماره تماس :</p>
+                            <p className="font-IRANYekanBold text-[14px] text-mainBlue">{expertData?.mobileNumber}</p>
+                        </div>
+                    </div>
+
+                    <div className="w-full border-t-[1px] border-borderGray py-8 mt-8"></div>
+                    <div className="w-full overflow-x-auto">
                         <div className="min-w-[600px]">
-    <ResponsiveContainer width="100%" height={300}> 
-          <BarChart
-                width={600}
-                height={300}
-                data={data}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                                    <CartesianGrid strokeDasharray="3 3"/>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart
+                                    width={600}
+                                    height={300}
+                                    data={cha}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis
                                         tickMargin={5}
                                         dataKey="name"
                                         tick={{
-                                        fontSize: 8
-                                    }}/>
-                                    <YAxis tickMargin={24}/>
-                                    <Bar dataKey="uv" barSize={30} fill="#00c1b2"/>
+                                            fontSize: 8
+                                        }} />
+                                    <YAxis tickMargin={24} />
+                                    <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-</div>
-                        <div
-                            className="w-full border-t-[1px] border-borderGray pt-6 flex md:block justify-between items-center mb-5">
-                            <p className="font-IRANYekanExtra
-                             text-[20px] text-mainBlue md:text-[14px]">گزارش عملکرد کارشناس</p>
-                            <div className="w-[129px] md:mr-auto md:w-[100px] md:mt-[10px]"><MainButton label={'گزارش گیری'}/></div>
-
-                        </div>
-                        <div className="w-full mb-16">
-                            <MainTable cen5={true} list={list} titleRow={titleRow}/>
-
-                        </div>
                     </div>
+                    <div
+                        className="w-full border-t-[1px] border-borderGray pt-6 flex md:block justify-between items-center mb-5">
+                        <p className="font-IRANYekanExtra
+                             text-[20px] text-mainBlue md:text-[14px]">گزارش عملکرد کارشناس</p>
+                        <div className="w-[129px] md:mr-auto md:w-[100px] md:mt-[10px]"><MainButton label={'گزارش گیری'} /></div>
+
+                    </div>
+                    <div className="w-full mb-16">
+                        <MainTable cen5={true} list={data} titleRow={titleRow} />
+
+                    </div>
+                </div>
 
             ) : (
                 <div className="w-full pt-12 pb-16">
