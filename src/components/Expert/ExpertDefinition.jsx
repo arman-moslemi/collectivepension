@@ -27,86 +27,24 @@ const titleRow = [
     "احکام صادر شده"
 ];
 
-const list = [
-    {
-        item1: "1",
-        item2: "1404/02/08",
-        item3: "11:25",
-        item4: "12:25",
-        item5: "1:00",
-        item6: "12",
-        item7: "12",
-        item8: "5",
-        item9: "2"
-    }, {
-        item1: "1",
-        item2: "1404/02/08",
-        item3: "11:25",
-        item4: "12:25",
-        item5: "1:00",
-        item6: "12",
-        item7: "12",
-        item8: "5",
-        item9: "2"
-    }, {
-        item1: "1",
-        item2: "1404/02/08",
-        item3: "11:25",
-        item4: "12:25",
-        item5: "1:00",
-        item6: "12",
-        item7: "12",
-        item8: "5",
-        item9: "2"
-    }
 
-];
 
-const data = [
-    {
-        name: 'احکام صادرشده',
-        uv: 200
-    }, {
-        name: 'اعتراضات پاسخ‌داده',
-        uv: 950
-    }, {
-        name: 'اعتراضات باز',
-        uv: 500
-    }, {
-        name: 'انتظار تایید ثانویه',
-        uv: 100
-    }, {
-        name: 'مبلغ اعلام‌شده',
-        uv: 180
-    }, {
-        name: 'در انتظار مبلغ',
-        uv: 650
-    }, {
-        name: 'سابقه اعلام‌شده',
-        uv: 730
-    }, {
-        name: 'در انتظار سابقه',
-        uv: 240
-    }, {
-        name: 'انتظار تایید اولیه',
-        uv: 200
-    }
-];
 
 const ExpertDefinition = () => {
     const [thereIsExpert, setThereIsExpert] = useState(false);
     const [expertDefinitionModal, setExpertDefinitionModal] = useState(false);
     const [expertData, setExpertData] = useState();
-    const [name, setName] = useState();
+    const [name, setName] = useState('');
+    const [id, setId] = useState(0);
     const [cha, setCha] = useState([]);
     const [data, setData] = useState([]);
     let navigate = useNavigate();
 
     const initialValues = {
-        Family: '',
-        NationalCode: '',
-        MobileNumber: '',
-        Username: '',
+        Family: expertData?.family || '',
+        NationalCode: expertData?.nationalCode || '',
+        MobileNumber: expertData?.mobileNumber || '',
+        Username: expertData?.userName || '',
         Password: ''
     };
 
@@ -116,15 +54,16 @@ const ExpertDefinition = () => {
             // Here you would typically call your API
             const payload = {
                 ...values,
-                Name: name
+                Name: name,
+                expertId: id
 
             };
-            const response = await axiosReq("Experts/CreateExpert", "post", payload);
+            const response = await axiosReq(id == 0 ? "Experts/CreateExpert" : "Experts/UpdateExpert", id == 0 ? "post" : "put", payload);
 
             console.log(response)
             if (response?.status === 200 || response?.status === 204) {
-
-
+                alert(response.data)
+setExpertDefinitionModal(false)
                 setThereIsExpert(!thereIsExpert);
             }
         } catch (error) {
@@ -134,7 +73,6 @@ const ExpertDefinition = () => {
         }
     };
     const expertSchema = Yup.object().shape({
-        Names: Yup.string().required('نام الزامی است'),
         Family: Yup.string().required('نام خانوادگی الزامی است'),
         NationalCode: Yup.string()
             .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد')
@@ -145,7 +83,7 @@ const ExpertDefinition = () => {
         Username: Yup.string().required('نام کاربری الزامی است'),
         Password: Yup.string()
             .min(6, 'رمز عبور باید حداقل 6 کاراکتر باشد')
-            .required('رمز عبور الزامی است')
+        // .required('رمز عبور الزامی است')
     });
     const GetData = async () => {
         try {
@@ -155,6 +93,8 @@ const ExpertDefinition = () => {
             if (response?.status === 200 || response?.status === 204) {
 
                 setExpertData(response.data);
+                setName(response.data?.name);
+                setId(response.data?.expertId)
                 var ch = [];
                 response.data?.requestsTypesCountDtos?.map((item) => {
                     ch.push({ name: item.requestType, uv: item.count })
@@ -192,7 +132,7 @@ const ExpertDefinition = () => {
             {expertData ? (
                 <div className="w-full">
                     <div className="w-full flex justify-end items-center mt-3">
-                        <div className="w-[187px]"><MainButton
+                        <div className="w-[187px]"><MainButton onClickFunction={() => setExpertDefinitionModal(true)}
                             label={< div className="flex" > <p className="text-[16px] font-IRANYekanBold text-white ml-[15px]">ویرایش کارشناس</p> < DefExpertPenIcon /></div>} /></div>
                     </div>
                     <div className="w-full flex justify-between flex-wrap items-center mt-8 md:my-2">
@@ -285,20 +225,21 @@ const ExpertDefinition = () => {
             {expertDefinitionModal && (
                 <MainModal
                     big={false}
-                    title={'تعریف کارشناس'}
+                    title={'تعریف یا ویرایش کارشناس'}
                     setShowModal={setExpertDefinitionModal}
                     text={
                         <Formik
                             initialValues={initialValues}
                             validationSchema={expertSchema}
                             onSubmit={handleSubmit}
+                            enableReinitialize
                         >
                             {({ values, isSubmitting, setFieldValue, errors, touched }) => (
                                 <Form className="w-full grid grid-cols-2 gap-4">
                                     <div>
                                         <MainInput
                                             label={'نام'}
-                                            value={values.Names}
+                                            value={name}
                                             name="Names"
                                             onChange={(e) => setName(e.target.value)}
                                             holder={'نام را بنویسید'}
