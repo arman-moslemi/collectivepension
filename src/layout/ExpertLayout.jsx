@@ -200,8 +200,8 @@ const ExpertLayout = () => {
 
 
    
-          <div className="w-[82%] min-w-[82%] b1115:w-full b1115:min-w-full">
-            <Outlet />
+<div className="w-[82%] min-w-[82%] b1115:w-full b1115:min-w-full">
+<Outlet />
           </div>
         </div>
       </div>

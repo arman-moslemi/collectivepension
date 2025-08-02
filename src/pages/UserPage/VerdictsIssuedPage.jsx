@@ -4,7 +4,7 @@ import VerdictsIssuedIcon from "../../assets/icon/user/VerdictsIssuedIcon";
 
 const VerdictsIssuedPage = () => {
     return (
-        <div className="pr-[20px] pl-[60px] py-[55px]">
+        <div className="pr-[20px] pl-[60px] py-[55px] b1115:pl-[20px] md:py-[25px]">
             <div className="mb-[10px] w-full "><MainTopAll title={'احکام بازنشستگی صادر شده'} icon={<VerdictsIssuedIcon/>} role={'user'}/></div>
             <div className="w-full"><VerdictsIssued/></div>   
         </div>

@@ -37,7 +37,7 @@ const MainTopAll = ({ role, icon, title, text, adminRole }) => {
             </div>
             <div className='flex items-center md:justify-end md:flex-wrap'>
                 <Link className="font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px] y408:mb-2">راهنمای استفاده از سامانه</Link>
-                <div className="w-fit h-[40px] bg-white py-[7px] px-[12px] rounded-[6px] mr-[11px] flex">
+                <div className="w-fit h-[40px] bg-white py-[7px] px-[12px] rounded-[6px] mr-[11px] flex b1115:w-full">
                     {role === 'user' ?
                         <div className='flex w-[320px] justify-between items-center'>
                             <div className='flex justify-start items-center'>
