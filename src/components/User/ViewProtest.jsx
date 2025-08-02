@@ -74,7 +74,8 @@ const ViewProtest = () => {
                 <div className='flex flex-col items-end'>
                     <div className='mb-[14px] flex items-center'>
                         <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>وضعیت :</p>
-                        <div className='w-[87px] h-[28px] bg-[#0F956D] rounded-[50px] flex justify-center items-center mr-2'><p className='text-[15px] text-white font-IRANYekanMedium'>{maindata?.protestStatus}</p></div>
+                        <div className={`w-[87px] h-[28px] ${maindata?.protestStatus == "رد اعتراض" ? "bg-redError" : "bg-greenTable"} rounded-[50px] flex justify-center items-center mr-2`}>
+                            <p className='text-[15px] text-white font-IRANYekanMedium'>{maindata?.protestStatus}</p></div>
                     </div>
                     <div className='flex'>
                         <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>تاریخ به‌روزرسانی اعتراض :</p>
