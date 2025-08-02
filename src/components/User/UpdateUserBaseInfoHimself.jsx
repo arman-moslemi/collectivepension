@@ -30,7 +30,7 @@ const UpdateUserBaseInfoHimself = () => {
             .required('شماره همراه الزامی است')
             .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
         address: Yup.string().required('آدرس الزامی است'),
-        personnelCode: Yup.string().required('کد پرسنلی الزامی است'),
+       // personnelCode: Yup.string().required('کد پرسنلی الزامی است'),
         isRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
     });
 
@@ -73,12 +73,20 @@ const UpdateUserBaseInfoHimself = () => {
             const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
             if (response?.status === 200) {
                 navigate('../createUserInsuranceDes');
+                const fullName = `${response.data.name} ${response.data.family}`;
+                localStorage.setItem("userFullName", fullName);
+            
+                setInitialValues(prev => ({
+                    ...prev,
+                    ...response.data,
+                }));
             }
         } catch (error) {
             console.error("Update failed:", error);
         } finally {
             setSubmitting(false);
         }
+        
     };
 
     useEffect(() => {
@@ -188,7 +196,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 value={values.personnelCode}
                                 onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                 holder={'مثلا 12569'}
-                                necessary={true}
+                                necessary={false}
                                 error={touched.personnelCode && errors.personnelCode}
                                 errorText={errors.personnelCode}
                             />

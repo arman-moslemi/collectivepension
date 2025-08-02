@@ -1,13 +1,34 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { MainModal, MainButton } from "../../components"
+import { axiosReq } from '../../commons/axiosReq';
 const MainTopAll = ({ role, icon, title, text, adminRole }) => {
     let navigate = useNavigate();
     const [showUserTypeModal, setShowUserTypeModal] = useState(false);
+    const [userName, setUserName] = useState(""); // اضافه شده
+
+    // گرفتن نام کاربر از API
+    const fetchUser = async () => {
+        try {
+            const res = await axiosReq("Users/GetUser", "get");
+            if (res?.status === 200) {
+                setUserName(`${res.data.name} ${res.data.family}`);
+            }
+        } catch (err) {
+            console.error("Failed to fetch user:", err);
+        }
+    };
+
+    useEffect(() => {
+        if (role === "user") {
+            fetchUser();
+        }
+    }, []);
 
     const userTypeModalFunction = () => {
         setShowUserTypeModal(true);
-    }
+    };
+
     return (
         <div className="flex w-full justify-between items-center md:block">
             <div className="flex justify-start items-center">
@@ -20,7 +41,8 @@ const MainTopAll = ({ role, icon, title, text, adminRole }) => {
                     {role === 'user' ?
                         <div className='flex w-[320px] justify-between items-center'>
                             <div className='flex justify-start items-center'>
-                                <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>علی علیزاده</p>
+                            <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>{userName || "در حال بارگذاری..."}</p>
+
                                 <p className='font-IRANYekanMedium text-[15px] text-mainBlue mr-1 md:text-[10px]'>(کاربر اصلی)</p>
                             </div>
                             <Link onClick={userTypeModalFunction} className='font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px]'>تغییر نقش</Link>

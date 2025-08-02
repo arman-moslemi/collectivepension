@@ -12,7 +12,9 @@ const employmentStatusOptions = [
   { id: 2, name: 'مشمول قانون کار' },
   { id: 3, name: 'سایر' }
 ];
-
+const departmanList=[
+  {id:1,name:'1'}
+]
 const CreateUserInsuranceDes = () => {
   const navigate = useNavigate();
   const [provinces, setProvinces] = useState([]);
@@ -214,6 +216,8 @@ if(initialValues.UserInsuranceId==0 )
             {/* Department Name - show existing value */}
             <div className="mb-5 col-span-2">
               <MainInput
+              listBox={true}
+              listItems={departmanList}
                 label={'نام دستگاه اجرایی'}
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}

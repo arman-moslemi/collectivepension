@@ -61,7 +61,9 @@ const cityList = [
     name: 'پاکدشت',
   },
 ]
-
+const departmanList=[
+  {id:1,name:'1'}
+]
 const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, reCheck, setRecheck }) => {
 
   const navigate = useNavigate();
@@ -283,6 +285,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             {/* City */}
             <div className="mb-5 col-span-2">
               <MainInput
+                listBox={true}
+                listItems={departmanList}
                 label={'نام دستگاه اجرایی'}
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}

@@ -41,7 +41,7 @@ const UpdateUserBaseInfoAnother = () => {
         userMobileNumber: Yup.string()
             .required('شماره همراه الزامی است'),
         userAddress: Yup.string().required('آدرس الزامی است'),
-        userPersonnelCode: Yup.string().required('کد پرسنلی الزامی است'),
+        // userPersonnelCode: Yup.string().required('کد پرسنلی الزامی است'),
         userIsRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
     });
 
@@ -227,7 +227,7 @@ const UpdateUserBaseInfoAnother = () => {
                                         value={values.userPersonnelCode}
                                         onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                         holder={'مثلا 12569'}
-                                        necessary={true}
+                                        necessary={false}
                                         error={touched.userPersonnelCode && errors.userPersonnelCode}
                                         errorText={errors.userPersonnelCode}
                                     />

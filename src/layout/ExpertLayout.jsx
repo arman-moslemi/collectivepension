@@ -40,7 +40,7 @@ const ExpertLayout = () => {
 
         <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
        
-          <div className="w-[18%] min-w-[270px] bg-white h-auto relative block b1115:hidden b1115:w-[0%]">
+          <div className="w-[18%] min-w-[18%] bg-white h-auto relative">
 
             <div className="absolute z-10 top-12"><SidebarMainIcon /></div>
             <div className="absolute z-30 top-32 mr-[14px]">
