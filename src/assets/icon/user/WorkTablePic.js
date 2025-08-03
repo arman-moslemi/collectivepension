@@ -1,8 +1,8 @@
 import * as React from "react";
 const WorkTablePic = (props) => (
   <svg
-    width={318}
-    height={281}
+    width="100%"
+    height="auto"
     viewBox="0 0 318 281"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

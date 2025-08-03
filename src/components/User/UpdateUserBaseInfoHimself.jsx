@@ -88,22 +88,22 @@ const UpdateUserBaseInfoHimself = () => {
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             {/* Progress steps (unchanged) */}
-            <div className="flex justify-start px-[32px] items-center overflow-y-scroll whitespace-nowrap w-full">
+            <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2">
                 <div className="flex justify-start items-center">
                     <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">1</p></div></div>
                     <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات هویتی متقاضی</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue"></div>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue md:w-[10px]"></div>
                 </div>
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
                     <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">2</p></div>
                     <p className="font-IRANYekanBold text-[15px] text-mainBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-darkGray md:w-[10px]" ></div>
                 </div>
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
                     <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
-                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
                 </div>
             </div>
 
