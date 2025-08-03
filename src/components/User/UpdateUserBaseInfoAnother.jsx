@@ -41,7 +41,7 @@ const UpdateUserBaseInfoAnother = () => {
         userMobileNumber: Yup.string()
             .required('شماره همراه الزامی است'),
         userAddress: Yup.string().required('آدرس الزامی است'),
-        userPersonnelCode: Yup.string().required('کد پرسنلی الزامی است'),
+      
         userIsRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
     });
 
@@ -116,7 +116,7 @@ const UpdateUserBaseInfoAnother = () => {
     }
 
     return (
-        <div className="w-full flex flex-col items-center rounded-[6px] bg-white py-[40px]">
+        <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             <div className="flex justify-start px-[32px] items-center">
                 <div className="flex justify-start items-center">
                     <div className="rounded-full h-[48px] w-[48px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">1</p></div></div>
@@ -145,7 +145,7 @@ const UpdateUserBaseInfoAnother = () => {
                 enableReinitialize
             >
                 {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-                    <Form >
+                    <Form  className="px-[90px] w-full">
                         <div className="w-full">
                             <div className="w-full grid grid-cols-3 gap-4">
                                 <div className="flex justify-start col-span-3 items-center mb-10 ">
@@ -227,9 +227,8 @@ const UpdateUserBaseInfoAnother = () => {
                                         value={values.userPersonnelCode}
                                         onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                         holder={'مثلا 12569'}
-                                        necessary={true}
-                                        error={touched.userPersonnelCode && errors.userPersonnelCode}
-                                        errorText={errors.userPersonnelCode}
+                                        necessary={false}
+                                        
                                     />
                                 </div>
 
@@ -314,14 +313,27 @@ const UpdateUserBaseInfoAnother = () => {
                                     </div>
                                     <div className="mb-5 col-span-3">
                                         <div className="flex">
-                                            <label className="font-IRANYekanBold text-[16px] text-mainBlue">حکم انحصار وراثت</label>
+                                            <label className="font-IRANYekanBold text-[16px] text-mainBlue">گواهی فوت</label>
                                             <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
                                         </div>
+                                        
                                         <div className="mt-[10px] flex items-center">
                                             <p className=" font-IRANYekanMedium text-[14px] ml-3">انتخاب فایل</p>
                                             <UploadFile setFile={setFile} />
                                         </div>
                                     </div>
+                                    <div className="mb-5 col-span-3">
+                                        <div className="flex">
+                                            <label className="font-IRANYekanBold text-[16px] text-mainBlue">حکم انحصار وراثت</label>
+                                            <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
+                                        </div>
+                                        
+                                        <div className="mt-[10px] flex items-center">
+                                            <p className=" font-IRANYekanMedium text-[14px] ml-3">انتخاب فایل</p>
+                                            <UploadFile setFile={setFile} />
+                                        </div>
+                                    </div>
+                                  
                                     {
                                         files.map((item) => {
                                             return (

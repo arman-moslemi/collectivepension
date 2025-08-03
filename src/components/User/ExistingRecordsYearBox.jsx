@@ -10,8 +10,8 @@ const ExistingRecordsYearBox = ({data}) => {
                         <p className="text-darkGray text-[10px] font-IRANYekanMedium">روز</p>
                     </div>
                 </div>
-                <p className="font-IRANYekanMedium text-[10px] text-mainBlue mb-1">نرخ حق بیمه </p>
-                <p className="font-IRANYekanMedium text-[10px] text-darkGray mb-1">{data.insuranceRate}</p>
+                {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mb-1">نرخ حق بیمه </p>
+                <p className="font-IRANYekanMedium text-[10px] text-darkGray mb-1">{data.insuranceRate}</p> */}
                 <p className="font-IRANYekanMedium text-[10px] text-mainBlue mb-1">دستمزد مشمول کسر حق بیمه</p>
                 <div className="flex">
                     <p className="font-IRANYekanMedium text-[10px] text-darkGray ml-1">{data.wage}</p>

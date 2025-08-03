@@ -43,6 +43,24 @@ const provinceList = [
     name: 'خراسان رضوی',
   },
 ]
+const l1 = [
+  {
+    id: 1,
+    name: 'تهران',
+  },
+  {
+    id: 2,
+    name: 'شیراز',
+  },
+  {
+    id: 3,
+    name: 'اصفهان',
+  },
+  {
+    id: 4,
+    name: 'خراسان رضوی',
+  },
+]
 const cityList = [
   {
     id: 1,
@@ -283,10 +301,12 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             {/* City */}
             <div className="mb-5 col-span-2">
               <MainInput
-                label={'نام دستگاه اجرایی'}
+                label={'نام دستگاه اجرائی/کارگاه'}
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}
                 necessary={true}
+                listBox={true}
+                listItems={l1}
                 holder={'مثلا وزرات تعاون'}
                 error={touched.DepartmentName && errors.DepartmentName}
                 errorText={errors.DepartmentName}

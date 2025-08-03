@@ -82,7 +82,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     }
 
     if (error) {
-        return <div className="w-full flex justify-center py-10 text-red-500">{error}</div>;
+        return <div className="w-full flex justify-center py-10 text-redError font-IRANYekanBold">{error}</div>;
     }
 
 

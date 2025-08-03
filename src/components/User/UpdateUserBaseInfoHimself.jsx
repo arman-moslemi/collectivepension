@@ -30,7 +30,7 @@ const UpdateUserBaseInfoHimself = () => {
             .required('شماره همراه الزامی است')
             .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
         address: Yup.string().required('آدرس الزامی است'),
-        personnelCode: Yup.string().required('کد پرسنلی الزامی است'),
+       
         isRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
     });
 
@@ -88,8 +88,23 @@ const UpdateUserBaseInfoHimself = () => {
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             {/* Progress steps (unchanged) */}
-            <div className="flex justify-start items-center">
-                {/* ... your existing progress steps JSX ... */}
+            <div className="flex justify-start px-[32px] items-center overflow-y-scroll whitespace-nowrap w-full">
+                <div className="flex justify-start items-center">
+                    <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">1</p></div></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات هویتی متقاضی</p>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue"></div>
+                </div>
+                <div className="flex justify-start items-center">
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">2</p></div>
+                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                </div>
+                <div className="flex justify-start items-center">
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
+                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px]">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+                </div>
             </div>
 
             <div className="w-full mt-[32px] mb-[40px]">
@@ -103,29 +118,29 @@ const UpdateUserBaseInfoHimself = () => {
                 enableReinitialize
             >
                 {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-                    <Form className="px-[90px] w-full grid grid-cols-3 gap-4">
+                    <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
                         {/* Read-only fields */}
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'نام'} value={values.name} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'نام خانوادگی'} value={values.family} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'نام پدر'} value={values.fatherName} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'تاریخ تولد'} value={values.birthDate} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'کدملی'} value={values.nationalCode} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput label={'جنسیت'} value={values.isMan ? "مرد" : "زن"} necessary={true} disable={true} />
                         </div>
 
                         {/* Editable fields */}
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput
                                 label={'شماره شناسنامه'}
                                 value={values.idcardNumber}
@@ -136,7 +151,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 errorText={errors.idcardNumber}
                             />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput
                                 label={'شماره تلفن ثابت'}
                                 value={values.phoneNumber}
@@ -147,7 +162,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 errorText={errors.phoneNumber}
                             />
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 md:col-span-3">
                             <MainInput
                                 label={'شماره تلفن همراه'}
                                 value={values.mobileNumber}
@@ -169,7 +184,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 errorText={errors.address}
                             />
                         </div>
-                        <div className="col-span-2">
+                        <div className="col-span-2 md:col-span-3">
                             <MainRadioInput
                                 title={'نوع درخواست مستمری جمع'}
                                 radioName={'isRetirement'}
@@ -182,15 +197,14 @@ const UpdateUserBaseInfoHimself = () => {
                                 selectedValue={values.isRetirement}
                             />
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-1 md:col-span-3">
                             <MainInput
                                 label={'کد پرسنلی'}
                                 value={values.personnelCode}
                                 onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                 holder={'مثلا 12569'}
-                                necessary={true}
-                                error={touched.personnelCode && errors.personnelCode}
-                                errorText={errors.personnelCode}
+                                necessary={false}
+                               
                             />
                         </div>
                         <div className="col-span-3 mt-[33px] flex justify-end items-center">

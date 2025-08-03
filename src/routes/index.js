@@ -91,7 +91,7 @@ export const router =createBrowserRouter([
             { path: 'expertDefinition', element: <ExpertDefinitionPage />},
             { path: 'protestList', element: <ExpertProtestListPage />},
             { path: 'protestDetail', element: <ExpertProtestDetailPage />},
-            { path: 'insurancePremium', element: <ExpertInsurancePremiumPage />},
+            // { path: 'insurancePremium', element: <ExpertInsurancePremiumPage />},
 
             // { path: 'expertRequestsAllRecordsWithWebService', element: <ExpertDashboardPage />},
             // { path: 'expertrequestsAllRecordsNoWebService', element: <ExpertDashboardPage />},
