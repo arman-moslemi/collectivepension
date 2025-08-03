@@ -67,23 +67,23 @@ const Dashboard = () => {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={'در هر لحظه وضعیتی که کاربر در آن قرار دارد اینجا قرار میگیرد.مثلا سوابق اعلام شده در انتظار تایید شما یا مبلغ مستمری محاسبه شده در انتظار تایید'} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
-                <div onClick={()=>navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer">
+                <div onClick={()=>navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
                     <img src={DashboardPic1} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">کلیه سوابق موجود</p>
                 </div>
-                <div onClick={()=>navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <img src={DashboardPic2} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">مستمری محاسبه شده</p>
                 </div>
-                <div onClick={()=>navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <img src={DashboardPic4} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعلام حساب بانکی</p>
                 </div>
-                <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] ">
+                <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] md:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">آخرین سوابق</p>
                     <div className="w-full h-full ">
                     <ResponsiveContainer width="100%" height="90%">
@@ -106,7 +106,7 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                     </div>
                 </div>
-                <div className="h-[323px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div className="h-[323px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-[15px]">حکم بازنشستگی</p>
                     <img src={DashboardPic5} alt="pic" />
                     <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>

@@ -6,21 +6,18 @@ import DownloadIcon from '../../assets/icon/general/DownloadIcon';
 
 
 const cityList = [
+   
     {
       id: 1,
-      name: 'دماوند',
-      },
-    {
-      id: 2,
-      name: 'فیروزکوه',
+      name: 'عشایر',
      },
     {
-      id: 3,
-      name: 'ورامین',
+      id: 2,
+      name: 'تامین اجتماعی',
       },
     {
-      id: 4,
-      name: 'پاکدشت',
+      id: 3,
+      name: 'بازنشستگی کشوری',
       },
 ]
 
@@ -57,7 +54,7 @@ const list = [
 
 const VerdictsIssued = () => {
     return (
-        <div className="w-full flex flex-col items-center rounded-[6px] bg-white pt-[24px] pb-[100px] px-[230px]">
+        <div className="w-full flex flex-col items-center rounded-[6px] bg-white pt-[24px] pb-[100px] px-[230px] lg:px-1">
             <div className='w-full flex justify-end mb-5'>
                 <div className='w-[150px]'><MainInput listBoxM1={true} listItems={cityList} listBoxHolder={'نام صندوق'}/></div>
             </div>

@@ -156,27 +156,27 @@ const UpdateUserBaseInfoAnother = () => {
                                 {/* <div className="w-full grid grid-cols-3 gap-4 mt-5"> */}
 
                                 {/* Read-only fields */}
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'نام'} value={values.userName} necessary={true} disable={true} />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'نام خانوادگی'} value={values.userFamily} necessary={true} disable={true} />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'نام پدر'} value={values.userFatherName} necessary={true} disable={true} />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'تاریخ تولد'} value={values.userBirthDate} necessary={true} disable={true} />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'کدملی'} value={values.userNationalCode} necessary={true} disable={true} />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput label={'جنسیت'} value={values.userIsMan ? "مرد" : "زن"} necessary={true} disable={true} />
                                 </div>
 
                                 {/* Editable fields */}
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput
                                         label={'شماره شناسنامه'}
                                         value={values.userIdcardNumber}
@@ -187,7 +187,7 @@ const UpdateUserBaseInfoAnother = () => {
                                         errorText={errors.userIdcardNumber}
                                     />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput
                                         label={'شماره تلفن ثابت'}
                                         value={values.userPhoneNumber}
@@ -198,7 +198,7 @@ const UpdateUserBaseInfoAnother = () => {
                                         errorText={errors.userPhoneNumber}
                                     />
                                 </div>
-                                <div className="mb-5">
+                                <div className="mb-5 md:col-span-3">
                                     <MainInput
                                         label={'شماره تلفن همراه'}
                                         value={values.userMobileNumber}
@@ -221,7 +221,7 @@ const UpdateUserBaseInfoAnother = () => {
                                     />
                                 </div>
 
-                                <div className="col-span-1">
+                                <div className="col-span-1 md:col-span-3">
                                     <MainInput
                                         label={'کد پرسنلی'}
                                         value={values.userPersonnelCode}
@@ -245,25 +245,25 @@ const UpdateUserBaseInfoAnother = () => {
                                 <div className="w-full grid grid-cols-3 gap-4 mt-5">
 
                                     {/* Read-only fields */}
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'نام'} value={values.agentName} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'نام خانوادگی'} value={values.agentFamily} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'نام پدر'} value={values.agentFatherName} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'تاریخ تولد'} value={values.agentBirthDate} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'کدملی'} value={values.agentNationalCode} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'جنسیت'} value={values.agentIsMan ? "مرد" : "زن"} necessary={true} disable={true} />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput
                                             label={'شماره شناسنامه'}
                                             value={values.agentIdcardNumber}
@@ -275,7 +275,7 @@ const UpdateUserBaseInfoAnother = () => {
                                         />
                                     </div>
 
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput
                                             label={'شماره تلفن همراه'}
                                             holder={'مثلا 09123333333'}
@@ -286,7 +286,7 @@ const UpdateUserBaseInfoAnother = () => {
                                             errorText={errors.agentMobileNumber}
                                         />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'شماره تلفن ثابت'}
                                             holder={'مثلا 02144665522'}
                                             necessary={true}
@@ -296,7 +296,7 @@ const UpdateUserBaseInfoAnother = () => {
                                             errorText={errors.agentPhoneNumber}
                                         />
                                     </div>
-                                    <div className="mb-5">
+                                    <div className="mb-5 md:col-span-3">
                                         <MainInput label={'نسبت با بیمه شده اصلی'}
                                             holder={'مثلا فرزند ارشد'}
                                             value={values.relationship}
@@ -304,14 +304,14 @@ const UpdateUserBaseInfoAnother = () => {
                                             error={touched.relationship && errors.relationship}
                                             errorText={errors.relationship} />
                                     </div>
-                                    <div className="mb-5 col-span-2">
+                                    <div className="mb-5 col-span-2 md:col-span-3">
                                         <MainInput label={'آدرس'} holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'}
                                             value={values.agentAddress}
                                             onChange={(e) => setFieldValue('agentAddress', e.target.value)}
                                             error={touched.agentAddress && errors.agentAddress}
                                             errorText={errors.agentAddress} />
                                     </div>
-                                    <div className="mb-5 col-span-3">
+                                    <div className="mb-5 col-span-3 md:col-span-3">
                                         <div className="flex">
                                             <label className="font-IRANYekanBold text-[16px] text-mainBlue">گواهی فوت</label>
                                             <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
@@ -322,7 +322,7 @@ const UpdateUserBaseInfoAnother = () => {
                                             <UploadFile setFile={setFile} />
                                         </div>
                                     </div>
-                                    <div className="mb-5 col-span-3">
+                                    <div className="mb-5 col-span-3 md:col-span-3">
                                         <div className="flex">
                                             <label className="font-IRANYekanBold text-[16px] text-mainBlue">حکم انحصار وراثت</label>
                                             <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>

@@ -58,17 +58,17 @@ const CreateUserInsuranceOrigin = () => {
     }
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
-            <div className="flex justify-start items-center">
+            <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2">
                 <div className="flex justify-start items-center">
-                    <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
+                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
                     <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen md:w-[10px]"></div>
                 </div>
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
-                    <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
+                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
                     <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-midGreen md:w-[10px]"></div>
                 </div>
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-buttonBlue"></div>
@@ -77,14 +77,14 @@ const CreateUserInsuranceOrigin = () => {
                 </div>
             </div>
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} /></div>
-            <div className="px-[90px] w-full ">
-                <div className="w-full">
+            <div className="px-[90px] w-full md:px-1">
+                <div className="w-full md:col-span-3">
                     {forms.map((_, idx) => {
                         console.log(idx)
                         return (
                             data?.length > idx ?
                       
-                                <div key={idx} className="mb-6">
+                                <div key={idx} className="mb-6 ">
                                     <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} />
                                 </div>
                                 :
@@ -101,12 +101,12 @@ const CreateUserInsuranceOrigin = () => {
 
                     )}
                 </div>
-                <div className="w-full flex items-end justify-between my-5">
+                <div className="w-full flex items-end justify-between my-5 flex-wrap">
                     <div className="w-fit max-w-[434px] ">
                         <p className="font-IRANYekanBold text-[15px] text-mainBlue mb-3">اگر در صندوق مبدا دیگری بیمه پردازی داشتید،روی دکمه زیر کلیک کرده و اطلاعات خود را تکمیل کنید.</p>
                         <div className="w-[217px]"><MainButton onClickFunction={handleAddForm} label={'افزودن صندوق مبدا بعدی'} /></div>
                     </div>
-                    <div className="flex">
+                    <div className="flex md:mt-5">
                         <div className="w-[140px] ml-4"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام قبلی'} /></div>
                         <div className="w-[140px]"><MainButton onClickFunction={underTakingModalFunction} label={'گام بعدی'} /></div>
                     </div>

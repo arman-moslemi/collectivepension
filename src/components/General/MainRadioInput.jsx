@@ -20,7 +20,7 @@ const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,
                 <label className={`${smallBlack? 'font-IRANYekanMedium text-[15px]' : 'font-IRANYekanBold text-[16px] text-mainBlue'} mr-2`}>{text2}</label>
                 </div>
                 {text3 ? 
-                <div className="flex justify-start items-center  mt-3">
+                <div className="flex justify-start items-center  mt-3 flex-wrap">
                 <input disabled={disabled} className="w-[18px] h-[18px]" checked={value3==selectedValue}  name={radioName} onChange={() => onChange(value3)} type="radio" />
                 <label className="font-IRANYekanBold text-[16px] text-mainBlue mr-2">{text3}</label>
                 {input?
