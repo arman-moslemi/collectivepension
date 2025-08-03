@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
+import Cookies from 'universal-cookie';
 
 const status = [
     {
@@ -47,56 +48,6 @@ const num = [
         name: '15 تا'
     }
 ]
-const list = [
-    {
-        item1: "1",
-        item2: "علی علیزاده",
-        item3: "0020163258",
-        item4: "در قید حیات",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام سوابق',
-        item7: <Link to="../../expert/requestsDetails">
-            <div
-                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-        </Link>
-    },
-    {
-        item1: "1",
-        item2: "علی علیقتیثتزاده",
-        item3: "0020163258",
-        item4: "در قید حیات",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام سوابق',
-        item7: <Link to="../../expert/requestsDetails">
-            <div
-                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-        </Link>
-    },
-    {
-        item1: "1",
-        item2: "علیرضا احمدآبادی",
-        item3: "0054789635",
-        item4: "فوت شده",
-        item5: "1402/02/08",
-        item6: 'در انتظار اعلام مبلغ',
-        item7: <Link to="../../expert/requestsDetails">
-            <div
-                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-        </Link>
-    },
-    {
-        item1: "1",
-        item2: "فاطمه سادات نوری زاده",
-        item3: "0054789635",
-        item4: "فوت شده",
-        item5: "1402/02/08",
-        item6: 'در انتظار تایید بازمانده',
-        item7: <Link to="../../expert/requestsDetails">
-            <div
-                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-        </Link>
-    }
-];
 
 const ExpertRequests = ({ IsEnding }) => {
 
@@ -123,11 +74,11 @@ const ExpertRequests = ({ IsEnding }) => {
 
     const getProtests = async () => {
         try {
-
-            const response = await axiosReq("Experts/GetRequests?page=" + page + "&&pageSize=" + row+"&&search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&userInsuranceStatusId="+status, "post", {
+            const cookies = new Cookies();
+            const response = await axiosReq("Experts/GetRequests?page=" + page + "&&pageSize=" + row + "&&search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&userInsuranceStatusId=" + status, "post", {
 
                 IsEndingInsurance: IsEnding,
-          
+
             });
             console.log(response)
 
@@ -161,10 +112,30 @@ const ExpertRequests = ({ IsEnding }) => {
                         item4: item.isDeceased,
                         item5: item.requestDate,
                         item6: item.statusDescription,
-                        item7: <button onClick={()=>navigate("/expert/requestsDetails",{state:{id:item.userInsuranceId}})}>
-                            <div
-                                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-                        </button>,
+                        item7:
+                            <div className="flex justify-between">
+                                <button onClick={() => navigate("/expert/requestsDetails", { state: { id: item.userInsuranceId } })} >
+                                    <div
+                                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'>
+                                        <DetailTableIcon />
+
+                                    </div>
+
+
+                                </button>
+                                {cookies.get("Role") == "Admin" ?
+                                    <button onClick={() => returnReq(item.userInsuranceId)} >
+                                        <div
+                                            className='w-[38px] h-[38px] mx-2 rounded-full bg-backYellow flex justify-center items-center'>
+                                            <IcReloadIcon />
+                                        </div>
+
+                                    </button>
+                                    :
+                                    null}
+                            </div>
+                        ,
+
 
                     })
                 })
@@ -177,7 +148,7 @@ const ExpertRequests = ({ IsEnding }) => {
     };
     useEffect(() => {
         getProtests();
-    }, [name, type, status, page, row,startDate,endDate]);
+    }, [name, type, status, page, row, startDate, endDate]);
     const getFilters = async () => {
         try {
 
@@ -202,19 +173,33 @@ const ExpertRequests = ({ IsEnding }) => {
     useEffect(() => {
         getFilters();
     }, []);
-      const getExcel = async () => {
+    const getExcel = async () => {
         try {
 
-            const response = await axiosReq("Experts/GetRequestsExcel?search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&userInsuranceStatusId="+status, "post", {
+            const response = await axiosReq("Experts/GetRequestsExcel?search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&userInsuranceStatusId=" + status, "post", {
 
                 IsEndingInsurance: IsEnding,
-        
+
 
             });
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
-           alert("موفقیت آمیز")
+                alert("موفقیت آمیز")
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    const returnReq = async (id) => {
+        try {
+
+            const response = await axiosReq("Experts/Return?userInsuranceId="+id, "put");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                alert("موفقیت آمیز")
             }
 
         } catch (error) {
@@ -230,7 +215,7 @@ const ExpertRequests = ({ IsEnding }) => {
                 <div className="lg:col-span-12 xs:col-span-12 col-span-3">
                     <MainInput
                         search={true}
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />} />
                 </div>
@@ -266,7 +251,7 @@ const ExpertRequests = ({ IsEnding }) => {
                 <div
                     className="lg:col-span-6 xs:col-span-12 col-span-3 justify-self-end sm:justify-self-end">
                     <div className="w-[150px]">
-                        <MainButton onClickFunction={()=>getExcel()} label={"گزارش‌ گیری"} />
+                        <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
                     </div>
                 </div>
             </div>

@@ -8,12 +8,13 @@ import ExistingRecordsIcon from "../assets/icon/user/ExistingRecordsIcon";
 import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import BoxExpertIcon from "../assets/icon/expert/BoxExpertIcon";
+import Cookies from 'universal-cookie';
 
 const ExpertLayout = () => {
   const [adminRole] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-
+  const cookies = new Cookies();
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
@@ -58,7 +59,7 @@ const ExpertLayout = () => {
                 )}
               </Link>
 
-              {adminRole && (
+              {cookies.get("Role") == "Admin"  && (
                 <Link to="/expert/expertDefinition" className="flex items-center cursor-pointer mb-10">
                   {isActive("/expert/expertDefinition") ? (
                     <>
