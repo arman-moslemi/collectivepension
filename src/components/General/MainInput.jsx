@@ -176,13 +176,13 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
               portal={false} 
                     id="test" defaultValue={defaultVal} 
                     onChange={(e) => onChange(formatDateTime(e.value))} value={value} 
-                    className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} 
+                    className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]"  
                     type="text" name=""
                     
                     />
                      {!value && (
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#b3b3b3] font-IRANYekanMedium text-sm pointer-events-none">
-                {holder}
+               
               </span>
             )}
                     <div className="mr-3">{leftIcon}</div>

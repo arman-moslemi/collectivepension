@@ -186,8 +186,29 @@ if(initialValues.UserInsuranceId==0 )
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
       {/* Stepper Section - keep unchanged */}
-      
-      <Formik
+      <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2 mb-2">
+                <div className="flex justify-start items-center">
+                    <div className="rounded-full h-[48px] w-[48px]  md:w-[35px] md:h-[35px] flex justify-center items-center p-1  ">
+                      <div className="w-full h-full rounded-full bg-mainGreen flex justify-center items-center">
+                        <p className="font-IRANYekanExtra text-[18px] text-white">✔
+                        </p></div></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-mainGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
+                   
+                </div>
+                <div className="flex justify-start items-center">
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">2</p></div></div>
+                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue md:w-[10px]" ></div>
+                </div>
+                <div className="flex justify-start items-center">
+                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
+                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+                </div>
+            </div>
+     <div className="mt-5">
+     <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -214,7 +235,9 @@ if(initialValues.UserInsuranceId==0 )
             {/* Department Name - show existing value */}
             <div className="mb-5 col-span-2">
               <MainInput
-                label={'نام دستگاه اجرایی'}
+              listBox={true}
+              listItems={insurances}
+                label={'نام دستگاه اجرایی/کارگاه'}
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}
                 necessary={true}
@@ -408,6 +431,7 @@ if(initialValues.UserInsuranceId==0 )
           </Form>
         )}
       </Formik>
+     </div>
     </div>
   );
 };
