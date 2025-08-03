@@ -143,20 +143,20 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                 <div className="w-full flex justify-between mb-2">
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
                         <DayIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.year ? initialValues.year + "سال" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.year!="-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
                         <MonthIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.month ? initialValues.month + "ماه" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.month!="-1"  ? initialValues.month + "ماه" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
                         <YearIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.day ? initialValues.day + "روز" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.day!="-1"  ? initialValues.day + "روز" : "درحال بررسی"}</p>
                     </div>
                 </div>
                 <div className="w-full flex justify-between">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue">مجموع سوابق</p>
-                    <p className="font-IRANYekanExtra text-[15px] text-darkGray">{initialValues.totalDuration ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-darkGray">{initialValues.totalDuration!="-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
                 </div>
             </div>
             <div className="w-full flex flex-wrap justify-between mt-14 mb-14">
