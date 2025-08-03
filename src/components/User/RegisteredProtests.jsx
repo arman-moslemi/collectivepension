@@ -46,7 +46,8 @@ const list = [
     item3: "بازنشستگی کشوری",
     item4: "1376",
     item5: "1402/02/08",
-    item6: <div className='rounded-[50px] bg-redError mx-auto w-[72px] h-[28px] flex justify-center items-center'><p className='font-IRANYekanMedium text-[15px] text-white'>رد شده</p></div>,
+    item6: <div className='rounded-[50px] bg-redError mx-auto w-[72px] h-[28px] flex justify-center items-center'>
+      <p className='font-IRANYekanMedium text-[15px] text-white'>رد شده</p></div>,
     item7: <Link to="../../user/viewProtest"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div></Link>,
   },
   {
@@ -67,10 +68,10 @@ const RegisteredProtests = () => {
   const [types, setTypes] = useState([]);
   const [statues, setStatues] = useState([]);
   const [id, setId] = useState();
-  const [name, setName] = useState();
-  const [status, setStatus] = useState();
-  const [type, setType] = useState();
-  const [text, setText] = useState();
+  const [name, setName] = useState(0);
+  const [status, setStatus] = useState(0);
+  const [type, setType] = useState(0);
+  const [text, setText] = useState("");
   const [count, setCount] = useState();
   const [page, setPage] = useState(1);
   const [row, setRow] = useState(10);
@@ -80,11 +81,12 @@ const RegisteredProtests = () => {
     try {
 
       const response = await axiosReq("Users/GetProtests?page=" + page + "&&pageSize=" + row , "post", {
-        req: {
+  
           InsuranceId: name,
           ProtestLeveId: type,
-          ProtestStatusId: status
-        }
+          ProtestStatusId: status,
+          search:text
+        
       });
       console.log(response)
 
