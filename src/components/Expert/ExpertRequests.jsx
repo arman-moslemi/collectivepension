@@ -201,6 +201,9 @@ const ExpertRequests = ({ IsEnding }) => {
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
             }
+            else{
+                alert(response)
+            }
 
         } catch (error) {
             console.error("Error fetching user data:", error);

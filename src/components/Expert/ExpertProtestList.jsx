@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
+import Cookies from 'universal-cookie';
+
 const statusee = [
     {
         id: 1,
@@ -128,9 +130,27 @@ const ExpertProtestList = () => {
     const [count, setCount] = useState();
     const [page, setPage] = useState(1);
     const [row, setRow] = useState(10);
+    const returnReq = async (id) => {
+        try {
 
+            const response = await axiosReq("Experts/ReturnProtest?protestId=" + id, "put");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                alert("موفقیت آمیز")
+            }
+            else {
+                alert(response)
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
     const getProtests = async () => {
         try {
+            const cookies = new Cookies();
+
 
             const response = await axiosReq("Experts/GetProtestsEXP?page=" + page + "&&pageSize=" + row + "&&search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate +
                 "&&protestStatusId=" + status + "&&protestLevelId=" + type + "&&search=" + name, "get");
@@ -147,17 +167,13 @@ const ExpertProtestList = () => {
                         item2:
 
                             <div className="flex">{item.fullName}
-                                {/* {item?.isModifiedByUser == true ?
-                                    <div className="mr-2 rounded-full bg-redError h-[25px] w-[25px] flex justify-center items-center"><IcPenIcon /></div>
-                                    :
+                                {
                                     item.isReturned == true ?
                                         <div className="mr-2 rounded-full bg-yellowError h-[25px] w-[25px] flex justify-center items-center"><IcReloadIcon /></div>
                                         :
-                                        item.hasNewAgent == true ?
-                                            <div className="mr-2 rounded-full bg-buttonBlue h-[25px] w-[25px] flex justify-center items-center"><p className="text-white text-[23px]">+</p></div>
-                                            :
+                                     
                                             null
-                                } */}
+                                }
 
                             </div>
                         ,
@@ -166,12 +182,29 @@ const ExpertProtestList = () => {
                         item4: item.protestDate,
                         item5: item.protestLevel,
                         item6: item.protestStatus,
-                        item7: <button onClick={() => navigate("/expert/protestDetail", { state: { id: item.protestId,
-                        type:item.protestLevelId==2?"RECORD":item.protestLevelId==4?"AMOUNT":"GENERAL"
-                         } })}>
-                            <div
-                                className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-                        </button>,
+                        item7:
+                            <div className="flex justify-between">
+                                <button onClick={() => navigate("/expert/protestDetail", {
+                                    state: {
+                                        id: item.protestId,
+                                        type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
+                                    }
+                                })}>
+                                    <div
+                                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
+                                </button>
+                                {cookies.get("Role") == "Admin" ?
+                                    <button onClick={() => returnReq(item.protestId)} >
+                                        <div
+                                            className='w-[38px] h-[38px] mx-2 rounded-full bg-backYellow flex justify-center items-center'>
+                                            <IcReloadIcon />
+                                        </div>
+
+                                    </button>
+                                    :
+                                    null}
+                            </div>
+                        ,
 
                     })
                 })
@@ -276,11 +309,11 @@ const ExpertProtestList = () => {
             <div className="flex justify-end w-full mb-2
             ">
                 <div className="w-[150px]">
-                    <MainButton   onClickFunction={()=>getExcel()}label={"گزارش‌ گیری"} />
+                    <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
                 </div>
             </div>
             <div className='w-full mb-[10px]'>
-                <MainTable center1={true} list={data} titleRow={titleRow}  count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
+                <MainTable center1={true} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
             </div>
 
 
