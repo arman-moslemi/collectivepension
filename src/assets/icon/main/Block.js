@@ -8,13 +8,13 @@ const Block = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <circle cx={11.5} cy={11.5} r={10.5} stroke="#0A2867" strokeWidth={2} />
+    <circle cx={11.5} cy={11.5} r={10.5} stroke="#d9004c" strokeWidth={2} />
     <line
       x1={19.7526}
       y1={3.6585}
       x2={5.75258}
       y2={19.6585}
-      stroke="#0A2867"
+      stroke="#d9004c"
       strokeWidth={2}
     />
   </svg>
