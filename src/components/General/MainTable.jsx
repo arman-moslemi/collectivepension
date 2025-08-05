@@ -24,7 +24,8 @@ const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6,
                     {titleRow[6]? <td className={`font-IRANYekanBold text-[12px] ${record6 ? 'w-[180px]' : 'w-auto'}${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center1? 'text-center': 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[6]}</td> : null}
                     {titleRow[7]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 7 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[7]}</td> : null}
                     {titleRow[8]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 8 ? 'text-center' : 'text-right'} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[8]}</td> : null}
-                    {titleRow[9]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3 ? 'px-1' : 'px-2'} pl-4 `}>{titleRow[9]}</td> : null}
+                    {titleRow[9]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[9]}</td> : null}
+                    {titleRow[10]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 10 ? 'text-center' : 'text-right'} ${center3 ? 'px-1' : 'px-2'} pl-4 `}>{titleRow[10]}</td> : null}
                 </tr>
                 
                 {list.map((item, index) => (
@@ -48,7 +49,8 @@ const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6,
                         {item.item7 ? <td className={`font-IRANYekanMedium text-[12px] ${center3? 'px-1':'px-2'} ${minw ? 'w-[80px]' : 'w-auto'} ${record6 ? 'w-[180px]' : 'w-auto'}${lastColIndex === 6 ? 'text-center' : 'text-right'}`}>{item.item7}</td> : null}
                         {item.item8 ? <td className={`font-IRANYekanMedium text-[12px] ${center3? 'px-1':'px-2'} ${minw ? 'w-[80px]' : 'w-auto'} ${lastColIndex === 7 ? 'text-center' : 'text-right'}`}>{item.item8}</td> : null}
                         {item.item9 ? <td className={`font-IRANYekanMedium text-[12px] ${center3? 'px-1':'px-2'} ${minw ? 'w-[80px]' : 'w-auto'} ${lastColIndex === 8 ? 'text-center' : 'text-right'}`}>{item.item9}</td> : null}
-                        {item.item10 ? <td className={`font-IRANYekanMedium text-[12px]  pl-4 ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3 ? 'px-3' : 'px-2'}`}>{item.item10}</td> : null}
+                        {item.item10 ? <td className={`font-IRANYekanMedium text-[12px] ${center3? 'px-1':'px-2'} ${minw ? 'w-[80px]' : 'w-auto'} ${lastColIndex === 9 ? 'text-center' : 'text-right'}`}>{item.item10}</td> : null}
+                        {item.item11 ? <td className={`font-IRANYekanMedium text-[12px]  pl-4 ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3 ? 'px-3' : 'px-2'}`}>{item.item11}</td> : null}
                     </tr>
                 ))}
             </table>
@@ -64,21 +66,25 @@ const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6,
                     {titleRow[6]? <td className={`font-IRANYekanBold text-[12px] ${record6 ? 'w-[180px]' : 'w-auto'} ${minw ? 'w-[80px]' : 'w-auto'}${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center1 ? 'text-center' : (lastColIndex === 6 ? 'text-center' : 'text-right')} ${center3 ? 'px-1' : 'px-2'}`}>{titleRow[6]}</td> : null}
                     {titleRow[7]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 7 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[7]}</td> : null}
                     {titleRow[8]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 8 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[8]}</td> : null}
-                    {titleRow[9]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'} pl-4 `}>{titleRow[9]}</td> : null}
+                    {titleRow[9]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[9]}</td> : null}
+                    {titleRow[10]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 8 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{titleRow[10]}</td> : null}
+                    {titleRow[11]? <td className={`font-IRANYekanBold text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'} pl-4 `}>{titleRow[11]}</td> : null}
                 </tr>
                 
                 {list.map((item, index) => (
                     <tr key={index} className="h-[58px] border-t-[1px] border-dashed border-borderGray">
                         {item.item1 ? <td className={`font-IRANYekanMedium text-[12px] text-right ${lastColIndex === 0 ? 'text-center' : 'text-right'} ${center3? 'px-3':cen4? 'px-5':cen6? 'pl-5': 'px-2'} whitespace-nowrap w-[40px] pr-4 text-right`}>{index+1}</td> : null}
-                        {item.item2 ? <td className={`font-IRANYekanMedium text-[12px] ${record1 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5':cen5? 'w-28 pr-14 pl-28': 'px-2'}`}>{item.item2}</td> : null}
-                        {item.item3 ? <td className={`font-IRANYekanMedium text-[12px] ${record2 ? 'w-[180px]' : 'w-auto'}  ${lastColIndex === 2 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item3}</td> : null}
-                        {item.item4 ? <td className={`font-IRANYekanMedium text-[12px] ${record3 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item4}</td> : null}
-                        {item.item5 ? <td className={`font-IRANYekanMedium text-[12px] ${record4 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 4 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item5}</td> : null}
-                        {item.item6 ? <td className={`font-IRANYekanMedium text-[12px] ${record5 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 5 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item6}</td> : null}
-                        {item.item7 ? <td className={`font-IRANYekanMedium text-[12px] ${record6 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item7}</td> : null}
-                        {item.item8 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 7 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item8}</td> : null}
-                        {item.item9 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 8 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item9}</td> : null}
-                        {item.item10 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3? 'px-3':'px-2'} pl-4`}>{item.item10}</td> : null}
+                        {item.item2 || item.item2==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record1 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 1 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5':cen5? 'w-28 pr-14 pl-28': 'px-2'}`}>{item.item2}</td> : null}
+                        {item.item3 || item.item3==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record2 ? 'w-[180px]' : 'w-auto'}  ${lastColIndex === 2 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item3}</td> : null}
+                        {item.item4 || item.item4==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record3 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 3 ? 'text-center' : 'text-right'} ${center3? 'px-1':cen4? 'px-5': 'px-2'}`}>{item.item4}</td> : null}
+                        {item.item5 || item.item5==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record4 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 4 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item5}</td> : null}
+                        {item.item6 || item.item6==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record5 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 5 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item6}</td> : null}
+                        {item.item7 || item.item7==0 ? <td className={`font-IRANYekanMedium text-[12px] ${record6 ? 'w-[180px]' : 'w-auto'} ${lastColIndex === 6 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item7}</td> : null}
+                        {item.item8 || item.item8==0 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 7 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item8}</td> : null}
+                        {item.item9 || item.item9==0 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 8 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item9}</td> : null}
+                        {item.item10 || item.item10==0 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 9 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item10}</td> : null}
+                        {item.item11 || item.item11==0 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 10 ? 'text-center' : 'text-right'} ${center3? 'px-1':'px-2'}`}>{item.item11}</td> : null}
+                        {item.item12 || item.item12==0 ? <td className={`font-IRANYekanMedium text-[12px] ${lastColIndex === 11 ? 'text-center' : 'text-right'} ${center3? 'px-3':'px-2'} pl-4`}>{item.item12}</td> : null}
                     </tr>
                 ))}
             </table>
