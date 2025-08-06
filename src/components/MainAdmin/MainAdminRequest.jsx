@@ -51,7 +51,12 @@ const MainAdminRequest = () => {
                         item4: item.requestDate,
                         item5: item.endingInsuranceName,
                         item6: item.statusDescription,
-                        item7: <Link to="../../mainAdmin/requestDetail"><div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon/></div></Link>,
+                        item7: <button 
+                        onClick={()=>navigate("/mainAdmin/requestDetail",{state:{id:item.userInsuranceId}})}>
+                            <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'>
+                                <DetailTableIcon/>
+                                </div>
+                                </button>,
                         
                     })
                 })
