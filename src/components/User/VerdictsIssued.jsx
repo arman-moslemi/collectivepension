@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {MainTable, MainInput } from "../../components";
 import DownloadIcon from '../../assets/icon/general/DownloadIcon';
+import { Link } from 'react-router-dom';
 
 
 
@@ -27,7 +28,7 @@ const list = [
   {
     item1: "1",
     item2: "بازنشستگی کشوری",
-    item3: <div className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon/></div>,
+    item3: <div onClick={()=>window.location.href="../../SingleRetriment.html"}  className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon/></div>,
     
   },
   {

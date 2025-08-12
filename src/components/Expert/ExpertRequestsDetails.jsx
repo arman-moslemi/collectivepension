@@ -9,7 +9,7 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 //   
 
 
-const ExpertRequestsDetails = ({ admin, webService, des, another,id,statusId }) => {
+const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }) => {
 
   const [expertPensionRequestForm, setExpertPensionRequestForm] = useState(true);
   const [expertAllRecords, setExpertAllRecords] = useState(false);
@@ -93,33 +93,33 @@ const ExpertRequestsDetails = ({ admin, webService, des, another,id,statusId }) 
 
       {expertPensionRequestForm ?
         <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
-          {statusId==2?
-          <MainExplanation color={'green'}
-            text={
+          {statusId == 2 ?
+            <MainExplanation color={'green'}
+              text={
 
-              <div>
+                <div>
 
-                <p className="text-mainGreen text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
-                <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، متقاضی در بررسی اولیه واجد شرایط دریافت مستمری تشخیص داده شده است.</p>
-             
-              </div>}
-          />
-          :
-          statusId==12?
-           <MainExplanation color={'red'}
-            text={
+                  <p className="text-mainGreen text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
+                  <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، متقاضی در بررسی اولیه واجد شرایط دریافت مستمری تشخیص داده شده است.</p>
 
-              <div>
+                </div>}
+            />
+            :
+            statusId == 12 ?
+              <MainExplanation color={'red'}
+                text={
 
-                <p className="text-mainRed text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
-                <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، در حال حاضر شرایط لازم برای ادامه فرآیند دریافت مستمری برای متقاضی تأیید نشده است.</p>
-             
-              </div>}
-          />
-          :
-          null
-        }
-          </div>
+                  <div>
+
+                    <p className="text-mainRed text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
+                    <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، در حال حاضر شرایط لازم برای ادامه فرآیند دریافت مستمری برای متقاضی تأیید نشده است.</p>
+
+                  </div>}
+              />
+              :
+              null
+          }
+        </div>
         : expertAllRecords && webService ?
           <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
             <MainExplanation text={'لطفا سوابق اعلام شده از طریق وب‌سرویس را دقیق بررسی کنید.'} />
@@ -141,42 +141,43 @@ const ExpertRequestsDetails = ({ admin, webService, des, another,id,statusId }) 
         : (expertAllRecords && webService) || (expertAllRecords && admin) ?
 
           <div className="w-full">
-            <ExpertAllRecordsWithWebService id={id}/>
+            <ExpertAllRecordsWithWebService id={id} />
           </div>
 
           : expertAllRecords && !webService && !admin ?
 
             <div className="w-full">
-              <ExpertAllRecordsNoWebService id={id}/>
+              <ExpertAllRecordsNoWebService id={id} />
             </div>
 
             : (expertPensionAmount && webService) || (expertPensionAmount && admin) ?
 
               <div className="w-full">
-                <ExpertPensionAmount another={another}id={id} />
+                <ExpertPensionAmount another={another} id={id} />
               </div>
 
               : expertPensionAmount && !webService ?
 
-                expertPensionShift ?
+                // expertPensionShift &&  
+                statusId == 9 ?
 
                   <div className="w-full">
-                    <ExpertPensionAmount another={another} id={id}/>
+                    <ExpertPensionAmount another={another} id={id} />
                   </div>
 
                   :
+                  statusId == 6 ?
+                    <div className="w-full">
+                      <ExpertPensionAmountInput setShift={setExpertPensionShift} id={id} />
+                    </div>
 
-                  <div className="w-full">
-                    <ExpertPensionAmountInput setShift={setExpertPensionShift} id={id}/>
-                  </div>
+                    : expertLeftovers ?
 
-                : expertLeftovers ?
+                      <div className="w-full">
+                        <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
+                      </div>
 
-                  <div className="w-full">
-                    <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
-                  </div>
-
-                  : null}
+                      : null : null}
 
     </div>
   )
