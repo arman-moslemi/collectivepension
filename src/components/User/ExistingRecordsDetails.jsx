@@ -143,6 +143,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
         if (response?.status === 200 || response?.status === 204) {
 setShowDeclined(false)
           alert("اعتراض شما به سابقه اعلامی این صندوق با موفقیت ثبت شد.نتیجه ی اعتراض شما، از طریق پیامک اطلاع رسانی خواهد شد.")
+          window.location.reload()
         }
       }
     } catch (error) {

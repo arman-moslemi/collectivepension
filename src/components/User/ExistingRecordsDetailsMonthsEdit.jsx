@@ -146,7 +146,7 @@ const ExistingRecordsDetailsMonthsEdit = ({ list2, setData, setProtest, data }) 
                 <div className="w-full">
                     <div className="w-full py-[15px] px-[20px] flex justify-between items-center border-b-[1px] border-dashed border-borderGray">
                         <p className="font-IRANYekanMedium w-[65px] text-[15px]">{list2.item1}</p>
-                        <p onClick={() => { setSelectedBox(!selectedBox); setId(list2?.item4) }} className="font-IRANYekanMedium cursor-pointer text-[15px] text-buttonBlue border-b-[1px] border-dashed ">مشاهده بازه‌ها</p>
+                        {/* <p onClick={() => { setSelectedBox(!selectedBox); setId(list2?.item4) }} className="font-IRANYekanMedium cursor-pointer text-[15px] text-buttonBlue border-b-[1px] border-dashed ">مشاهده بازه‌ها</p> */}
                         <div className='flex items-center'>
                             <div className='w-[49px]'>
                                 <MainInput holder={list2.item3} value={duration} onChange={(e) => setDuration(e.target.value)} Custom1={true}

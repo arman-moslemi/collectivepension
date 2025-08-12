@@ -1,4 +1,4 @@
-import { MainPicText, MainButton, MainModal, MainExplanation } from "../../components";
+import { MainInput, MainButton, MainModal, MainExplanation } from "../../components";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
@@ -38,7 +38,31 @@ const Dashboard = () => {
 
     let navigate = useNavigate();
   const [data, setData] = useState([]);
-
+      const [bankInformationModal, setBankInformationModal] = useState(false);
+      const [bankName, setBankName] = useState();
+      const [branch, setBranch] = useState();
+      const [account, setAcount] = useState();
+  const BankInformationModalFunction = () => {
+        setBankInformationModal(false);
+    }
+      const bankAccount = async () => {
+            try {
+    
+                const response = await axiosReq("Users/BankAccount", "put", {
+                    BankName:bankName,
+                    BankBranch:branch,
+                    BankAccount:account,
+                });
+                console.log(response)
+    
+                if (response?.status === 200 || response?.status === 204) {
+                    alert("با موفقیت انجام شد")
+                }
+    
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
   const getInsurances = async () => {
     try {
 
@@ -79,7 +103,7 @@ const Dashboard = () => {
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
-                <div className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={()=>setBankInformationModal(true)} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic4} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعلام حساب بانکی</p>
                 </div>
@@ -112,7 +136,17 @@ const Dashboard = () => {
                     <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
                 </div>
             </div>
+   {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
+                text={<div className="w-full grid grid-cols-2 gap-4">
+                    <div><MainInput onChange={(e)=>setBankName(e.target.value)} label={'نام بانک'} /></div>
+                    <div><MainInput  onChange={(e)=>setBranch(e.target.value)}  label={'نام شعبه'} /></div>
+                    <div className='col-span-2'><MainInput  onChange={(e)=>setAcount(e.target.value)}  label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
 
+                </div>}
+                modalButton={<div className="w-full flex justify-center">
+                    <div className="w-[140px]"><MainButton onClickFunction={bankAccount} label={'ثبت'} /></div>
+                </div>}
+            /> : null}
         </div>
     )
 }
