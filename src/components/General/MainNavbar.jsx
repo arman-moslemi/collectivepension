@@ -1,4 +1,5 @@
 import Logo from "../../assets/img/general/logowhite.png"
+import moment from "jalali-moment";
 
 const MainNavbar = () => {
     return (
@@ -13,7 +14,7 @@ const MainNavbar = () => {
                 </div>
                 <div className="col-span-1 flex justify-end items-end md:col-span-3">
                 <div className="w-fit px-3 mb-1 h-[32px] md:h-[26px] flex justify-center items-center md:ml-2 bg-black rounded-full bg-opacity-60">
-                    <p className="font-IRANYekanBold  text-[15px]  md:text-[12px] text-white">شنبه 16 فروردین 1404</p>
+                    <p className="font-IRANYekanBold  text-[15px]  md:text-[12px] text-white">{ moment().locale('fa').format('YYYY/MM/DD')  }   </p>
                 </div>
                 </div>
             </div>

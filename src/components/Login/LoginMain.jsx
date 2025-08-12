@@ -87,6 +87,7 @@ const LoginMain = () => {
                             setSnipper(false)
                             if (response.data.role == "User") {
                                 cookies.set('Role', response.data.role, { path: '/' })
+                                cookies.set('Name', response.data.name+" "+response.data.family, { path: '/' })
                                 cookies.set('Status', response.data.userStatusId, { path: '/' })
                                 if (response.data.userStatusId==1){
                                     

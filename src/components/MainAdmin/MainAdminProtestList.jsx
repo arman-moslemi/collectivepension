@@ -2,50 +2,14 @@ import {MainButton, MainInput, MainTable,MainModal} from "..";
 import {useNavigate, Link} from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
+import { axiosReq } from "../../commons/axiosReq";
 import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { apiAsset } from "../../commons/inFormTypes";
 
-const status = [
-    {
-        id: 1,
-        name: 'در انتظار بررسی'
-    }, {
-        id: 2,
-        name: 'تایید شده'
-    }, {
-        id: 3,
-        name: 'رد شده'
-    }, {
-        id: 4,
-        name: 'تکمیل شده'
-    }
-]
-const protestType = [
-    {
-        id: 1,
-        name: 'اعتراض به احراز شرایط'
-    }, {
-        id: 2,
-        name: 'اعتراض به سابقه اعلامی'
-    }, {
-        id: 3,
-        name: 'اعتراض به مبلغ مستمری'
-    }
-]
-const num = [
-    {
-        id: 1,
-        name: '5 تا'
-    }, {
-        id: 2,
-        name: '10 تا'
-    }, {
-        id: 3,
-        name: '15 تا'
-    }
-]
+
 const titleRow = [
     "ردیف",
     "نام و نام خانوادگی",
@@ -57,57 +21,7 @@ const titleRow = [
     "مشاهده"
 ];
 
-const list = [
-    {
-      id: "1",
-      fullName: "علی علیزاده",
-      nationalCode: "0020163258",
-      date: "1402/02/08",
-      protestType: "RECORD", 
-      protestTypeLabel: "اعتراض به سابقه اعلامی",
-      status: "در انتظار بررسی",
-      name:"بازنشستگی کشوری"
-    },
-    {
-        id: "2",
-        fullName: "علی علیزاده",
-        nationalCode: "0020163258",
-        date: "1402/02/08",
-        protestType: "AMOUNT", 
-        protestTypeLabel: "اعتراض به مبلغ مستمری",
-        status: "در انتظار بررسی",
-        name:"تامین اجتماعی"
-      },
-      {
-        id: "3",
-        fullName: "علی علیزاده",
-        nationalCode: "0020163258",
-        date: "1402/02/08",
-        protestType: "GENERAL", 
-        protestTypeLabel: "اعتراض به احراز شرایط",
-        status: "در انتظار بررسی",
-        name:"عشایر"
-      },
-  ];
-  const tableData = list.map((item) => ({
-    item1: item.id,
-    item2: item.fullName,
-    item3: item.nationalCode,
-    item4: item.date,
-    item5: item.protestTypeLabel,
-    item6: item.status,
-    item7:item.name,
-    item8: (
-        <Link
-        to={`/mainAdmin/protestList/${item.id}`}
-        state={{ type: item.protestType, data: item }}
-      >
-        <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
-          <DetailTableIcon />
-        </div>
-      </Link>
-    ),
-  }));
+
 const MainAdminProtestList = () => {
 
     let navigate = useNavigate();
@@ -115,6 +29,141 @@ const MainAdminProtestList = () => {
         setStartDate] = useState("");
         const [endDate,
             setEndDate] = useState("");
+
+        const [statues, setStatues] = useState([]);
+        const [levels, setLevels] = useState([]);
+        const [name, setName] = useState("");
+        const [protestLevelId, setProtestLevelId] = useState("");
+        const [protestStatusId, setProtestStatusId] = useState("");
+        const [count, setCount] = useState();
+        const [page, setPage] = useState(1);
+        const [row, setRow] = useState(10);
+        const [data, setData] = useState([]);
+
+
+
+        const getProtests = async () => {
+        try {
+
+            const response = await axiosReq("SuperAdmins/GetProtestsSP?page=" + page + "&&pageSize=" + row+"&&search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&protestStatusId="+protestStatusId+"&&protestLevelId="+protestLevelId, "post");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                var prot = []
+                setCount(response.data?.count)
+                response.data?.data?.map((item, index) => {
+                    console.log(88)
+                    console.log(item)
+                    console.log(88)
+                    prot.push({
+                        item1: index + 1,
+                        item2: item.fullName,
+                        item3: item.nationalCode,
+                        item4: item.protestDate,
+                        item5: item.protestLevel,
+                        item6: item.protestStatus,
+                        item7: item.insuranceName,
+                        item8: (
+    //     <Link
+    //     to={`/mainAdmin/protestList/${item.id}`}
+    //     state={{ type: item.protestType, data: item }}
+    //   >
+    //     <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
+    //       <DetailTableIcon />
+    //     </div>
+    //   </Link>
+
+       <button onClick={() => navigate("/mainAdmin/protestDetail", {
+                                    state: {
+                                        id: item.protestId,
+                                        type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
+                                    }
+                                })}>
+                                    <div
+                                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
+                                </button>
+    ), 
+
+                    })
+                })
+                setData(prot);
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getProtests();
+    }, [name, protestLevelId, protestStatusId, page, row, startDate, endDate]);
+
+        const getFiltersLevels = async () => {
+                try {
+        
+        
+                    const response3 = await axiosReq("SuperAdmins/GetProtestLevels", "get");
+                    
+                    if (response3?.status === 200 || response3?.status === 204) {
+                        var sta = []
+                        response3.data?.map((item, index) => {
+                            sta.push({
+                                id: item.protestLevelId,
+                                name: item.protestLevel,
+                            })
+                        })
+                        setLevels(sta);
+                        
+                    }
+        
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            };
+            const getFiltersStatuses = async () => {
+                try {
+        
+        
+                    const response4 = await axiosReq("SuperAdmins/GetProtestStatuses", "get");
+        
+                    if (response4?.status === 200 || response4?.status === 204) {
+                        var sta = []
+                        response4.data?.map((item, index) => {
+                            sta.push({
+                                id: item.protestStatusId,
+                                name: item.statusDescription,
+                            })
+                        })
+                        setStatues(sta);
+                    }
+        
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            };
+            useEffect(() => {
+                getFiltersLevels();
+                getFiltersStatuses();
+                
+            }, []);
+
+            const getExcel = async () => {
+        try {
+
+            const response = await axiosReq("SuperAdmins/GetProtestsSPExcel?search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&protestStatusId="+protestStatusId+"&&protestLevelId="+protestLevelId, "post");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                alert("موفقیت آمیز")
+                                    window.open(apiAsset + response.data, '_blank')
+                
+            }
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
@@ -123,6 +172,7 @@ const MainAdminProtestList = () => {
                 <div className="col-span-3 b1115:col-span-12 flex items-center">
                     <MainInput
                         search={true}
+                        onChange={(e)=>setName(e.target.value)}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />}/>
                 </div>
@@ -139,38 +189,37 @@ const MainAdminProtestList = () => {
                 <div className="col-span-2 b1115:col-span-6">
                     <MainInput
                         listBoxM1={true}
-                        listItems={protestType}
+                        listItems={levels}
+                        // For display, pass the selected object (or "" if not selected)
+                        value={levels.find(i => String(i.id) === String(protestLevelId)) || ""}
+                        // On change, always store only the id (as string) in Formik
+                        onChange={(value) =>
+                          setProtestLevelId(value.id)}
                         listBoxHolder={"نوع اعتراض"}/>
                 </div>
                 <div className="col-span-2 b1115:col-span-6">
-                    <MainInput listBoxM1={true} listItems={status} listBoxHolder={"وضعیت"}/>
+                    <MainInput 
+                    listBoxM1={true} 
+                    listItems={statues}
+                    // For display, pass the selected object (or "" if not selected)
+                    value={statues.find(i => String(i.id) === String(protestStatusId)) || ""}
+                    // On change, always store only the id (as string) in Formik
+                    onChange={(value) =>
+                        setProtestStatusId(value.id)} 
+                    listBoxHolder={"وضعیت"}/>
                 </div>
+                <div className="col-span-1  mb-[1px]">
+            <div className="w-full">
+            <MainButton onClickFunction={()=>getExcel()} label={"گزارش‌ گیری"} />
+            </div>
+            </div>
 
             
 
             </div>
-            <div className="flex justify-end w-full mb-2
-            ">
-            <div className="w-[150px]">
-            <MainButton label={"گزارش‌ گیری"} />
-            </div>
-            </div>
-            <div className='w-full mb-[10px]'>
-                <MainTable center1={false} ic={true} list={tableData} titleRow={titleRow}/>
-            </div>
-            <div className='w-full flex justify-between items-center md:items-end flex-wrap'>
-                <div className='flex justify-start items-center md:flex-col md:items-start'>
-                    <p className='font-IRANYekanMedium text-[14px] pt-2 ml-[11px] md:ml-0'>تعداد نمایش در صفحه</p>
-                    <div className='w-[90px]'><MainInput listBoxM1={true} listItems={num} listBoxHolder={'5 تا'}/></div>
-                </div>
-                <div className='flex justify-start items-center k395:mt-3'>
-                    <div
-                        className='ml-[5px] bg-tableGray w-[38px] h-[38px] rounded-[6px] flex justify-center items-center'><TableRightIcon/></div>
-                    <div
-                        className='w-[38px] h-[38px] rounded-[6px] border-[1px] border-ddGray flex justify-center items-center'><TableLeftIcon/></div>
-
-                </div>
-
+            
+            <div className='w-full my-[20px]'>
+                <MainTable center1={false} ic={false} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow}/>
             </div>
         
         </div>

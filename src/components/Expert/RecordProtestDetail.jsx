@@ -163,7 +163,9 @@ const RecordProtestDetail = ({ role }) => {
             })
             const response = await axiosReq("Experts/UpdateTimeFrame", "post", {
                 TimeFrameIds: times,
-                UpdateTimeFrames: record
+                UpdateTimeFrames: record,
+                TimeFrameProtestId:'',
+                ProtestId:id
             });
             console.log(response)
 

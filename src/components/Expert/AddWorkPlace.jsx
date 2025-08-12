@@ -204,29 +204,30 @@ const AddWorkPlace = ({ id, setForms
 
       if (response.status === 200) {
         // Initialize yearsData
-        const initialYearsData = initializeYearsData(response.data);
+        // const initialYearsData = initializeYearsData(response.data);
         
-        // Create initial table rows
-        const initialTableRows = response.data.map((item, index) => ({
-          item1: (index + 1).toString(),
-          item2: item.year.toString(),
-          item3: (
-            <div className="flex items-center">
-              <div className="w-[170px]">
-                <MainInput 
-                  Custom1={true}
-                  value={initialYearsData.find(y => y.year === item.year)?.salary || ""}
-                  onChange={(e) => handleSalaryChange(item.year, e.target.value)}
-                  holder={'مبلغ را وارد کنید'}
-                />
-              </div>
-              <p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p>
-            </div>
-          )
-        }));
+        // // Create initial table rows
+        // const initialTableRows = response.data.map((item, index) => ({
+        //   item1: (index + 1).toString(),
+        //   item2: item.year.toString(),
+        //   item3: (
+        //     <div className="flex items-center">
+        //       <div className="w-[170px]">
+        //         <MainInput 
+        //           Custom1={true}
+        //           value={initialYearsData.find(y => y.year === item.year)?.salary || ""}
+        //           onChange={(e) => handleSalaryChange(item.year, e.target.value)}
+        //           holder={'مبلغ را وارد کنید'}
+        //         />
+        //       </div>
+        //       <p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p>
+        //     </div>
+        //   )
+        // }));
 
-        setTableRows(initialTableRows);
-        setSecondStep(true);
+        // setTableRows(initialTableRows);
+        // setSecondStep(true);
+        alert("با موفقیت ثبت شد")
       }
     } catch (err) {
       console.error("Error submitting form:", err);

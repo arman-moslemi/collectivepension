@@ -9,7 +9,7 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 //   
 
 
-const ExpertRequestsDetails = ({ admin, webService, des, another,id }) => {
+const ExpertRequestsDetails = ({ admin, webService, des, another,id,statusId }) => {
 
   const [expertPensionRequestForm, setExpertPensionRequestForm] = useState(true);
   const [expertAllRecords, setExpertAllRecords] = useState(false);
@@ -93,15 +93,33 @@ const ExpertRequestsDetails = ({ admin, webService, des, another,id }) => {
 
       {expertPensionRequestForm ?
         <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
+          {statusId==2?
           <MainExplanation color={'green'}
             text={
+
               <div>
+
                 <p className="text-mainGreen text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
-                <p className="text-[14px] font-IRANYekanBold text-black">در ابتدا درخواست متقاضی به دلیل عدم احراز شرایط لازم، رد شده بود؛ اما با اعلام صندوق جدید و بررسی سوابق مرتبط، شرایط لازم احراز و درخواست در حال حاضر تأیید شده است.</p>
-              </div>
-            }
+                <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، متقاضی در بررسی اولیه واجد شرایط دریافت مستمری تشخیص داده شده است.</p>
+             
+              </div>}
           />
-        </div>
+          :
+          statusId==12?
+           <MainExplanation color={'red'}
+            text={
+
+              <div>
+
+                <p className="text-mainRed text-[16px] font-IRANYekanExtra mb-[6px]">نتیجه اولیه بررسی شرایط دریافت مستمری از طریق سامانه :</p>
+                <p className="text-[14px] font-IRANYekanBold text-black">بر اساس پاسخ دریافتی از سامانه، در حال حاضر شرایط لازم برای ادامه فرآیند دریافت مستمری برای متقاضی تأیید نشده است.</p>
+             
+              </div>}
+          />
+          :
+          null
+        }
+          </div>
         : expertAllRecords && webService ?
           <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
             <MainExplanation text={'لطفا سوابق اعلام شده از طریق وب‌سرویس را دقیق بررسی کنید.'} />

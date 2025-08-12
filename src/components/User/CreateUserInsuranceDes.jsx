@@ -235,8 +235,8 @@ if(initialValues.UserInsuranceId==0 )
             {/* Department Name - show existing value */}
             <div className="mb-5 col-span-2 md:col-span-3">
               <MainInput
-              listBox={true}
-              listItems={insurances}
+              // listBox={true}
+              // listItems={insurances}
                 label={'نام دستگاه اجرایی/کارگاه'}
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}

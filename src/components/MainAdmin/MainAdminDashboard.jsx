@@ -6,6 +6,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 import ExportDashboardIcon1 from "../../assets/icon/expert/ExportDashboardIcon1";
 import ExportDashboardIcon2 from "../../assets/icon/expert/ExportDashboardIcon2";
 import ExportDashboardIcon3 from "../../assets/icon/expert/ExportDashboardIcon3";
+import { apiAsset } from "../../commons/inFormTypes";
 
 
 const data = [
@@ -86,6 +87,8 @@ const MainAdminDashboard = () => {
 
             if (response?.status === 200 || response?.status === 204) {
            alert("موفقیت آمیز")
+                               window.open(apiAsset + response.data, '_blank')
+           
             }
 
         } catch (error) {
