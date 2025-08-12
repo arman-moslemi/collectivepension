@@ -37,97 +37,123 @@ const data = [
 const Dashboard = () => {
 
     let navigate = useNavigate();
-  const [data, setData] = useState([]);
-      const [bankInformationModal, setBankInformationModal] = useState(false);
-      const [bankName, setBankName] = useState();
-      const [branch, setBranch] = useState();
-      const [account, setAcount] = useState();
-  const BankInformationModalFunction = () => {
+    const [data, setData] = useState([]);
+    const [bankInformationModal, setBankInformationModal] = useState(false);
+    const [bankName, setBankName] = useState();
+    const [branch, setBranch] = useState();
+    const [account, setAcount] = useState();
+    const BankInformationModalFunction = () => {
         setBankInformationModal(false);
     }
-      const bankAccount = async () => {
-            try {
-    
-                const response = await axiosReq("Users/BankAccount", "put", {
-                    BankName:bankName,
-                    BankBranch:branch,
-                    BankAccount:account,
-                });
-                console.log(response)
-    
-                if (response?.status === 200 || response?.status === 204) {
-                    alert("با موفقیت انجام شد")
-                }
-    
-            } catch (error) {
-                console.error("Error fetching user data:", error);
+    const bankAccount = async () => {
+        try {
+
+            const response = await axiosReq("Users/BankAccount", "put", {
+                BankName: bankName,
+                BankBranch: branch,
+                BankAccount: account,
+            });
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                alert("با موفقیت انجام شد")
             }
-        };
-  const getInsurances = async () => {
-    try {
+            else {
+                alert(response)
+            }
 
-      const response = await axiosReq("Users/GetInsuranceDurations", "get" );
-      console.log(response)
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    const getInsurances = async () => {
+        try {
 
-      if (response?.status === 200 || response?.status === 204) {
-        var prot = []
-        response.data?.map((item, index) => {
-          prot.push({
-          name:item.insuranceName,
-          uv:item.days
-          })
-        })
-        setData(prot);
-      }
+            const response = await axiosReq("Users/GetInsuranceDurations", "get");
+            console.log(response)
 
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-  useEffect(() => {
-    getInsurances();
-  }, []);
+            if (response?.status === 200 || response?.status === 204) {
+                var prot = []
+                response.data?.map((item, index) => {
+                    prot.push({
+                        name: item.insuranceName,
+                        uv: item.days
+                    })
+                })
+                setData(prot);
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getInsurances();
+    }, []);
+
+    const getBank = async () => {
+        try {
+
+            const response = await axiosReq("Users/GetBankAccount", "get");
+            console.log(response)
+
+            if (response?.status === 200) {
+
+
+                setBranch(response.data.bankBranch);
+                setAcount(response.data.bankAccount);
+                setBankName(response.data.bankName);
+                setBankInformationModal(true)
+            }
+            else {
+                setBankInformationModal(true)
+            }
+
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={'در هر لحظه وضعیتی که کاربر در آن قرار دارد اینجا قرار میگیرد.مثلا سوابق اعلام شده در انتظار تایید شما یا مبلغ مستمری محاسبه شده در انتظار تایید'} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
-                <div onClick={()=>navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer">
+                <div onClick={() => navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer">
                     <img src={DashboardPic1} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">کلیه سوابق موجود</p>
                 </div>
-                <div onClick={()=>navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={() => navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic2} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">مستمری محاسبه شده</p>
                 </div>
-                <div onClick={()=>navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={() => navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
-                <div onClick={()=>setBankInformationModal(true)} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
+                <div onClick={() => getBank()} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
                     <img src={DashboardPic4} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعلام حساب بانکی</p>
                 </div>
                 <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] ">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">آخرین سوابق</p>
                     <div className="w-full h-full ">
-                    <ResponsiveContainer width="100%" height="90%">
-                        <BarChart
-                            width={500}
-                            height={300}
-                            data={data}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis tickMargin={6} dataKey="name" />
-                            <YAxis tickMargin={16} />
-                            <Bar dataKey="uv" barSize={30} fill="#00c1b2"  />
-                        </BarChart>
-                    </ResponsiveContainer>
+                        <ResponsiveContainer width="100%" height="90%">
+                            <BarChart
+                                width={500}
+                                height={300}
+                                data={data}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis tickMargin={6} dataKey="name" />
+                                <YAxis tickMargin={16} />
+                                <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
                 <div className="h-[323px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center">
@@ -136,11 +162,11 @@ const Dashboard = () => {
                     <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
                 </div>
             </div>
-   {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
+            {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
-                    <div><MainInput onChange={(e)=>setBankName(e.target.value)} label={'نام بانک'} /></div>
-                    <div><MainInput  onChange={(e)=>setBranch(e.target.value)}  label={'نام شعبه'} /></div>
-                    <div className='col-span-2'><MainInput  onChange={(e)=>setAcount(e.target.value)}  label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
+                    <div><MainInput onChange={(e) => setBankName(e.target.value)} value={bankName} label={'نام بانک'} /></div>
+                    <div><MainInput onChange={(e) => setBranch(e.target.value)}value={branch}  label={'نام شعبه'} /></div>
+                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)}value={account}  label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
 
                 </div>}
                 modalButton={<div className="w-full flex justify-center">

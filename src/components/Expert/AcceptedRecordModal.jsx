@@ -64,7 +64,7 @@ const AcceptedRecordModal = ({records,setRecords}) => {
     return (
         <> <div className="w-full border-t border-t-borderGray p-4 z-1000 lg:px-0">
         <span className="font-IRANYekanMedium text-[15px] text-mainBlue lg:mt-2 lg:pt-2">
-            بازه یا بازه‌های جدید را در این ماه، با توجه به اعتراض کاربر ثبت کنید.
+            تعداد روز های کاری را در این ماه، با توجه به اعتراض کاربر ثبت کنید.
 
         </span>
         <div className="my-5">
@@ -72,21 +72,22 @@ const AcceptedRecordModal = ({records,setRecords}) => {
             <div className="grid grid-cols-4 gap-4 w-[80%] mx-auto mb-4 lg:w-full">
                 <div className="col-span-1 lg:col-span-4">
                     <MainInput
-                        date={true}
-                        leftIcon={< DateIcon />}
-                        value={startDate}
-                        onChange={(val) => setStartDate(val)}
-                        error={dateError}/>
+                        // date={true}
+                        // leftIcon={< DateIcon />}
+                        value={records}
+                        onChange={(val) => setRecords(val.target.value)}
+                        error={dateError}
+                        />
                 </div>
-                <div className="col-span-1 lg:col-span-4">
+                {/* <div className="col-span-1 lg:col-span-4">
                     <MainInput
                         date={true}
                         leftIcon={< DateIcon />}
                         value={endDate}
                         onChange={(val) => setEndDate(val)}
                         error={dateError}/>
-                </div>
-                <div className="col-span-2 flex lg:col-span-4">
+                </div> */}
+                {/* <div className="col-span-2 flex lg:col-span-4">
                     <div className="w-[140px] ml-2 mt-2">
                         <MainButton label="افزودن بازه جدید" onClickFunction={addNewRow}/>
                     </div>
@@ -103,7 +104,7 @@ const AcceptedRecordModal = ({records,setRecords}) => {
                         }}/>
 
                     </div>
-                </div>
+                </div> */}
             </div>
             {totalError && (
                 <p className="text-errorRed text-sm mt-1 text-center">
@@ -116,7 +117,7 @@ const AcceptedRecordModal = ({records,setRecords}) => {
                 </p>
             )}
 
-            {records.length > 0 && (
+            {/* {records.length > 0 && (
                 <table
                     className="w-[80%] mx-auto mt-4 border border-borderGray text-[14px] font-IRANYekanMedium">
                     <thead className="bg-bgGray text-center">
@@ -136,7 +137,7 @@ const AcceptedRecordModal = ({records,setRecords}) => {
                         ))}
                     </tbody>
                 </table>
-            )}
+            )} */}
         </div>
 
         {showTotal

@@ -83,6 +83,9 @@ const CalculatedPension = () => {
             if (response?.status === 200 || response?.status === 204) {
                 ProtestModalFunction()
             }
+            else{
+                     alert(response)
+                }
 
         } catch (error) {
             console.error("Error fetching user data:", error);

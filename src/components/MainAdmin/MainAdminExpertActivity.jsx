@@ -20,7 +20,7 @@ const MainAdminExpertActivity = () => {
     const [count, setCount] = useState();
     const [page, setPage] = useState(1);
     const [row, setRow] = useState(10);
-      const [reportResponse, setReportResponse] = useState("");
+    const [reportResponse, setReportResponse] = useState("");
 
     const getProtests = async () => {
         try {
@@ -49,9 +49,9 @@ const MainAdminExpertActivity = () => {
                         item10: item.answeredProtests,
                         item11: item.docsDeclared,
                         item12:
-                            <div className="flex" onClick={()=>handleInsuranceReport()}>
-                                    <div className='w-[38px] h-[38px] mx-auto rounded-full flex justify-center items-center ml-1'>
-                                        <Download /></div>
+                            <div className="flex" onClick={() => handleInsuranceReport()}>
+                                <div className='w-[38px] h-[38px] mx-auto rounded-full flex justify-center items-center ml-1'>
+                                    <Download /></div>
                             </div>,
 
                     })
@@ -93,13 +93,13 @@ const MainAdminExpertActivity = () => {
     const getExcel = async () => {
         try {
 
-            const response = await axiosReq("SuperAdmins/GetRequestsTypesCountByInsuranceIdExcel", "get");
+            const response = await axiosReq("SuperAdmins/GetRequestsTypesCountExcel", "get");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
-                                    window.open(apiAsset + response.data, '_blank')
-                
+                window.open(apiAsset + response.data, '_blank')
+
             }
 
         } catch (error) {
@@ -108,19 +108,21 @@ const MainAdminExpertActivity = () => {
     };
 
     const handleInsuranceReport = async (id) => {
-    try {
-      const response = await axiosReq("SuperAdmins/GetRequestsTypesCountByInsuranceIdExcel", "get", {
-        insuranceId: id,
-      });
-      setReportResponse(response.data);
-      alert("ok" + reportResponse);
-      if (response?.status === 200) {
-        getProtests();
-      }
-    }catch (error) {
-      console.error("Error reporting insurance:", error);
+        try {
+            const response = await axiosReq("SuperAdmins/GetRequestsTypesCountByInsuranceIdExcel", "get", {
+                insuranceId: id,
+            });
+            setReportResponse(response.data);
+            if (response?.status === 200) {
+                 alert("موفقیت آمیز")
+                window.open(apiAsset + response.data, '_blank')
+
+                // getProtests();
+            }
+        } catch (error) {
+            console.error("Error reporting insurance:", error);
+        }
     }
-  }
 
 
 
@@ -130,23 +132,23 @@ const MainAdminExpertActivity = () => {
                 <div className='w-full grid gap-2 grid-cols-12 mb-[28px]'>
 
                     <div className='col-span-4 w-full lg:col-span-12'><div className="mb-4 flex justify-between items-center">
-                    <span className="font-IRANYekanBold min-w-[110px] text-[15px] text-black">
-                      انتخاب صندوق
-                    </span>
-                    <div className="w-full">
-                      <MainInput
-                        listBox={true}
-                        listItems={statues}
-                        necessary={false}
-                        // For display, pass the selected object (or "" if not selected)
-                        value={statues.find(i => String(i.id) === String(insuranceId)) || ""}
-                        // On change, always store only the id (as string) in Formik
-                        onChange={(value) =>
-                          setInsuranceId(value.id)}
+                        <span className="font-IRANYekanBold min-w-[110px] text-[15px] text-black">
+                            انتخاب صندوق
+                        </span>
+                        <div className="w-full">
+                            <MainInput
+                                listBox={true}
+                                listItems={statues}
+                                necessary={false}
+                                // For display, pass the selected object (or "" if not selected)
+                                value={statues.find(i => String(i.id) === String(insuranceId)) || ""}
+                                // On change, always store only the id (as string) in Formik
+                                onChange={(value) =>
+                                    setInsuranceId(value.id)}
 
-                      />
-                    </div>
-                  </div></div>
+                            />
+                        </div>
+                    </div></div>
 
                     {/* <div className='col-span-2 md:col-span-12'><MainInput date={true} holder={'از تاریخ'} leftIcon={<DateIcon />} /></div>
                     <div className='col-span-2 md:col-span-12'><MainInput date={true} holder={'تا تاریخ'} leftIcon={<DateIcon />} /></div> */}
@@ -154,7 +156,7 @@ const MainAdminExpertActivity = () => {
 
                     <div className=" flex justify-end col-span-8">
                         <div className="w-[123px] mt-2">
-                            <MainButton onClickFunction={()=>getExcel()} label={'گزارش‌ گیری'} />
+                            <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
                         </div>
                     </div>
                 </div>

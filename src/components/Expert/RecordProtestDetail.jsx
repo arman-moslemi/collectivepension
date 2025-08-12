@@ -23,9 +23,10 @@ const RecordProtestDetail = ({ role }) => {
     const [timeFrames,
         setTimeFrames] = useState(false);
     const [records,
-        setRecords] = useState([]);
+        setRecords] = useState();
     const [reason, setReason] = useState(null);
     const [file, setFile] = useState();
+    const [userInsuId, setUserInsuId] = useState();
     const [files, setFiles] = useState([]);
     const handleAccept = () => {
 
@@ -36,8 +37,7 @@ const RecordProtestDetail = ({ role }) => {
             setShowModal(false)
         } else if (showAcceptedContent) {
             updateTimeFrame()
-            setShowModal(false)
-            setShowAcceptedContent(false)
+         
 
         } 
         else {
@@ -151,20 +151,22 @@ const RecordProtestDetail = ({ role }) => {
             console.log(records)
             console.log(timeFrames)
             var times = [];
-            timeFrames?.map((item) => {
-                times.push(item.timeFrameId)
-            })
-            var record = [];
-            records?.map((item) => {
-                record.push({
-                    StartDate: item.startDate,
-                    EndDate: item.endDate
-                })
-            })
+            // timeFrames?.map((item) => {
+            //     times.push(item.timeFrameId)
+            // })
+            // var record = [];
+            // records?.map((item) => {
+            //     record.push({
+            //         StartDate: item.startDate,
+            //         EndDate: item.endDate
+            //     })
+            // })
             const response = await axiosReq("Experts/UpdateTimeFrame", "post", {
-                TimeFrameIds: times,
-                UpdateTimeFrames: record,
-                TimeFrameProtestId:'',
+                // TimeFrameIds: times,
+                // UpdateTimeFrames: record,
+                // TimeFrameProtestId:'',
+                UserInsuranceMonthId:userInsuId,
+Duration:records,
                 ProtestId:id
             });
             console.log(response)
@@ -172,6 +174,8 @@ const RecordProtestDetail = ({ role }) => {
             if (response?.status === 200 || response?.status === 204) {
                 var prot = []
                 alert("با موفقیت انجام شد")
+                   setShowModal(false)
+            setShowAcceptedContent(false)
             }
 
         } catch (error) {
@@ -261,7 +265,7 @@ const RecordProtestDetail = ({ role }) => {
 
         </span>
             <div className='w-full my-7 '>
-                <ViewProtestTable titleRow={titleRow} data={data} expert={true} setShowModal={setShowModal} setTimeFrames={setTimeFrames} />
+                <ViewProtestTable titleRow={titleRow} data={data} expert={true} setShowModal={setShowModal} setTimeFrames={setTimeFrames} setUserInsuId={setUserInsuId}/>
 
                 {/* <table className="min-w-full table-auto text-right">
       <thead>
