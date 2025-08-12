@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import UnBlock from "../../assets/icon/main/UnBlock";
+import { apiAsset } from "../../commons/inFormTypes";
 
 const titleRow = ["ردیف", "نام و نام خانوادگی", "کدملی", "تاریخ تولد", "تلفن همراه", "عملیات"];
 
@@ -209,6 +210,8 @@ const handleEditUser = async (values, { setSubmitting }) => {
             console.log(response)
             if (response?.status === 200 || response?.status === 204) {
            alert("موفقیت آمیز")
+                               window.open(apiAsset + response.data, '_blank')
+           
             }
         } catch (error) {
             console.error("Error fetching data:", error);

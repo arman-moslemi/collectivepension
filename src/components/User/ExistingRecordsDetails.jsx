@@ -121,8 +121,11 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
     try {
       console.log('month')
       console.log(objMonth)
+      console.log(888)
+      console.log(protest)
       if (objMonth) {
-        const response = await axiosReq("Users/TimeFrameProtest", "post", {
+        // const response = await axiosReq("Users/TimeFrameProtest", "post", {
+        const response = await axiosReq("Users/DurationProtest", "post", {
           InsuranceId: objMonth.InsuranceId,
           InsuranceIdNumber: objMonth.InsuranceIdNumber,
           Branch: objMonth.Branch,
@@ -130,7 +133,8 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
           WorkplaceNumber: objMonth.WorkplaceNumber,
           CityId: objMonth.CityId,
           Year: objMonth.Year,
-          TimeFrameProtest: protest,
+          // TimeFrameProtest: protest,
+          DurationProtest: protest,
           ProtestDescription: des,
           ProtestFiles: files
         });

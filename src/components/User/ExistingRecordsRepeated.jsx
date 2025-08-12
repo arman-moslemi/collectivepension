@@ -29,18 +29,33 @@ const ExistingRecordsRepeated = () => {
   const getOverLaps = async () => {
     try {
 
-      const response = await axiosReq("Users/GetOverlaps", "get");
+      // const response = await axiosReq("Users/GetOverlaps", "get");
+      const response = await axiosReq("Users/GetDurationOverlapsAsync", "get");
       console.log(response)
 
       if (response?.status === 200 || response?.status === 204) {
         var propss = [];
+        // response.data.map((item, index) => {
+        //   propss.push({
+        //     item1: index + 1,
+        //     item2: item.overlapStartDate + "-" + item.overlapEndDate,
+        //     item3: item.overlapDuration,
+        //     insuranceOptions: item.insurances,
+        //     item4: index,
+        //     item50: null
+        //   })
+        // })
+        // setData(propss);
+
         response.data.map((item, index) => {
           propss.push({
             item1: index + 1,
-            item2: item.overlapStartDate + "-" + item.overlapEndDate,
-            item3: item.overlapDuration,
+            item2: item.year + " " + item.month,
+            item22:item.monthId,
+            item3: item.totalDuration,
             insuranceOptions: item.insurances,
             item4: index,
+            
             item50: null
           })
         })
@@ -55,16 +70,25 @@ const ExistingRecordsRepeated = () => {
     try {
       var over = [];
       data?.map((item) => {
-        if(item.item50!=null){
+        if (item.item50 != null) {
 
+          // over.push({
+          //   OverlapStartDate: item.item2.split('-')[0],
+          //   OverlapEndDate: item.item2.split('-')[1],
+          //   ChosenInsuranceId: item.item50
+          // })
           over.push({
-            OverlapStartDate: item.item2.split('-')[0],
-            OverlapEndDate: item.item2.split('-')[1],
+            Year:item.item2.split(' ')[0],
+            MonthId:item.item22,
+            // ExtraDays:,
+
             ChosenInsuranceId: item.item50
           })
         }
       })
-      const response = await axiosReq("Users/ResolveOverlaps", "post", { Overlaps: over });
+            console.log(over)
+
+      const response = await axiosReq("Users/ResolveDurationOverlaps", "post", { Overlaps: over });
       console.log(response)
 
       if (response?.status === 200 || response?.status === 204) {

@@ -10,6 +10,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Block from "../../assets/icon/main/Block";
 import UnBlock from "../../assets/icon/main/UnBlock";
+import { apiAsset } from "../../commons/inFormTypes";
 const listItems = [
   {
     id: 1,
@@ -51,7 +52,7 @@ const MainAdminAdminList = () => {
   const [reportResponse, setReportResponse] = useState("");
 
   const blockedAdmin = rawAdminList.find(admin => admin.adminId === blockId);
-  
+
 
   useEffect(() => {
     const fetchInsurances = async () => {
@@ -73,18 +74,18 @@ const MainAdminAdminList = () => {
   }, []);
 
   useEffect(() => {
-  const fetchAdminDetails = async () => {
-    if (showEdit && editId) {
-      const found = rawAdminList.find(item => item.adminId === editId);
-          console.log(found)
+    const fetchAdminDetails = async () => {
+      if (showEdit && editId) {
+        const found = rawAdminList.find(item => item.adminId === editId);
+        console.log(found)
 
 
-      if (found)
-         setEditAdminData(found);
-    }
-  };
-  fetchAdminDetails();
-}, [showEdit, editId, rawAdminList]);
+        if (found)
+          setEditAdminData(found);
+      }
+    };
+    fetchAdminDetails();
+  }, [showEdit, editId, rawAdminList]);
 
 
 
@@ -113,22 +114,22 @@ const MainAdminAdminList = () => {
             item6: item.mobileNumber,
             item7: <div className="flex justify-center">
 
-              <div className="relative group hover:cursor-pointer" onClick={() => {setShowEdit(true); setEditId(item.adminId);}}>
+              <div className="relative group hover:cursor-pointer" onClick={() => { setShowEdit(true); setEditId(item.adminId); }}>
                 <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil /></div>
                 <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
                   ویرایش
                 </div>
               </div>
-              <div className="relative group hover:cursor-pointer" onClick={() => {setShowBlock(true); setBlockId(item.adminId);}} >
-                <div className={`w-[38px] h-[38px] mx-auto rounded-full ${item.isLimited? 'bg-blockBg' : 'bg-backRed'}  flex justify-center items-center ml-1`}>{item.isLimited?<UnBlock />:<Block />}</div>
-                {item.isLimited?
-                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
-                  فعال کردن
-                </div>
-                :
-                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
-                  غیرفعال کردن
-                </div>
+              <div className="relative group hover:cursor-pointer" onClick={() => { setShowBlock(true); setBlockId(item.adminId); }} >
+                <div className={`w-[38px] h-[38px] mx-auto rounded-full ${item.isLimited ? 'bg-blockBg' : 'bg-backRed'}  flex justify-center items-center ml-1`}>{item.isLimited ? <UnBlock /> : <Block />}</div>
+                {item.isLimited ?
+                  <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+                    فعال کردن
+                  </div>
+                  :
+                  <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+                    غیرفعال کردن
+                  </div>
                 }
               </div>
               {/* download log is here */}
@@ -203,45 +204,45 @@ const MainAdminAdminList = () => {
   }
 
   const handleEditSubmit = async (values, { setSubmitting }) => {
-  try {
-    const response = await axiosReq("SuperAdmins/UpdateAdmin", "post", {
-      adminId: editId,
-      name: values.firstName,
-      family: values.lastName,
-      username: values.username,
-      password: values.password, // You can skip sending this if blank
-      position: values.position,
-      mobileNumber: values.mobile,
-    });
+    try {
+      const response = await axiosReq("SuperAdmins/UpdateAdmin", "post", {
+        adminId: editId,
+        name: values.firstName,
+        family: values.lastName,
+        username: values.username,
+        password: values.password, // You can skip sending this if blank
+        position: values.position,
+        mobileNumber: values.mobile,
+      });
 
-    if (response?.status === 200) {
-      alert("ادمین با موفقیت ویرایش شد.");
-      setShowEdit(false);
-      setEditAdminData(null);
-      getProtests(); // refresh admin list
-    } else {
-      alert("خطا در ویرایش ادمین");
+      if (response?.status === 200) {
+        alert("ادمین با موفقیت ویرایش شد.");
+        setShowEdit(false);
+        setEditAdminData(null);
+        getProtests(); // refresh admin list
+      } else {
+        alert("خطا در ویرایش ادمین");
+      }
+    } catch (error) {
+      console.error("Error editing admin:", error);
+      alert("خطایی رخ داده است.");
+    } finally {
+      setSubmitting(false);
     }
-  } catch (error) {
-    console.error("Error editing admin:", error);
-    alert("خطایی رخ داده است.");
-  } finally {
-    setSubmitting(false);
-  }
-};
-  
+  };
+
   const handleBlock = async () => {
     try {
-      const response = await axiosReq("SuperAdmins/AdminLimitation?adminId="+blockId, "post", {
+      const response = await axiosReq("SuperAdmins/AdminLimitation?adminId=" + blockId, "post", {
         AdminId: blockId,
       });
-     // setBlockResponse(response.data);
+      // setBlockResponse(response.data);
       alert(response.data);
       if (response?.status === 200) {
         setShowBlock(false);
         getProtests();
       }
-    }catch (error) {
+    } catch (error) {
       console.error("Error blocking admin:", error);
     }
   }
@@ -255,24 +256,26 @@ const MainAdminAdminList = () => {
       if (response?.status === 200) {
         getProtests();
       }
-    }catch (error) {
+    } catch (error) {
       console.error("Error reporting admin:", error);
     }
   }
 
   const getExcel = async () => {
-        try {
+    try {
 
-            const response = await axiosReq("SuperAdmins/GetAdminsExcel?search="+name, "get");
-            console.log(response)
-            if (response?.status === 200 || response?.status === 204) {
-           alert("موفقیت آمیز")
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-    
+      const response = await axiosReq("SuperAdmins/GetAdminsExcel?search=" + name, "get");
+      console.log(response)
+      if (response?.status === 200 || response?.status === 204) {
+        alert("موفقیت آمیز")
+        window.open(apiAsset + response.data, '_blank')
+
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
 
 
   return (
@@ -286,7 +289,7 @@ const MainAdminAdminList = () => {
               <MainButton label={'+ تعریف ادمین'} onClickFunction={() => setShowAddModal(true)} />
             </div>
             <div className="w-[120px] mr-3">
-              <MainButton onClickFunction={()=>getExcel()} label={'گزارش‌ گیری'} />
+              <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
             </div>
           </div>
 
@@ -426,134 +429,134 @@ const MainAdminAdminList = () => {
         />
       ) : null}
 
-    
+
       {showEdit && editAdminData ? (
-  <MainModal
-    big={false}
-    title={'ویرایش ادمین'}
-    setShowModal={() => { setShowEdit(false); setEditAdminData(null); }}
-    text={
-      <Formik
-        initialValues={{
-          firstName: editAdminData.name || "",
-          lastName: editAdminData.family || "",
-          username: editAdminData.username || "",
-          password: "", // leave empty unless changed
-          position: editAdminData.position || "",
-          mobile: editAdminData.mobileNumber || "",
-        }}
-        validationSchema={adminSchema2}
-        onSubmit={handleEditSubmit}
-        enableReinitialize
-      >
-        {({ setFieldValue, values, errors, touched, isSubmitting }) => (
-          <Form>
+        <MainModal
+          big={false}
+          title={'ویرایش ادمین'}
+          setShowModal={() => { setShowEdit(false); setEditAdminData(null); }}
+          text={
+            <Formik
+              initialValues={{
+                firstName: editAdminData.name || "",
+                lastName: editAdminData.family || "",
+                username: editAdminData.username || "",
+                password: "", // leave empty unless changed
+                position: editAdminData.position || "",
+                mobile: editAdminData.mobileNumber || "",
+              }}
+              validationSchema={adminSchema2}
+              onSubmit={handleEditSubmit}
+              enableReinitialize
+            >
+              {({ setFieldValue, values, errors, touched, isSubmitting }) => (
+                <Form>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"نام"}
-                  holder={"Ali***"}
-                  necessary={true}
-                  value={values.firstName}
-                  onChange={e => setFieldValue("firstName", e.target.value)}
-                />
-                <ErrorMessage name="firstName" component="div" className="text-redError text-xs mt-1" />
-              </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"نام"}
+                        holder={"Ali***"}
+                        necessary={true}
+                        value={values.firstName}
+                        onChange={e => setFieldValue("firstName", e.target.value)}
+                      />
+                      <ErrorMessage name="firstName" component="div" className="text-redError text-xs mt-1" />
+                    </div>
 
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"نام خانوادگی"}
-                  holder={"Ali***"}
-                  necessary={true}
-                  value={values.lastName}
-                  onChange={e => setFieldValue("lastName", e.target.value)}
-                />
-                <ErrorMessage name="lastName" component="div" className="text-redError text-xs mt-1" />
-              </div>
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"نام خانوادگی"}
+                        holder={"Ali***"}
+                        necessary={true}
+                        value={values.lastName}
+                        onChange={e => setFieldValue("lastName", e.target.value)}
+                      />
+                      <ErrorMessage name="lastName" component="div" className="text-redError text-xs mt-1" />
+                    </div>
 
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"نام کاربری"}
-                  holder={"Aalizadeh"}
-                  necessary={true}
-                  value={values.username}
-                  onChange={e => setFieldValue("username", e.target.value)}
-                />
-                <ErrorMessage name="username" component="div" className="text-redError text-xs mt-1" />
-              </div>
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"نام کاربری"}
+                        holder={"Aalizadeh"}
+                        necessary={true}
+                        value={values.username}
+                        onChange={e => setFieldValue("username", e.target.value)}
+                      />
+                      <ErrorMessage name="username" component="div" className="text-redError text-xs mt-1" />
+                    </div>
 
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"رمزعبور"}
-                  holder={"******"}
-                  necessary={false}
-                  value={values.password}
-                  onChange={e => setFieldValue("password", e.target.value)}
-                />
-                <ErrorMessage name="password" component="div" className="text-redError text-xs mt-1" />
-              </div>
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"رمزعبور"}
+                        holder={"******"}
+                        necessary={false}
+                        value={values.password}
+                        onChange={e => setFieldValue("password", e.target.value)}
+                      />
+                      <ErrorMessage name="password" component="div" className="text-redError text-xs mt-1" />
+                    </div>
 
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"سمت"}
-                  holder={"مدیرعامل"}
-                  necessary={true}
-                  value={values.position}
-                  onChange={e => setFieldValue("position", e.target.value)}
-                />
-                <ErrorMessage name="position" component="div" className="text-redError text-xs mt-1" />
-              </div>
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"سمت"}
+                        holder={"مدیرعامل"}
+                        necessary={true}
+                        value={values.position}
+                        onChange={e => setFieldValue("position", e.target.value)}
+                      />
+                      <ErrorMessage name="position" component="div" className="text-redError text-xs mt-1" />
+                    </div>
 
-              <div className="col-span-1 mb-2">
-                <MainInput
-                  label={"تلفن همراه"}
-                  holder={"0912******"}
-                  necessary={true}
-                  value={values.mobile}
-                  onChange={e => setFieldValue("mobile", e.target.value)}
-                />
-                <ErrorMessage name="mobile" component="div" className="text-redError text-xs mt-1" />
-              </div>
-            </div>
+                    <div className="col-span-1 mb-2">
+                      <MainInput
+                        label={"تلفن همراه"}
+                        holder={"0912******"}
+                        necessary={true}
+                        value={values.mobile}
+                        onChange={e => setFieldValue("mobile", e.target.value)}
+                      />
+                      <ErrorMessage name="mobile" component="div" className="text-redError text-xs mt-1" />
+                    </div>
+                  </div>
 
-            <div className="w-full flex justify-center mt-4">
-              <div className="w-[140px]">
-                <MainButton type="submit" label={"ویرایش ادمین"} disabled={isSubmitting} />
-              </div>
-            </div>
-          </Form>
-        )}
-      </Formik>
-    }
-  />
-) : null}
+                  <div className="w-full flex justify-center mt-4">
+                    <div className="w-[140px]">
+                      <MainButton type="submit" label={"ویرایش ادمین"} disabled={isSubmitting} />
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          }
+        />
+      ) : null}
       {showBlock && blockedAdmin ? (
-  <MainModal
-    big={false}
-    title={blockedAdmin.isLimited ? "فعالسازی ادمین" : "غیرفعالسازی ادمین"}
-    setShowModal={() => setShowBlock(false)}
-    text={
-      blockedAdmin.isLimited
-        ? "آیا از فعالسازی ادمین انتخاب شده اطمینان دارید؟"
-        : "آیا از غیرفعالسازی ادمین انتخاب شده اطمینان دارید؟"
-    }
-    modalButton={
-      <div className="w-full flex justify-center">
-        <div className="w-[140px]">
-          <MainButton onClickFunction={handleBlock} label={"بله"} />
-        </div>
-        <div className="w-[140px] mr-2">
-          <MainButton
-            onClickFunction={() => setShowBlock(false)}
-            red={true}
-            label={"خیر"}
-          />
-        </div>
-      </div>
-    }
-  />
-) : null}
+        <MainModal
+          big={false}
+          title={blockedAdmin.isLimited ? "فعالسازی ادمین" : "غیرفعالسازی ادمین"}
+          setShowModal={() => setShowBlock(false)}
+          text={
+            blockedAdmin.isLimited
+              ? "آیا از فعالسازی ادمین انتخاب شده اطمینان دارید؟"
+              : "آیا از غیرفعالسازی ادمین انتخاب شده اطمینان دارید؟"
+          }
+          modalButton={
+            <div className="w-full flex justify-center">
+              <div className="w-[140px]">
+                <MainButton onClickFunction={handleBlock} label={"بله"} />
+              </div>
+              <div className="w-[140px] mr-2">
+                <MainButton
+                  onClickFunction={() => setShowBlock(false)}
+                  red={true}
+                  label={"خیر"}
+                />
+              </div>
+            </div>
+          }
+        />
+      ) : null}
     </div>
   )
 }

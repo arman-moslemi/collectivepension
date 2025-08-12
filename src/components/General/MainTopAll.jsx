@@ -12,7 +12,7 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
     // const [role, setRole] = useState("");
 
       const userTypeModalFunction = () => {
-            setShowUserTypeModal(false);
+            setShowUserTypeModal(!showUserTypeModal);
         }
             const [showInputModal, setShowInputModal] = useState(false);
     const [nationalCode, setNationalCode] = useState("");

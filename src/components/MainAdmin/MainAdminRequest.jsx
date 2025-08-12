@@ -7,6 +7,7 @@ import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import { useState, useEffect } from "react";
+import { apiAsset } from "../../commons/inFormTypes";
 
 
 const titleRow = ["ردیف","نام و نام خانوادگی","کدملی","تاریخ ثبت درخواست","صندوق مقصد","وضعیت","مشاهده"];
@@ -52,7 +53,7 @@ const MainAdminRequest = () => {
                         item5: item.endingInsuranceName,
                         item6: item.statusDescription,
                         item7: <button 
-                        onClick={()=>navigate("/mainAdmin/requestDetail",{state:{id:item.userInsuranceId}})}>
+                        onClick={()=>navigate("/mainAdmin/requestDetail",{state:{id:item.userInsuranceId,statusId:item.userInsuranceStatusId}})}>
                             <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'>
                                 <DetailTableIcon/>
                                 </div>
@@ -109,6 +110,8 @@ const MainAdminRequest = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
+                                    window.open(apiAsset + response.data, '_blank')
+                
             }
 
         } catch (error) {

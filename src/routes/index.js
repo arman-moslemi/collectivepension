@@ -22,6 +22,11 @@ export const router =createBrowserRouter([
             <h3 className="text-center">Nothing !</h3>
         ),
         children: [
+             {
+                path:'/',
+                element:<LoginPageMain/>,
+             
+            },
             {
                 path:'/login',
                 element:<LoginPageMain/>,
@@ -113,7 +118,7 @@ export const router =createBrowserRouter([
             { path: 'request', element: <MainAdminRequestPage />},
             { path: 'requestDetail', element: <MainAdminRequestsDetailsPage />},
             { path: 'protestList', element: <MainAdminProtestListPage />},
-            { path: 'protestList/:id', element: <MainAdminProtestDetailPage />},
+            { path: 'protestDetail', element: <MainAdminProtestDetailPage />},
 
       ]
     },

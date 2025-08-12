@@ -6,6 +6,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import Download from "../../assets/icon/main/Download";
+import { apiAsset } from "../../commons/inFormTypes";
 
 const titleRow = ["ردیف", "نام صندوق", "در انتظار تایید اولیه", "در انتظار اعلام سابقه", "سوابق اعلام شده", "در انتظار تایید ثانویه", "در انتظار اعلام مبلغ مستمری", "مبلغ مستمری اعلام شده", "احکام صادر شده", "اعتراضات در انتظار بررسی", "اعتراضات پاسخ داده شده ", "دریافت"];
 
@@ -97,6 +98,8 @@ const MainAdminExpertActivity = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
+                                    window.open(apiAsset + response.data, '_blank')
+                
             }
 
         } catch (error) {

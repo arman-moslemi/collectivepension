@@ -10,6 +10,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
 import Cookies from 'universal-cookie';
+import { apiAsset } from "../../commons/inFormTypes";
 
 const statusee = [
     {
@@ -266,6 +267,8 @@ const ExpertProtestList = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
+                                    window.open(apiAsset + response.data, '_blank')
+                
             }
 
         } catch (error) {

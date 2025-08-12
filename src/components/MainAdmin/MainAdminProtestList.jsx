@@ -7,6 +7,7 @@ import TableLeftIcon from "../../assets/icon/general/TableLeftIcon";
 import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import { useState, useEffect } from "react";
+import { apiAsset } from "../../commons/inFormTypes";
 
 
 const titleRow = [
@@ -63,14 +64,24 @@ const MainAdminProtestList = () => {
                         item6: item.protestStatus,
                         item7: item.insuranceName,
                         item8: (
-        <Link
-        to={`/mainAdmin/protestList/${item.id}`}
-        state={{ type: item.protestType, data: item }}
-      >
-        <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
-          <DetailTableIcon />
-        </div>
-      </Link>
+    //     <Link
+    //     to={`/mainAdmin/protestList/${item.id}`}
+    //     state={{ type: item.protestType, data: item }}
+    //   >
+    //     <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
+    //       <DetailTableIcon />
+    //     </div>
+    //   </Link>
+
+       <button onClick={() => navigate("/mainAdmin/protestDetail", {
+                                    state: {
+                                        id: item.protestId,
+                                        type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
+                                    }
+                                })}>
+                                    <div
+                                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
+                                </button>
     ), 
 
                     })
@@ -143,6 +154,8 @@ const MainAdminProtestList = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
+                                    window.open(apiAsset + response.data, '_blank')
+                
             }
 
         } catch (error) {

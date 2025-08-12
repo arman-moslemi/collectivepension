@@ -21,7 +21,7 @@ const ExistingRecordsDetailsMonths = ({ list1, list2, list3 }) => {
                     :
 
 
-                    <p className="font-IRANYekanMedium text-[15px]">{list1.item2[0].startDay+" تا"+list1.item2[0].endDay}</p>
+                    <p className="font-IRANYekanMedium text-[15px]">{list1?.item2[0]?.startDay+" تا"+list1?.item2[0]?.endDay}</p>
                 }
 
 

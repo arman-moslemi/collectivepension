@@ -30,6 +30,8 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
         const fetchFormData = async () => {
             try {
                 const response = await axiosReq("Experts/GetAgentFormByRequest?userInsuranceId=" + id, "get");
+                console.log(11)
+                console.log(response.data)
                 if (response.data) {
 
                     setFormData(response.data.filter(x => x.agentStatusId == 2));

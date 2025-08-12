@@ -10,6 +10,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import IcPenIcon from "../../assets/icon/general/IcPenIcon";
 import IcReloadIcon from "../../assets/icon/general/IcReloadIcon";
 import Cookies from 'universal-cookie';
+import { apiAsset } from "../../commons/inFormTypes";
 
 const status = [
     {
@@ -114,7 +115,7 @@ const ExpertRequests = ({ IsEnding }) => {
                         item6: item.statusDescription,
                         item7:
                             <div className="flex justify-between">
-                                <button onClick={() => navigate("/expert/requestsDetails", { state: { id: item.userInsuranceId } })} >
+                                <button onClick={() => navigate("/expert/requestsDetails", { state: { id: item.userInsuranceId,statusId:item.userInsuranceStatusId } })} >
                                     <div
                                         className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'>
                                         <DetailTableIcon />
@@ -186,6 +187,9 @@ const ExpertRequests = ({ IsEnding }) => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
+                    // window.open(apiAsset + "LogAll.xlsx", '_blank')
+                    window.open(apiAsset + response.data, '_blank')
+
             }
 
         } catch (error) {
