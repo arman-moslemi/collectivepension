@@ -167,10 +167,10 @@ id: item.protestStatusId,
   }, []);
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[24px]">
-      <div className='w-full flex justify-between items-center mb-[20px]'>
-        <div className='w-[440px]'><MainInput search={true} onChange={(e) => setText(e.target.value)}
+      <div className='w-full flex justify-between items-center mb-[20px] flex-wrap'>
+        <div className='w-[440px] md:min-w-[80%]'><MainInput search={true} onChange={(e) => setText(e.target.value)}
           holder={'جستجو بر اساس متن اعتراض'} leftIcon={<SearchIcon />} /></div>
-        <div className='flex justify-start items-center'>
+        <div className='flex justify-start items-center flex-wrap'>
           <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setName(e.id)} listBoxM1={true} listItems={insurances} listBoxHolder={'نام صندوق'} /></div>
           <div className='ml-3 w-[150px]'><MainInput onChange={(e) => setType(e.id)} listBoxM1={true} listItems={types} listBoxHolder={'نوع اعتراض'} /></div>
           <div className='w-[150px]'><MainInput onChange={(e) => setStatus(e.id)} listBoxM1={true} listItems={statues} listBoxHolder={'وضعیت'} /></div>

@@ -60,7 +60,7 @@ const ViewProtest = () => {
     }, []);
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white">
-            <div className='w-full p-[24px] border-b-[1px] border-borderGray flex justify-between items-center'>
+            <div className='w-full p-[24px] border-b-[1px] flex-wrap border-borderGray flex justify-between items-center'>
                 <div>
                     <div className='mb-[14px] flex'>
                         <p className='font-IRANYekanExtra text-[15px] text-mainBlue'>نوع اعتراض :</p>

@@ -108,13 +108,13 @@ const CalculatedPension = () => {
             <div className="w-full mb-[22px]">
                 <MainExplanation text={'در این بخش میزان مستمری محاسبه شده توسط هر صندوق به شما نشان داده می شود.در صورت نیاز می توانید نسبت به هرکدام اعتراض خود را ثبت کنید.'} />
             </div>
-            <div className="w-[360px] h-[99px] rounded-[6px] border-ddGray border-[1px] border-dashed flex items-center justify-center mb-11">
+            <div className="w-[360px] h-[99px] md:w-[90%] rounded-[6px] border-ddGray border-[1px] border-dashed flex items-center justify-center mb-11">
                 <CalculatedPensionIcon />
                 <div className="mr-[17px]">
-                    <p className="font-IRANYekanExtra text-[18px] text-mainBlue mb-1">مجموع مستمری محاسبه شده :</p>
+                    <p className="font-IRANYekanExtra text-[18px] text-mainBlue mb-1 md:text-[14px]">مجموع مستمری محاسبه شده :</p>
                     <div className="flex">
-                        <p className="font-IRANYekanBold text-[16px] text-mainBlue ml-1">{data?.totalPension}</p>
-                        <p className="font-IRANYekanBold text-[16px] text-mainBlue">تومان</p>
+                        <p className="font-IRANYekanBold text-[16px] text-mainBlue ml-1 md:text-[12px]">{data?.totalPension}</p>
+                        <p className="font-IRANYekanBold text-[16px] text-mainBlue md:text-[12px]">تومان</p>
                     </div>
                 </div>
 

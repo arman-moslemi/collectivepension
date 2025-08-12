@@ -13,7 +13,7 @@ const CreateUserInsuranceResponse = () => {
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] pt-[40px] pb-[15px]">
-            <div className="flex justify-start items-center">
+            <div className="flex justify-start items-center overflow-x-auto w-full pb-2 whitespace-nowrap">
                 <div className="flex justify-start items-center">
                     <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon/></p></div>
                     <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات هویتی متقاضی</p>

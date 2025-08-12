@@ -106,7 +106,7 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                     <p>در صورتی که هنگام تکمیل فرم خوداظهاری، فراموش کرده‌اید صندوقی را اعلام کنید، می‌توانید با استفاده از دکمه «افزودن صندوق جدید» در بالای صفحه، آن صندوق را به سوابق خوداظهاری خود اضافه نمایید.</p>
                 </div>} />
             </div>
-            <div className='w-full flex justify-between items-center mt-3 mb-11'>
+            <div className='w-full flex justify-between items-center mt-3 mb-11 flex-wrap'>
                 <div>
                     <div className='flex mb-[14px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>نام و نام خانوادگی :</p>
@@ -139,24 +139,24 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                 </div>
 
             </div>
-            <div className="w-[490px]">
-                <div className="w-full flex justify-between mb-2">
-                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
+            <div className="w-[490px] xl:w-[90%]">
+                <div className="w-full flex justify-between mb-2 flex-wrap md:justify-center">
+                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <DayIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.year!="-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.year!="-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
                     </div>
-                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
+                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <MonthIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.month!="-1"  ? initialValues.month + "ماه" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.month!="-1"  ? initialValues.month + "ماه" : "درحال بررسی"}</p>
                     </div>
-                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center">
+                    <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <YearIcon />
-                        <p className="font-IRANYekanMedium text-[18px] text-darkGray mt-2">{initialValues.day!="-1"  ? initialValues.day + "روز" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.day!="-1"  ? initialValues.day + "روز" : "درحال بررسی"}</p>
                     </div>
                 </div>
                 <div className="w-full flex justify-between">
-                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue">مجموع سوابق</p>
-                    <p className="font-IRANYekanExtra text-[15px] text-darkGray">{initialValues.totalDuration!="-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
+                    <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-mainBlue">مجموع سوابق</p>
+                    <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-darkGray">{initialValues.totalDuration!="-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
                 </div>
             </div>
             <div className="w-full flex flex-wrap justify-between mt-14 mb-14">

@@ -215,9 +215,9 @@ if(initialValues.UserInsuranceId==0 )
         enableReinitialize // This allows Formik to update when initialValues changes
       >
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-          <Form className="px-[90px] w-full grid grid-cols-3 gap-4">
+          <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
             {/* Insurance Dropdown - preselect if initial value exists */}
-            <div className="mb-5 col-span-1">
+            <div className="mb-5 col-span-1 md:col-span-3">
               <MainInput
                 label={'نام صندوق بازنشستگی'}
                 defaultVal={insurances.find(i => i.id === values.InsuranceId) || null}
@@ -233,7 +233,7 @@ if(initialValues.UserInsuranceId==0 )
             </div>
 
             {/* Department Name - show existing value */}
-            <div className="mb-5 col-span-2">
+            <div className="mb-5 col-span-2 md:col-span-3">
               <MainInput
               // listBox={true}
               // listItems={insurances}
@@ -248,7 +248,7 @@ if(initialValues.UserInsuranceId==0 )
             </div>
 
             {/* Province - preselect if initial value exists */}
-            <div className="mb-5 col-span-1">
+            <div className="mb-5 col-span-1 md:col-span-3">
               <MainInput
                 label={'استان محل اشتغال'}
                 listBox={true}
@@ -266,7 +266,7 @@ if(initialValues.UserInsuranceId==0 )
             </div>
 
             {/* City - preselect if initial value exists */}
-            <div className="mb-5 col-span-1">
+            <div className="mb-5 col-span-1 md:col-span-3">
               <MainInput
                 label={'شهر'}
                 listBox={true}
@@ -284,7 +284,7 @@ if(initialValues.UserInsuranceId==0 )
               />
             </div>
 
-            <div className="mb-5 col-span-2">
+            <div className="mb-5 col-span-2 md:col-span-3">
               <MainRadioInput value1={1} value2={2} value3={3}
                 onChange={(value) => setFieldValue('EmploymentStatusId', value)} 
                 column={true}
@@ -295,14 +295,14 @@ if(initialValues.UserInsuranceId==0 )
 
                 input={true} />
             </div>
-            <div className="mb-5 col-span-1">
+            <div className="mb-5 col-span-1 md:col-span-3">
               <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
                 onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
                 title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
             </div>
 
             {/* Insurance ID Number */}
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'شماره شناسایی بیمه'}
                 value={values.InsuranceIdNumber}
@@ -320,13 +320,13 @@ if(initialValues.UserInsuranceId==0 )
 
 
             {/* Started Date */}
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'تاریخ شروع بیمه پردازی'}
                 value={values.StartDate}
                 defaultVal={initialValues.StartDate?initialValues.StartDate:new Date()}
                 onChange={(value) => setFieldValue('StartDate', value)}
-                holder={'1376/05/04'}
+               
                 necessary={true}
                 error={touched.StartDate && errors.StartDate}
                 errorText={errors.StartDate}
@@ -335,13 +335,13 @@ if(initialValues.UserInsuranceId==0 )
             </div>
 
             {/* End Date */}
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'تاریخ آخرین بیمه پردازی'}
                 value={values.EndDate}
                 defaultVal={initialValues.EndDate?initialValues.EndDate:new Date()}
                 onChange={(value) => setFieldValue('EndDate', value)}
-                holder={'1402/05/04'}
+                
                 necessary={true}
                 error={touched.EndDate && errors.EndDate}
                 errorText={errors.EndDate}
@@ -356,7 +356,7 @@ if(initialValues.UserInsuranceId==0 )
 
 
             {/* Track Record Type */}
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'نوع سابقه'}
                 value={values.TrackRecordType}
@@ -369,7 +369,7 @@ if(initialValues.UserInsuranceId==0 )
             </div>
 
             {/* Track Record Days */}
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
                   <p className="font-IRANYekanBold text-[16px] text-mainBlue">میزان سابقه</p>
@@ -384,7 +384,7 @@ if(initialValues.UserInsuranceId==0 )
               />
             </div>
 
-            <div className="mb-5">
+            <div className="mb-5 md:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
                   <p className="font-IRANYekanBold text-[16px] text-mainBlue">آخرین محل اشتغال به کار</p>
