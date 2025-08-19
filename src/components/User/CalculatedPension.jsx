@@ -53,7 +53,7 @@ const CalculatedPension = () => {
             const response = await axiosReq("Users/ProtestRegistration", "post", {
                 ProtestDescription: des,
                 ProtestFiles: files,
-          InsuranceId: id,
+                InsuranceId: id,
 
             });
             console.log(response)
@@ -72,20 +72,27 @@ const CalculatedPension = () => {
 
     const bankAccount = async () => {
         try {
+            if (bankName != "" && branch != "" && account != "") {
 
-            const response = await axiosReq("Users/BankAccount", "put", {
-                BankName:bankName,
-                BankBranch:branch,
-                BankAccount:account,
-            });
-            console.log(response)
 
-            if (response?.status === 200 || response?.status === 204) {
-                ProtestModalFunction()
-            }
-            else{
-                     alert(response)
+                const response = await axiosReq("Users/BankAccount", "put", {
+                    BankName: bankName,
+                    BankBranch: branch,
+                    BankAccount: account,
+                });
+                console.log(response)
+
+                if (response?.status === 200 || response?.status === 204) {
+                    ProtestModalFunction()
                 }
+                else {
+                    alert(response)
+                }
+            }
+
+            else{
+                alert("همه موارد را وارد نمایید")
+            }
 
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -103,7 +110,7 @@ const CalculatedPension = () => {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[20px]">
             <div className="w-full flex justify-end mb-[16px]">
                 <div className="w-[155px]">
-                    <MainButton  onClickFunction={() => setBankInformationModal(true)} label={'تایید مبلغ مستمری'} /></div>
+                    <MainButton onClickFunction={() => setBankInformationModal(true)} label={'تایید مبلغ مستمری'} /></div>
             </div>
             <div className="w-full mb-[22px]">
                 <MainExplanation text={'در این بخش میزان مستمری محاسبه شده توسط هر صندوق به شما نشان داده می شود.در صورت نیاز می توانید نسبت به هرکدام اعتراض خود را ثبت کنید.'} />
@@ -169,9 +176,9 @@ const CalculatedPension = () => {
 
             {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
-                    <div><MainInput onChange={(e)=>setBankName(e.target.value)} label={'نام بانک'} /></div>
-                    <div><MainInput  onChange={(e)=>setBranch(e.target.value)}  label={'نام شعبه'} /></div>
-                    <div className='col-span-2'><MainInput  onChange={(e)=>setAcount(e.target.value)}  label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
+                    <div><MainInput onChange={(e) => setBankName(e.target.value)} label={'نام بانک'} /></div>
+                    <div><MainInput onChange={(e) => setBranch(e.target.value)} label={'نام شعبه'} /></div>
+                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)} label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
 
                 </div>}
                 modalButton={<div className="w-full flex justify-center">

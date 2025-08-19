@@ -47,6 +47,7 @@ const Dashboard = () => {
     }
     const bankAccount = async () => {
         try {
+   if (bankName != "" && branch != "" && account != "") {
 
             const response = await axiosReq("Users/BankAccount", "put", {
                 BankName: bankName,
@@ -62,6 +63,11 @@ const Dashboard = () => {
                 alert(response)
             }
 
+        }
+        else{
+                            alert("همه موارد را وارد نمایید")
+
+        }
         } catch (error) {
             console.error("Error fetching user data:", error);
         }

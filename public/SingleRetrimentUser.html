@@ -85,7 +85,9 @@
         </tr>
       </thead>
       <tbody id="pension-table">
-        <tr><td colspan="3">در حال بارگذاری...</td></tr>
+        <tr>
+          <td colspan="3">در حال بارگذاری...</td>
+        </tr>
       </tbody>
     </table>
 
@@ -105,58 +107,64 @@
   </div>
 
 
-    <script type="text/javascript" src="./cdn.js"></script>
-    <script type="text/javascript" src="./html2canvas.js"></script>
-    <script src="./googleapi.js" type="text/javascript"></script>
-<script>
-  // گرفتن مقدار از URL
-  function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+  <script type="text/javascript" src="./cdn.js"></script>
+  <script type="text/javascript" src="./html2canvas.js"></script>
+  <script src="./googleapi.js" type="text/javascript"></script>
+  <script>
+    // گرفتن مقدار از URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-  async function loadPensionData() {
-    try {
-      // فرض: توی URL داری ?token=abcd123
-    //   const token = getQueryParam("token"); 
-      const userId = getQueryParam("user"); // مثلا اگر userId هم باشه
-
-      const response = await fetch("https://cokatex.ir/api/Experts/ExportDoc", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        //   "Authorization": token ? `Bearer ${token}` : "",
-          "Document": userId ?? "" // هدر سفارشی
+    async function loadPensionData() {
+      try {
+        // فرض: توی URL داری ?token=abcd123
+        //   const token = getQueryParam("token"); 
+        const userId = getQueryParam("user"); // مثلا اگر userId هم باشه
+        function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
         }
-      });
-      console.log(response)
 
-      if (!response.ok) throw new Error("خطا در دریافت اطلاعات");
+        const token = getCookie("token"); //
+        const response = await fetch("https://cokatex.ir/api/Users/GetExportDoc", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": token ? `Bearer ${token}` : "",
+            "Document": userId ?? ""
+          }
+        });
+        console.log(response)
 
-      const dto = await response.json();
+        if (!response.ok) throw new Error("خطا در دریافت اطلاعات");
 
-      // 🔹 متن معرفی
-      document.getElementById("pension-text").innerHTML =
-        `بدین وسیله اعلام می‌گردد که <span style="font-family: IRANYekanB;">${dto.fullName}</span>
+        const dto = await response.json();
+
+        // 🔹 متن معرفی
+        document.getElementById("pension-text").innerHTML =
+          `بدین وسیله اعلام می‌گردد که <span style="font-family: IRANYekanB;">${dto.fullName}</span>
         با کد ملی <span style="font-family: IRANYekanB;">${dto.nationalCode}</span>
         و شماره بیمه <span style="font-family: IRANYekanB;">${dto.insuranceNumber}</span>
         و تاریخ تولد <span style="font-family: IRANYekanB;">${dto.birthDate}</span>
         از تاریخ <span style="font-family: IRANYekanB;">${dto.exportDate}</span>
         مشمول دریافت مستمری بازنشستگی می‌باشد.`
 
-      // 🔹 جدول
-      const table = document.getElementById("pension-table");
-      table.innerHTML = "";
-      dto.insuranceDetails.forEach(item => {
-        table.innerHTML += `
+        // 🔹 جدول
+        const table = document.getElementById("pension-table");
+        table.innerHTML = "";
+        dto.insuranceDetails.forEach(item => {
+          table.innerHTML += `
           <tr>
             <td>${item.insuranceName}</td>
             <td>${item.records}</td>
             <td>${item.pension}</td>
           </tr>
         `;
-      });
-  var HTML_Width = $(".html-content").width();
+        });
+        var HTML_Width = $(".html-content").width();
         var HTML_Height = $(".html-content").height();
         var top_left_margin = 15;
         var PDF_Width = HTML_Width + (top_left_margin * 2);
@@ -167,29 +175,29 @@
         var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
         html2canvas($(".html-content")[0]).then(function (canvas) {
-            var imgData = canvas.toDataURL("image/jpeg", 1.0);
-            var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-            for (var i = 1; i <= totalPDFPages; i++) {
-                pdf.addPage(PDF_Width, PDF_Height);
-                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-            }
-            pdf.save("حکم-بازنشستگی.pdf");
-            // $(".html-content").hide();
+          var imgData = canvas.toDataURL("image/jpeg", 1.0);
+          var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+          for (var i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+          }
+          pdf.save("حکم-بازنشستگی.pdf");
+          // $(".html-content").hide();
         });
-    } catch (err) {
-      document.getElementById("pension-text").innerText = "❌ خطا در دریافت اطلاعات";
-      console.error(err);
+      } catch (err) {
+        document.getElementById("pension-text").innerText = "❌ خطا در دریافت اطلاعات";
+        console.error(err);
+      }
     }
-  }
 
 
- 
 
-  loadPensionData();
-   
-</script>
- 
+
+    loadPensionData();
+
+  </script>
+
 </body>
 
 </html>
