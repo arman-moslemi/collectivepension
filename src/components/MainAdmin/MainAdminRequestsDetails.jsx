@@ -9,7 +9,7 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 //   
 
 
-const MainAdminRequestsDetails = ({admin,webService,des,another}) => {
+const MainAdminRequestsDetails = ({admin,webService,des,another,id, statusId }) => {
 
     const [expertPensionRequestForm, setExpertPensionRequestForm] = useState(true);
     const [expertAllRecords, setExpertAllRecords] = useState(false);
@@ -114,53 +114,54 @@ const MainAdminRequestsDetails = ({admin,webService,des,another}) => {
 
 
 
-            {expertPensionRequestForm?
+         {expertPensionRequestForm ?
 
-            <div className="w-full">
-                <ExpertPensionRequestForm admin={admin}  webService={webService} des={des}/>
-            </div>
-
-            :(expertAllRecords && webService)||(expertAllRecords && admin) ?
-
-            <div className="w-full">
-                <ExpertAllRecordsWithWebService/>
-            </div>
-
-            :expertAllRecords && !webService && !admin  ?
-
-            <div className="w-full">
-                <ExpertAllRecordsNoWebService/>
-            </div>
-
-            :(expertPensionAmount && webService)||(expertPensionAmount && admin) ?
-
-            <div className="w-full">
-                <ExpertPensionAmount another={another}/>
-            </div>
-
-            :expertPensionAmount && !webService ?
-
-            expertPensionShift?
-
-            <div className="w-full">
-                <ExpertPensionAmount another={another}/>
-            </div>
-
-            :
-
-            <div className="w-full">
-                <ExpertPensionAmountInput setShift={setExpertPensionShift} />
-            </div>
-
-            :expertLeftovers?
-
-            <div className="w-full">
-                <ExpertAgents admin={admin}  webService={webService} des={des}/>
-            </div>
-
-            :null}
-            
+        <div className="w-full">
+          <ExpertPensionRequestForm admin={admin} webService={webService} des={des} id={id} />
         </div>
+
+        : (expertAllRecords && webService) || (expertAllRecords && admin) ?
+
+          <div className="w-full">
+            <ExpertAllRecordsWithWebService id={id} />
+          </div>
+
+          : expertAllRecords && !webService && !admin ?
+
+            <div className="w-full">
+              <ExpertAllRecordsNoWebService id={id} />
+            </div>
+
+            : (expertPensionAmount && webService) || (expertPensionAmount && admin) ?
+
+              <div className="w-full">
+                <ExpertPensionAmount another={another} id={id} />
+              </div>
+
+              : expertPensionAmount && !webService ?
+
+                // expertPensionShift &&  
+                statusId == 9 ?
+
+                  <div className="w-full">
+                    <ExpertPensionAmount another={another} id={id} />
+                  </div>
+
+                  :
+                  statusId == 6 ?
+                    <div className="w-full">
+                      <ExpertPensionAmountInput setShift={setExpertPensionShift} id={id} />
+                    </div>
+
+                    : expertLeftovers ?
+
+                      <div className="w-full">
+                        <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
+                      </div>
+
+                      : null : null}
+
+    </div>
     )
 }
 

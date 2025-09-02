@@ -121,7 +121,7 @@ const CreateUserInsuranceOrigin = () => {
                             <div className="w-full flex flex-col items-center">
                                 <p className="font-IRANYekanMedium  text-[14px] text-mainBlue text-justify leading-7">
                                     اینجانب
-                                    <span className="font-IRANYekanExtra mx-2">علی علیزاده</span>
+                                    <span className="font-IRANYekanExtra mx-2"></span>
                                     متعهد می‌گردم در هیچ یک از صندوق‌های بازنشستگی از مزایای مستمری بازنشستگی/ ازکارافتادگی کلی/ بازماندگان استفاده ننموده‌ام و در صورت برقراری مستمری جمع و احراز شرایط برقراری مستمری استحقاقی در هر یک از صندوق‌ها و تمایل به بهره‌مندی از مزایای آن صندوق (بدون احتساب مزایای مستمری جمع)، مراتب انصراف خود را از برقراری مستمری جمع اعلام نمایم.
                                 </p>
                                 <div className="mt-5 w-full">

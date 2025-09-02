@@ -151,7 +151,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
 
             <div className="border-t-[2px] border-dGray border-dashed pb-9 mx-[73px]"></div>
 
-            {des && !webService && !admin &&  formData?.userStatusId==1?
+            {des && !webService && !admin &&  (formData?.userStatusId==2||formData?.userStatusId==5)?
                 <div className="w-full px-[120px] flex justify-end items-center lg:px-0 lg:justify-center">
                     <div className="w-[107px] ml-[10px]"><MainButton onClickFunction={() => submit()} label={'تایید'} /></div>
                     <div className="w-[107px]"><MainButton onClickFunction={() => setDisapproval(true)} label={'عدم تایید'} red={true} /></div>

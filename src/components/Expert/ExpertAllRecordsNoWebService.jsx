@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 
 
-const ExpertAllRecordsNoWebService = ({ id }) => {
+const ExpertAllRecordsNoWebService = ({ id,admin }) => {
 
     let navigate = useNavigate();
     const [forms, setForms] = useState([3]);
@@ -92,11 +92,16 @@ const ExpertAllRecordsNoWebService = ({ id }) => {
             }
             )
             }
+            {
+                admin?
+                null:
             <div className="w-full flex justify-end my-10">
                 <div className="w-[151px]">
                     <MainButton onClickFunction={() => CalculateDateRange()} label={'محاسبه سوابق'} />
                 </div>
             </div>
+
+            }
             {
                 data ?
                     <div className="w-full mb-[25px]"><TotalWorkRecords button={true} id={id} data={data} /></div>

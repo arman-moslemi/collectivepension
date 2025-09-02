@@ -141,7 +141,9 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
         : (expertAllRecords && webService) || (expertAllRecords && admin) ?
 
           <div className="w-full">
-            <ExpertAllRecordsWithWebService id={id} />
+            {/* <ExpertAllRecordsWithWebService id={id} /> */}
+                          <ExpertAllRecordsNoWebService id={id} admin={admin}/>
+
           </div>
 
           : expertAllRecords && !webService && !admin ?
@@ -153,7 +155,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
             : (expertPensionAmount && webService) || (expertPensionAmount && admin) ?
 
               <div className="w-full">
-                <ExpertPensionAmount another={another} id={id} />
+                <ExpertPensionAmount admin={admin} another={another} id={id} />
               </div>
 
               : expertPensionAmount && !webService ?
@@ -162,13 +164,13 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
                 statusId == 9 ?
 
                   <div className="w-full">
-                    <ExpertPensionAmount another={another} id={id} />
+                    <ExpertPensionAmount another={another} id={id} admin={admin} />
                   </div>
 
                   :
                   statusId == 6 ?
                     <div className="w-full">
-                      <ExpertPensionAmountInput setShift={setExpertPensionShift} id={id} />
+                      <ExpertPensionAmountInput admin={admin} setShift={setExpertPensionShift} id={id} />
                     </div>
 
                     : expertLeftovers ?

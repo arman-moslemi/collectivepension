@@ -64,7 +64,7 @@ const CreateUserInsuranceDes = () => {
         moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'):values.EndDate,
         EmploymentStatusDescription: des
       };
-if(initialValues.UserInsuranceId==0 )
+if(initialValues?.UserInsuranceId==0 )
    {   const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
       if (response?.status === 200) {
@@ -93,12 +93,12 @@ if(initialValues.UserInsuranceId==0 )
       
       // 1. Fetch user insurance data
       const userInsuranceRes = await axiosReq("Users/GetUserInsurance?isEndingInsurance=true", "get");
-      console.log('User insurance data:', userInsuranceRes.data[0]);
+      console.log('User insurance data:', userInsuranceRes);
       
       // 2. Set initial values from API response
-      if (userInsuranceRes.data) {
+      if (userInsuranceRes?.data?.length>0) {
         setInitialValues({
-          UserInsuranceId:userInsuranceRes.data[0].userInsuranceId ||0 ,
+          UserInsuranceId:userInsuranceRes.data[0]?.userInsuranceId ||0 ,
           InsuranceId: userInsuranceRes.data[0].insuranceId || 0,
           IsEndingInsurance: userInsuranceRes.data[0].isEndingInsurance || false,
           DepartmentName: userInsuranceRes.data[0].departmentName || '',

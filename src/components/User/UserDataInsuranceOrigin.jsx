@@ -305,8 +305,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
                 value={values.DepartmentName}
                 necessary={true}
-                listBox={true}
-                listItems={l1}
+                // listBox={true}
+                // listItems={l1}
                 holder={'مثلا وزرات تعاون'}
                 error={touched.DepartmentName && errors.DepartmentName}
                 errorText={errors.DepartmentName}

@@ -133,12 +133,12 @@ const MainAdminAdminList = () => {
                 }
               </div>
               {/* download log is here */}
-              <div className="relative group hover:cursor-pointer" onClick={() => handleAdminReport(item.adminId)} >
+              {/* <div className="relative group hover:cursor-pointer" onClick={() => handleAdminReport(item.adminId)} >
                 <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center ml-1'><DetailTableIcon /></div>
                 <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
                   مشاهده
                 </div>
-              </div>
+              </div> */}
             </div>,
 
           })
@@ -248,11 +248,9 @@ const MainAdminAdminList = () => {
   }
   const handleAdminReport = async (id) => {
     try {
-      const response = await axiosReq("SuperAdmins/GetAdminReport", "get", {
-        adminId: id,
-      });
+      const response = await axiosReq("SuperAdmins/GetAdminReport?adminId="+id, "get");
       setReportResponse(response.data);
-      alert("ok" + reportResponse);
+      alert("ok" + response.data);
       if (response?.status === 200) {
         getProtests();
       }

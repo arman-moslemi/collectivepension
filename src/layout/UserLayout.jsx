@@ -17,10 +17,11 @@ const UserLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const isActive = (path) => location.pathname === path; // بررسی لینک فعال
     let navigate = useNavigate();
-    const navTo = () => {
-        const cookies = new Cookies();
+    const cookies = new Cookies();
 
-        var status = cookies.get("Status");
+    let status = cookies.get("Status");
+    console.log(status)
+    const navTo = () => {
 
         if (status == 1) {
 
@@ -81,7 +82,7 @@ const UserLayout = () => {
                                 }
                             </button>
                             {/* /user/updateUserBaseInfoHimself  or  /user/updateUserBaseInfoAnother */}
-                            <Link to="/user/updateUserBaseInfoHimself" className="flex items-center cursor-pointer mb-10">
+                            <Link to={status==1?"/user/updateUserBaseInfoHimself":status==2?"/user/dashboardProcess":"/user/createUserInsuranceResponse"} className="flex items-center cursor-pointer mb-10">
                                 {isActive("/user/updateUserBaseInfoHimself") && (
                                     <>
                                         <PensionRequestIcon color={'#00c1b2'} />

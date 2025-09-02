@@ -47,27 +47,27 @@ const Dashboard = () => {
     }
     const bankAccount = async () => {
         try {
-   if (bankName != "" && branch != "" && account != "") {
+            if (bankName != "" && branch != "" && account != "") {
 
-            const response = await axiosReq("Users/BankAccount", "put", {
-                BankName: bankName,
-                BankBranch: branch,
-                BankAccount: account,
-            });
-            console.log(response)
+                const response = await axiosReq("Users/BankAccount", "put", {
+                    BankName: bankName,
+                    BankBranch: branch,
+                    BankAccount: account,
+                });
+                console.log(response)
 
-            if (response?.status === 200 || response?.status === 204) {
-                alert("با موفقیت انجام شد")
+                if (response?.status === 200 || response?.status === 204) {
+                    alert("با موفقیت انجام شد")
+                }
+                else {
+                    alert(response)
+                }
+
             }
             else {
-                alert(response)
+                alert("همه موارد را وارد نمایید")
+
             }
-
-        }
-        else{
-                            alert("همه موارد را وارد نمایید")
-
-        }
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
@@ -123,15 +123,15 @@ const Dashboard = () => {
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
             <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={'در هر لحظه وضعیتی که کاربر در آن قرار دارد اینجا قرار میگیرد.مثلا سوابق اعلام شده در انتظار تایید شما یا مبلغ مستمری محاسبه شده در انتظار تایید'} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
-                <div onClick={()=>navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
+                <div onClick={() => navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
                     <img src={DashboardPic1} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">کلیه سوابق موجود</p>
                 </div>
-                <div onClick={()=>navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
+                <div onClick={() => navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <img src={DashboardPic2} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">مستمری محاسبه شده</p>
                 </div>
-                <div onClick={()=>navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
+                <div onClick={() => navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
@@ -171,8 +171,8 @@ const Dashboard = () => {
             {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
                     <div><MainInput onChange={(e) => setBankName(e.target.value)} value={bankName} label={'نام بانک'} /></div>
-                    <div><MainInput onChange={(e) => setBranch(e.target.value)}value={branch}  label={'نام شعبه'} /></div>
-                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)}value={account}  label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
+                    <div><MainInput onChange={(e) => setBranch(e.target.value)} value={branch} label={'نام شعبه'} /></div>
+                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)} value={account} label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
 
                 </div>}
                 modalButton={<div className="w-full flex justify-center">

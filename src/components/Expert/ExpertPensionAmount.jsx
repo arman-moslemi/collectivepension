@@ -64,7 +64,7 @@ const list2 = [
 
 
 
-const ExpertPensionAmountInput = ({ another, id }) => {
+const ExpertPensionAmountInput = ({ another, id,admin }) => {
 
     let navigate = useNavigate();
     const [dataTable, setDataTable] = useState([]);
@@ -76,6 +76,8 @@ const ExpertPensionAmountInput = ({ another, id }) => {
     const [pageAgent, setPageAgent] = useState(1);
     const [row, setRow] = useState(10);
     const [rowAgent, setRowAgent] = useState(10);
+    console.log(88)
+    console.log(admin)
     const getInsurances = async () => {
         try {
 
@@ -180,10 +182,15 @@ const ExpertPensionAmountInput = ({ another, id }) => {
                     <div className="w-[90%]"><MainTable cen6={true} list={dataAgent} count={countAgent} titleRow={titleRow2} page={pageAgent} setPage={setPageAgent} row={rowAgent} setRow={setRowAgent} /></div>
                 </div>
                 : null}
+                {
+                    !admin?
             <div className="mt-[30px] mb-[107px] w-full flex justify-end">
                 <div className="w-[190px]">
                     <MainButton onClickFunction={() => exportDoc()} label={'صدور حکم بازنشستگی'} /></div>
             </div>
+                    :
+                    null
+                }
 
 
         </div>
