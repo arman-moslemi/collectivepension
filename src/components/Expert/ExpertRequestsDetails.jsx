@@ -137,7 +137,11 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
         <div className="w-full">
           <ExpertPensionRequestForm admin={admin} webService={webService} des={des} id={id} />
         </div>
+      : expertLeftovers ?
 
+                      <div className="w-full">
+                        <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
+                      </div>
         : (expertAllRecords && webService) || (expertAllRecords && admin) ?
 
           <div className="w-full">
@@ -149,10 +153,10 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
           : expertAllRecords && !webService && !admin ?
 
             <div className="w-full">
-              <ExpertAllRecordsNoWebService id={id} />
+              <ExpertAllRecordsNoWebService id={id}admin={admin} />
             </div>
 
-            : (expertPensionAmount && webService) || (expertPensionAmount && admin) ?
+            : expertPensionAmount && statusId != 9 ?
 
               <div className="w-full">
                 <ExpertPensionAmount admin={admin} another={another} id={id} />
@@ -161,7 +165,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
               : expertPensionAmount && !webService ?
 
                 // expertPensionShift &&  
-                statusId == 9 ?
+                statusId == 9 && !admin?
 
                   <div className="w-full">
                     <ExpertPensionAmount another={another} id={id} admin={admin} />
@@ -173,11 +177,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
                       <ExpertPensionAmountInput admin={admin} setShift={setExpertPensionShift} id={id} />
                     </div>
 
-                    : expertLeftovers ?
-
-                      <div className="w-full">
-                        <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
-                      </div>
+              
 
                       : null : null}
 

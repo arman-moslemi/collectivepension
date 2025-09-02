@@ -12,7 +12,7 @@ const UserStartRequest = ({showUserTypeModal, setShowUserTypeModal}) => {
     const navigate = useNavigate();
     const cookies = new Cookies();
 
-
+let rol= cookies.get('Role')
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
@@ -21,7 +21,7 @@ const UserStartRequest = ({showUserTypeModal, setShowUserTypeModal}) => {
             </div>
             <p className="font-IRANYekanMedium text-[18px] text-center leading-8 text-black w-[60%] md:w-[90%] md:text-[15px] mt-[58px] mb-[28px]">برای ثبت درخواست مستمری جمع، ابتدا فرم مربوطه را تکمیل کنید تا فرایند بررسی درخواست شما آغاز شود.</p>
             <div className="w-[240px]">
-                <MainButton onClickFunction={() => navigate(role == "User" ? "/user/updateUserBaseInfoHimself" : "/user/updateUserBaseInfoAnother")} label={'درخواست مستمری جمع'} />
+                <MainButton onClickFunction={() => navigate(rol == "User" ? "/user/updateUserBaseInfoHimself" : "/user/updateUserBaseInfoAnother")} label={'درخواست مستمری جمع'} />
             </div>
 
 

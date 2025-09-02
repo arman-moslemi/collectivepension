@@ -56,6 +56,22 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
             console.error("Error fetching user data:", error);
         }
     };
+      const approve = async () => {
+        try {
+            const response = await axiosReq("Users/Approve", "put");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+              alert("موفقیت آمیز")
+            }
+            else{
+                              alert(response?.data)
+
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
     const getInsurancesProps = async (id) => {
         try {
             const response = await axiosReq("Users/GetUserInsuranceProps?insuranceId=" + id, "get");
@@ -97,7 +113,7 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
             <div className="w-full flex justify-end">
                 <div className="w-[186px] ml-4"><MainButton onClickFunction={() => { setShowAddOriginBoxModal(true) }} label={'+ افزودن صندوق مبدا'} /></div>
-                <div className="w-[97px]"><MainButton gray={true} label={'تایید سوابق'} /></div>
+                <div className="w-[97px]"><MainButton gray={true} onClickFunction={()=>approve()} label={'تایید سوابق'} /></div>
             </div>
             <div className="w-full my-3">
                 <MainExplanation text={<div>

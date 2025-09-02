@@ -8,8 +8,8 @@ const ExistingRecordsDetailsMonthsEdit = ({ list2, setData, setProtest, data }) 
 
     const [selectedBox, setSelectedBox] = useState(false);
     const [id, setId] = useState();
-    const [startDate, setStartDate] = useState(list2.item2[0].startDay);
-    const [endDate, setEndDate] = useState(list2.item2[0].endDay);
+    const [startDate, setStartDate] = useState(list2?.item2[0]?.startDay);
+    const [endDate, setEndDate] = useState(list2?.item2[0]?.endDay);
     const [duration, setDuration] = useState(list2.item3);
     const addNewTimeFrame = (monthId) => {
         console.log(555)
