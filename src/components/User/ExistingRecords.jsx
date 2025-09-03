@@ -75,6 +75,7 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
     const getInsurancesProps = async (id) => {
         try {
             const response = await axiosReq("Users/GetUserInsuranceProps?insuranceId=" + id, "get");
+            console.log(555)
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {

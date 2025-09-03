@@ -45,7 +45,7 @@ const ExistingRecordsMainDetails = ({selectedYearBox,setSelectedMonthBox, objYea
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white pt-[30px] pb-[40px] px-[55px]">
       <div className="w-full grid grid-cols-6 gap-4">
         {data?.map((item, index) => (
-          <div onClick={() => {setSelectedMonthBox(true);setObjMonth({
+          <div onClick={() => {console.log(item.year);setSelectedMonthBox(true);setObjMonth({
              InsuranceId: objYear.InsuranceId,
           InsuranceIdNumber: objYear.InsuranceIdNumber,
           Branch: objYear.Branch,
@@ -53,7 +53,9 @@ const ExistingRecordsMainDetails = ({selectedYearBox,setSelectedMonthBox, objYea
           WorkplaceNumber: objYear.WorkplaceNumber,
           CityId: objYear.CityId,
           Year:item.year
-          })}} className="cursor-pointer"><ExistingRecordsYearBox data={item} /></div>
+          })}} className="cursor-pointer">
+            <ExistingRecordsYearBox data={item} />
+            </div>
         ))}
       </div>
     </div>

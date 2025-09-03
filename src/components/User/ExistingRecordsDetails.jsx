@@ -116,7 +116,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
   };
   useEffect(() => {
     getInsurancesMonth();
-  }, [selectedMonthBox]);
+  }, [selectedMonthBox,objMonth]);
   const createProtest = async () => {
     try {
       console.log('month')
