@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet, useLocation, Link } from "react-router-dom";
+import { useState,useEffect } from "react";
+import { Outlet, useLocation, Link ,useNavigate} from "react-router-dom";
 import { MainNavbar, ScrollToTop } from "../components";
 import SidebarMainIcon from "../assets/icon/general/SidebarMainIcon";
 import WorkTableIcon from "../assets/icon/user/WorkTableIcon";
@@ -9,7 +9,7 @@ import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import BoxExpertIcon from "../assets/icon/expert/BoxExpertIcon";
 import Cookies from 'universal-cookie';
-
+import { axiosReq } from "../commons/axiosReq";
 const ExpertLayout = () => {
   const [adminRole] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -17,7 +17,40 @@ const ExpertLayout = () => {
   const cookies = new Cookies();
   const isActive = (path) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
+  let navigate = useNavigate();
 
+       useEffect(() => {
+     
+         auth();
+       }, []);
+       const auth = async () => {
+         const cookies = new Cookies();
+         var token = cookies.get('token');
+         console.log(token)
+         if (!token) {
+           navigate("/");
+           // GetData()
+     
+         } else {
+           if (cookies.get('Role') != "Expert"&& cookies.get('Role') != "Admin" ) {
+            
+            navigate("/");
+     
+           }
+         }
+       }
+
+       const signout = async () => {
+        const cookies = new Cookies();
+        await axiosReq("Auth/SignOut","post");
+        cookies.remove("ID", { path: '/' })
+        cookies.remove("Role", { path: '/' })
+        cookies.remove("token", { path: '/' })
+        cookies.remove("Name", { path: '/' })
+        cookies.remove("Status", { path: '/' })
+  
+        navigate("/");
+    }
   return (
     <>
       <ScrollToTop />
@@ -131,7 +164,7 @@ const ExpertLayout = () => {
                 )}
               </Link> */}
 
-              <Link to="/login" className="flex items-center cursor-pointer mb-10">
+              <Link onClick={()=>signout()} className="flex items-center cursor-pointer mb-10">
                 {isActive("/login") ? (
                   <>
                     <ExitIcon color={'#00c1b2'} />

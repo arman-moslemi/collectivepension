@@ -42,6 +42,7 @@ const Dashboard = () => {
     const [bankName, setBankName] = useState();
     const [branch, setBranch] = useState();
     const [account, setAcount] = useState();
+    const [user, setUser] = useState();
     const BankInformationModalFunction = () => {
         setBankInformationModal(false);
     }
@@ -74,7 +75,10 @@ const Dashboard = () => {
     };
     const getInsurances = async () => {
         try {
+            const responseStatus = await axiosReq("Users/GetUserStatus", "get");
 
+            console.log(responseStatus)
+            setUser(responseStatus?.data)
             const response = await axiosReq("Users/GetInsuranceDurations", "get");
             console.log(response)
 
@@ -121,7 +125,7 @@ const Dashboard = () => {
     };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
-            <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={'در هر لحظه وضعیتی که کاربر در آن قرار دارد اینجا قرار میگیرد.مثلا سوابق اعلام شده در انتظار تایید شما یا مبلغ مستمری محاسبه شده در انتظار تایید'} /></div>
+            <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={"وضعیت درخواست: "+user} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
                 <div onClick={() => navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
                     <img src={DashboardPic1} alt="pic" />

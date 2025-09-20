@@ -8,8 +8,13 @@ import Reload from '../../assets/icon/login/Return';
 import Left from '../../assets/icon/login/LeftPic';
 import { Captcha } from "@nabidam/react-captcha";
 import { axiosReq } from "../../commons/axiosReq";
+import axios from "axios";
+import crypto from "crypto-js";
+import { apiUrl } from "../../commons/inFormTypes";
+
 const SignupMain = () => {
     const [captcha, setCaptcha] = useState('');
+    const [check, setCheck] = useState(false);
     const captchaRef = useRef();
     const navigate = useNavigate();
 
@@ -41,7 +46,10 @@ const SignupMain = () => {
         phoneNumber: '',
         captcha: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        deceasedNationalCode: '',
+        deceasedBirthDate: '',
+
     };
 
     // Submit Handler
@@ -49,21 +57,47 @@ const SignupMain = () => {
         console.log('Form values:', values);
         // Here you would typically make an API call
 
-        var updateOrg = await axiosReq("Users/SignUpUser", "post", {
-            nationalCode: values.nationalCode,
-            birthDate: values.birthDate,
-            mobileNumber: values.phoneNumber,
-            password: values.password
+        // var updateOrg = await axiosReq("Users/SignUpUser", "post", {
+        //     nationalCode: values.nationalCode,
+        //     birthDate: values.birthDate,
+        //     mobileNumber: values.phoneNumber,
+        //     password: values.password
+        // });
+        var hash = crypto.SHA512(captcha).toString()
+
+        var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
+            NationalCode: values.nationalCode,
+            Mobile: values.phoneNumber,
+            Cap: captcha
+        }, {
+            headers: {
+                Authorization: `Bearer ${hash}`,
+                'X-Frame-Options': 'Deny',
+                'X-Content-Type-Options': "nosniff",
+                'X-XSS-Protection': "1; mode=block",
+                "Referrer-Policy": "same-origin",
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+            }
         });
         console.log(updateOrg)
         if (updateOrg?.status == 200 || updateOrg?.status == 204) {
-            setTimeout(() => {
-                setSubmitting(false);
-                navigate("/user/startRequest"); // Redirect after successful submission
-            }, 1000);
+
+            setSubmitting(false);
+            // navigate("/user/startRequest");
+            navigate("/verify", {
+                state: {
+                    NationalCode: values.nationalCode,
+                    Mobile: values.phoneNumber,
+                    Cap: captcha,
+                    Password: values.password,
+                    BirthDate: values.birthDate,
+                    DeceasedNationalCode: values.deceasedNationalCode,
+                    DeceasedBirthDate: values.deceasedBirthDate
+                }
+            });
         }
         else {
-            alert("اطلاعات را درست وارد نمایید")
+            alert(updateOrg.data)
         }
 
 
@@ -135,7 +169,7 @@ const SignupMain = () => {
                                         error={touched.captcha && errors.captcha}
                                         errorText={errors.captcha}
                                     />
-                                    <div className={`flex  mr-2 ${touched.captcha && errors.captcha?"mb-[22px]":"mb-2"}`}>
+                                    <div className={`flex  mr-2 ${touched.captcha && errors.captcha ? "mb-[22px]" : "mb-2"}`}>
                                         <Captcha
                                             className="flex"
                                             setWord={setCaptcha}
@@ -163,6 +197,7 @@ const SignupMain = () => {
                                     necessary={true}
                                     leftIcon={<PassIcon />}
                                     value={values.password}
+                                    password={true}
                                     onChange={(e) => setFieldValue('password', e.target.value)}
                                     error={touched.password && errors.password}
                                     errorText={errors.password}
@@ -173,43 +208,58 @@ const SignupMain = () => {
                                     label="تکرار رمزعبور"
                                     necessary={true}
                                     leftIcon={<PassIcon />}
+                                    password={true}
                                     value={values.confirmPassword}
                                     onChange={(e) => setFieldValue('confirmPassword', e.target.value)}
                                     error={touched.confirmPassword && errors.confirmPassword}
                                     errorText={errors.confirmPassword}
                                 />
                             </div>
-                             <div className="my-4">
-                                                            <MainChekbox label={'من نماینده متوفی هستم'}  />                  
+                            <div className="my-4">
+                                <MainChekbox
+                                    label={"این کاربر نماینده متوفی است."}
+                                    checked={check}
+                                    onChange={e => {
+                                        const checked = e.target.checked;
+                                        setCheck(checked);
 
-                                </div>         
-                                <div className="my-4 pt-4 border-t border-borderGray">
-                                    <span className="text-mainBlue font-IRANYekanExtra">
-                                    اطلاعات متوفی
-                                    </span> 
-                                          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 mt-4">
-                                {/* National Code */}
-                                <MainInput
-                                    label="کدملی"
-                                    necessary={true}
-                                    value={values.nationalCode}
-                                    onChange={(e) => setFieldValue('nationalCode', e.target.value)}
-                                    error={touched.nationalCode && errors.nationalCode}
-                                    errorText={errors.nationalCode}
+                                    }}
                                 />
 
-                                {/* Birth Date */}
-                                <MainInput
-                                    label="تاریخ تولد"
-                                    necessary={true}
-                                    date={true}
-                                    value={values.birthDate}
-                                    onChange={(value) => setFieldValue('birthDate', value)}
-                                    error={touched.birthDate && errors.birthDate}
-                                    errorText={errors.birthDate}
-                                />
-                                </div>
-                                    </div> 
+                            </div>
+                            {
+                                check ?
+
+                                    <div className="my-4 pt-4 border-t border-borderGray">
+                                        <span className="text-mainBlue font-IRANYekanExtra">
+                                            اطلاعات متوفی
+                                        </span>
+                                        <div className="grid grid-cols-2 md:grid-cols-1 gap-4 mt-4">
+                                            {/* National Code */}
+                                            <MainInput
+                                                label="کدملی"
+                                                necessary={true}
+                                                value={values.deceasedNationalCode}
+                                                onChange={(e) => setFieldValue('deceasedNationalCode', e.target.value)}
+                                                error={touched.deceasedNationalCode && errors.deceasedNationalCode}
+                                                errorText={errors.deceasedNationalCode}
+                                            />
+
+                                            {/* Birth Date */}
+                                            <MainInput
+                                                label="تاریخ تولد"
+                                                necessary={true}
+                                                date={true}
+                                                value={values.deceasedBirthDate}
+                                                onChange={(value) => setFieldValue('deceasedBirthDate', value)}
+                                                error={touched.deceasedBirthDate && errors.deceasedBirthDate}
+                                                errorText={errors.deceasedBirthDate}
+                                            />
+                                        </div>
+                                    </div>
+                                    :
+                                    null
+                            }
                             <div className="mt-[31px] w-[100%] flex justify-center">
                                 <div className="w-[40%] c550:w-[100%]">
                                     <MainButton

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import {useLocation, Link} from "react-router-dom";
+import {useLocation, Link,useNavigate} from "react-router-dom";
 import { MainNavbar} from "../components";
 import SidebarMainIcon from "../assets/icon/general/SidebarMainIcon";
 import WorkTableIcon from "../assets/icon/user/WorkTableIcon";
@@ -7,13 +7,49 @@ import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import Admins from "../assets/icon/main/Admins";
 import {ScrollToTop} from "../components";
-import { useState } from "react";
+import { useState,useEffect} from "react";
+import Cookies from 'universal-cookie';
+import { axiosReq } from "../commons/axiosReq";
+
 const MainAdminLayout = () => {
 
     const location = useLocation(); // دریافت مسیر فعلی
 
     const isActive = (path) => location.pathname === path; // بررسی لینک فعال
      const [sidebarOpen, setSidebarOpen] = useState(false);
+    let navigate = useNavigate();
+
+       useEffect(() => {
+     
+         auth();
+       }, []);
+       const auth = async () => {
+         const cookies = new Cookies();
+         var token = cookies.get('token');
+         console.log(token)
+         if (!token) {
+           navigate("/");
+           // GetData()
+     
+         } else {
+           if (cookies.get('Role') != "SuperAdmin" ) {
+            
+            navigate("/");
+     
+           }
+         }
+       }
+          const signout = async () => {
+               const cookies = new Cookies();
+               await axiosReq("Auth/SignOut","post");
+               cookies.remove("ID", { path: '/' })
+               cookies.remove("Role", { path: '/' })
+               cookies.remove("token", { path: '/' })
+               cookies.remove("Name", { path: '/' })
+               cookies.remove("Status", { path: '/' })
+         
+               navigate("/");
+           }
     return (
        <>
        <ScrollToTop/>
@@ -122,7 +158,7 @@ const MainAdminLayout = () => {
                             </>
                         }
                         </Link>
-                        <Link to="/login" className="flex items-center cursor-pointer mb-10">
+                        <Link onClick={()=>signout()} className="flex items-center cursor-pointer mb-10">
                         {isActive("/login") && (
                             <>
                             <ExitIcon color={'#00c1b2'}/>
