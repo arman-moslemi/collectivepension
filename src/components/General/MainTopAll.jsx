@@ -85,7 +85,7 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
 
             </div>
 
-              {showUserTypeModal ? <MainModal title={'انتخاب نقش'} noCross={true} setShowModal={setShowUserTypeModal}
+              {showUserTypeModal ? <MainModal title={'انتخاب نقش'} noCross={false} setShowModal={setShowUserTypeModal}
                 text={<div className="w-full flex flex-col items-center">
                     <p className="font-IRANYekanBold w-[80%] text-[15px] text-center leading-7">لطفاً مشخص کنید که قصد دارید برای انجام کدام نوع از امور وارد سامانه شوید.</p>
                     <p className="font-IRANYekanBold w-[80%] mt-1 text-[15px] text-center leading-7">با توجه به انتخاب شما، اطلاعات و بخش‌های مربوط به همان نقش نمایش داده خواهد شد.</p>

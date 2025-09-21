@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import Cookies from 'universal-cookie';
 
 const UpdateUserBaseInfoHimself = () => {
     const navigate = useNavigate();
@@ -24,16 +25,19 @@ const UpdateUserBaseInfoHimself = () => {
     });
 
     const validationSchema = Yup.object().shape({
-        idcardNumber: Yup.string().required('شماره شناسنامه الزامی است'),
+        idcardNumber: Yup.string().matches(/[0-9]$/, 'شماره شناسنامه معتبر نیست')
+            .required('شماره شناسنامه الزامی است'),
         phoneNumber: Yup.string().required('شماره ثابت الزامی است').matches(/^[0-9]{8,11}$/, 'شماره تلفن ثابت معتبر نیست'),
         mobileNumber: Yup.string()
             .required('شماره همراه الزامی است')
             .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
         address: Yup.string().required('آدرس الزامی است'),
-       
+
         isRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
     });
+    const cookies = new Cookies();
 
+    let status = cookies.get("Status");
     const getUser = async () => {
         try {
             const response = await axiosReq("Users/GetUser", "get");
@@ -61,18 +65,22 @@ const UpdateUserBaseInfoHimself = () => {
                 address: values.address,
                 isRetirement: values.isRetirement,
                 personnelCode: values.personnelCode,
-                BirthDate:values.birthDate,
+                BirthDate: values.birthDate,
                 // AgentAddress:"",
-                NationalCode:values.nationalCode,
+                NationalCode: values.nationalCode,
                 // Relationship:"",
                 // AgentPhoneNumber:"",
                 // AgentIdcardNumber:"",
                 // AgentMobileNumber:""
             };
-
-            const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
-            if (response?.status === 200) {
-                navigate('../createUserInsuranceDes');
+            if (status > 1) {
+                navigate('../createUserInsuranceDes')
+            }
+            else {
+                const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+                if (response?.status === 200) {
+                    navigate('../createUserInsuranceDes');
+                }
             }
         } catch (error) {
             console.error("Update failed:", error);
@@ -149,6 +157,8 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.idcardNumber && errors.idcardNumber}
                                 errorText={errors.idcardNumber}
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="mb-5 md:col-span-3">
@@ -160,6 +170,8 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.phoneNumber && errors.phoneNumber}
                                 errorText={errors.phoneNumber}
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="mb-5 md:col-span-3">
@@ -171,6 +183,8 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.mobileNumber && errors.mobileNumber}
                                 errorText={errors.mobileNumber}
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="col-span-3 mb-5">
@@ -182,6 +196,8 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.address && errors.address}
                                 errorText={errors.address}
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="col-span-2 md:col-span-3">
@@ -195,6 +211,8 @@ const UpdateUserBaseInfoHimself = () => {
 
                                 onChange={(value) => setFieldValue('isRetirement', value)}
                                 selectedValue={values.isRetirement}
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="col-span-1 md:col-span-3">
@@ -204,7 +222,8 @@ const UpdateUserBaseInfoHimself = () => {
                                 onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                 holder={'مثلا 12569'}
                                 necessary={false}
-                               
+                                disable={status > 1 ? true : false}
+
                             />
                         </div>
                         <div className="col-span-3 mt-[33px] flex justify-end items-center">

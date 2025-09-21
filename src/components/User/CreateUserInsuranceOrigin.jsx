@@ -3,18 +3,30 @@ import { MainExplanation, MainButton, UserDataInsuranceOrigin, MainModal, MainCh
 import { useNavigate } from "react-router-dom";
 import OkIcon from "../../assets/icon/general/OkIcon";
 import { axiosReq } from "../../commons/axiosReq";
+import Cookies from 'universal-cookie';
 
 const CreateUserInsuranceOrigin = () => {
     const [showUnderTakingModal, setShowUnderTakingModal] = useState(false);
+    const cookies = new Cookies();
 
+    let status = cookies.get("Status");
+    const [forms, setForms] = useState([0]);
     const underTakingModalFunction = () => {
-        setShowUnderTakingModal(true);
+        if(status>3){
+
+            navigate('../dashboard') 
+        }
+        console.log(forms)
+        forms.length < 2 ?
+            alert("حداقل یک صندوق اضافه کنید") :
+            setShowUnderTakingModal(true)
+
     }
     let navigate = useNavigate();
-    const [forms, setForms] = useState([0]);
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reCheck, setRecheck] = useState(true);
+    const [promise, setPromise] = useState(false);
 
     const handleAddForm = () => {
         setForms(prev => [...prev, prev.length]);
@@ -83,7 +95,7 @@ const CreateUserInsuranceOrigin = () => {
                         console.log(idx)
                         return (
                             data?.length > idx ?
-                      
+
                                 <div key={idx} className="mb-6 ">
                                     <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} />
                                 </div>
@@ -115,7 +127,7 @@ const CreateUserInsuranceOrigin = () => {
                 {showUnderTakingModal && (
                     <MainModal
                         title={'تعهدنامه'}
-                        noCross={true}
+                        // noCross={true}
                         setShowModal={setShowUnderTakingModal}
                         text={
                             <div className="w-full flex flex-col items-center">
@@ -126,6 +138,8 @@ const CreateUserInsuranceOrigin = () => {
                                 </p>
                                 <div className="mt-5 w-full">
                                     <MainChekbox
+                                        onChange={() => setPromise(!promise)}
+                                        checked={promise}
                                         label={'موارد فوق الذکر مورد تایید اینجانب می‌باشد.'}
                                     />
                                 </div>
@@ -135,7 +149,7 @@ const CreateUserInsuranceOrigin = () => {
                             <div className="w-[140px] flex">
 
                                 <MainButton
-                                    onClickFunction={() => navigate('../createUserInsuranceResponse')}
+                                    onClickFunction={() => promise ? navigate('../dashboard') : alert("لطفا موارد را تایید نمایید")}
                                     label={'ثبت و ارسال'}
                                 />
 

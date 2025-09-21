@@ -6,6 +6,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import moment from 'jalali-moment';
+import Cookies from 'universal-cookie';
 
 const listItems = [
   {
@@ -112,19 +113,49 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
-      .required('شماره شناسایی بیمه الزامی است'),
+      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/,' شماره شناسایی بیمه معتبر نیست'),
     // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
-    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است'),
+    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/,'  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
-    EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
+     EndDate: Yup.string()
+        .required('تاریخ آخرین بیمه پردازی الزامی است')
+        .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+          const { StartDate } = this.parent;
+          if (!StartDate || !value) return true; // let required handle empty fields
+          // if you store as yyyy-mm-dd format:
+          return new Date(value) > new Date(StartDate);
+    
+          // or if you use custom format (e.g., 'YYYY/MM/DD'):
+          // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+        }),
+ QuitDate: Yup.string()
+        .required('تاریخ خروج الزامی است')
+        .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
+          const { EndDate } = this.parent;
+          if (!EndDate || !value) return true; // let required handle empty fields
+          // if you store as yyyy-mm-dd format:
+          return new Date(value) > new Date(EndDate);
+    
+          // or if you use custom format (e.g., 'YYYY/MM/DD'):
+          // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+        }),
+            QuitReason: Yup.string().required('علت خروج بیمه پردازی الزامی است'),
+
   });
 
+    const cookies = new Cookies();
+
+    let status = cookies.get("Status");
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+
+       if (status > 3) {
+                navigate('../dashboard')
+            }
       // Prepare data for API
       const payload = {
         ...values,
@@ -145,7 +176,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           setRecheck(!reCheck)
         }
         else{
-          alert(response)
+          alert(response?.data)
         }
       }
       else {
@@ -295,6 +326,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.InsuranceId && errors.InsuranceId}
                 errorText={errors.InsuranceId}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -310,6 +343,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 holder={'مثلا وزرات تعاون'}
                 error={touched.DepartmentName && errors.DepartmentName}
                 errorText={errors.DepartmentName}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
             <div className="mb-5 col-span-1 md:col-span-3">
@@ -326,6 +361,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                   setFieldValue('CityId', 0); // Reset city when province changes
                 }}
                 listBoxHolder="انتخاب کنید"
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
             <div className="mb-5 col-span-1 md:col-span-3">
@@ -343,17 +380,25 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.CityId && errors.CityId}
                 errorText={errors.CityId}
                 listBoxHolder="انتخاب کنید"
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
             <div className="mb-5 col-span-3 md:col-span-3">
               <MainRadioInput v value1={1} value2={2} value3={3}
                 onChange={(value) => setFieldValue('EmploymentStatusId', value)} column={true}
                 title={'وضعیت بیمه پردازی'}
+                necessary={true}
                 text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
                 text2={'مشمول قانون کار'} text3={'سایر'} onChangeInput={(e) => setDes(e)}
                 selectedValue={values.EmploymentStatusId}
+                   disable={status > 3 ? true : false}
 
                 input={true} />
+                      {touched.EmploymentStatusId ?
+        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
+        :
+        null}
             </div>
             {/* <div className="mb-5 col-span-1">
               <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
@@ -371,6 +416,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.InsuranceIdNumber && errors.InsuranceIdNumber}
                 errorText={errors.InsuranceIdNumber}
+                                   disable={status >3 ? true : false}
+
               />
             </div>
 
@@ -391,6 +438,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.StartDate && errors.StartDate}
                 errorText={errors.StartDate}
                 date={true}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -406,6 +455,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.EndDate && errors.EndDate}
                 errorText={errors.EndDate}
                 date={true}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -425,6 +476,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.TrackRecordType && errors.TrackRecordType}
                 errorText={errors.TrackRecordType}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -441,6 +494,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.TrackRecordDays && errors.TrackRecordDays}
                 errorText={errors.TrackRecordDays}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -456,6 +511,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
                 error={touched.LastWorkplace && errors.LastWorkplace}
                 errorText={errors.LastWorkplace}
+                                   disable={status > 3 ? true : false}
+
               />
             </div>
 
@@ -472,7 +529,10 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 value={values.QuitReason}
                 onChange={(e) => setFieldValue('QuitReason', e.target.value)}
                 error={touched.QuitReason && errors.QuitReason}
-                errorText={errors.QuitReason} />
+                errorText={errors.QuitReason} 
+                                   disable={status > 3 ? true : false}
+
+                />
             </div>
             <div className={`${inModal ? 'mb-0' : 'mb-5'} md:col-span-3`}>
               <MainInput label={'تاریخ خروج از عضویت صندوق'} necessary={true}
@@ -482,6 +542,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.QuitDate && errors.QuitDate}
                 errorText={errors.QuitDate}
                 date={true}
+                   disable={status > 3? true : false}
 
               />
             </div>
@@ -489,14 +550,13 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <div className="col-span-2 md:col-span-3">
                 <div className="w-full h-full pb-6 flex justify-end items-end">
                   <div className="w-[138px] ml-4">
-                    <MainButton red={true} onClickFunction={() => deleteInsu()}
+                    <MainButton red={true} disabled={status>1?true:false} onClickFunction={() => deleteInsu()}
                       label={'حذف صندوق'} />
                   </div>
                   <div className="w-[138px]">
                     <MainButton
                       type="submit"
-                      disabled={isSubmitting}
-
+ disabled={status>1|| isSubmitting?true:false}
                       label={'ویرایش صندوق'} />
                   </div>
 

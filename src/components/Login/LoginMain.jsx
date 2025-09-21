@@ -87,26 +87,27 @@ const LoginMain = () => {
                             setSnipper(false)
                             if (response.data.role == "User") {
                                 cookies.set('Role', response.data.role, { path: '/' })
-                                cookies.set('Name', response.data.name+" "+response.data.family, { path: '/' })
+                                cookies.set('Name', response.data.name + " " + response.data.family, { path: '/' })
                                 cookies.set('Status', response.data.userStatusId, { path: '/' })
-                                if (response.data.userStatusId==1){
-                                    
+                                let status = response.data.userStatusId;
+                                if (status == 1) {
+
                                     navigate("/user/startRequest");
                                 }
-                                 else if (response.data.userStatusId==2){
-                                    
+                                else if (status == 2) {
+
                                     navigate("/user/dashboardProcess");
                                 }
-                                else if (response.data.userStatusId==4){
-                                    
-                                    navigate("/user/dashboardProcess");
+                                else if (status == 4) {
+
+                                    navigate("/user/dashboardRejected");
                                 }
-                                else if (response.data.userStatusId==7){
-                                    
+                                else if (status == 7) {
+
                                     navigate("/user/dashboardRejectedReasonEmployment");
                                 }
-                                else {
-                                    navigate("/user/dashboard"); 
+                                else{
+                                    navigate("/user/dashboard");
                                 }
                             }
                             if (response.data.role == "Expert") {

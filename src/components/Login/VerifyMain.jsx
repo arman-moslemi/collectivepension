@@ -109,7 +109,7 @@ const VerifyMain = ({ forgetpassword }) => {
                 .then(function (response2) {
                     console.log("verify")
                     console.log(response2)
-                    console.log(response2.data)
+                    console.log(response2?.data)
 
                     if (response2.status == 200) {
                         alert("ثبت نام با موفقیت انجام شد")

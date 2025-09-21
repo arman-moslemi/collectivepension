@@ -21,6 +21,7 @@ const UserLayout = () => {
     const cookies = new Cookies();
 
     let status = cookies.get("Status");
+    let role = cookies.get("Role");
     console.log(status)
     const navTo = () => {
 
@@ -34,12 +35,16 @@ const UserLayout = () => {
         }
         else if (status == 4) {
 
-            navigate("/user/dashboardProcess");
+            navigate("/user/dashboardRejected");
         }
         else if (status == 7) {
 
             navigate("/user/dashboardRejectedReasonEmployment");
         }
+        //   else if (status == 12) {
+
+        //     navigate("/user/dashboardRejectedReasonEmployment");
+        // }
         else {
             navigate("/user/dashboard");
         }
@@ -116,7 +121,7 @@ const UserLayout = () => {
                                 }
                             </button>
                             {/* /user/updateUserBaseInfoHimself  or  /user/updateUserBaseInfoAnother */}
-                            <Link to={status == 1 ? "/user/updateUserBaseInfoHimself" : status == 2 ? "/user/dashboardProcess" : "/user/updateUserBaseInfoHimself"} className="flex items-center cursor-pointer mb-10">
+                            <Link to={role =="User"  ? "/user/updateUserBaseInfoHimself" : "/user/updateUserBaseInfoAnother"} className="flex items-center cursor-pointer mb-10">
                                 {isActive("/user/updateUserBaseInfoHimself") && (
                                     <>
                                         <PensionRequestIcon color={'#00c1b2'} />

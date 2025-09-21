@@ -1,15 +1,22 @@
 import { MainButton,MainInput} from "../../components";
 
 const MainRadioInput = ({title,text1,text2,text3,radioName,smallBlack,
-    value1,value2,value3,onChange,selectedValue,ml,mr,
+    value1,value2,value3,onChange,selectedValue,ml,mr,necessary,
     column,input,onChangeInput,jCenter ,disabled,inputValue}) => {
 
     return (
         
             column?
               <div className="w-full py-[10px]">
+                      <div className="flex">
+
             {title? 
-            <p className="font-IRANYekanBold text-[18px] text-mainBlue mb-[12px]">{title}</p> : null}
+            <p className="font-IRANYekanBold text-[18px] text-mainBlue mb-[12px]">{title}</p> 
+            : null}
+             {necessary ?
+          <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
+          : null}
+          </div>
             <div className="flex flex-col justify-start items-start">
                 <div className={`flex justify-start items-center  ${ml==='100'? 'ml-[100px]':'ml-[60px]'} `}>
                 <input disabled={disabled} className="w-[18px] h-[18px]" checked={value1==selectedValue}   name={radioName} onChange={() => onChange(value1)} type="radio" />

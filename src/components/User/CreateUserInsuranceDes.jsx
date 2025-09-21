@@ -6,6 +6,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import OkIcon from "../../assets/icon/general/OkIcon";
 import moment from 'jalali-moment';
+import Cookies from 'universal-cookie';
 
 const employmentStatusOptions = [
   { id: 1, name: 'مشمول قانون مدیریت خدمات کشوری' },
@@ -35,70 +36,88 @@ const CreateUserInsuranceDes = () => {
     QuitDate: '',
     StartDate: '',
     EndDate: '',
-  UserInsuranceId:0
+    UserInsuranceId: 0
   });
 
- 
+    const cookies = new Cookies();
+
+    let status = cookies.get("Status");
   const validationSchema = Yup.object().shape({
     DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
-      .required('شماره شناسایی بیمه الزامی است'),
-      // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
+      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/,' شماره شناسایی بیمه معتبر نیست'),
+    // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
-    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است'),
+    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/,'  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
-    EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
+    // EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
+      EndDate: Yup.string()
+    .required('تاریخ آخرین بیمه پردازی الزامی است')
+    .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+      const { StartDate } = this.parent;
+      if (!StartDate || !value) return true; // let required handle empty fields
+      // if you store as yyyy-mm-dd format:
+      return new Date(value) > new Date(StartDate);
+
+      // or if you use custom format (e.g., 'YYYY/MM/DD'):
+      // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+    }),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+
+       if (status > 1) {
+                navigate('../createUserInsuranceOrigin')
+            }
       // Prepare data for API
       const payload = {
         ...values,
-        StartDate:values.StartDate.length>10?
-        moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'):values.StartDate,
-                EndDate:values.EndDate.length>10?
-        moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'):values.EndDate,
+        StartDate: values.StartDate.length > 10 ?
+          moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
+        EndDate: values.EndDate.length > 10 ?
+          moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
         EmploymentStatusDescription: des
       };
-if(initialValues?.UserInsuranceId==0 )
-   {   const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
+      if (initialValues?.UserInsuranceId == 0) {
+        const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
-      if (response?.status === 200) {
-        navigate('../createUserInsuranceOrigin');
-      }
-     else{
+        if (response?.status === 200) {
+          navigate('../createUserInsuranceOrigin');
+        }
+        else {
           alert(response)
         }
-    }
-      else{
+      }
+      else {
         const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
 
-      if (response?.status === 200) {
-        navigate('../createUserInsuranceOrigin');
-      }
-       else{
+        if (response?.status === 200) {
+          navigate('../createUserInsuranceOrigin');
+        }
+        else {
           alert(response)
         }
       }
     } catch (error) {
       console.error("Error creating insurance:", error);
-    }}
+    }
+  }
   const GetData = async () => {
     try {
       setIsLoading(true);
-      
+
       // 1. Fetch user insurance data
       const userInsuranceRes = await axiosReq("Users/GetUserInsurance?isEndingInsurance=true", "get");
       console.log('User insurance data:', userInsuranceRes);
-      
+
       // 2. Set initial values from API response
-      if (userInsuranceRes?.data?.length>0) {
+      if (userInsuranceRes?.data?.length > 0) {
         setInitialValues({
-          UserInsuranceId:userInsuranceRes.data[0]?.userInsuranceId ||0 ,
+          UserInsuranceId: userInsuranceRes.data[0]?.userInsuranceId || 0,
           InsuranceId: userInsuranceRes.data[0].insuranceId || 0,
           IsEndingInsurance: userInsuranceRes.data[0].isEndingInsurance || false,
           DepartmentName: userInsuranceRes.data[0].departmentName || '',
@@ -112,39 +131,39 @@ if(initialValues?.UserInsuranceId==0 )
           QuitDate: userInsuranceRes.data[0].quitDate || '',
           StartDate: userInsuranceRes.data[0].startDate || '',
           EndDate: userInsuranceRes.data[0].endDate || '',
-                    ProvinceId: userInsuranceRes.data[0].provinceId || '',
+          ProvinceId: userInsuranceRes.data[0].provinceId || '',
 
         });
-        
+
         // Set description if available
         if (userInsuranceRes.data[0].employmentStatusDescription) {
           setDes(userInsuranceRes.data[0].employmentStatusDescription);
         }
-        
+
         // Load province and city if cityId is available
         // if (userInsuranceRes.data[0].cityId) {
         //   await loadProvinceAndCity(userInsuranceRes.data[0].cityId);
         // }
 
-         const response = await axiosReq("Users/GetCities", "post", { provinceId:userInsuranceRes.data[0].provinceId});
-      var prov = []
-      console.log(response.data)
+        const response = await axiosReq("Users/GetCities", "post", { provinceId: userInsuranceRes.data[0].provinceId });
+        var prov = []
+        console.log(response.data)
 
-      response.data.forEach(element => {
-        prov.push({ id: element.cityId, name: element.cityName })
-      });
-      setCities(prov)
+        response.data.forEach(element => {
+          prov.push({ id: element.cityId, name: element.cityName })
+        });
+        setCities(prov)
       }
-      
+
       // 3. Fetch other required data (insurances, provinces)
       const [insurancesRes, provincesRes] = await Promise.all([
         axiosReq("Insurances/GetInsurances", "get"),
         axiosReq("Users/GetProvinces", "get")
       ]);
-      
+
       setInsurances(insurancesRes.data.map(i => ({ id: i.insuranceId, name: i.name })));
       setProvinces(provincesRes.data.map(p => ({ id: p.provinceId, name: p.provinceName })));
-     
+
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -174,7 +193,7 @@ if(initialValues?.UserInsuranceId==0 )
   useEffect(() => {
     GetData();
   }, []);
- const handlePrevious = () => {
+  const handlePrevious = () => {
     navigate('../updateUserBaseInfoHimself');
   };
   // ... keep your other functions (handleSubmit, handlePrevious, GetCity) unchanged
@@ -187,251 +206,274 @@ if(initialValues?.UserInsuranceId==0 )
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
       {/* Stepper Section - keep unchanged */}
       <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2 mb-2">
-                <div className="flex justify-start items-center">
-                    <div className="rounded-full h-[48px] w-[48px]  md:w-[35px] md:h-[35px] flex justify-center items-center p-1  ">
-                      <div className="w-full h-full rounded-full bg-mainGreen flex justify-center items-center">
-                        <p className="font-IRANYekanExtra text-[18px] text-white">✔
-                        </p></div></div>
-                    <p className="font-IRANYekanExtra text-[15px] text-mainGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
-                   
-                </div>
-                <div className="flex justify-start items-center">
-                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
-                    <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">2</p></div></div>
-                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
-                    <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue md:w-[10px]" ></div>
-                </div>
-                <div className="flex justify-start items-center">
-                    <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
-                    <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
-                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
-                </div>
-            </div>
-     <div className="mt-5">
-     <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-        enableReinitialize // This allows Formik to update when initialValues changes
-      >
-        {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-          <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
-            {/* Insurance Dropdown - preselect if initial value exists */}
-            <div className="mb-5 col-span-1 md:col-span-3">
-              <MainInput
-                label={'نام صندوق بازنشستگی'}
-                defaultVal={insurances.find(i => i.id === values.InsuranceId) || null}
-                value={insurances.find(i => i.id === values.InsuranceId) || null}
-                onChange={(value) => setFieldValue('InsuranceId', value?.id || 0)}
-                holder={'مثلا وزارت تعاون'}
-                listBox={true}
-                listItems={insurances}
-                necessary={true}
-                error={touched.InsuranceId && errors.InsuranceId}
-                errorText={errors.InsuranceId}
-              />
-            </div>
+        <div className="flex justify-start items-center">
+          <div className="rounded-full h-[48px] w-[48px]  md:w-[35px] md:h-[35px] flex justify-center items-center p-1  ">
+            <div className="w-full h-full rounded-full bg-mainGreen flex justify-center items-center">
+              <p className="font-IRANYekanExtra text-[18px] text-white">✔
+              </p></div></div>
+          <p className="font-IRANYekanExtra text-[15px] text-mainGreen mx-[6px]">اطلاعات هویتی متقاضی</p>
 
-            {/* Department Name - show existing value */}
-            <div className="mb-5 col-span-2 md:col-span-3">
-              <MainInput
-              // listBox={true}
-              // listItems={insurances}
-                label={'نام دستگاه اجرایی/کارگاه'}
-                onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
-                value={values.DepartmentName}
-                necessary={true}
-                holder={'مثلا وزرات تعاون'}
-                error={touched.DepartmentName && errors.DepartmentName}
-                errorText={errors.DepartmentName}
-              />
-            </div>
+        </div>
+        <div className="flex justify-start items-center">
+          <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+          <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">2</p></div></div>
+          <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+          <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue md:w-[10px]" ></div>
+        </div>
+        <div className="flex justify-start items-center">
+          <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
+          <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">3</p></div>
+          <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
+        </div>
+      </div>
+      <div className="mt-5">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize // This allows Formik to update when initialValues changes
+        >
+          {({ values, setFieldValue, isSubmitting, errors, touched }) => (
+            <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
+              {/* Insurance Dropdown - preselect if initial value exists */}
+              <div className="mb-5 col-span-1 md:col-span-3">
+                <MainInput
+                  label={'نام صندوق بازنشستگی'}
+                  defaultVal={insurances.find(i => i.id === values.InsuranceId) || null}
+                  value={insurances.find(i => i.id === values.InsuranceId) || null}
+                  onChange={(value) => setFieldValue('InsuranceId', value?.id || 0)}
+                  holder={'مثلا وزارت تعاون'}
+                  listBox={true}
+                  listItems={insurances}
+                  necessary={true}
+                  error={touched.InsuranceId && errors.InsuranceId}
+                  errorText={errors.InsuranceId}
+                 disable={status > 1 ? true : false}
 
-            {/* Province - preselect if initial value exists */}
-            <div className="mb-5 col-span-1 md:col-span-3">
-              <MainInput
-                label={'استان محل اشتغال'}
-                listBox={true}
-                listItems={provinces}
-                value={province}
-                necessary={true}
-                defaultVal={provinces.find(i => i.id === values.ProvinceId) || null}
-                onChange={(value) => {
-                  setProvince(value);
-                  GetCity(value?.id);
-                  setFieldValue('CityId', 0); // Reset city when province changes
-                }}
-                listBoxHolder="انتخاب کنید"
-              />
-            </div>
+                />
+              </div>
 
-            {/* City - preselect if initial value exists */}
-            <div className="mb-5 col-span-1 md:col-span-3">
-              <MainInput
-                label={'شهر'}
-                listBox={true}
-                listItems={cities}
-                necessary={true}
-                defaultVal={cities.find(i => i.id === values.CityId) || null}
+              {/* Department Name - show existing value */}
+              <div className="mb-5 col-span-2 md:col-span-3">
+                <MainInput
+                  // listBox={true}
+                  // listItems={insurances}
+                  label={'نام دستگاه اجرایی/کارگاه'}
+                  onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
+                  value={values.DepartmentName}
+                  necessary={true}
+                  holder={'مثلا وزرات تعاون'}
+                  error={touched.DepartmentName && errors.DepartmentName}
+                  errorText={errors.DepartmentName}
+                   disable={status > 1 ? true : false}
+                />
+              </div>
 
-                value={cities.find(c => c.id === values.CityId) || null}
-                onChange={(value) => {
-                  setFieldValue('CityId', value?.id || 0);
-                }}
-                error={touched.CityId && errors.CityId}
-                errorText={errors.CityId}
-                listBoxHolder="انتخاب کنید"
-              />
-            </div>
+              {/* Province - preselect if initial value exists */}
+              <div className="mb-5 col-span-1 md:col-span-3">
+                <MainInput
+                  label={'استان محل اشتغال'}
+                  listBox={true}
+                  listItems={provinces}
+                  value={province}
+                  necessary={true}
+                  defaultVal={provinces.find(i => i.id === values.ProvinceId) || null}
+                  onChange={(value) => {
+                    setProvince(value);
+                    GetCity(value?.id);
+                    setFieldValue('CityId', 0); // Reset city when province changes
+                  }}
+                  listBoxHolder="انتخاب کنید"
+                   disable={status > 1 ? true : false}
+                />
+              </div>
 
-            <div className="mb-5 col-span-2 md:col-span-3">
-              <MainRadioInput value1={1} value2={2} value3={3}
-                onChange={(value) => setFieldValue('EmploymentStatusId', value)} 
-                column={true}
-                title={'وضعیت بیمه پردازی'}
-                text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
-                text2={'مشمول قانون کار'} text3={'سایر'} onChangeInput={(e) => setDes(e)}
-                selectedValue={values.EmploymentStatusId}
+              {/* City - preselect if initial value exists */}
+              <div className="mb-5 col-span-1 md:col-span-3">
+                <MainInput
+                  label={'شهر'}
+                  listBox={true}
+                  listItems={cities}
+                  necessary={true}
+                  defaultVal={cities.find(i => i.id === values.CityId) || null}
 
-                input={true} />
-            </div>
-            <div className="mb-5 col-span-1 md:col-span-3">
-              <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
-                onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
-                title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
-            </div>
+                  value={cities.find(c => c.id === values.CityId) || null}
+                  onChange={(value) => {
+                    setFieldValue('CityId', value?.id || 0);
+                  }}
+                  error={touched.CityId && errors.CityId}
+                  errorText={errors.CityId}
+                  listBoxHolder="انتخاب کنید"
+                   disable={status > 1 ? true : false}
+                />
+              </div>
 
-            {/* Insurance ID Number */}
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={'شماره شناسایی بیمه'}
-                value={values.InsuranceIdNumber}
-                onChange={(e) => setFieldValue('InsuranceIdNumber', e.target.value)}
-                holder={'مثلا 053268986'}
-                necessary={true}
-                error={touched.InsuranceIdNumber && errors.InsuranceIdNumber}
-                errorText={errors.InsuranceIdNumber}
-              />
-            </div>
+              <div className="mb-5 col-span-2 md:col-span-3">
+                <MainRadioInput value1={1} value2={2} value3={3}
+                  onChange={(value) => setFieldValue('EmploymentStatusId', value)}
+                  column={true}
+                  necessary={true}
 
-            {/* Employment Status */}
+                  title={'وضعیت بیمه پردازی'}
+                  text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
+                  text2={'مشمول قانون کار'} text3={'سایر'}
+                  onChangeInput={(e) => setDes(e)}
+                  selectedValue={values.EmploymentStatusId}
+ disable={status > 1 ? true : false}
+                  input={true} />
+                     {touched.EmploymentStatusId ?
+        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
+        :
+        null}
+              </div>
+              <div className="mb-5 col-span-1 md:col-span-3">
+                <MainRadioInput value1={true} necessary={true}
+                  value2={false} selectedValue={values.IsEndingInsurance}
+                  onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
+                  title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
+              </div>
+                     {touched.IsEndingInsurance ?
+        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.IsEndingInsurance}</p>
+        :
+        null}
 
-            {/* Is Ending Insurance */}
+              {/* Insurance ID Number */}
+              <div className="mb-5 md:col-span-3">
+                <MainInput
+                  label={'شماره شناسایی بیمه'}
+                  value={values.InsuranceIdNumber}
+                  onChange={(e) => setFieldValue('InsuranceIdNumber', e.target.value)}
+                  holder={'مثلا 053268986'}
+                  necessary={true}
+                  error={touched.InsuranceIdNumber && errors.InsuranceIdNumber}
+                  errorText={errors.InsuranceIdNumber}
+                   disable={status > 1 ? true : false}
+                />
+              </div>
 
+              {/* Employment Status */}
 
-            {/* Started Date */}
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={'تاریخ شروع بیمه پردازی'}
-                value={values.StartDate}
-                defaultVal={initialValues.StartDate?initialValues.StartDate:new Date()}
-                onChange={(value) => setFieldValue('StartDate', value)}
-               
-                necessary={true}
-                error={touched.StartDate && errors.StartDate}
-                errorText={errors.StartDate}
-                date={true}
-              />
-            </div>
-
-            {/* End Date */}
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={'تاریخ آخرین بیمه پردازی'}
-                value={values.EndDate}
-                defaultVal={initialValues.EndDate?initialValues.EndDate:new Date()}
-                onChange={(value) => setFieldValue('EndDate', value)}
-                
-                necessary={true}
-                error={touched.EndDate && errors.EndDate}
-                errorText={errors.EndDate}
-                date={true}
-              />
-            </div>
-
-            {/* Quit Date (conditional) */}
+              {/* Is Ending Insurance */}
 
 
-            {/* Quit Reason (conditional) */}
+              {/* Started Date */}
+              <div className="mb-5 md:col-span-3">
+                <MainInput
+                  label={'تاریخ شروع بیمه پردازی'}
+                  value={values.StartDate}
+                  defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
+                  onChange={(value) => setFieldValue('StartDate', value)}
+ disable={status > 1 ? true : false}
+                  necessary={true}
+                  error={touched.StartDate && errors.StartDate}
+                  errorText={errors.StartDate}
+                  date={true}
+                />
+              </div>
+
+              {/* End Date */}
+              <div className="mb-5 md:col-span-3">
+                <MainInput
+                  label={'تاریخ آخرین بیمه پردازی'}
+                  value={values.EndDate}
+                  defaultVal={initialValues.EndDate ? initialValues.EndDate : new Date()}
+                  onChange={(value) => setFieldValue('EndDate', value)}
+
+                  necessary={true}
+                  error={touched.EndDate && errors.EndDate}
+                  errorText={errors.EndDate}
+                  date={true}
+                   disable={status > 1 ? true : false}
+                />
+              </div>
+
+              {/* Quit Date (conditional) */}
 
 
-            {/* Track Record Type */}
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={'نوع سابقه'}
-                value={values.TrackRecordType}
-                onChange={(e) => setFieldValue('TrackRecordType', e.target.value)}
-                holder={'مثلا رسمی'}
-                necessary={true}
-                error={touched.TrackRecordType && errors.TrackRecordType}
-                errorText={errors.TrackRecordType}
-              />
-            </div>
-
-            {/* Track Record Days */}
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={<div className="flex items-center">
-                  <p className="font-IRANYekanBold text-[16px] text-mainBlue">میزان سابقه</p>
-                  <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]"> (به روز)</p>
-                </div>}
-                value={values.TrackRecordDays}
-                onChange={(e) => setFieldValue('TrackRecordDays', e.target.value)}
-                holder={'756 روز'}
-                necessary={true}
-                error={touched.TrackRecordDays && errors.TrackRecordDays}
-                errorText={errors.TrackRecordDays}
-              />
-            </div>
-
-            <div className="mb-5 md:col-span-3">
-              <MainInput
-                label={<div className="flex items-center">
-                  <p className="font-IRANYekanBold text-[16px] text-mainBlue">آخرین محل اشتغال به کار</p>
-                  <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p>
-                </div>}
-                value={values.LastWorkplace}
-                onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
-                holder={'مثلا 0...'}
-                necessary={true}
-                error={touched.LastWorkplace && errors.LastWorkplace}
-                errorText={errors.LastWorkplace}
-              />
-            </div>
-
-            {/* Last Workplace */}
+              {/* Quit Reason (conditional) */}
 
 
-            <div className="col-span-3">
-              <MainExplanation
-                color={'yellow'}
-                text={'چنانچه صندوق بازنشستگی مقصد، مربوط به سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات باشد، متقاضی (بیمه‌شده اصلی، بازمانده/وظیفه بگیر بیمه شده اصلی) از شمول درخواست مستمری جمع خارج است.'}
-              />
-            </div>
+              {/* Track Record Type */}
+              <div className="mb-5 md:col-span-3">
+                <MainInput
+                  label={'نوع سابقه'}
+                  value={values.TrackRecordType}
+                  onChange={(e) => setFieldValue('TrackRecordType', e.target.value)}
+                  holder={'مثلا رسمی'}
+                  necessary={true}
+                  error={touched.TrackRecordType && errors.TrackRecordType}
+                  errorText={errors.TrackRecordType}
+                   disable={status > 1 ? true : false}
+                />
+              </div>
 
-            <div className="col-span-3 mt-[33px] flex justify-end items-center">
-              <div className="flex">
-                <div className="w-[140px] ml-4">
-                  <MainButton
-                    type="button"
-                    onClickFunction={handlePrevious}
-                    label={'گام قبلی'}
-                  />
-                </div>
-                <div className="w-[140px]">
-                  <MainButton
-                    type="submit"
-                    label={isSubmitting ? 'در حال ذخیره...' : 'گام بعدی'}
-                    disabled={isSubmitting}
-                  />
+              {/* Track Record Days */}
+              <div className="mb-5 md:col-span-3">
+                <MainInput
+                  label={<div className="flex items-center">
+                    <p className="font-IRANYekanBold text-[16px] text-mainBlue">میزان سابقه</p>
+                    <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]"> (به روز)</p>
+                  </div>}
+                  value={values.TrackRecordDays}
+                  onChange={(e) => setFieldValue('TrackRecordDays', e.target.value)}
+                  holder={'756 روز'}
+                  necessary={true}
+                  error={touched.TrackRecordDays && errors.TrackRecordDays}
+                  errorText={errors.TrackRecordDays}
+                                     disable={status > 1 ? true : false}
+
+                />
+              </div>
+
+              <div className="mb-5  md:col-span-3">
+                <MainInput
+                  label={<div className="flex items-center">
+                    <p className="font-IRANYekanBold text-[16px]  text-mainBlue">آخرین محل اشتغال به کار</p>
+                    <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p>
+                  </div>}
+                  value={values.LastWorkplace}
+                  onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
+                  holder={'مثلا 0...'}
+                  necessary={true}
+                  error={touched.LastWorkplace && errors.LastWorkplace}
+                  errorText={errors.LastWorkplace}
+                   disable={status > 1 ? true : false}
+                />
+              </div>
+
+              {/* Last Workplace */}
+
+
+              <div className="col-span-3">
+                <MainExplanation
+                  color={'yellow'}
+                  text={'چنانچه صندوق بازنشستگی مقصد، مربوط به سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات باشد، متقاضی (بیمه‌شده اصلی، بازمانده/وظیفه بگیر بیمه شده اصلی) از شمول درخواست مستمری جمع خارج است.'}
+                />
+              </div>
+
+              <div className="col-span-3 mt-[33px] flex justify-end items-center">
+                <div className="flex">
+                  <div className="w-[140px] ml-4">
+                    <MainButton
+                      type="button"
+                      onClickFunction={handlePrevious}
+                      label={'گام قبلی'}
+                    />
+                  </div>
+                  <div className="w-[140px]">
+                    <MainButton
+                      type="submit"
+                      label={isSubmitting ? 'در حال ذخیره...' : 'گام بعدی'}
+                      disabled={isSubmitting}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            
-          </Form>
-        )}
-      </Formik>
-     </div>
+
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
