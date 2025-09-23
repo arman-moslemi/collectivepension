@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
+import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,VerifyForgetPage,
     ForgetpasswordVerifyPage, ChangePasswordPage, UserLayout, StartRequestPage,
     UpdateUserBaseInfoHimselfPage, UpdateUserBaseInfoAnotherPage, CreateUserInsuranceDesPage,
     CreateUserInsuranceOriginPage, CreateUserInsuranceResponsePage, DashboardProcessPage,
@@ -45,6 +45,11 @@ export const router =createBrowserRouter([
             {
                 path:'/verify',
                 element:<VerifyPage/>,
+             
+            },
+             {
+                path:'/verifyForget',
+                element:<VerifyForgetPage/>,
              
             },
             {

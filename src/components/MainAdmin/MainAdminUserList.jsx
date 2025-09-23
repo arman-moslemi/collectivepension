@@ -290,6 +290,21 @@ const MainAdminUserList = () => {
                         holder={"******02"}
                         necessary={true}
                         value={values.nationalCode}
+                            onKeyPress={(event) => {
+                                        if (/[a-z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[A-Z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[۱-۹]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[آ-ی]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+
+                                    }}
                         onChange={e => setFieldValue("nationalCode", e.target.value)}
                       />
                       {touched.nationalCode && errors.nationalCode && (

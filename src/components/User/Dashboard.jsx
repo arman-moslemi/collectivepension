@@ -174,9 +174,9 @@ const Dashboard = () => {
             </div>
             {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
-                    <div><MainInput onChange={(e) => setBankName(e.target.value)} value={bankName} label={'نام بانک'} /></div>
-                    <div><MainInput onChange={(e) => setBranch(e.target.value)} value={branch} label={'نام شعبه'} /></div>
-                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)} value={account} label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
+                    <div><MainInput onChange={(e) => setBankName(e.target.value)} max={20} value={bankName} label={'نام بانک'} /></div>
+                    <div><MainInput onChange={(e) => setBranch(e.target.value)} max={20} value={branch} label={'نام شعبه'} /></div>
+                    <div className='col-span-2'><MainInput onChange={(e) => setAcount(e.target.value)} max={64} value={account} label={'شماره حساب بانکی خود را اینجا بنویسید'} /></div>
 
                 </div>}
                 modalButton={<div className="w-full flex justify-center">

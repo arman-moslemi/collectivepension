@@ -39,40 +39,40 @@ const CreateUserInsuranceDes = () => {
     UserInsuranceId: 0
   });
 
-    const cookies = new Cookies();
+  const cookies = new Cookies();
 
-    let status = cookies.get("Status");
+  let status = cookies.get("Status");
   const validationSchema = Yup.object().shape({
     DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
-      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/,' شماره شناسایی بیمه معتبر نیست'),
+      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/, ' شماره شناسایی بیمه معتبر نیست'),
     // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
-    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/,'  میزان سابقه معتبر نیست'),
+    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
     // EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
-      EndDate: Yup.string()
-    .required('تاریخ آخرین بیمه پردازی الزامی است')
-    .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
-      const { StartDate } = this.parent;
-      if (!StartDate || !value) return true; // let required handle empty fields
-      // if you store as yyyy-mm-dd format:
-      return new Date(value) > new Date(StartDate);
+    EndDate: Yup.string()
+      .required('تاریخ آخرین بیمه پردازی الزامی است')
+      .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+        const { StartDate } = this.parent;
+        if (!StartDate || !value) return true; // let required handle empty fields
+        // if you store as yyyy-mm-dd format:
+        return new Date(value) > new Date(StartDate);
 
-      // or if you use custom format (e.g., 'YYYY/MM/DD'):
-      // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-    }),
+        // or if you use custom format (e.g., 'YYYY/MM/DD'):
+        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+      }),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
 
-       if (status > 1) {
-                navigate('../createUserInsuranceOrigin')
-            }
+      if (status > 1) {
+        navigate('../createUserInsuranceOrigin')
+      }
       // Prepare data for API
       const payload = {
         ...values,
@@ -248,7 +248,9 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.InsuranceId && errors.InsuranceId}
                   errorText={errors.InsuranceId}
-                 disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
+                  max={30}
+
 
                 />
               </div>
@@ -265,7 +267,19 @@ const CreateUserInsuranceDes = () => {
                   holder={'مثلا وزرات تعاون'}
                   error={touched.DepartmentName && errors.DepartmentName}
                   errorText={errors.DepartmentName}
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
+                  onKeyPress={(event) => {
+                    if (/[a-z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[A-Z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+
+
+                  }}
+                  max={40}
+
                 />
               </div>
 
@@ -284,7 +298,7 @@ const CreateUserInsuranceDes = () => {
                     setFieldValue('CityId', 0); // Reset city when province changes
                   }}
                   listBoxHolder="انتخاب کنید"
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                 />
               </div>
 
@@ -304,7 +318,7 @@ const CreateUserInsuranceDes = () => {
                   error={touched.CityId && errors.CityId}
                   errorText={errors.CityId}
                   listBoxHolder="انتخاب کنید"
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                 />
               </div>
 
@@ -319,12 +333,12 @@ const CreateUserInsuranceDes = () => {
                   text2={'مشمول قانون کار'} text3={'سایر'}
                   onChangeInput={(e) => setDes(e)}
                   selectedValue={values.EmploymentStatusId}
- disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                   input={true} />
-                     {touched.EmploymentStatusId ?
-        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
-        :
-        null}
+                {touched.EmploymentStatusId ?
+                  <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
+                  :
+                  null}
               </div>
               <div className="mb-5 col-span-1 md:col-span-3">
                 <MainRadioInput value1={true} necessary={true}
@@ -332,10 +346,10 @@ const CreateUserInsuranceDes = () => {
                   onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
                   title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
               </div>
-                     {touched.IsEndingInsurance ?
-        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.IsEndingInsurance}</p>
-        :
-        null}
+              {touched.IsEndingInsurance ?
+                <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.IsEndingInsurance}</p>
+                :
+                null}
 
               {/* Insurance ID Number */}
               <div className="mb-5 md:col-span-3">
@@ -347,7 +361,23 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.InsuranceIdNumber && errors.InsuranceIdNumber}
                   errorText={errors.InsuranceIdNumber}
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
+                  max={10}
+                  onKeyPress={(event) => {
+                    if (/[a-z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[A-Z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[۱-۹]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[آ-ی]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+
+                  }}
                 />
               </div>
 
@@ -363,7 +393,7 @@ const CreateUserInsuranceDes = () => {
                   value={values.StartDate}
                   defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
                   onChange={(value) => setFieldValue('StartDate', value)}
- disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                   necessary={true}
                   error={touched.StartDate && errors.StartDate}
                   errorText={errors.StartDate}
@@ -383,7 +413,7 @@ const CreateUserInsuranceDes = () => {
                   error={touched.EndDate && errors.EndDate}
                   errorText={errors.EndDate}
                   date={true}
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                 />
               </div>
 
@@ -403,7 +433,7 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.TrackRecordType && errors.TrackRecordType}
                   errorText={errors.TrackRecordType}
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
                 />
               </div>
 
@@ -420,7 +450,22 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.TrackRecordDays && errors.TrackRecordDays}
                   errorText={errors.TrackRecordDays}
-                                     disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
+                  onKeyPress={(event) => {
+                    if (/[a-z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[A-Z]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[۱-۹]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+                    if (/[آ-ی]/.test(event.key)) {
+                      event.preventDefault();
+                    }
+
+                  }}
 
                 />
               </div>
@@ -437,7 +482,9 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.LastWorkplace && errors.LastWorkplace}
                   errorText={errors.LastWorkplace}
-                   disable={status > 1 ? true : false}
+                  disable={status > 1 ? true : false}
+                  max={40}
+
                 />
               </div>
 

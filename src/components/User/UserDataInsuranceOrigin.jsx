@@ -113,49 +113,49 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
-      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/,' شماره شناسایی بیمه معتبر نیست'),
+      .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/, ' شماره شناسایی بیمه معتبر نیست'),
     // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
-    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/,'  میزان سابقه معتبر نیست'),
+    TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
-     EndDate: Yup.string()
-        .required('تاریخ آخرین بیمه پردازی الزامی است')
-        .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
-          const { StartDate } = this.parent;
-          if (!StartDate || !value) return true; // let required handle empty fields
-          // if you store as yyyy-mm-dd format:
-          return new Date(value) > new Date(StartDate);
-    
-          // or if you use custom format (e.g., 'YYYY/MM/DD'):
-          // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-        }),
- QuitDate: Yup.string()
-        .required('تاریخ خروج الزامی است')
-        .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
-          const { EndDate } = this.parent;
-          if (!EndDate || !value) return true; // let required handle empty fields
-          // if you store as yyyy-mm-dd format:
-          return new Date(value) > new Date(EndDate);
-    
-          // or if you use custom format (e.g., 'YYYY/MM/DD'):
-          // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-        }),
-            QuitReason: Yup.string().required('علت خروج بیمه پردازی الزامی است'),
+    EndDate: Yup.string()
+      .required('تاریخ آخرین بیمه پردازی الزامی است')
+      .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+        const { StartDate } = this.parent;
+        if (!StartDate || !value) return true; // let required handle empty fields
+        // if you store as yyyy-mm-dd format:
+        return new Date(value) > new Date(StartDate);
+
+        // or if you use custom format (e.g., 'YYYY/MM/DD'):
+        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+      }),
+    QuitDate: Yup.string()
+      .required('تاریخ خروج الزامی است')
+      .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
+        const { EndDate } = this.parent;
+        if (!EndDate || !value) return true; // let required handle empty fields
+        // if you store as yyyy-mm-dd format:
+        return new Date(value) > new Date(EndDate);
+
+        // or if you use custom format (e.g., 'YYYY/MM/DD'):
+        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+      }),
+    QuitReason: Yup.string().required('علت خروج بیمه پردازی الزامی است'),
 
   });
 
-    const cookies = new Cookies();
+  const cookies = new Cookies();
 
-    let status = cookies.get("Status");
+  let status = cookies.get("Status");
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
 
-       if (status > 3) {
-                navigate('../dashboard')
-            }
+      if (status > 3) {
+        navigate('../dashboard')
+      }
       // Prepare data for API
       const payload = {
         ...values,
@@ -163,7 +163,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
         EndDate: values.EndDate.length > 10 ?
           moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
-                  QuitDate: values.QuitDate.length > 10 ?
+        QuitDate: values.QuitDate.length > 10 ?
           moment(values.QuitDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.QuitDate,
         EmploymentStatusDescription: des
       };
@@ -175,7 +175,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           alert('عملیات با موفقیت انجام شد');
           setRecheck(!reCheck)
         }
-        else{
+        else {
           alert(response?.data)
         }
       }
@@ -187,7 +187,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           setRecheck(!reCheck)
 
         }
-         else{
+        else {
           console.log(response)
           alert(response)
         }
@@ -326,7 +326,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.InsuranceId && errors.InsuranceId}
                 errorText={errors.InsuranceId}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
+                max={40}
 
               />
             </div>
@@ -343,8 +344,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 holder={'مثلا وزرات تعاون'}
                 error={touched.DepartmentName && errors.DepartmentName}
                 errorText={errors.DepartmentName}
-                                   disable={status > 3 ? true : false}
-
+                disable={status > 3 ? true : false}
+                max={40}
               />
             </div>
             <div className="mb-5 col-span-1 md:col-span-3">
@@ -361,7 +362,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                   setFieldValue('CityId', 0); // Reset city when province changes
                 }}
                 listBoxHolder="انتخاب کنید"
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -380,7 +381,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.CityId && errors.CityId}
                 errorText={errors.CityId}
                 listBoxHolder="انتخاب کنید"
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -392,13 +393,13 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'}
                 text2={'مشمول قانون کار'} text3={'سایر'} onChangeInput={(e) => setDes(e)}
                 selectedValue={values.EmploymentStatusId}
-                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
                 input={true} />
-                      {touched.EmploymentStatusId ?
-        <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
-        :
-        null}
+              {touched.EmploymentStatusId ?
+                <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
+                :
+                null}
             </div>
             {/* <div className="mb-5 col-span-1">
               <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
@@ -413,10 +414,26 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 value={values.InsuranceIdNumber}
                 onChange={(e) => setFieldValue('InsuranceIdNumber', e.target.value)}
                 holder={'مثلا 053268986'}
+                max={10}
                 necessary={true}
                 error={touched.InsuranceIdNumber && errors.InsuranceIdNumber}
                 errorText={errors.InsuranceIdNumber}
-                                   disable={status >3 ? true : false}
+                disable={status > 3 ? true : false}
+                onKeyPress={(event) => {
+                  if (/[a-z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[A-Z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[۱-۹]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[آ-ی]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+
+                }}
 
               />
             </div>
@@ -433,12 +450,12 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 value={values.StartDate}
                 defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
                 onChange={(value) => setFieldValue('StartDate', value)}
-                
+
                 necessary={true}
                 error={touched.StartDate && errors.StartDate}
                 errorText={errors.StartDate}
                 date={true}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -450,12 +467,12 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 value={values.EndDate}
                 defaultVal={initialValues.EndDate ? initialValues.EndDate : new Date()}
                 onChange={(value) => setFieldValue('EndDate', value)}
-                
+
                 necessary={true}
                 error={touched.EndDate && errors.EndDate}
                 errorText={errors.EndDate}
                 date={true}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -476,7 +493,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 necessary={true}
                 error={touched.TrackRecordType && errors.TrackRecordType}
                 errorText={errors.TrackRecordType}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -492,10 +509,26 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 onChange={(e) => setFieldValue('TrackRecordDays', e.target.value)}
                 holder={'756 روز'}
                 necessary={true}
+                max={5}
+
                 error={touched.TrackRecordDays && errors.TrackRecordDays}
                 errorText={errors.TrackRecordDays}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
+                onKeyPress={(event) => {
+                  if (/[a-z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[A-Z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[۱-۹]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[آ-ی]/.test(event.key)) {
+                    event.preventDefault();
+                  }
 
+                }}
               />
             </div>
 
@@ -511,7 +544,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
                 error={touched.LastWorkplace && errors.LastWorkplace}
                 errorText={errors.LastWorkplace}
-                                   disable={status > 3 ? true : false}
+                disable={status > 3 ? true : false}
+                max={40}
 
               />
             </div>
@@ -529,10 +563,11 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 value={values.QuitReason}
                 onChange={(e) => setFieldValue('QuitReason', e.target.value)}
                 error={touched.QuitReason && errors.QuitReason}
-                errorText={errors.QuitReason} 
-                                   disable={status > 3 ? true : false}
+                errorText={errors.QuitReason}
+                disable={status > 3 ? true : false}
+                max={150}
 
-                />
+              />
             </div>
             <div className={`${inModal ? 'mb-0' : 'mb-5'} md:col-span-3`}>
               <MainInput label={'تاریخ خروج از عضویت صندوق'} necessary={true}
@@ -542,7 +577,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 error={touched.QuitDate && errors.QuitDate}
                 errorText={errors.QuitDate}
                 date={true}
-                   disable={status > 3? true : false}
+                disable={status > 3 ? true : false}
 
               />
             </div>
@@ -550,13 +585,13 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <div className="col-span-2 md:col-span-3">
                 <div className="w-full h-full pb-6 flex justify-end items-end">
                   <div className="w-[138px] ml-4">
-                    <MainButton red={true} disabled={status>1?true:false} onClickFunction={() => deleteInsu()}
+                    <MainButton red={true} disabled={status > 1 ? true : false} onClickFunction={() => deleteInsu()}
                       label={'حذف صندوق'} />
                   </div>
                   <div className="w-[138px]">
                     <MainButton
                       type="submit"
- disabled={status>1|| isSubmitting?true:false}
+                      disabled={status > 1 || isSubmitting ? true : false}
                       label={'ویرایش صندوق'} />
                   </div>
 

@@ -36,10 +36,12 @@ const UpdateUserBaseInfoAnother = () => {
     });
 
     const validationSchema = Yup.object().shape({
-        userIdcardNumber: Yup.string().required('شماره شناسنامه الزامی است'),
+        userIdcardNumber: Yup.string().matches(/[0-9]$/, 'شماره شناسنامه معتبر نیست')
+                    .required('شماره شناسنامه الزامی است'),
         userPhoneNumber: Yup.string().required('شماره ثابت الزامی است').matches(/^[0-9]{8,11}$/, 'شماره تلفن ثابت معتبر نیست'),
         userMobileNumber: Yup.string()
-            .required('شماره همراه الزامی است'),
+                    .required('شماره همراه الزامی است')
+                    .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
         userAddress: Yup.string().required('آدرس الزامی است'),
       
         userIsRetirement: Yup.string().required('نوع درخواست مستمری الزامی است')
@@ -185,6 +187,22 @@ const UpdateUserBaseInfoAnother = () => {
                                         necessary={true}
                                         error={touched.userIdcardNumber && errors.userIdcardNumber}
                                         errorText={errors.userIdcardNumber}
+                                         max={10}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+
+                                }}
                                     />
                                 </div>
                                 <div className="mb-5 md:col-span-3">
@@ -196,6 +214,22 @@ const UpdateUserBaseInfoAnother = () => {
                                         necessary={true}
                                         error={touched.userPhoneNumber && errors.userPhoneNumber}
                                         errorText={errors.userPhoneNumber}
+                                          max={13}
+                                        onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+
+                                }}
                                     />
                                 </div>
                                 <div className="mb-5 md:col-span-3">
@@ -207,6 +241,22 @@ const UpdateUserBaseInfoAnother = () => {
                                         necessary={true}
                                         error={touched.userMobileNumber && errors.userMobileNumber}
                                         errorText={errors.userMobileNumber}
+                                         max={13}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+
+                                }}
                                     />
                                 </div>
                                 <div className="col-span-3 mb-5">
@@ -218,6 +268,18 @@ const UpdateUserBaseInfoAnother = () => {
                                         necessary={true}
                                         error={touched.userAddress && errors.userAddress}
                                         errorText={errors.userAddress}
+                                         onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+
+
+                                }}
+                                max={120}
+                        
                                     />
                                 </div>
 
@@ -228,7 +290,22 @@ const UpdateUserBaseInfoAnother = () => {
                                         onChange={(e) => setFieldValue('personnelCode', e.target.value)}
                                         holder={'مثلا 12569'}
                                         necessary={false}
-                                        
+                                        max={20}
+                                        onKeyPress={(event) => {
+                  if (/[a-z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[A-Z]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[۱-۹]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                  if (/[آ-ی]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+
+                }}
                                     />
                                 </div>
 

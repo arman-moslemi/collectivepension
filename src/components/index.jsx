@@ -15,6 +15,7 @@ export {default as MainAdminLayout} from "../layout/MainAdminLayout";
 export {default as LoginPageMain} from "../pages/LoginPage/LoginPageMain";
 export {default as SignupPage} from "../pages/LoginPage/SignupPage";
 export {default as VerifyPage} from "../pages/LoginPage/VerifyPage";
+export {default as VerifyForgetPage} from "../pages/LoginPage/VerifyForgetPage";
 export {default as ForgetpasswordPage} from "../pages/LoginPage/ForgetpasswordPage";
 export {default as ForgetpasswordVerifyPage} from "../pages/LoginPage/ForgetpasswordVerifyPage";
 export {default as ChangePasswordPage} from "../pages/LoginPage/ChangePasswordPage";
@@ -89,6 +90,7 @@ export {default as SignupMain} from "./Login/SignupMain";
 export {default as ForgetpasswordMain} from "./Login/ForgetpasswordMain";
 export {default as ChangePasswordMain} from "./Login/ChangePasswordMain";
 export {default as VerifyMain} from "./Login/VerifyMain";
+export {default as VerifyForget} from "./Login/VerifyForget";
 
 // ----------[user]----------
 

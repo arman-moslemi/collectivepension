@@ -158,7 +158,22 @@ const UpdateUserBaseInfoHimself = () => {
                                 error={touched.idcardNumber && errors.idcardNumber}
                                 errorText={errors.idcardNumber}
                                 disable={status > 1 ? true : false}
+                                max={10}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
+                                }}
                             />
                         </div>
                         <div className="mb-5 md:col-span-3">
@@ -171,7 +186,22 @@ const UpdateUserBaseInfoHimself = () => {
                                 error={touched.phoneNumber && errors.phoneNumber}
                                 errorText={errors.phoneNumber}
                                 disable={status > 1 ? true : false}
+                                max={13}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
+                                }}
                             />
                         </div>
                         <div className="mb-5 md:col-span-3">
@@ -184,7 +214,22 @@ const UpdateUserBaseInfoHimself = () => {
                                 error={touched.mobileNumber && errors.mobileNumber}
                                 errorText={errors.mobileNumber}
                                 disable={status > 1 ? true : false}
+                                max={13}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
+                                }}
                             />
                         </div>
                         <div className="col-span-3 mb-5">
@@ -197,7 +242,17 @@ const UpdateUserBaseInfoHimself = () => {
                                 error={touched.address && errors.address}
                                 errorText={errors.address}
                                 disable={status > 1 ? true : false}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
+
+                                }}
+                                max={120}
                             />
                         </div>
                         <div className="col-span-2 md:col-span-3">
@@ -223,7 +278,22 @@ const UpdateUserBaseInfoHimself = () => {
                                 holder={'مثلا 12569'}
                                 necessary={false}
                                 disable={status > 1 ? true : false}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
+                                }}
+                                max={20}
                             />
                         </div>
                         <div className="col-span-3 mt-[33px] flex justify-end items-center">

@@ -55,14 +55,7 @@ const SignupMain = () => {
     // Submit Handler
     const handleSubmit = async (values, { setSubmitting }) => {
         console.log('Form values:', values);
-        // Here you would typically make an API call
-
-        // var updateOrg = await axiosReq("Users/SignUpUser", "post", {
-        //     nationalCode: values.nationalCode,
-        //     birthDate: values.birthDate,
-        //     mobileNumber: values.phoneNumber,
-        //     password: values.password
-        // });
+      
         var hash = crypto.SHA512(captcha).toString()
 
         var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
@@ -129,6 +122,23 @@ const SignupMain = () => {
                                     label="کدملی"
                                     necessary={true}
                                     value={values.nationalCode}
+                                    max={10}
+                                    min={10}
+                                    onKeyPress={(event) => {
+                                        if (/[a-z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[A-Z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[۱-۹]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[آ-ی]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+
+                                    }}
                                     onChange={(e) => setFieldValue('nationalCode', e.target.value)}
                                     error={touched.nationalCode && errors.nationalCode}
                                     errorText={errors.nationalCode}
@@ -140,6 +150,7 @@ const SignupMain = () => {
                                     necessary={true}
                                     date={true}
                                     value={values.birthDate}
+
                                     onChange={(value) => setFieldValue('birthDate', value)}
                                     error={touched.birthDate && errors.birthDate}
                                     errorText={errors.birthDate}
@@ -149,6 +160,23 @@ const SignupMain = () => {
                                 <MainInput
                                     label="شماره تلفن همراه"
                                     necessary={true}
+                                    onKeyPress={(event) => {
+                                        if (/[a-z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[A-Z]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[۱-۹]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+                                        if (/[آ-ی]/.test(event.key)) {
+                                            event.preventDefault();
+                                        }
+
+                                    }}
+                                    max={11}
+                                    min={11}
                                     value={values.phoneNumber}
                                     onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
                                     error={touched.phoneNumber && errors.phoneNumber}
@@ -164,6 +192,20 @@ const SignupMain = () => {
                                                 <p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p>
                                             </div>
                                         }
+                                        onKeyPress={(event) => {
+                                            if (/[0-9]/.test(event.key)) {
+                                                event.preventDefault();
+                                            }
+                                            if (/[a-z]/.test(event.key)) {
+                                                event.preventDefault();
+                                            }
+                                            if (/[A-Z]/.test(event.key)) {
+                                                event.preventDefault();
+                                            }
+                                            if (/[۱-۹]/.test(event.key)) {
+                                                event.preventDefault();
+                                            }
+                                        }}
                                         value={values.captcha}
                                         onChange={(e) => setFieldValue('captcha', e.target.value)}
                                         error={touched.captcha && errors.captcha}
@@ -201,6 +243,8 @@ const SignupMain = () => {
                                     onChange={(e) => setFieldValue('password', e.target.value)}
                                     error={touched.password && errors.password}
                                     errorText={errors.password}
+                                    min={8}
+                                    max={12}
                                 />
 
                                 {/* Confirm Password */}
@@ -213,6 +257,8 @@ const SignupMain = () => {
                                     onChange={(e) => setFieldValue('confirmPassword', e.target.value)}
                                     error={touched.confirmPassword && errors.confirmPassword}
                                     errorText={errors.confirmPassword}
+                                    min={8}
+                                    max={12}
                                 />
                             </div>
                             <div className="my-4">

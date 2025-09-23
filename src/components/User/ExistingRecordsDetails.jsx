@@ -211,7 +211,8 @@ setShowDeclined(false)
                   necessary={true}
                   onChange={(e) => setDes(e.target.value)}
                   label={'توضیح خود را اینجا بنویسید .'}
-                  holder={'توضیح خود را اینجا بنویسید .'} />
+                  holder={'توضیح خود را اینجا بنویسید .'}
+                  max={150} />
                 <div className='w-full  items-center mt-4 lg:flex-wrap'>
                   <p className='font-IRANYekanMedium lg:my-2  mb-5 text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
                   <div><UploadFile small={false} setFile={setFile} /></div>
