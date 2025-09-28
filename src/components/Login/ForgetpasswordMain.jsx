@@ -22,22 +22,19 @@ const ForgetpasswordMain = () => {
             .required('کدملی الزامی است')
             .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد'),
 
-        captcha: Yup.string()
-            .required('کد امنیتی الزامی است')
-            .test('captcha', 'کد امنیتی نادرست است', (value) => value === captcha),
-    });
+});
 
     // Initial Values
     const initialValues = {
-        nationalCode: '',
+        nationalCode: ''
       
-        captcha: ''
     
 
     };
 
     // Submit Handler
     const handleSubmit = async (values, { setSubmitting }) => {
+
         console.log('Form values:', values);
 
         var hash = crypto.SHA512(captcha).toString()
@@ -63,12 +60,8 @@ const ForgetpasswordMain = () => {
             navigate("/verifyForget", {
                 state: {
                     NationalCode: values.nationalCode,
-                    // Mobile: values.phoneNumber,
                     Cap: captcha,
-                    // Password: values.password,
-                    // BirthDate: values.birthDate,
-                    // DeceasedNationalCode: values.deceasedNationalCode,
-                    // DeceasedBirthDate: values.deceasedBirthDate
+               
                 }
             });
         }
@@ -104,14 +97,29 @@ const ForgetpasswordMain = () => {
                                         <MainInput
                                             label="کدملی"
                                             necessary={true}
-                                            value={values.deceasedNationalCode}
+                                            value={values.nationalCode}
                                             onChange={(e) => setFieldValue('nationalCode', e.target.value)}
-                                            error={touched.deceasedNationalCode && errors.deceasedNationalCode}
-                                            errorText={errors.deceasedNationalCode}
+                                            error={touched.nationalCode && errors.nationalCode}
+                                            errorText={errors.nationalCode}
                                         />                        </div>
 
                                     <div className='mt-[30px] flex items-end'>
-                                        <MainInput label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
+                                        <MainInput label={<div className='flex items-center'
+                                        max={4} onKeyPress={(event) => {
+                                if (/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                                if (/[a-z]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                                if (/[A-Z]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                                if (/[۱-۹]/.test(event.key)) {
+                                    event.preventDefault();
+                                }
+                            }}
+                                        ><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
                                         <div className="flex mr-2 mb-2">
                                             <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
                                                 persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" />

@@ -11,12 +11,14 @@ import crypto from "crypto-js";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Left from '../../assets/icon/login/LeftPic';
+import {  useLocation } from 'react-router-dom';
 
 const ChangePasswordMain = () => {
 
     const [captcha, setCaptcha] = useState()
     const captchaRef = useRef();
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     // Validation Schema
     const validationSchema = Yup.object().shape({
@@ -40,12 +42,13 @@ const ChangePasswordMain = () => {
     // Submit Handler
     const handleSubmit = async (values, { setSubmitting }) => {
         console.log('Form values:', values);
-
-        var hash = crypto.SHA512(captcha).toString()
+console.log(state)
+        var hash = crypto.SHA512(state?.Cap).toString()
 
         var updateOrg = await axios.post(apiUrl + "Auth/NewPassword", {
-            Password: values.password,
-            Cap: captcha
+            NewPassword: values.password,
+            NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+            Cap: state?.Cap
         }, {
             headers: {
                 Authorization: `Bearer ${hash}`,

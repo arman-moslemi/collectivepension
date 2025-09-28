@@ -67,7 +67,7 @@ const list = [
 
 
 const AddWorkPlace = ({ id, setForms
-  , setYearsData, yearsData,data
+  , setYearsData, yearsData, data
 }) => {
   const [mainOpen, setMainOpen] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
@@ -78,6 +78,7 @@ const AddWorkPlace = ({ id, setForms
   const [cities, setCities] = useState([])
   const [years, setYears] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const [dateError, setDateError] = useState('');
 
   const handleRemoveLastForm = () => {
     setForms(prev => prev.length > 1 ? prev.slice(0, -1) : prev);
@@ -85,10 +86,10 @@ const AddWorkPlace = ({ id, setForms
   const [formData, setFormData] = useState({
     UserInsuranceId: id,
     InsuranceIdNumber: data?.insuranceIdNumber || "",
-    CityId:data?.cityId || 0,
+    CityId: data?.cityId || 0,
     Branch: data?.branch || "",
-    Workplace:  data?.workplace || "",
-    WorkplaceNumber:  data?.workplaceNumber || "",
+    Workplace: data?.workplace || "",
+    WorkplaceNumber: data?.workplaceNumber || "",
     TimeFrames: data?.timeFrames || []
   });
   const [currentTimeFrame, setCurrentTimeFrame] = useState({
@@ -101,7 +102,7 @@ const AddWorkPlace = ({ id, setForms
   let navigate = useNavigate();
 
   const titleRow = ["ردیف", "سال", "دستمزد مشمول کسر حق بیمه"];
-  
+
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -136,6 +137,9 @@ const AddWorkPlace = ({ id, setForms
   };
   const handleAddTimeFrame = () => {
     console.log(currentTimeFrame.startDate)
+    //  if (!validateDates()) {
+    //     return; // Stop submission if validation fails
+    //   }
     if (currentTimeFrame.startDate && currentTimeFrame.endDate) {
       setFormData(prev => ({
         ...prev,
@@ -151,9 +155,9 @@ const AddWorkPlace = ({ id, setForms
       TimeFrames: prev.TimeFrames.filter((_, i) => i !== index)
     }));
   };
- const [tableRows, setTableRows] = useState([]);
+  const [tableRows, setTableRows] = useState([]);
 
- const initializeYearsData = (yearsFromApi) => {
+  const initializeYearsData = (yearsFromApi) => {
     const initialData = yearsFromApi.map(year => ({
       year: year.year,
       salary: ""
@@ -165,14 +169,14 @@ const AddWorkPlace = ({ id, setForms
   const handleSalaryChange = (year, value) => {
     // Update yearsData state
     setYearsData(prevData => {
-      const updatedData = prevData.map(item => 
+      const updatedData = prevData.map(item =>
         item.year === year ? { ...item, salary: value } : item
       );
       return updatedData;
     });
 
     // Update the table rows to reflect the change
-    setTableRows(prevRows => 
+    setTableRows(prevRows =>
       prevRows.map(row => {
         if (row.item2 === year.toString()) {
           return {
@@ -180,7 +184,7 @@ const AddWorkPlace = ({ id, setForms
             item3: (
               <div className="flex items-center">
                 <div className="w-[170px]">
-                  <MainInput 
+                  <MainInput
                     Custom1={true}
                     value={value}
                     onChange={(e) => handleSalaryChange(year, e.target.value)}
@@ -199,13 +203,14 @@ const AddWorkPlace = ({ id, setForms
 
   const handleSubmit = async () => {
     try {
+
       setLoading(true);
       const response = await axiosReq("Experts/CreateTimeFrame", "post", formData);
 
       if (response.status === 200) {
         // Initialize yearsData
         // const initialYearsData = initializeYearsData(response.data);
-        
+
         // // Create initial table rows
         // const initialTableRows = response.data.map((item, index) => ({
         //   item1: (index + 1).toString(),
@@ -236,6 +241,25 @@ const AddWorkPlace = ({ id, setForms
       setLoading(false);
     }
   };
+
+  const validateDates = () => {
+    if (!currentTimeFrame.startDate || !currentTimeFrame.endDate) {
+      setDateError('لطفا هر دو تاریخ را وارد کنید');
+      return false;
+    }
+
+    const start = new Date(currentTimeFrame.startDate);
+    const end = new Date(currentTimeFrame.endDate);
+
+    if (end <= start) {
+      setDateError('تاریخ پایان باید بزرگتر از تاریخ شروع باشد');
+      return false;
+    }
+
+    setDateError('');
+    return true;
+  };
+
 
 
 
@@ -277,13 +301,7 @@ const AddWorkPlace = ({ id, setForms
             />
           </div>
           <div className="col-span-1 md:col-span-3">
-            {/* <MainInput 
-                            necessary={true} 
-                            listBox={true} 
-                            listItems={cityList} 
-                            label={'استان محل اشتغال'}
-                            onChange={handleCityChange}
-                        /> */}
+
             <MainInput
               label={'استان محل اشتغال'}
               listBox={true}
@@ -377,6 +395,11 @@ const AddWorkPlace = ({ id, setForms
                   label={'تاریخ پایان بیمه پردازی'}
                 />
               </div>
+              {dateError && (
+                <div className="col-span-full text-red-500 text-sm mt-2">
+                  {dateError}
+                </div>
+              )}
               <div className="col-span-2 md:col-span-6 w-full flex items-end md:justify-between">
                 <div className="mr-[4%] md:mx-0 ml-[6%] w-[47%]">
                   <MainButton

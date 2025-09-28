@@ -119,10 +119,14 @@ const MainTable = ({list, titleRow, center1, center2, center3,cen4,cen5,cen6,
                             </div>
                         </div>
                         <div className="flex items-center font-IRANYekanMedium">
-                            
+                            {
+                                count?
                             <p className="text-sm text-right pr-4 mx-2">
                                 {((page - 1) * row) + 1}-{count < row * page ? count : row * page} از {count}
                             </p>
+                                :
+                                ""
+                            }
                             <div className="flex mr-2">
                                 <button onClick={() => setPage(page + 1)} disabled={count < row * page ? true : false} className="mx-2">
                                     <TableRightIcon />

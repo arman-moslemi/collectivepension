@@ -45,8 +45,8 @@ const VerifyForget = ({ forgetpassword }) => {
         var hash = crypto.SHA512(state?.Cap).toString()
         setK((i) => !i);
         axios
-            .post(apiUrl + "Auth/SMS1", {
-                Mobile: state?.Mobile.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+            .post(apiUrl + "Auth/ForgetPassword", {
+                // Mobile: state?.Mobile.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                 NationalCode: state?.NationalCode.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                 Cap: state?.Cap
 
@@ -86,7 +86,7 @@ const VerifyForget = ({ forgetpassword }) => {
     }
     const verifyCode = () => {
         console.log(555)
-            console.log(state)
+        console.log(state)
 
         if (code == "") {
             setErPass(true)
@@ -95,12 +95,23 @@ const VerifyForget = ({ forgetpassword }) => {
             console.log(999)
             console.log(state)
             console.log(state?.allValues)
+            var hash = crypto.SHA512(state?.Cap).toString()
 
             axios
                 .post(apiUrl + "Auth/VerifyForget", {
                     NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                     Code: code,
-                  
+                    Cap: state?.Cap
+
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${hash}`,
+                        'X-Frame-Options': 'Deny',
+                        'X-Content-Type-Options': "nosniff",
+                        'X-XSS-Protection': "1; mode=block",
+                        "Referrer-Policy": "same-origin",
+                        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+                    }
                 })
                 .then(function (response2) {
                     console.log("verify")
@@ -109,7 +120,7 @@ const VerifyForget = ({ forgetpassword }) => {
 
                     if (response2.status == 200) {
                         // alert("ثبت نام با موفقیت انجام شد")
-                        navigate("/changePassword",{Cap:state?.Cap,NationalCode:state?.NationalCode})
+                        navigate("/changePassword", {state:{ Cap: state?.Cap, NationalCode: state?.NationalCode}})
                     }
                     else {
                         console.log(response2?.data)
@@ -199,7 +210,7 @@ const VerifyForget = ({ forgetpassword }) => {
                     <div className="mt-[31px] w-[100%] flex justify-center">
                         <div className="w-[100%]">
 
-                            <MainButton onClickFunction={() => verifyCode()}  label={'تایید'} />
+                            <MainButton onClickFunction={() => verifyCode()} label={'تایید'} />
                         </div>
                     </div>
 
