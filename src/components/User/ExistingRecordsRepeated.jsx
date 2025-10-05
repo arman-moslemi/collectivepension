@@ -20,7 +20,7 @@ const list = [
 ];
 
 
-const ExistingRecordsRepeated = () => {
+const ExistingRecordsRepeated = ({setRepeate}) => {
   const [data, setData] = useState([]);
   // const [data2, setData2] = useState([]);
   // const [insuranceId, setInsuranceId] = useState(0);
@@ -55,12 +55,12 @@ const ExistingRecordsRepeated = () => {
             item3: item.totalDuration,
             insuranceOptions: item.insurances,
             item4: index,
-            
+            item44:item.extraDays,
             item50: null
           })
         })
         setData(propss);
-
+setRepeate(propss)
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -80,7 +80,7 @@ const ExistingRecordsRepeated = () => {
           over.push({
             Year:item.item2.split(' ')[0],
             MonthId:item.item22,
-            // ExtraDays:,
+             ExtraDays:item.item44,
 
             ChosenInsuranceId: item.item50
           })

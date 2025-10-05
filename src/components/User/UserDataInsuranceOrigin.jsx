@@ -317,7 +317,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             <div className="mb-5 col-span-1 md:col-span-3">
               <MainInput
                 label={'نام صندوق بازنشستگی'}
-                defaultVal={insurances.find(i => i.id === values.InsuranceId) || null}
+                defaultVal={values.InsuranceId}
                 value={insurances.find(i => i.id === values.InsuranceId) || null}
                 onChange={(value) => setFieldValue('InsuranceId', value?.id || 0)}
                 holder={'مثلا وزارت تعاون'}
@@ -355,7 +355,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 listItems={provinces}
                 value={province}
                 necessary={true}
-                defaultVal={provinces.find(i => i.id === values.ProvinceId) || null}
+                defaultVal={values?.ProvinceId}
                 onChange={(value) => {
                   setProvince(value);
                   GetCity(value?.id);
@@ -372,7 +372,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 listBox={true}
                 listItems={cities}
                 necessary={true}
-                defaultVal={cities.find(i => i.id === values.CityId) || null}
+                  defaultVal={values.CityId}
 
                 value={cities.find(c => c.id === values.CityId) || null}
                 onChange={(value) => {

@@ -28,7 +28,9 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
     }
     return str;
   }
-  const [selectedNumberOfContents, setSelectedNumberOfContents] = useState(defaultVal ? defaultVal : "")
+  const [selectedNumberOfContents, setSelectedNumberOfContents] = useState(
+    defaultVal ? defaultVal : ""
+  )
   const [show, setShow] = useState(false)
 
 
@@ -56,7 +58,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
           <p className="font-IRANYekanBold text-[16px] text-errorRed mr-[2px]">*</p>
           : null}
       </div>
-      {disable ?
+      {disable && listBox!=true ?
         <div className={`border-[1px] bg-disableGray h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
           <input onChange={onChange} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanBold text-[16px] text-darkGray" value={value} type="text" disabled name="" id="" />
           <div className="mr-3">{leftIcon}</div>
@@ -66,13 +68,16 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
 
         :
         listBox ?
-          <div className='w-full mt-2 '>
-            <Listbox value={selectedNumberOfContents} onChange={(e) => { setSelectedNumberOfContents(e); onChange(e) }}>
+          <div className="w-full mt-2">
+            <Listbox value={selectedNumberOfContents} disabled={true} onChange={(e) => { setSelectedNumberOfContents(e); onChange(e) }}>
               {/* <Label className="block text-sm/6 font-medium text-gray-900">Assigned to</Label> */}
               <div className="relative w-full">
-                <ListboxButton className="relative w-full h-[48px] cursor-default rounded-md bg-white py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6">
+                <ListboxButton className={`relative w-full h-[48px] cursor-default rounded-md  py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6 ${disable ? 'bg-disableGray':'bg-white'}`}>
                   <span className="flex items-center">
-                    {selectedNumberOfContents.name ?
+                    {selectedNumberOfContents==defaultVal  ?
+                      <span className="ml-3 block truncate font-IRANYekanMedium text-[16px]">{listItems.find(x=>x.id==defaultVal)?.name}</span>
+
+                      :selectedNumberOfContents.name  ?
                       <span className="ml-3 block truncate font-IRANYekanMedium text-[16px]">{selectedNumberOfContents.name}</span>
 
                       :
@@ -117,8 +122,12 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                 <div className="relative w-full">
                   <ListboxButton className="relative w-full h-[48px] cursor-default rounded-md bg-white shadow-searchShadow py-1 px-2 text-right  ring-[1px] ring-inset ring-borderGray focus:outline-none  focus:ring-indigo-500 sm:text-sm/6">
                     <span className="flex items-center">
-                      {selectedNumberOfContents.name ?
+                      {selectedNumberOfContents.name && selectedNumberOfContents!=defaultVal ?
                         <span className="ml-3 block truncate font-IRANYekanExtra text-mainBlue text-[15px]">{selectedNumberOfContents.name}</span>
+
+                        :
+                        selectedNumberOfContents && selectedNumberOfContents==defaultVal ?
+                        <span className="ml-3 block truncate font-IRANYekanExtra text-mainBlue text-[15px]">{listBox.find(x=>x.id==selectedNumberOfContents).name}</span>
 
                         :
                         listBoxHolder ?
@@ -209,7 +218,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                       </div>
                       :
                       <div className={`border-[1px] h-[48px] w-full mt-2  ${error ? 'border-redError' : 'border-borderGray'}  rounded-[6px] flex justify-start items-center px-2`}>
-                        <input value={value} onChange={onChange} minLength={min} maxLength={max} onKeyPress={onKeyPress} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type={type ? type : "text"} name="" id="" />
+                        <input value={value} onChange={onChange} readOnly={onChange?false:true} minLength={min} maxLength={max} onKeyPress={onKeyPress} className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]" placeholder={holder} type={type ? type : "text"} name="" id="" />
                         <div className="mr-3">{leftIcon}</div>
                       </div>
 

@@ -7,9 +7,10 @@ import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
+import Cookies from 'universal-cookie';
 
 
-const ExpertAllRecordsNoWebService = ({ id,admin }) => {
+const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
 
     let navigate = useNavigate();
     const [forms, setForms] = useState([3]);
@@ -17,6 +18,7 @@ const ExpertAllRecordsNoWebService = ({ id,admin }) => {
     const [data, setData] = useState()
     const [dataRec, setDataRec] = useState([])
     const [isLoading, setIsLoading] = useState(true);
+
 
     const handleAddForm = () => {
         setForms(prev => [...prev, prev.length]);
@@ -40,7 +42,6 @@ const ExpertAllRecordsNoWebService = ({ id,admin }) => {
         try {
             setIsLoading(true);
 
-
             const response = await axiosReq("Experts/GetProps?userInsuranceId=" + id, "get");
             console.log(response.data)
             console.log(response.data.length)
@@ -52,6 +53,9 @@ const ExpertAllRecordsNoWebService = ({ id,admin }) => {
                 ss.push(response.data.length)
                 setForms(ss);
                 setDataRec(response.data)
+            }
+            if (statusId > 4) {
+                CalculateDateRange()
             }
             setIsLoading(false)
 
@@ -72,20 +76,28 @@ const ExpertAllRecordsNoWebService = ({ id,admin }) => {
     return (
         <div className="w-full py-4 px-6 lg:px-0">
             <div className="w-full px-[28px] pt-[24px] pb-7 flex justify-end">
-                <div className="w-[151px]"><MainButton onClickFunction={() => handleAddForm()} label={'افزودن محل کار'} /></div>
+                <div className="w-[151px]">
+                    {
+                        statusId<5?
+                        <MainButton onClickFunction={() => handleAddForm()} label={'افزودن محل کار'} />
+                        :
+                        null
+                    }
+
+                    </div>
 
             </div>
 
             {forms.map((_, idx) => {
-        
+
                 return (
                     dataRec?.length > idx ?
 
-                        <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} data={dataRec[idx]} setYearsData={setYearsData} yearsData={yearsData} /></div>
+                        <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} data={dataRec[idx]} setYearsData={setYearsData} yearsData={yearsData} statusId={statusId}/></div>
                         :
-                        idx == dataRec?.length ?
+                        idx == dataRec?.length && statusId < 5 ?
 
-                            <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} setYearsData={setYearsData} yearsData={yearsData} /></div>
+                            <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} setYearsData={setYearsData} yearsData={yearsData}statusId={statusId} /></div>
 
                             : null
                 )
@@ -93,18 +105,20 @@ const ExpertAllRecordsNoWebService = ({ id,admin }) => {
             )
             }
             {
-                admin?
-                null:
-            <div className="w-full flex justify-end my-10">
-                <div className="w-[151px]">
-                    <MainButton onClickFunction={() => CalculateDateRange()} label={'محاسبه سوابق'} />
-                </div>
-            </div>
+                admin || statusId>4?
+                    null :
+                    <div className="w-full flex justify-end my-10">
+                        <div className="w-[151px]">
+                            <MainButton onClickFunction={() => CalculateDateRange()} label={'محاسبه سوابق'} />
+                        </div>
+                    </div>
 
             }
             {
                 data ?
-                    <div className="w-full mb-[25px]"><TotalWorkRecords button={true} id={id} data={data} /></div>
+                    <div className="w-full mb-[25px]">
+                        <TotalWorkRecords button={statusId > 4?false :true} id={id} data={data}  />
+                        </div>
                     :
                     null
             }

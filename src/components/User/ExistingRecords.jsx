@@ -9,10 +9,11 @@ import { axiosReq } from "../../commons/axiosReq";
 const titleRow = ["ردیف", "استان", "شهر", "شعبه", "محل خدمت/نام کارگاه", "شماره دستگاه/کارگاه", "شماره شناسایی بیمه", "سابقه (تعداد روز)", "مشاهده"];
 
 
-const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYear}) => {
+const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objYear,repete }) => {
 
     const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
     const [selectedBox, setSelectedBox] = useState(false);
+    const [recheck, setRecheck] = useState(false);
     const [props, setProps] = useState([]);
 
     const AddOriginBoxModalFunction = () => {
@@ -39,7 +40,7 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
 
     useEffect(() => {
         getInsurances();
-    }, []);
+    }, [recheck]);
     const getInsurances = async () => {
         try {
             const response = await axiosReq("Users/GetUserInsurances", "get");
@@ -56,16 +57,17 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
             console.error("Error fetching user data:", error);
         }
     };
-      const approve = async () => {
+    const approve = async () => {
         try {
             const response = await axiosReq("Users/Approve", "put");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
-              alert("موفقیت آمیز")
+                alert("موفقیت آمیز")
+                setRecheck(!recheck)
             }
-            else{
-                              alert(response?.data)
+            else {
+                alert(response)
 
             }
         } catch (error) {
@@ -91,14 +93,16 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                         item6: item.workplaceNumber,
                         item7: item.insuranceIdNumber,
                         item8: item.duration,
-                        item9: <div onClick={() =>{console.log(selectedYearBox);setSelectedYearBox(!selectedYearBox);setObjYear({
-                            InsuranceId:id,
-                            InsuranceIdNumber: item.insuranceIdNumber,
-                            Branch: item.branch,
-                            Workplace: item.workplace,
-                            WorkplaceNumber: item.workplaceNumber,
-                            CityId: item.cityId
-                        });}} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
+                        item9: <div onClick={() => {
+                            console.log(selectedYearBox); setSelectedYearBox(!selectedYearBox); setObjYear({
+                                InsuranceId: id,
+                                InsuranceIdNumber: item.insuranceIdNumber,
+                                Branch: item.branch,
+                                Workplace: item.workplace,
+                                WorkplaceNumber: item.workplaceNumber,
+                                CityId: item.cityId
+                            });
+                        }} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
 
                     })
                 })
@@ -114,7 +118,7 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
             <div className="w-full flex justify-end">
                 <div className="w-[186px] ml-4"><MainButton onClickFunction={() => { setShowAddOriginBoxModal(true) }} label={'+ افزودن صندوق مبدا'} /></div>
-                <div className="w-[97px]"><MainButton gray={true} onClickFunction={()=>approve()} label={'تایید سوابق'} /></div>
+                <div className="w-[97px]"><MainButton gray={repete?.length>0?true:false} disabled={repete?.length>0?true:false} onClickFunction={() => approve()} label={'تایید سوابق'} /></div>
             </div>
             <div className="w-full my-3">
                 <MainExplanation text={<div>
@@ -160,20 +164,20 @@ const ExistingRecords = ({ setObjYear,setSelectedYearBox,selectedYearBox ,objYea
                 <div className="w-full flex justify-between mb-2 flex-wrap md:justify-center">
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <DayIcon />
-                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.year!="-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.year != "-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <MonthIcon />
-                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.month!="-1"  ? initialValues.month + "ماه" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.month != "-1" ? initialValues.month + "ماه" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
                         <YearIcon />
-                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.day!="-1"  ? initialValues.day + "روز" : "درحال بررسی"}</p>
+                        <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.day != "-1" ? initialValues.day + "روز" : "درحال بررسی"}</p>
                     </div>
                 </div>
                 <div className="w-full flex justify-between">
                     <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-mainBlue">مجموع سوابق</p>
-                    <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-darkGray">{initialValues.totalDuration!="-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
+                    <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-darkGray">{initialValues.totalDuration != "-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
                 </div>
             </div>
             <div className="w-full flex flex-wrap justify-between mt-14 mb-14">

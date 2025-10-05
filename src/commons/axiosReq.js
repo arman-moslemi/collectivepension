@@ -21,10 +21,8 @@ export const axiosReq = async (url,kind, params, type) => {
                     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
                 }
             })
-            console.log(777)
-            console.log(response)
+     
             if (response?.status == 200 || response?.status == 201 ||response?.status == 204 ) {
-                console.log(777)
 
                 const items = response
                 return items

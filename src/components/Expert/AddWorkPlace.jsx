@@ -9,80 +9,25 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import DownSide from "../../assets/icon/general/DownSide";
 import TikIcon from "../../assets/icon/general/TikIcon";
 import { axiosReq } from "../../commons/axiosReq";
+import Cookies from 'universal-cookie';
 
-
-
-const cityList = [
-  {
-    id: 1,
-    name: 'دماوند',
-  },
-  {
-    id: 2,
-    name: 'فیروزکوه',
-  },
-  {
-    id: 3,
-    name: 'ورامین',
-  },
-  {
-    id: 4,
-    name: 'پاکدشت',
-  },
-]
-
-const list = [
-  {
-    item1: "1",
-    item2: "1372",
-    item3: <div className="flex items-center"><div className="w-[170px]"><MainInput Custom1={true} holder={'مبلغ را وارد کنید'} /></div><p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p></div>,
-    item4: <div className="w-full flex justify-center items-center"><div className="w-[40px] h-[40px] rounded-full bg-mainGreen flex justify-center items-center"><TikIcon /></div></div>,
-  },
-  {
-    item1: "2",
-    item2: "1373",
-    item3: <div className="flex items-center"><div className="w-[170px]"><MainInput Custom1={true} holder={'مبلغ را وارد کنید'} /></div><p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p></div>,
-    item4: <div className="w-full flex justify-center items-center"><div className="w-[40px] h-[40px] rounded-full bg-mainGreen flex justify-center items-center"><TikIcon /></div></div>,
-  },
-  {
-    item1: "3",
-    item2: "1374",
-    item3: <div className="flex items-center"><div className="w-[170px]"><MainInput Custom1={true} holder={'مبلغ را وارد کنید'} /></div><p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p></div>,
-    item4: <div className="w-full flex justify-center items-center"><div className="w-[40px] h-[40px] rounded-full bg-mainGreen flex justify-center items-center"><TikIcon /></div></div>,
-  },
-  {
-    item1: "4",
-    item2: "1375",
-    item3: <div className="flex items-center"><div className="w-[170px]"><MainInput Custom1={true} holder={'مبلغ را وارد کنید'} /></div><p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p></div>,
-    item4: <div className="w-full flex justify-center items-center"><div className="w-[40px] h-[40px] rounded-full bg-mainGreen flex justify-center items-center"><TikIcon /></div></div>,
-  },
-  {
-    item1: "5",
-    item2: "1376",
-    item3: <div className="flex items-center"><div className="w-[170px]"><MainInput Custom1={true} holder={'مبلغ را وارد کنید'} /></div><p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p></div>,
-    item4: <div className="w-full flex justify-center items-center"><div className="w-[40px] h-[40px] rounded-full bg-mainGreen flex justify-center items-center"><TikIcon /></div></div>,
-  },
-
-];
-
-
-const AddWorkPlace = ({ id, setForms
-  , setYearsData, yearsData, data
-}) => {
+const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId }) => {
   const [mainOpen, setMainOpen] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [secondStep, setSecondStep] = useState(false);
-  const [provinces, setProvinces] = useState([])
-  const [province, setProvince] = useState()
-  const [cities, setCities] = useState([])
-  const [years, setYears] = useState([])
+  const [provinces, setProvinces] = useState([]);
+  const [province, setProvince] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [years, setYears] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dateError, setDateError] = useState('');
+  const [timeFrameErrors, setTimeFrameErrors] = useState({});
 
   const handleRemoveLastForm = () => {
     setForms(prev => prev.length > 1 ? prev.slice(0, -1) : prev);
   };
+
   const [formData, setFormData] = useState({
     UserInsuranceId: id,
     InsuranceIdNumber: data?.insuranceIdNumber || "",
@@ -92,17 +37,86 @@ const AddWorkPlace = ({ id, setForms
     WorkplaceNumber: data?.workplaceNumber || "",
     TimeFrames: data?.timeFrames || []
   });
+
   const [currentTimeFrame, setCurrentTimeFrame] = useState({
     startDate: "",
     endDate: ""
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [tableRows, setTableRows] = useState([]);
 
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
   const titleRow = ["ردیف", "سال", "دستمزد مشمول کسر حق بیمه"];
 
+  // Utility function to check date conflicts
+  const hasDateConflict = (newStartDate, newEndDate, existingTimeFrames) => {
+    const newStart = new Date(newStartDate);
+    const newEnd = new Date(newEndDate);
+
+    for (const frame of existingTimeFrames) {
+      const existingStart = new Date(frame.startDate);
+      const existingEnd = new Date(frame.endDate);
+
+      // Check if dates overlap
+      if (newStart <= existingEnd && existingStart <= newEnd) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // Validate current time frame
+  const validateCurrentTimeFrame = () => {
+    if (!currentTimeFrame.startDate || !currentTimeFrame.endDate) {
+      setDateError('لطفا هر دو تاریخ را وارد کنید');
+      return false;
+    }
+
+    const start = new Date(currentTimeFrame.startDate);
+    const end = new Date(currentTimeFrame.endDate);
+
+    if (end <= start) {
+      setDateError('تاریخ پایان باید بزرگتر از تاریخ شروع باشد');
+      return false;
+    }
+
+    // Check for conflicts with existing time frames
+    if (hasDateConflict(currentTimeFrame.startDate, currentTimeFrame.endDate, formData.TimeFrames)) {
+      setDateError('این بازه زمانی با بازه‌های موجود تداخل دارد');
+      return false;
+    }
+
+    setDateError('');
+    return true;
+  };
+
+  // Validate all time frames for conflicts
+  const validateAllTimeFrames = () => {
+    const errors = {};
+    const frames = formData.TimeFrames;
+
+    for (let i = 0; i < frames.length; i++) {
+      for (let j = i + 1; j < frames.length; j++) {
+        const frameA = frames[i];
+        const frameB = frames[j];
+
+        const startA = new Date(frameA.startDate);
+        const endA = new Date(frameA.endDate);
+        const startB = new Date(frameB.startDate);
+        const endB = new Date(frameB.endDate);
+
+        if (startA <= endB && startB <= endA) {
+          errors[i] = `بازه ${i + 1} با بازه ${j + 1} تداخل دارد`;
+          errors[j] = `بازه ${j + 1} با بازه ${i + 1} تداخل دارد`;
+        }
+      }
+    }
+
+    setTimeFrameErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -117,36 +131,50 @@ const AddWorkPlace = ({ id, setForms
       CityId: value?.id || 0
     }));
   };
+
   const GetCity = async (id) => {
     try {
-
-
-
       const response = await axiosReq("Users/GetCities", "post", { provinceId: id });
-      var prov = []
-      console.log(response.data)
-
-      response.data.forEach(element => {
-        prov.push({ id: element.cityId, name: element.cityName })
-      });
-      setCities(prov)
-
+      const citiesList = response.data.map(element => ({
+        id: element.cityId,
+        name: element.cityName
+      }));
+      setCities(citiesList);
     } catch (error) {
-      console.error("Error creating insurance:", error);
+      console.error("Error fetching cities:", error);
     }
   };
-  const handleAddTimeFrame = () => {
-    console.log(currentTimeFrame.startDate)
-    //  if (!validateDates()) {
-    //     return; // Stop submission if validation fails
-    //   }
-    if (currentTimeFrame.startDate && currentTimeFrame.endDate) {
-      setFormData(prev => ({
-        ...prev,
-        TimeFrames: [...prev.TimeFrames, currentTimeFrame]
-      }));
-      setCurrentTimeFrame({ startDate: "", endDate: "" });
+
+  // Find province by city ID
+  const findProvinceByCityId = async (cityId) => {
+    if (!cityId || provinces.length === 0) return null;
+
+    try {
+      // You might need to adjust this API call based on your backend
+      const response = await axiosReq("Experts/GetProvinceByCityId?cityId=" + cityId);
+      if (response.data && response.data.provinceId) {
+        return provinces.find(p => p.id === response.data.provinceId) || null;
+      }
+    } catch (error) {
+      console.error("Error finding province by city:", error);
+      // Fallback: try to find in current provinces list
+      return provinces.find(p => p.cities && p.cities.some(c => c.id === cityId)) || null;
     }
+    return null;
+  };
+
+  const handleAddTimeFrame = () => {
+    if (!validateCurrentTimeFrame()) {
+      return;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      TimeFrames: [...prev.TimeFrames, currentTimeFrame]
+    }));
+
+    setCurrentTimeFrame({ startDate: "", endDate: "" });
+    setDateError('');
   };
 
   const handleRemoveTimeFrame = (index) => {
@@ -154,20 +182,16 @@ const AddWorkPlace = ({ id, setForms
       ...prev,
       TimeFrames: prev.TimeFrames.filter((_, i) => i !== index)
     }));
-  };
-  const [tableRows, setTableRows] = useState([]);
 
-  const initializeYearsData = (yearsFromApi) => {
-    const initialData = yearsFromApi.map(year => ({
-      year: year.year,
-      salary: ""
-    }));
-    setYearsData(initialData);
-    return initialData;
+    // Remove error for this index
+    setTimeFrameErrors(prev => {
+      const newErrors = { ...prev };
+      delete newErrors[index];
+      return newErrors;
+    });
   };
 
   const handleSalaryChange = (year, value) => {
-    // Update yearsData state
     setYearsData(prevData => {
       const updatedData = prevData.map(item =>
         item.year === year ? { ...item, salary: value } : item
@@ -175,7 +199,6 @@ const AddWorkPlace = ({ id, setForms
       return updatedData;
     });
 
-    // Update the table rows to reflect the change
     setTableRows(prevRows =>
       prevRows.map(row => {
         if (row.item2 === year.toString()) {
@@ -203,36 +226,26 @@ const AddWorkPlace = ({ id, setForms
 
   const handleSubmit = async () => {
     try {
+      // Validate all time frames before submission
+      if (!validateAllTimeFrames()) {
+        setError('تداخل در بازه‌های زمانی وجود دارد. لطفا بازه‌ها را بررسی کنید.');
+        return;
+      }
+
+      if (formData.TimeFrames.length === 0) {
+        setError('حداقل یک بازه زمانی باید اضافه شود');
+        return;
+      }
 
       setLoading(true);
+      setError(null);
+
       const response = await axiosReq("Experts/CreateTimeFrame", "post", formData);
 
       if (response.status === 200) {
-        // Initialize yearsData
-        // const initialYearsData = initializeYearsData(response.data);
-
-        // // Create initial table rows
-        // const initialTableRows = response.data.map((item, index) => ({
-        //   item1: (index + 1).toString(),
-        //   item2: item.year.toString(),
-        //   item3: (
-        //     <div className="flex items-center">
-        //       <div className="w-[170px]">
-        //         <MainInput 
-        //           Custom1={true}
-        //           value={initialYearsData.find(y => y.year === item.year)?.salary || ""}
-        //           onChange={(e) => handleSalaryChange(item.year, e.target.value)}
-        //           holder={'مبلغ را وارد کنید'}
-        //         />
-        //       </div>
-        //       <p className="text-[15px] font-IRANYekanMedium mr-4">تومان</p>
-        //     </div>
-        //   )
-        // }));
-
-        // setTableRows(initialTableRows);
-        // setSecondStep(true);
-        alert("با موفقیت ثبت شد")
+        alert("با موفقیت ثبت شد");
+        setOpenModal(false);
+        // Additional logic for second step if needed
       }
     } catch (err) {
       console.error("Error submitting form:", err);
@@ -242,41 +255,31 @@ const AddWorkPlace = ({ id, setForms
     }
   };
 
-  const validateDates = () => {
-    if (!currentTimeFrame.startDate || !currentTimeFrame.endDate) {
-      setDateError('لطفا هر دو تاریخ را وارد کنید');
-      return false;
-    }
-
-    const start = new Date(currentTimeFrame.startDate);
-    const end = new Date(currentTimeFrame.endDate);
-
-    if (end <= start) {
-      setDateError('تاریخ پایان باید بزرگتر از تاریخ شروع باشد');
-      return false;
-    }
-
-    setDateError('');
-    return true;
-  };
-
-
-
-
-
   const ChangeStep = () => {
     setOpenModal(false);
     handleSubmit();
   };
+
   const GetData = async () => {
     try {
       setIsLoading(true);
+      const provincesRes = await axiosReq("Users/GetProvinces", "get");
+      const provincesList = provincesRes.data.map(p => ({
+        id: p.provinceId,
+        name: p.provinceName
+      }));
+      setProvinces(provincesList);
 
-      const [provincesRes] = await Promise.all([
-        axiosReq("Users/GetProvinces", "get")
-      ]);
-
-      setProvinces(provincesRes.data.map(p => ({ id: p.provinceId, name: p.provinceName })));
+      // If we have existing data with CityId, set the province and cities
+      if (data?.cityId) {
+        // First, try to find the province that contains this city
+        // const provinceWithCity = await findProvinceByCityId(data.cityId);
+        // if (provinceWithCity) {
+        //   setProvince(provinceWithCity);
+        //   await GetCity(provinceWithCity.id);
+        // }
+        GetCity(data?.provinceId)
+      }
 
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -284,9 +287,39 @@ const AddWorkPlace = ({ id, setForms
       setIsLoading(false);
     }
   };
+
+  // Set default values when data changes
   useEffect(() => {
-    GetData()
-  }, [])
+    if (data) {
+      setFormData(prev => ({
+        ...prev,
+        InsuranceIdNumber: data.insuranceIdNumber || "",
+        CityId: data.cityId || 0,
+        Branch: data.branch || "",
+        Workplace: data.workplace || "",
+        WorkplaceNumber: data.workplaceNumber || "",
+        TimeFrames: data.timeFrames || []
+      }));
+    }
+  }, [data]);
+
+  // Validate time frames whenever they change
+  useEffect(() => {
+    if (formData.TimeFrames.length > 0) {
+      validateAllTimeFrames();
+    } else {
+      setTimeFrameErrors({});
+    }
+  }, [formData.TimeFrames]);
+
+  // Initialize default values when component mounts or data changes
+  useEffect(() => {
+    GetData();
+  }, []);
+
+  // Get current city object for the dropdown
+  const currentCity = cities.find(c => c.id === formData.CityId) || null;
+
   return (
     <div className="w-full rounded-[10px] shadow-firstBoxShadow">
       <div className="w-full px-[28px] pt-[35px]">
@@ -297,18 +330,20 @@ const AddWorkPlace = ({ id, setForms
               holder={'شماره شناسایی بیمه را وارد کنید'}
               label={'شماره شناسایی بیمه'}
               value={formData.InsuranceIdNumber}
+              disable={statusId > 4 ? true : false}
               onChange={(e) => handleInputChange('InsuranceIdNumber', e.target.value)}
             />
           </div>
           <div className="col-span-1 md:col-span-3">
-
             <MainInput
               label={'استان محل اشتغال'}
               listBox={true}
               listItems={provinces}
               value={province}
+              disable={statusId > 4 ? true : false}
+
+              defaultVal={data?.provinceId}
               necessary={true}
-              // defaultVal={provinces.find(i => i.id === values.ProvinceId) || null}
               onChange={(value) => {
                 setProvince(value);
                 GetCity(value?.id);
@@ -323,19 +358,21 @@ const AddWorkPlace = ({ id, setForms
               listBox={true}
               listItems={cities}
               necessary={true}
+              defaultVal={data?.cityId}
+              disable={statusId>4?true:false}
 
-              // value={cities.find(c => c.id === values.CityId) || null}
-              value={formData.CityId || null}
+              value={currentCity}
               onChange={(value) => {
                 handleInputChange('CityId', value?.id || 0);
               }}
-
               listBoxHolder="انتخاب کنید"
             />
           </div>
           <div className="col-span-1 md:col-span-3">
             <MainInput
               necessary={true}
+              disable={statusId > 4 ? true : false}
+
               holder={'شعبه را وارد کنید'}
               label={'شعبه'}
               value={formData.Branch}
@@ -345,6 +382,8 @@ const AddWorkPlace = ({ id, setForms
           <div className="col-span-1 md:col-span-3">
             <MainInput
               necessary={true}
+              disable={statusId > 4 ? true : false}
+
               holder={'محل خدمت / نام کارگاه را وارد کنید'}
               label={'محل خدمت / نام کارگاه'}
               value={formData.Workplace}
@@ -354,6 +393,8 @@ const AddWorkPlace = ({ id, setForms
           <div className="col-span-1 md:col-span-3">
             <MainInput
               necessary={true}
+              disable={statusId > 4 ? true : false}
+
               holder={'شماره دستگاه / کارگاه را وارد کنید'}
               label={'شماره دستگاه / کارگاه'}
               value={formData.WorkplaceNumber}
@@ -377,6 +418,8 @@ const AddWorkPlace = ({ id, setForms
                 <MainInput
                   date={true}
                   necessary={true}
+                  disable={statusId > 4 ? true : false}
+
                   value={currentTimeFrame.startDate}
                   onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, startDate: val }))}
                   leftIcon={<DateIcon />}
@@ -388,6 +431,8 @@ const AddWorkPlace = ({ id, setForms
                 <MainInput
                   date={true}
                   necessary={true}
+                  disable={statusId > 4 ? true : false}
+
                   value={currentTimeFrame.endDate}
                   onChange={(val) => setCurrentTimeFrame(prev => ({ ...prev, endDate: val }))}
                   leftIcon={<DateIcon />}
@@ -395,28 +440,39 @@ const AddWorkPlace = ({ id, setForms
                   label={'تاریخ پایان بیمه پردازی'}
                 />
               </div>
+
               {dateError && (
-                <div className="col-span-full text-red-500 text-sm mt-2">
-                  {dateError}
+                <div className="col-span-full">
+                  <p className='font-IRANYekanBold text-redError text-[12px] w-full mt-1'>
+                    {dateError}
+                  </p>
                 </div>
               )}
-              <div className="col-span-2 md:col-span-6 w-full flex items-end md:justify-between">
-                <div className="mr-[4%] md:mx-0 ml-[6%] w-[47%]">
-                  <MainButton
-                    label={'افزودن بازه جدید'}
-                    onClickFunction={handleAddTimeFrame}
-
-                    disabled={!currentTimeFrame.startDate || !currentTimeFrame.endDate}
-                  />
-                </div>
-                <div className="w-[43%]">
-                  <MainButton
-                    onClickFunction={() => setOpenModal(true)}
-                    label={'ثبت '}
-                    disabled={formData.TimeFrames.length === 0}
-                  />
-                </div>
-              </div>
+              {
+                statusId < 5 ?
+                  <div className="col-span-2 md:col-span-6 w-full flex items-end md:justify-between">
+                    <div className="mr-[4%] md:mx-0 ml-[6%] w-[47%]">
+                      <MainButton
+                        label={'افزودن بازه جدید'}
+                        onClickFunction={handleAddTimeFrame}
+                        disabled={!currentTimeFrame.startDate || !currentTimeFrame.endDate}
+                      />
+                    </div>
+                    <div className="w-[43%]">
+                      <MainButton
+                        onClickFunction={() => {
+                          if (validateAllTimeFrames()) {
+                            setOpenModal(true);
+                          }
+                        }}
+                        label={'ثبت'}
+                        disabled={formData.TimeFrames.length === 0}
+                      />
+                    </div>
+                  </div>
+                  :
+                  null
+              }
             </>
           )}
         </div>
@@ -427,7 +483,11 @@ const AddWorkPlace = ({ id, setForms
           </p>
 
           {formData.TimeFrames.map((timeFrame, index) => (
-            <div key={index} className="rounded-[50px] bg-backBlue pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px] mb-2">
+            <div
+              key={index}
+              className={`rounded-[50px] pr-[16px] pl-[9px] py-[6px] flex items-center w-fit ml-[10px] mb-2 ${timeFrameErrors[index] ? 'bg-red-100 border border-red-300' : 'bg-backBlue'
+                }`}
+            >
               <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-2 lg:text-[12px]">
                 {timeFrame.startDate}
               </p>
@@ -435,15 +495,34 @@ const AddWorkPlace = ({ id, setForms
               <p className="text-buttonBlue text-[16px] font-IRANYekanBold ml-4 lg:text-[12px]">
                 {timeFrame.endDate}
               </p>
-              <div
-                className="w-[36px] h-[36px] lg:w-[20px] lg:h-[20px] rounded-full bg-buttonBlue flex justify-center items-center hover:cursor-pointer"
-                onClick={() => handleRemoveTimeFrame(index)}
-              >
-                <p className="font-IRANYekanBold text-[20px] text-white lg:text-[14px]">X</p>
-              </div>
+              {
+                statusId < 5 ?
+
+                  <div
+                    className="w-[36px] h-[36px] lg:w-[20px] lg:h-[20px] rounded-full bg-buttonBlue flex justify-center items-center hover:cursor-pointer"
+                    onClick={() => handleRemoveTimeFrame(index)}
+                  >
+                    <p className="font-IRANYekanBold text-[20px] text-white lg:text-[14px]">X</p>
+                  </div>
+                  :
+                  null
+              }
+              {timeFrameErrors[index] && (
+                <p className="text-redError text-[12px] font-IRANYekanMedium mr-2">
+                  {timeFrameErrors[index]}
+                </p>
+              )}
             </div>
           ))}
         </div>
+
+        {error && (
+          <div className="w-full mt-4 p-3 bg-red-100 border border-red-300 rounded">
+            <p className="text-redError text-[14px] font-IRANYekanMedium">
+              {error}
+            </p>
+          </div>
+        )}
 
         {secondStep && (
           <div className="w-full mt-[34px]">
@@ -458,7 +537,6 @@ const AddWorkPlace = ({ id, setForms
             <p className="text-[16px] text-mainBlue font-IRANYekanMedium leading-6 mt-8 mb-6">
               پس از ثبت دستمزد مشمول کسر حق بیمه به ازای هرسال، جهت محاسبه مجموع سوابق بر روی دکمه محاسبه سوابق کلیک کنید.
             </p>
-
           </div>
         )}
       </div>
@@ -470,10 +548,19 @@ const AddWorkPlace = ({ id, setForms
           modalButton={
             <div className="w-full flex justify-center">
               <div className="w-[100px] ml-4">
-                <MainButton onClickFunction={ChangeStep} label={'بله'} />
+                <MainButton
+                  onClickFunction={ChangeStep}
+                  label={loading ? 'در حال ثبت...' : 'بله'}
+                  disabled={loading}
+                />
               </div>
               <div className="w-[100px]">
-                <MainButton onClickFunction={() => setOpenModal(false)} label={'خیر'} red={true} />
+                <MainButton
+                  onClickFunction={() => setOpenModal(false)}
+                  label={'خیر'}
+                  red={true}
+                  disabled={loading}
+                />
               </div>
             </div>
           }

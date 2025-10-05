@@ -146,14 +146,14 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
 
           <div className="w-full">
             {/* <ExpertAllRecordsWithWebService id={id} /> */}
-                          <ExpertAllRecordsNoWebService id={id} admin={admin}/>
+                          <ExpertAllRecordsNoWebService id={id} admin={admin}statusId={statusId}/>
 
           </div>
 
           : expertAllRecords && !webService && !admin ?
 
             <div className="w-full">
-              <ExpertAllRecordsNoWebService id={id}admin={admin} />
+              <ExpertAllRecordsNoWebService id={id}admin={admin}statusId={statusId} />
             </div>
 
             : expertPensionAmount && statusId != 9 ?
