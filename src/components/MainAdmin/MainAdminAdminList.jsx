@@ -266,7 +266,8 @@ const MainAdminAdminList = () => {
       console.log(response)
       if (response?.status === 200 || response?.status === 204) {
         alert("موفقیت آمیز")
-        window.open(apiAsset + response.data, '_blank')
+        // window.open(apiAsset + response.data, '_blank')
+       download(response.data)
 
       }
     } catch (error) {
@@ -274,7 +275,32 @@ const MainAdminAdminList = () => {
     }
   };
 
+ const download = async (name) => {
+        try {
+            const response = await axiosReq(`Users/download/${name}`, "get", {
+                responseType: "blob", // important!
+            });
 
+            if (response.status === 200) {
+                // Create a blob from the response
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name; // you can also extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
 
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">

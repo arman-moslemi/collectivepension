@@ -161,6 +161,32 @@ setShowDeclined(false)
       setFiles([...files, file])
     }
   }
+ const download = async (name) => {
+        try {
+            const response = await axiosReq(`Users/download/${name}`, "get", {
+                responseType: "blob", // important!
+            });
+
+            if (response.status === 200) {
+                // Create a blob from the response
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name; // you can also extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
       <div className="w-full flex justify-end items-center mb-[21px]">
@@ -221,7 +247,7 @@ setShowDeclined(false)
                   files.map((item) => {
                     return (
 
-                      <div  onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue my-2 flex items-center pr-[20px] pl-[17px]">
+                      <div  onClick={() => download(item)} className="h-[36px] w-fit rounded-full bg-backBlue my-2 flex items-center pr-[20px] pl-[17px]">
                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                         <ExportAgentFileIIcon />
                       </div>

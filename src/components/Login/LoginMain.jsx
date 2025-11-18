@@ -23,7 +23,35 @@ const LoginMain = () => {
     const [guid, setGuid] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [countdown, setCountdown] = useState(5);
+    const [captchaWord, setCaptchaWord] = useState("");
+    const [reCap, setRecap] = useState(false);
+    const getCaptcha = async () => {
+        try {
+            const response = await axios.get(apiUrl + "Captcha/generate", {
+                'X-Frame-Options': 'Deny',
+                'X-Content-Type-Options': "nosniff",
+                'X-XSS-Protection': "1; mode=block",
+                "Referrer-Policy": "same-origin",
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
 
+            });
+            console.log(555)
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                console.log(response.data)
+
+                // setStatuses(response.data)
+                // setSelectedBox(true)
+                setCaptchaWord(response.data)
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getCaptcha();
+    }, [reCap]);
     let navigate = useNavigate();
 
     const handleClick = event => {
@@ -36,44 +64,48 @@ const LoginMain = () => {
         console.log(captcha)
         console.log(pass)
 
-        if (!pass || !user || captchaIn !== captcha) {
+        if (!pass || !user) {
             if (!pass) {
                 console.log(53)
                 handleClick()
                 setErPass(true)
-                captchaRef.current.initializeCaptcha()
+                setRecap(!reCap)
 
             }
             if (!user) {
                 handleClick()
                 setErUser(true)
-                captchaRef.current.initializeCaptcha()
+                setRecap(!reCap)
             }
-            if (captchaIn !== captcha) {
-                handleClick()
-                setErCaptcha(true)
-                captchaRef.current.initializeCaptcha()
-            }
+            //     if (captchaIn !== captcha) {
+            //         handleClick()
+            //         setErCaptcha(true)
+            // setRecap(!reCap)
+            //     }
         }
         else {
 
             setErPass(false)
             setErUser(false)
             console.log(pass)
-            console.log(captcha)
+            console.log(captchaIn)
+            const CapId = captchaWord.captchaId;
             // if(validateCaptcha(captcha)==false||!user || !pass){
-            if (captchaIn !== captcha || !user || !pass) {
+            if (!user || !pass) {
 
                 handleClick()
                 console.log(52)
-                captchaRef.current.initializeCaptcha()
+                setRecap(!reCap)
+
             }
             else {
                 setSnipper(true)
                 axios
                     .post(apiUrl + "Auth/Login", {
                         nationalCode: user.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-                        password: pass.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+                        password: pass.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                        CaptchaInput: captchaIn,
+                        CaptchaId: CapId
                     })
                     .then(function (response) {
                         console.log(123456)
@@ -139,7 +171,7 @@ const LoginMain = () => {
                         else {
                             handleClick()
                             setSnipper(false)
-                            captchaRef.current.initializeCaptcha()
+                            setRecap(!reCap)
 
                         }
                     })
@@ -148,7 +180,7 @@ const LoginMain = () => {
                         handleClick()
                         // setErPass(true)
                         setSnipper(false)
-                        captchaRef.current.initializeCaptcha()
+                        setRecap(!reCap)
 
                     });
 
@@ -197,14 +229,21 @@ const LoginMain = () => {
                                 if (/[A-Z]/.test(event.key)) {
                                     event.preventDefault();
                                 }
-                                if (/[۱-۹]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
-                            }}type="" label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
-                            <div className="flex mr-2 mb-2">
-                                <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
+                               
+                            }} type="" label={<div className='flex items-center'><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
+                            <div className="flex mr-1 mb-[-7px] h-[48px] w-[230px] items-end">
+                                {/* <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
                                     persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" />
-                                <button onClick={() => captchaRef.current.initializeCaptcha()} className="mr-2">
+                               */}
+                                <img
+                                    src={`data:image/png;base64,${captchaWord?.imageData}`}
+                                    alt="Base64"
+                                // style={{ width: "200px", height: "auto" }}
+                                />
+                                <button
+                                    //  onClick={() => captchaRef.current.initializeCaptcha()} 
+                                    onClick={() => setRecap(!reCap)}
+                                    className="mr-1 mb-3">
                                     <Reload />
                                 </button>
                             </div>

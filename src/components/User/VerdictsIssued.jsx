@@ -26,33 +26,6 @@ const cityList = [
 
 const titleRow = ["ردیف", "نام صندوق", "دانلود حکم"];
 
-const list = [
-  {
-    item1: "1",
-    item2: "بازنشستگی کشوری",
-    item3: <div onClick={() => window.location.href = "../../SingleRetriment.html"} className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon /></div>,
-
-  },
-  {
-    item1: "2",
-    item2: "صندوق بیمه اجتماعی کشاورزان، روستاییان و عشایر",
-    item3: <div className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon /></div>,
-
-  },
-  {
-    item1: "3",
-    item2: "صندوق تامین اجتماعی",
-    item3: <div className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon /></div>,
-
-  },
-  {
-    item1: "4",
-    item2: "حکم مستمری جمع",
-    item3: <div className='w-[38px] h-[38px] rounded-full bg-backBlue mx-auto flex justify-center items-center'><DownloadIcon /></div>,
-
-  },
-
-];
 
 
 const VerdictsIssued = () => {

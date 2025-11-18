@@ -15,7 +15,35 @@ const ForgetpasswordMain = () => {
     const [check, setCheck] = useState(false);
     const captchaRef = useRef();
     const navigate = useNavigate();
+   const [captchaWord, setCaptchaWord] = useState("");
+    const [reCap, setRecap] = useState(false);
+    const getCaptcha = async () => {
+        try {
+            const response = await axios.get(apiUrl + "Captcha/generate", {
+                'X-Frame-Options': 'Deny',
+                'X-Content-Type-Options': "nosniff",
+                'X-XSS-Protection': "1; mode=block",
+                "Referrer-Policy": "same-origin",
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
 
+            });
+            console.log(555)
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                console.log(response.data)
+
+                // setStatuses(response.data)
+                // setSelectedBox(true)
+                setCaptchaWord(response.data)
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getCaptcha();
+    }, [reCap]);
     // Validation Schema
     const validationSchema = Yup.object().shape({
         nationalCode: Yup.string()
@@ -37,14 +65,16 @@ const ForgetpasswordMain = () => {
 
         console.log('Form values:', values);
 
-        var hash = crypto.SHA512(captcha).toString()
+        // var hash = crypto.SHA512(captcha).toString()
+        const CapId = captchaWord.captchaId;
 
         var updateOrg = await axios.post(apiUrl + "Auth/ForgetPassword", {
             NationalCode: values.nationalCode,
-            Cap: captcha
+                        CaptchaInput: captcha,
+                        CaptchaId: CapId
         }, {
             headers: {
-                Authorization: `Bearer ${hash}`,
+                // Authorization: `Bearer ${hash}`,
                 'X-Frame-Options': 'Deny',
                 'X-Content-Type-Options': "nosniff",
                 'X-XSS-Protection': "1; mode=block",
@@ -66,6 +96,7 @@ const ForgetpasswordMain = () => {
             });
         }
         else {
+            setRecap(!reCap)
             alert(updateOrg.data)
         }
 
@@ -115,14 +146,17 @@ const ForgetpasswordMain = () => {
                                 if (/[A-Z]/.test(event.key)) {
                                     event.preventDefault();
                                 }
-                                if (/[۱-۹]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
+                               
                             }}
                                         ><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
-                                        <div className="flex mr-2 mb-2">
-                                            <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
-                                                persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" />
+                                        <div className="flex mr-1  h-[48px] w-[230px] items-end ">
+                                            {/* <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
+                                                persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" /> */}
+                                                 <img
+                                            src={`data:image/png;base64,${captchaWord?.imageData}`}
+                                            alt="Base64"
+                                        // style={{ width: "200px", height: "auto" }}
+                                        />
                                             <button onClick={() => captchaRef.current.initializeCaptcha()} className="mr-2">
                                                 <Reload />
                                             </button>

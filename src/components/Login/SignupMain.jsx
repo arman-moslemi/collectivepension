@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -51,20 +51,50 @@ const SignupMain = () => {
         deceasedBirthDate: '',
 
     };
+    const [captchaWord, setCaptchaWord] = useState("");
+    const [reCap, setRecap] = useState(false);
+    const getCaptcha = async () => {
+        try {
+            const response = await axios.get(apiUrl + "Captcha/generate", {
+                'X-Frame-Options': 'Deny',
+                'X-Content-Type-Options': "nosniff",
+                'X-XSS-Protection': "1; mode=block",
+                "Referrer-Policy": "same-origin",
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+
+            });
+            console.log(555)
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                console.log(response.data)
+
+                // setStatuses(response.data)
+                // setSelectedBox(true)
+                setCaptchaWord(response.data)
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+    useEffect(() => {
+        getCaptcha();
+    }, [reCap]);
 
     // Submit Handler
     const handleSubmit = async (values, { setSubmitting }) => {
         console.log('Form values:', values);
-      
-        var hash = crypto.SHA512(captcha).toString()
+
+        const CapId = captchaWord.captchaId;
 
         var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
             NationalCode: values.nationalCode,
             Mobile: values.phoneNumber,
-            Cap: captcha
+            Cap: captcha,
+            CapId: CapId
         }, {
             headers: {
-                Authorization: `Bearer ${hash}`,
+                // Authorization: `Bearer ${hash}`,
                 'X-Frame-Options': 'Deny',
                 'X-Content-Type-Options': "nosniff",
                 'X-XSS-Protection': "1; mode=block",
@@ -90,6 +120,7 @@ const SignupMain = () => {
             });
         }
         else {
+            setRecap(!reCap)
             alert(updateOrg.data)
         }
 
@@ -202,30 +233,23 @@ const SignupMain = () => {
                                             if (/[A-Z]/.test(event.key)) {
                                                 event.preventDefault();
                                             }
-                                            if (/[۱-۹]/.test(event.key)) {
-                                                event.preventDefault();
-                                            }
+                                           
                                         }}
                                         value={values.captcha}
                                         onChange={(e) => setFieldValue('captcha', e.target.value)}
                                         error={touched.captcha && errors.captcha}
                                         errorText={errors.captcha}
                                     />
-                                    <div className={`flex  mr-2 ${touched.captcha && errors.captcha ? "mb-[22px]" : "mb-2"}`}>
-                                        <Captcha
-                                            className="flex"
-                                            setWord={setCaptcha}
-                                            ref={captchaRef}
-                                            reloadText=""
-                                            persianChars={true}
-                                            fontFamily={"IRANSans"}
-                                            backgroundColor={"#0a2867"}
-                                            fontColor="#fff"
-                                            border="1px solid #000"
+                                    <div className={`flex mr-1  h-[48px] w-[230px] items-end ${touched.captcha && errors.captcha ? "mb-[22px]" : "mb-2"}`}>
+
+                                        <img
+                                            src={`data:image/png;base64,${captchaWord?.imageData}`}
+                                            alt="Base64"
+                                        // style={{ width: "200px", height: "auto" }}
                                         />
                                         <button
                                             type="button"
-                                            onClick={() => captchaRef.current.initializeCaptcha()}
+                                            onClick={() => setRecap(!reCap)}
                                             className="mr-2"
                                         >
                                             <Reload />

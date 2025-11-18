@@ -14,7 +14,7 @@ const RecordProtestDetail = ({ role }) => {
     const isAdmin = role === roles.mainAdmin;
     const isExpert = role === roles.expert;
     const titleRow = ["نوع", "سال", "ماه", "بازه بیمه پردازی", "تعداد روز", "وضعیت", "عملیات"];
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [showAcceptedContent,
         setShowAcceptedContent] = useState(false);
@@ -31,15 +31,15 @@ const RecordProtestDetail = ({ role }) => {
     const handleAccept = () => {
 
         if (showDeclineContent === true) {
-                    disApprove()
+            disApprove()
 
             setShowAcceptedContent(false)
             setShowModal(false)
         } else if (showAcceptedContent) {
             updateTimeFrame()
-         
 
-        } 
+
+        }
         else {
             setShowAcceptedContent(true)
         }
@@ -165,17 +165,17 @@ const RecordProtestDetail = ({ role }) => {
                 // TimeFrameIds: times,
                 // UpdateTimeFrames: record,
                 // TimeFrameProtestId:'',
-                UserInsuranceMonthId:userInsuId,
-Duration:records,
-                ProtestId:id
+                UserInsuranceMonthId: userInsuId,
+                Duration: records,
+                ProtestId: id
             });
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
                 var prot = []
                 alert("با موفقیت انجام شد")
-                   setShowModal(false)
-            setShowAcceptedContent(false)
+                setShowModal(false)
+                setShowAcceptedContent(false)
             }
 
         } catch (error) {
@@ -205,6 +205,33 @@ Duration:records,
         } catch (err) {
             console.error("Error fetching form data:", err);
         } finally {
+        }
+    };
+
+    const download = async (name) => {
+        try {
+            const response = await axiosReq(`Users/download/${name}`, "get", {
+                responseType: "blob", // important!
+            });
+
+            if (response.status === 200) {
+                // Create a blob from the response
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name; // you can also extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading file:", error);
         }
     };
     return (<>
@@ -265,7 +292,7 @@ Duration:records,
 
         </span>
             <div className='w-full my-7 '>
-                <ViewProtestTable titleRow={titleRow} data={data} expert={true} setShowModal={setShowModal} setTimeFrames={setTimeFrames} setUserInsuId={setUserInsuId}/>
+                <ViewProtestTable titleRow={titleRow} data={data} expert={true} setShowModal={setShowModal} setTimeFrames={setTimeFrames} setUserInsuId={setUserInsuId} />
 
                 {/* <table className="min-w-full table-auto text-right">
       <thead>
@@ -338,7 +365,8 @@ Duration:records,
                                 maindata?.fileName?.map((item) => {
                                     return (
 
-                                        <div onClick={() => window.open(apiAsset + item, '_blank')}
+                                        // <div onClick={() => window.open(apiAsset + item, '_blank')}
+                                        <div onClick={() => download(item)}
                                             className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
                                             <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
                                             <div
@@ -358,7 +386,7 @@ Duration:records,
                                     <div className="w-full">
                                         <MainInput
                                             longText={true}
-                                            onChange={(e)=>setReason(e.target.value)}
+                                            onChange={(e) => setReason(e.target.value)}
                                             label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'}
                                             holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'} />
                                         <div className='w-full flex items-center my-4'>

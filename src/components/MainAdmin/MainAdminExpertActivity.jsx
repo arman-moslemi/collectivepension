@@ -98,7 +98,7 @@ const MainAdminExpertActivity = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
-                window.open(apiAsset + response.data, '_blank')
+                download(response.data)
 
             }
 
@@ -106,7 +106,32 @@ const MainAdminExpertActivity = () => {
             console.error("Error fetching data:", error);
         }
     };
+    const download = async (name) => {
+        try {
+            const response = await axiosReq(`Users/download/${name}`, "get", {
+                responseType: "blob", // important!
+            });
 
+            if (response.status === 200) {
+                // Create a blob from the response
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name; // you can also extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
     const handleInsuranceReport = async (id) => {
         try {
             const response = await axiosReq("SuperAdmins/GetRequestsTypesCountByInsuranceIdExcel", "get", {
@@ -114,7 +139,7 @@ const MainAdminExpertActivity = () => {
             });
             setReportResponse(response.data);
             if (response?.status === 200) {
-                 alert("موفقیت آمیز")
+                alert("موفقیت آمیز")
                 window.open(apiAsset + response.data, '_blank')
 
                 // getProtests();

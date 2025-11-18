@@ -58,6 +58,32 @@ const ViewProtest = () => {
     useEffect(() => {
         getProtests();
     }, []);
+     const download = async (name) => {
+            try {
+                const response = await axiosReq(`Users/download/${name}`, "get", {
+                    responseType: "blob", // important!
+                });
+    
+                if (response.status === 200) {
+                    // Create a blob from the response
+                    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                    const url = window.URL.createObjectURL(blob);
+    
+                    // Create a temporary link element
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = name; // you can also extract filename from headers if needed
+                    document.body.appendChild(a);
+                    a.click();
+    
+                    // Cleanup
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                }
+            } catch (error) {
+                console.error("Error downloading file:", error);
+            }
+        };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white">
             <div className='w-full p-[24px] border-b-[1px] flex-wrap border-borderGray flex justify-between items-center'>
@@ -107,7 +133,7 @@ const ViewProtest = () => {
 
                     {maindata?.responseFiles.map((item) => {
                         return (
-                            <div onClick={() => window.open(apiAsset + item, '_blank')} className='w-fit mx-3 h-[28px] bg-tableGray 
+                            <div onClick={() => download(item)} className='w-fit mx-3 h-[28px] bg-tableGray 
                             rounded-[50px] flex items-center pl-1 pr-[11px] cursor-pointer'>
                                 <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
                                 <div className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon /></div>
