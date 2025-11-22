@@ -90,8 +90,8 @@ const SignupMain = () => {
         var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
             NationalCode: values.nationalCode,
             Mobile: values.phoneNumber,
-            Cap: captcha,
-            CapId: CapId
+         CaptchaInput: values.captcha,
+                        CaptchaId: CapId
         }, {
             headers: {
                 // Authorization: `Bearer ${hash}`,

@@ -70,7 +70,7 @@ const ForgetpasswordMain = () => {
 
         var updateOrg = await axios.post(apiUrl + "Auth/ForgetPassword", {
             NationalCode: values.nationalCode,
-                        CaptchaInput: captcha,
+                        CaptchaInput: values.captcha,
                         CaptchaId: CapId
         }, {
             headers: {
@@ -157,7 +157,7 @@ const ForgetpasswordMain = () => {
                                             alt="Base64"
                                         // style={{ width: "200px", height: "auto" }}
                                         />
-                                            <button onClick={() => captchaRef.current.initializeCaptcha()} className="mr-2">
+                                            <button onClick={() => setRecap(!reCap)} className="mr-2">
                                                 <Reload />
                                             </button>
                                         </div>
