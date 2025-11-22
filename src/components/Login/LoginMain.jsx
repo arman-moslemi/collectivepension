@@ -113,14 +113,29 @@ const LoginMain = () => {
 
                         if (response.request.status == 200) {
                             const cookies = new Cookies();
-                            cookies.set('token', response.data.token, { path: '/' })
+                            cookies.set('token', response.data.token, { path: '/',
+                                   httpOnly:true,
+                                    secure:true,
+                                    sameSite:"Strict", })
 
                             // console.log(response.data.token)
                             setSnipper(false)
                             if (response.data.role == "User") {
-                                cookies.set('Role', response.data.role, { path: '/' })
-                                cookies.set('Name', response.data.name + " " + response.data.family, { path: '/' })
-                                cookies.set('Status', response.data.userStatusId, { path: '/' })
+                                cookies.set('Role', response.data.role, { path: '/',
+                                        httpOnly:true,
+                                    secure:true,
+                                    sameSite:"Strict",
+                                    
+                                }
+                            )
+                                cookies.set('Name', response.data.name + " " + response.data.family, { path: '/' ,
+                                        httpOnly:true,
+                                    secure:true,
+                                    sameSite:"Strict",})
+                                cookies.set('Status', response.data.userStatusId, { path: '/',
+                                        httpOnly:true,
+                                    secure:true,
+                                    sameSite:"Strict", })
                                 let status = response.data.userStatusId;
                                 if (status == 1) {
 

@@ -7,6 +7,7 @@ import TableRightIcon from "../../assets/icon/general/TableRightIcon";
 import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
+import Cookies from "universal-cookie";
 
 
 const titleRow = ["ردیف", "نام صندوق", "مبلغ اعلام شده", "تعداد روز"];
@@ -141,7 +142,10 @@ const ExpertPensionAmountInput = ({ another, id,admin }) => {
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
-                window.location.href="../../SingleRetriment.html?user="+response.data;
+                            const cookies = new Cookies();
+                                                        cookies.set('user', response.data, { path: '/' })
+
+                window.location.href="../../SingleRetriment.html";
             }
 
         } catch (error) {

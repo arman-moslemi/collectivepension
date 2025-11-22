@@ -79,7 +79,7 @@ const ChangePasswordMain = () => {
 
         var updateOrg = await axios.post(apiUrl + "Auth/NewPassword", {
             NewPassword: values.password,
-            NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+            Username: state?.Username?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
             CaptchaInput: values.captcha,
             CaptchaId: CapId
         }, {
