@@ -75,36 +75,46 @@ const ChangePasswordMain = () => {
         console.log(state)
         // var hash = crypto.SHA512(state?.Cap).toString()
         const CapId = captchaWord.captchaId;
-                        const cookies = new Cookies();
+        const cookies = new Cookies();
+        try {
 
-        var updateOrg = await axios.post(apiUrl + "Auth/NewPassword", {
-            NewPassword: values.password,
-            Username: state?.Username?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-            CaptchaInput: values.captcha,
-            CaptchaId: CapId
-        }, {
-            headers: {
-                Authorization: `Bearer ${cookies.get('token')}`,
-                'X-Frame-Options': 'Deny',
-                'X-Content-Type-Options': "nosniff",
-                'X-XSS-Protection': "1; mode=block",
-                "Referrer-Policy": "same-origin",
-                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+
+            var updateOrg = await axios.post(apiUrl + "Auth/NewPassword", {
+                NewPassword: values.password,
+                NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                CaptchaInput: values.captcha,
+                CaptchaId: CapId
+            }, {
+                headers: {
+                    Authorization: `Bearer ${cookies.get('token')}`,
+                    'X-Frame-Options': 'Deny',
+                    'X-Content-Type-Options': "nosniff",
+                    'X-XSS-Protection': "1; mode=block",
+                    "Referrer-Policy": "same-origin",
+                    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+                }
+            });
+            console.log(updateOrg)
+            if (updateOrg?.status == 200 || updateOrg?.status == 204) {
+
+                setSubmitting(false);
+                // navigate("/user/startRequest");
+                alert("رمز با موفقیت تغییر کرد.")
+                navigate("/login")
             }
-        });
-        console.log(updateOrg)
-        if (updateOrg?.status == 200 || updateOrg?.status == 204) {
+            else {
+                alert(updateOrg.data)
+            }
 
-            setSubmitting(false);
-            // navigate("/user/startRequest");
-            alert("رمز با موفقیت تغییر کرد.")
-            navigate("/login")
+        } catch (error) {
+            if (error?.response) {
+                console.log(55)
+                console.log(error?.response)
+
+                alert(error?.response?.data)
+                setRecap(!reCap)
+            }
         }
-        else {
-            alert(updateOrg.data)
-        }
-
-
 
     };
 
@@ -152,11 +162,11 @@ const ChangePasswordMain = () => {
                                 </div>
 
                                 <div className='mt-[30px] flex items-end'>
-                                    <MainInput label={<div className='flex items-center'
+                                    <MainInput 
+                                         onChange={(e) => setFieldValue('captcha', e.target.value)}
+                                    label={<div className='flex items-center'
                                         max={4} onKeyPress={(event) => {
-                                            if (/[0-9]/.test(event.key)) {
-                                                event.preventDefault();
-                                            }
+                                          
                                             if (/[a-z]/.test(event.key)) {
                                                 event.preventDefault();
                                             }

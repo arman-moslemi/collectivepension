@@ -131,43 +131,55 @@ const VerifyForget = ({ forgetpassword }) => {
             console.log(state)
             console.log(state?.allValues)
             const CapId = captchaWord.captchaId;
+            try {
+                axios
+                    .post(apiUrl + "Auth/VerifyForget", {
+                        NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                        Code: code,
+                        CaptchaInput: captchaIn,
+                        CaptchaId: CapId
 
-            axios
-                .post(apiUrl + "Auth/VerifyForget", {
-                    NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-                    Code: code,
-                    CaptchaInput: captchaIn,
-                    CaptchaId: CapId
-
-                }, {
-                    headers: {
-                        'X-Frame-Options': 'Deny',
-                        'X-Content-Type-Options': "nosniff",
-                        'X-XSS-Protection': "1; mode=block",
-                        "Referrer-Policy": "same-origin",
-                        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
-                    }
-                })
-                .then(function (response2) {
-                    console.log("verify")
-                    console.log(response2)
-                    console.log(response2?.data)
-
-                    if (response2.status == 200) {
-                        // alert("ثبت نام با موفقیت انجام شد")
-                        const cookies = new Cookies();
-                        cookies.set('token', response2.data?.token, { path: '/' })
-                        cookies.set('Role', response2.data?.role, { path: '/' })
-
-                        navigate("/changePassword", { state: { Cap: state?.Cap, NationalCode: state?.NationalCode } })
-                    }
-                    else {
+                    }, {
+                        headers: {
+                            'X-Frame-Options': 'Deny',
+                            'X-Content-Type-Options': "nosniff",
+                            'X-XSS-Protection': "1; mode=block",
+                            "Referrer-Policy": "same-origin",
+                            "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+                        }
+                    })
+                    .then(function (response2) {
+                        console.log("verify")
+                        console.log(response2)
                         console.log(response2?.data)
-                        alert(response2?.data)
-                        setRecap(!reCap)
 
-                    }
-                })
+                        if (response2.status == 200) {
+                            // alert("ثبت نام با موفقیت انجام شد")
+                            const cookies = new Cookies();
+                            cookies.set('token', response2.data, { path: '/' })
+                            // cookies.set('Role', response2.data?.role, { path: '/' })
+
+                            navigate("/changePassword", { state: { Cap: state?.Cap, NationalCode: state?.NationalCode } })
+                        }
+                        else {
+                            console.log(response2?.data)
+                            alert(response2?.data)
+                            setRecap(!reCap)
+
+                        }
+                    })
+            } catch (error) {
+
+                if (error?.response) {
+                    console.log(55)
+                    console.log(error?.response)
+
+                    alert(error?.response?.data)
+                    setRecap(!reCap)
+                }
+
+            }
+
         }
 
 
@@ -237,9 +249,7 @@ const VerifyForget = ({ forgetpassword }) => {
                         <div className=' flex items-end'>
                             <div className='w-full'>
                                 <MainInput onChange={(e) => setCaptchaIn(e.target.value)} max={4} onKeyPress={(event) => {
-                                    if (/[0-9]/.test(event.key)) {
-                                        event.preventDefault();
-                                    }
+                                  
                                     if (/[a-z]/.test(event.key)) {
                                         event.preventDefault();
                                     }

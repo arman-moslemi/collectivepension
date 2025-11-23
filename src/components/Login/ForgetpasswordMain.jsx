@@ -15,7 +15,7 @@ const ForgetpasswordMain = () => {
     const [check, setCheck] = useState(false);
     const captchaRef = useRef();
     const navigate = useNavigate();
-   const [captchaWord, setCaptchaWord] = useState("");
+    const [captchaWord, setCaptchaWord] = useState("");
     const [reCap, setRecap] = useState(false);
     const getCaptcha = async () => {
         try {
@@ -48,15 +48,16 @@ const ForgetpasswordMain = () => {
     const validationSchema = Yup.object().shape({
         nationalCode: Yup.string()
             .required('کدملی الزامی است')
-            .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد'),
+        // .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد'),
 
-});
+    });
 
     // Initial Values
     const initialValues = {
-        nationalCode: ''
-      
-    
+        nationalCode: '',
+        captcha: ''
+
+
 
     };
 
@@ -67,38 +68,49 @@ const ForgetpasswordMain = () => {
 
         // var hash = crypto.SHA512(captcha).toString()
         const CapId = captchaWord.captchaId;
-
-        var updateOrg = await axios.post(apiUrl + "Auth/ForgetPassword", {
-            NationalCode: values.nationalCode,
-                        CaptchaInput: values.captcha,
-                        CaptchaId: CapId
-        }, {
-            headers: {
-                // Authorization: `Bearer ${hash}`,
-                'X-Frame-Options': 'Deny',
-                'X-Content-Type-Options': "nosniff",
-                'X-XSS-Protection': "1; mode=block",
-                "Referrer-Policy": "same-origin",
-                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
-            }
-        });
-        console.log(updateOrg)
-        if (updateOrg?.status == 200 || updateOrg?.status == 204) {
-
-            setSubmitting(false);
-            // navigate("/user/startRequest");
-            navigate("/verifyForget", {
-                state: {
-                    NationalCode: values.nationalCode,
-                    Cap: captcha,
-               
+        try {
+            var updateOrg = await axios?.post(apiUrl + "Auth/ForgetPassword", {
+                NationalCode: values.nationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                CaptchaInput: values.captcha,
+                CaptchaId: CapId
+            }, {
+                headers: {
+                    // Authorization: `Bearer ${hash}`,
+                    'X-Frame-Options': 'Deny',
+                    'X-Content-Type-Options': "nosniff",
+                    'X-XSS-Protection': "1; mode=block",
+                    "Referrer-Policy": "same-origin",
+                    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
                 }
             });
+            if (updateOrg?.status == 200 || updateOrg?.status == 204) {
+
+                setSubmitting(false);
+                // navigate("/user/startRequest");
+                navigate("/verifyForget", {
+                    state: {
+                        NationalCode: values.nationalCode,
+                        Cap: captcha,
+
+                    }
+                });
+            }
+            else {
+                console.log(55)
+
+                alert(updateOrg?.response?.data)
+                setRecap(!reCap)
+            }
+        } catch (error) {
+            if (error?.response) {
+                console.log(55)
+                console.log(error?.response)
+
+                alert(error?.response?.data)
+                setRecap(!reCap)
+            }
         }
-        else {
-            setRecap(!reCap)
-            alert(updateOrg.data)
-        }
+
 
 
 
@@ -135,28 +147,29 @@ const ForgetpasswordMain = () => {
                                         />                        </div>
 
                                     <div className='mt-[30px] flex items-end'>
-                                        <MainInput label={<div className='flex items-center'
-                                        max={4} onKeyPress={(event) => {
-                                if (/[0-9]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
-                                if (/[a-z]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
-                                if (/[A-Z]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
-                               
-                            }}
-                                        ><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
+                                        <MainInput
+                                            onChange={(e) => setFieldValue('captcha', e.target.value)}
+
+                                            label={<div className='flex items-center'
+                                                max={4} onKeyPress={(event) => {
+                                                
+                                                    if (/[a-z]/.test(event.key)) {
+                                                        event.preventDefault();
+                                                    }
+                                                    if (/[A-Z]/.test(event.key)) {
+                                                        event.preventDefault();
+                                                    }
+
+                                                }}
+                                            ><p className='font-IRANYekanBold text-mainBlue text-[16px] u390:text-[12px]'>کد امنیتی</p><p className='font-IRANYekanBold text-mainBlue text-[10px] mr-[6px]'>(بدون فاصله وارد کنید)</p></div>} />
                                         <div className="flex mr-1  h-[48px] w-[230px] items-end ">
                                             {/* <Captcha className="flex " setWord={setCaptcha} ref={captchaRef} reloadText=""
                                                 persianChars={true} fontFamily={"IRANSans"} backgroundColor={"#0a2867"} fontColor="#fff" border="1px solid #000" /> */}
-                                                 <img
-                                            src={`data:image/png;base64,${captchaWord?.imageData}`}
-                                            alt="Base64"
-                                        // style={{ width: "200px", height: "auto" }}
-                                        />
+                                            <img
+                                                src={`data:image/png;base64,${captchaWord?.imageData}`}
+                                                alt="Base64"
+                                            // style={{ width: "200px", height: "auto" }}
+                                            />
                                             <button onClick={() => setRecap(!reCap)} className="mr-2">
                                                 <Reload />
                                             </button>

@@ -114,7 +114,7 @@ const LoginMain = () => {
                         if (response.request.status == 200) {
                             const cookies = new Cookies();
                             cookies.set('token', response.data.token, { path: '/',
-                                   httpOnly:true,
+                                //    httpOnly:true,
                                     secure:true,
                                     sameSite:"Strict", })
 
@@ -122,18 +122,18 @@ const LoginMain = () => {
                             setSnipper(false)
                             if (response.data.role == "User") {
                                 cookies.set('Role', response.data.role, { path: '/',
-                                        httpOnly:true,
+                                        // httpOnly:true,
                                     secure:true,
                                     sameSite:"Strict",
                                     
                                 }
                             )
                                 cookies.set('Name', response.data.name + " " + response.data.family, { path: '/' ,
-                                        httpOnly:true,
+                                        // httpOnly:true,
                                     secure:true,
                                     sameSite:"Strict",})
                                 cookies.set('Status', response.data.userStatusId, { path: '/',
-                                        httpOnly:true,
+                                        // httpOnly:true,
                                     secure:true,
                                     sameSite:"Strict", })
                                 let status = response.data.userStatusId;
@@ -235,9 +235,7 @@ const LoginMain = () => {
                         </div>
                         <div className='mt-[30px] flex items-end'>
                             <MainInput onChange={(e) => setCaptchaIn(e.target.value)} max={4} onKeyPress={(event) => {
-                                if (/[0-9]/.test(event.key)) {
-                                    event.preventDefault();
-                                }
+                               
                                 if (/[a-z]/.test(event.key)) {
                                     event.preventDefault();
                                 }
