@@ -1,11 +1,37 @@
 import { MainInput } from "..";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
+import { axiosReq } from "../../commons/axiosReq";
 import { apiAsset } from "../../commons/inFormTypes";
 
 
 
 const ExpertAgentForm = ({ formData }) => {
-
+ const download = async (name) => {
+                      try {
+                          const response = await axiosReq(`Users/download/${name}`, "get", {
+                              responseType: "blob", // important!
+                          });
+              
+                          if (response.status === 200) {
+                              // Create a blob from the response
+                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                              const url = window.URL.createObjectURL(blob);
+              
+                              // Create a temporary link element
+                              const a = document.createElement('a');
+                              a.href = url;
+                              a.download = name; // you can also extract filename from headers if needed
+                              document.body.appendChild(a);
+                              a.click();
+              
+                              // Cleanup
+                              a.remove();
+                              window.URL.revokeObjectURL(url);
+                          }
+                      } catch (error) {
+                          console.error("Error downloading file:", error);
+                      }
+                  };
     return (
         <div className="w-full grid grid-cols-3 gap-4">
             <div className="col-span-1 md:col-span-3">
@@ -45,7 +71,7 @@ const ExpertAgentForm = ({ formData }) => {
                     formData?.inheritanceDoc?.map((item) => {
                         return (
 
-                            <div onClick={() => window.open(apiAsset + item, '_blank')}  className="h-[48px] w-fit lg:w-max rounded-full bg-backBlue
+                            <div onClick={() => download(item)}  className="h-[48px] w-fit lg:w-max rounded-full bg-backBlue
                             flex items-center pr-[20px] pl-[17px] mx-3 cursor-pointer">
                                 <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px]">{item}</p>
                                 <ExportAgentFileIIcon />

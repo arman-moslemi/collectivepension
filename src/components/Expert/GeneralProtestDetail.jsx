@@ -78,6 +78,32 @@ const GeneralProtestDetail = ({ role,id }) => {
                 } finally {
                 }
             };
+              const download = async (name) => {
+                      try {
+                          const response = await axiosReq(`Users/download/${name}`, "get", {
+                              responseType: "blob", // important!
+                          });
+              
+                          if (response.status === 200) {
+                              // Create a blob from the response
+                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                              const url = window.URL.createObjectURL(blob);
+              
+                              // Create a temporary link element
+                              const a = document.createElement('a');
+                              a.href = url;
+                              a.download = name; // you can also extract filename from headers if needed
+                              document.body.appendChild(a);
+                              a.click();
+              
+                              // Cleanup
+                              a.remove();
+                              window.URL.revokeObjectURL(url);
+                          }
+                      } catch (error) {
+                          console.error("Error downloading file:", error);
+                      }
+                  };
     return (<>
      <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
             <div className="col-span-1 md:col-span-2">
@@ -147,7 +173,7 @@ const GeneralProtestDetail = ({ role,id }) => {
                                 maindata?.fileName?.map((item) => {
                                     return (
 
-                                        <div onClick={() => window.open(apiAsset + item, '_blank')}
+                                        <div onClick={() => download(item)}
                                             className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
                                             <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
                                             <div
@@ -185,7 +211,7 @@ const GeneralProtestDetail = ({ role,id }) => {
                                             files.map((item) => {
                                                 return (
 
-                                                    <div onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                                    <div onClick={() => download(item)}  className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
                                                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                                         <ExportAgentFileIIcon />
                                                     </div>

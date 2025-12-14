@@ -96,6 +96,33 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
     if (error) {
         return <div className="w-full flex justify-center py-10 text-redError font-IRANYekanBold">{error}</div>;
     }
+
+      const download = async (name) => {
+                      try {
+                          const response = await axiosReq(`Users/download/${name}`, "get", {
+                              responseType: "blob", // important!
+                          });
+              
+                          if (response.status === 200) {
+                              // Create a blob from the response
+                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                              const url = window.URL.createObjectURL(blob);
+              
+                              // Create a temporary link element
+                              const a = document.createElement('a');
+                              a.href = url;
+                              a.download = name; // you can also extract filename from headers if needed
+                              document.body.appendChild(a);
+                              a.click();
+              
+                              // Cleanup
+                              a.remove();
+                              window.URL.revokeObjectURL(url);
+                          }
+                      } catch (error) {
+                          console.error("Error downloading file:", error);
+                      }
+                  };
     return (
         <div className="w-full py-4 px-[70px] lg:px-0">
             {des && !admin ?
@@ -134,7 +161,7 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
                                             files.map((item) => {
                                                 return (
 
-                                                    <div onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                                    <div onClick={() => download(item)}  className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
                                                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                                         <ExportAgentFileIIcon />
                                                     </div>

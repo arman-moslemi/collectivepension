@@ -140,8 +140,8 @@ const MainAdminExpertActivity = () => {
             setReportResponse(response.data);
             if (response?.status === 200) {
                 alert("موفقیت آمیز")
-                window.open(apiAsset + response.data, '_blank')
-
+               // window.open(apiAsset + response.data, '_blank')
+download(response.data)
                 // getProtests();
             }
         } catch (error) {

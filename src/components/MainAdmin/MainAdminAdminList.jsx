@@ -266,7 +266,6 @@ const MainAdminAdminList = () => {
       console.log(response)
       if (response?.status === 200 || response?.status === 204) {
         alert("موفقیت آمیز")
-        // window.open(apiAsset + response.data, '_blank')
        download(response.data)
 
       }

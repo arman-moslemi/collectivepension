@@ -365,7 +365,6 @@ const RecordProtestDetail = ({ role }) => {
                                 maindata?.fileName?.map((item) => {
                                     return (
 
-                                        // <div onClick={() => window.open(apiAsset + item, '_blank')}
                                         <div onClick={() => download(item)}
                                             className='w-fit h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px] hover:cursor-pointer'>
                                             <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
@@ -397,7 +396,7 @@ const RecordProtestDetail = ({ role }) => {
                                             files.map((item) => {
                                                 return (
 
-                                                    <div onClick={() => window.open(apiAsset + item, '_blank')} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                                    <div onClick={() => download(item)} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
                                                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                                         <ExportAgentFileIIcon />
                                                     </div>

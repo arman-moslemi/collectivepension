@@ -58,6 +58,7 @@ const ViewProtest = () => {
     useEffect(() => {
         getProtests();
     }, []);
+    
      const download = async (name) => {
             try {
                 const response = await axiosReq(`Users/download/${name}`, "get", {
@@ -116,7 +117,7 @@ const ViewProtest = () => {
 
                     {maindata?.fileName.map((item) => {
                         return (
-                            <div onClick={() => window.open(apiAsset + item, '_blank')} className='w-fit mx-3 h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px]'>
+                            <div onClick={() => download(item)} className='w-fit mx-3 h-[28px] bg-tableGray rounded-[50px] flex items-center pl-1 pr-[11px]'>
                                 <p className='font-IRANYekanMedium text-[15px] text-white'>{item}</p>
                                 <div className='w-[20px] h-[20px] rounded-full bg-mainBlue flex justify-center items-center mr-[22px]'><ViewFileIcon /></div>
                             </div>

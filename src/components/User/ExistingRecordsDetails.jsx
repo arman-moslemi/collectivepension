@@ -81,6 +81,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
   const [file, setFile] = useState();
   const [files, setFiles] = useState([]);
   const [des, setDes] = useState();
+ 
   const getInsurancesMonth = async () => {
     try {
       console.log('month')
