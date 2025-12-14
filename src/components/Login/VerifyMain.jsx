@@ -19,11 +19,11 @@ const VerifyMain = ({ forgetpassword }) => {
     const [erPass, setErPass] = useState(false)
     const [k, setK] = useState(false);
     const [onsms, setOnSms] = useState(false);
-      const [captchaWord, setCaptchaWord] = useState("");
+    const [captchaWord, setCaptchaWord] = useState("");
     const [reCap, setRecap] = useState(false);
-        const [captcha, setCaptcha] = useState('');
-            const [captchaIn, setCaptchaIn] = useState();
-    
+    const [captcha, setCaptcha] = useState('');
+    const [captchaIn, setCaptchaIn] = useState();
+
     const getCaptcha = async () => {
         try {
             const response = await axios.get(apiUrl + "Captcha/generate", {
@@ -76,14 +76,14 @@ const VerifyMain = ({ forgetpassword }) => {
     }
     const smsreload = () => {
         setK((i) => !i);
-                const CapId = captchaWord.captchaId;
+        const CapId = captchaWord.captchaId;
 
         axios
             .post(apiUrl + "Auth/SMS1", {
                 Mobile: state?.Mobile.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                 NationalCode: state?.NationalCode.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-         CaptchaInput: captchaIn,
-                        CaptchaId: CapId
+                CaptchaInput: captchaIn,
+                CaptchaId: CapId
             }, {
                 headers: {
                     'X-Frame-Options': 'Deny',
@@ -119,7 +119,7 @@ const VerifyMain = ({ forgetpassword }) => {
     }
     const verifyCode = () => {
         console.log(555)
-            console.log(state)
+        console.log(state)
 
         if (code == "") {
             setErPass(true)
@@ -128,34 +128,41 @@ const VerifyMain = ({ forgetpassword }) => {
             console.log(999)
             console.log(state)
             console.log(state?.allValues)
-        const CapId = captchaWord.captchaId;
-
-            axios
-                .post(apiUrl + "Auth/VerifySignUp", {
-                    MobileNumber: state?.Mobile?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-                    NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
-                    Code: code,
-                    BirthDate: state?.BirthDate,
-                    Password: state?.Password,
-                    DeceasedNationalCode: state?.DeceasedNationalCode,
-                    DeceasedBirthDate: state?.DeceasedBirthDate,
+            const CapId = captchaWord.captchaId;
+            try {
+                axios
+                    .post(apiUrl + "Auth/VerifySignUp", {
+                        MobileNumber: state?.Mobile?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                        NationalCode: state?.NationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                        Code: code,
+                        BirthDate: state?.BirthDate,
+                        Password: state?.Password,
+                        DeceasedNationalCode: state?.DeceasedNationalCode,
+                        DeceasedBirthDate: state?.DeceasedBirthDate,
                         CaptchaInput: captchaIn,
                         CaptchaId: CapId
-                })
-                .then(function (response2) {
-                    console.log("verify")
-                    console.log(response2)
-                    console.log(response2?.data)
-
-                    if (response2.status == 200) {
-                        alert("ثبت نام با موفقیت انجام شد")
-                        navigate("/login")
-                    }
-                    else {
+                    })
+                    .then(function (response2) {
+                        console.log("verify")
+                        console.log(response2)
                         console.log(response2?.data)
-                        alert(response2?.data)
-                    }
-                })
+
+                        if (response2.status == 200) {
+                            alert("ثبت نام با موفقیت انجام شد")
+                            navigate("/login")
+                        }
+                        else {
+                            console.log(response2?.data)
+                            alert(response2?.data)
+                        }
+                    })
+
+
+            } catch (error) {
+                console.log(error)
+                alert(error?.response?.data)
+                setRecap(!reCap)
+            }
         }
 
 
@@ -186,7 +193,7 @@ const VerifyMain = ({ forgetpassword }) => {
 
     };
     return (
-         <div className="w-full bg-none flex justify-center">
+        <div className="w-full bg-none flex justify-center">
             <div className='w-[35%] xl:w-[55%] xl:md:w-[85%] xl:md:xs:w-[96%]'>
                 {forgetpassword ?
                     <div className="w-[100%] bg-none flex justify-end items-center mb-2">
@@ -206,13 +213,13 @@ const VerifyMain = ({ forgetpassword }) => {
                     <div className='flex flex-col items-center'>
                         <p className='font-IRANYekanBold text-[16px] text-mainBlue mb-[18px]'>کد تایید ارسال شده را با دقت وارد کنید</p>
                         <div class="w-full my-6 px-2">
-                                         
+
                             <MainInput onChange={(e) => { setErPass(false); setCode(e.target.value) }}
                                 maxLength={6}
                                 onInput={maxLengthCheck}
                                 leftIcon={<Left />}
                                 type="number"
-                                id="input-group-1"  holder="کد تایید" />
+                                id="input-group-1" holder="کد تایید" />
                             {
                                 erPass ?
                                     <span class="flex items-center font-medium tracking-wide text-[#ff0000] text-xs mt-1 ml-1">
@@ -224,35 +231,35 @@ const VerifyMain = ({ forgetpassword }) => {
                         </div>
                         <div className=' flex items-end'>
                             <div className='w-full'>
-                                  <MainInput  onChange={(e) => setCaptchaIn(e.target.value)} max={4} onKeyPress={(event) => {
-                                                                  if (/[0-9]/.test(event.key)) {
-                                                                      event.preventDefault();
-                                                                  }
-                                                                  if (/[a-z]/.test(event.key)) {
-                                                                      event.preventDefault();
-                                                                  }
-                                                                  if (/[A-Z]/.test(event.key)) {
-                                                                      event.preventDefault();
-                                                                  }
-                                                                 
-                                                              }} ></MainInput>
-                                                              </div>
-                                    <div className={`flex mr-1  h-[48px] w-[230px] items-end  : "mb-2"}`}>
+                                <MainInput onChange={(e) => setCaptchaIn(e.target.value)} max={4} onKeyPress={(event) => {
+                                    if (/[0-9]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
 
-                                        <img
-                                            src={`data:image/png;base64,${captchaWord?.imageData}`}
-                                            alt="Base64"
-                                        // style={{ width: "200px", height: "auto" }}
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => setRecap(!reCap)}
-                                            className="mr-2"
-                                        >
-                                            <Reload />
-                                        </button>
-                                    </div>
-                                </div>
+                                }} ></MainInput>
+                            </div>
+                            <div className={`flex mr-1  h-[48px] w-[230px] items-end  : "mb-2"}`}>
+
+                                <img
+                                    src={`data:image/png;base64,${captchaWord?.imageData}`}
+                                    alt="Base64"
+                                // style={{ width: "200px", height: "auto" }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setRecap(!reCap)}
+                                    className="mr-2"
+                                >
+                                    <Reload />
+                                </button>
+                            </div>
+                        </div>
                         {/* <p className='font-IRANYekanBold text-[16px] text-buttonBlue mt-[25px]'>00 : 45</p> */}
                         <Countdown
                             key={k}

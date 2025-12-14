@@ -66,6 +66,10 @@ const ExpertDashboard = () => {
                     <ExportDashboardIcon3/>
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">اعتراضات رسیده</p>
                 </div>
+                  {/* <div onClick={()=> navigate('/forgetpassword')} className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+                    <ExportDashboardIcon3/>
+                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">تغییر رمزعبور</p>
+                </div> */}
                 <div className="h-auto p-6 px-2 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">گزارش عملکرد</p>
                     <div className="w-full overflow-x-auto">

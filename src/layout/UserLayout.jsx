@@ -10,7 +10,7 @@ import ProtestsIcon from "../assets/icon/user/ProtestsIcon";
 import ExitIcon from "../assets/icon/user/ExitIcon";
 import { ScrollToTop } from "../components";
 import Cookies from 'universal-cookie';
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { axiosReq } from "../commons/axiosReq";
 const UserLayout = () => {
 
@@ -51,37 +51,37 @@ const UserLayout = () => {
     }
 
 
-  useEffect(() => {
+    useEffect(() => {
 
-    auth();
-  }, []);
-  const auth = async () => {
-    const cookies = new Cookies();
-    var token = cookies.get('token');
-    console.log(token)
-    if (!token) {
-      navigate("/");
-      // GetData()
+        auth();
+    }, []);
+    const auth = async () => {
+        const cookies = new Cookies();
+        var token = cookies.get('token');
+        console.log(token)
+        if (!token) {
+            navigate("/");
+            // GetData()
 
-    } else {
-      if (cookies.get('Role') != "User" && cookies.get('Role') != "Agent") {
-       
-       navigate("/");
+        } else {
+            if (cookies.get('Role') != "User" && cookies.get('Role') != "Agent") {
 
-      }
+                navigate("/");
+
+            }
+        }
     }
-  }
-      const signout = async () => {
-                 const cookies = new Cookies();
-                 await axiosReq("Auth/SignOut","post");
-                 cookies.remove("ID", { path: '/' })
-                 cookies.remove("Role", { path: '/' })
-                 cookies.remove("token", { path: '/' })
-                 cookies.remove("Name", { path: '/' })
-                 cookies.remove("Status", { path: '/' })
-           
-                 navigate("/");
-             }
+    const signout = async () => {
+        const cookies = new Cookies();
+        await axiosReq("Auth/SignOut", "post");
+        cookies.remove("ID", { path: '/' })
+        cookies.remove("Role", { path: '/' })
+        cookies.remove("token", { path: '/' })
+        cookies.remove("Name", { path: '/' })
+        cookies.remove("Status", { path: '/' })
+
+        navigate("/");
+    }
     return (
         <>
             <ScrollToTop />
@@ -121,7 +121,7 @@ const UserLayout = () => {
                                 }
                             </button>
                             {/* /user/updateUserBaseInfoHimself  or  /user/updateUserBaseInfoAnother */}
-                            <Link to={role =="User"  ? "/user/updateUserBaseInfoHimself" : "/user/updateUserBaseInfoAnother"} className="flex items-center cursor-pointer mb-10">
+                            <Link to={role == "User" ? "/user/updateUserBaseInfoHimself" : "/user/updateUserBaseInfoAnother"} className="flex items-center cursor-pointer mb-10">
                                 {isActive("/user/updateUserBaseInfoHimself") && (
                                     <>
                                         <PensionRequestIcon color={'#00c1b2'} />
@@ -177,7 +177,13 @@ const UserLayout = () => {
                                     </>
                                 }
                             </Link>
-                            <Link onClick={()=>signout()} className="flex items-center cursor-pointer mb-10">
+                            <Link to="/forgetpassword" className="flex items-center cursor-pointer mb-10">
+                                <>
+                                    <ProtestsIcon color={'#ffffff'} />
+                                    <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">تغییر رمزعبور</p>
+                                </>
+                            </Link>
+                            <Link onClick={() => signout()} className="flex items-center cursor-pointer mb-10">
                                 {isActive("/login") && (
                                     <>
                                         <ExitIcon color={'#00c1b2'} />

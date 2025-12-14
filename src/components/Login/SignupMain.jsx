@@ -29,8 +29,8 @@ const SignupMain = () => {
             .required('شماره تلفن همراه الزامی است')
             .matches(/^09[0-9]{9}$/, 'شماره تلفن همراه معتبر نیست'),
         captcha: Yup.string()
-            .required('کد امنیتی الزامی است')
-            .test('captcha', 'کد امنیتی نادرست است', (value) => value === captcha),
+            .required('کد امنیتی الزامی است'),
+        // .test('captcha', 'کد امنیتی نادرست است', (value) => value === captcha),
         password: Yup.string()
             .required('رمزعبور الزامی است')
             .min(8, 'رمزعبور باید حداقل 8 کاراکتر باشد'),
@@ -86,42 +86,48 @@ const SignupMain = () => {
         console.log('Form values:', values);
 
         const CapId = captchaWord.captchaId;
-
-        var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
-            NationalCode: values.nationalCode,
-            Mobile: values.phoneNumber,
-         CaptchaInput: values.captcha,
-                        CaptchaId: CapId
-        }, {
-            headers: {
-                // Authorization: `Bearer ${hash}`,
-                'X-Frame-Options': 'Deny',
-                'X-Content-Type-Options': "nosniff",
-                'X-XSS-Protection': "1; mode=block",
-                "Referrer-Policy": "same-origin",
-                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
-            }
-        });
-        console.log(updateOrg)
-        if (updateOrg?.status == 200 || updateOrg?.status == 204) {
-
-            setSubmitting(false);
-            // navigate("/user/startRequest");
-            navigate("/verify", {
-                state: {
-                    NationalCode: values.nationalCode,
-                    Mobile: values.phoneNumber,
-                    Cap: captcha,
-                    Password: values.password,
-                    BirthDate: values.birthDate,
-                    DeceasedNationalCode: values.deceasedNationalCode,
-                    DeceasedBirthDate: values.deceasedBirthDate
+        try {
+            var updateOrg = await axios.post(apiUrl + "Auth/SMS1", {
+                NationalCode: values.nationalCode,
+                Mobile: values.phoneNumber,
+                CaptchaInput: values.captcha,
+                CaptchaId: CapId
+            }, {
+                headers: {
+                    // Authorization: `Bearer ${hash}`,
+                    'X-Frame-Options': 'Deny',
+                    'X-Content-Type-Options': "nosniff",
+                    'X-XSS-Protection': "1; mode=block",
+                    "Referrer-Policy": "same-origin",
+                    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
                 }
             });
-        }
-        else {
+            console.log(updateOrg)
+            if (updateOrg?.status == 200 || updateOrg?.status == 204) {
+
+                setSubmitting(false);
+                // navigate("/user/startRequest");
+                navigate("/verify", {
+                    state: {
+                        NationalCode: values.nationalCode,
+                        Mobile: values.phoneNumber,
+                        Cap: captcha,
+                        Password: values.password,
+                        BirthDate: values.birthDate,
+                        DeceasedNationalCode: values.deceasedNationalCode,
+                        DeceasedBirthDate: values.deceasedBirthDate
+                    }
+                });
+            }
+            else {
+                setRecap(!reCap)
+                alert(updateOrg.data)
+            }
+
+        } catch (error) {
+            console.log(error)
+            alert(error?.response?.data)
             setRecap(!reCap)
-            alert(updateOrg.data)
         }
 
 
@@ -150,7 +156,7 @@ const SignupMain = () => {
                             <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                                 {/* National Code */}
                                 <MainInput
-                                    label="کدملی"
+               updateOrg                     label="کدملی"
                                     necessary={true}
                                     value={values.nationalCode}
                                     max={10}
@@ -224,14 +230,14 @@ const SignupMain = () => {
                                             </div>
                                         }
                                         onKeyPress={(event) => {
-                                           
+
                                             if (/[a-z]/.test(event.key)) {
                                                 event.preventDefault();
                                             }
                                             if (/[A-Z]/.test(event.key)) {
                                                 event.preventDefault();
                                             }
-                                           
+
                                         }}
                                         value={values.captcha}
                                         onChange={(e) => setFieldValue('captcha', e.target.value)}
