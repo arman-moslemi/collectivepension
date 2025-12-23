@@ -176,7 +176,7 @@ const ExpertRequests = ({ IsEnding }) => {
     }, []);
      const download = async (name) => {
         try {
-            const response = await axiosReq(`Users/download/${name}`, "get", {
+            const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
                 responseType: "blob", // important!
             });
 

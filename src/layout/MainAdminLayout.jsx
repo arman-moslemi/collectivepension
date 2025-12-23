@@ -158,7 +158,7 @@ const MainAdminLayout = () => {
                             </>
                         }
                         </Link>
-                           <Link to="/forgetpassword" className="flex items-center cursor-pointer mb-10">
+                           <Link to="/changePassPanel" className="flex items-center cursor-pointer mb-10">
                 <>
                   <ProtestsIcon color={'#ffffff'} />
                   <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">تغییر رمزعبور</p>

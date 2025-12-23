@@ -11,6 +11,7 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage,
     MainAdminRequestPage,MainAdminRequestsDetailsPage,MainAdminProtestListPage,MainAdminProtestDetailPage
 } from "../components";
+import ChangePassPanelPage from "../pages/LoginPage/ChangePassPanelPage";
 
 
 
@@ -60,6 +61,10 @@ export const router =createBrowserRouter([
             {
                 path:'/changePassword',
                 element:<ChangePasswordPage/>,
+             
+            },{
+                path:'/changePassPanel',
+                element:<ChangePassPanelPage/>,
              
             },
         ],

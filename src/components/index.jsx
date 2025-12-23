@@ -91,6 +91,7 @@ export {default as ForgetpasswordMain} from "./Login/ForgetpasswordMain";
 export {default as ChangePasswordMain} from "./Login/ChangePasswordMain";
 export {default as VerifyMain} from "./Login/VerifyMain";
 export {default as VerifyForget} from "./Login/VerifyForget";
+export {default as ChangePassPanel} from "./Login/ChangePassPanel";
 
 // ----------[user]----------
 
