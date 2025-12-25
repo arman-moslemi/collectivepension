@@ -47,9 +47,7 @@ const ChangePassPanel = () => {
     // Validation Schema
     const validationSchema = Yup.object().shape({
         nationalCode: Yup.string()
-            .required('کدملی الزامی است'),
-            oldPassword: Yup.string()
-            .required('رمز عبور الزامی است').min(8, 'رمزعبور باید حداقل 8 کاراکتر باشد'),
+            .required('کدملی الزامی است')
         // .matches(/^[0-9]{10}$/, 'کدملی باید 10 رقم باشد'),
 
     });
@@ -57,8 +55,7 @@ const ChangePassPanel = () => {
     // Initial Values
     const initialValues = {
         nationalCode: '',
-        captcha: '',
-        oldPassword:''
+        captcha: ''
 
 
 
@@ -72,10 +69,9 @@ const ChangePassPanel = () => {
         // var hash = crypto.SHA512(captcha).toString()
         const CapId = captchaWord.captchaId;
         try {
-            var updateOrg = await axios?.post(apiUrl + "Auth/OldPassword", {
+            var updateOrg = await axios?.post(apiUrl + "Auth/ForgetPassword", {
                 NationalCode: values.nationalCode?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                 CaptchaInput: values.captcha,
-                OldPassword:values.oldPassword,
                 CaptchaId: CapId
             }, {
                 headers: {
@@ -91,7 +87,7 @@ const ChangePassPanel = () => {
 
                 setSubmitting(false);
                 // navigate("/user/startRequest");
-                navigate("/verifyForget", {
+                navigate("/verifyChange", {
                     state: {
                         NationalCode: values.nationalCode,
                         Cap: captcha,
@@ -148,18 +144,7 @@ const ChangePassPanel = () => {
                                             onChange={(e) => setFieldValue('nationalCode', e.target.value)}
                                             error={touched.nationalCode && errors.nationalCode}
                                             errorText={errors.nationalCode}
-                                        />
-                                    </div>
-                                    <div>
-                                        <MainInput
-                                            label="رمز عبور قدیم"
-                                            necessary={true}
-                                            value={values.nationalCode}
-                                            onChange={(e) => setFieldValue('oldPassword', e.target.value)}
-                                            error={touched.oldPassword && errors.oldPassword}
-                                            errorText={errors.oldPassword}
-                                        />
-                                    </div>
+                                        />                        </div>
 
                                     <div className='mt-[30px] flex items-end'>
                                         <MainInput
@@ -167,7 +152,7 @@ const ChangePassPanel = () => {
 
                                             label={<div className='flex items-center'
                                                 max={4} onKeyPress={(event) => {
-
+                                                
                                                     if (/[a-z]/.test(event.key)) {
                                                         event.preventDefault();
                                                     }

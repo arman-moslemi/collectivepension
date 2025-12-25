@@ -19,6 +19,8 @@ export {default as VerifyForgetPage} from "../pages/LoginPage/VerifyForgetPage";
 export {default as ForgetpasswordPage} from "../pages/LoginPage/ForgetpasswordPage";
 export {default as ForgetpasswordVerifyPage} from "../pages/LoginPage/ForgetpasswordVerifyPage";
 export {default as ChangePasswordPage} from "../pages/LoginPage/ChangePasswordPage";
+export {default as ChangePasswordConfirmPage} from "../pages/LoginPage/ChangePassPanelConfirmPage";
+export {default as VerifyChangePage} from "../pages/LoginPage/VerifyChangePage";
 
 // ----------[user]----------
 
@@ -92,6 +94,8 @@ export {default as ChangePasswordMain} from "./Login/ChangePasswordMain";
 export {default as VerifyMain} from "./Login/VerifyMain";
 export {default as VerifyForget} from "./Login/VerifyForget";
 export {default as ChangePassPanel} from "./Login/ChangePassPanel";
+export {default as ChangePassPanelConfirm} from "./Login/ChangePassPanelConfirm";
+export {default as VerifyChange} from "./Login/VerifyChange";
 
 // ----------[user]----------
 

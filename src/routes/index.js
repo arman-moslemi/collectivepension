@@ -9,9 +9,10 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     ExpertRequestsPensionPage,ExpertProtestListPage,ExpertProtestDetailPage, ExpertInsurancePremiumPage,
     MainAdminDashboardPage,ExpertDefinitionPage,
     MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage,
-    MainAdminRequestPage,MainAdminRequestsDetailsPage,MainAdminProtestListPage,MainAdminProtestDetailPage
+    MainAdminRequestPage,MainAdminRequestsDetailsPage,MainAdminProtestListPage,MainAdminProtestDetailPage,VerifyChangePage
 } from "../components";
 import ChangePassPanelPage from "../pages/LoginPage/ChangePassPanelPage";
+import ChangePassPanelConfirmPage from "../pages/LoginPage/ChangePassPanelConfirmPage";
 
 
 
@@ -65,6 +66,16 @@ export const router =createBrowserRouter([
             },{
                 path:'/changePassPanel',
                 element:<ChangePassPanelPage/>,
+             
+            },
+            {
+                path:'/ChangePassPanelConfirm',
+                element:<ChangePassPanelConfirmPage/>,
+             
+            },
+            {
+                path:'/VerifyChange',
+                element:<VerifyChangePage/>,
              
             },
         ],

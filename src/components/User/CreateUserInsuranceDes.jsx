@@ -248,7 +248,7 @@ const CreateUserInsuranceDes = () => {
                   necessary={true}
                   error={touched.InsuranceId && errors.InsuranceId}
                   errorText={errors.InsuranceId}
-                  disable={status > 1 ? true : false}
+                  // disable={status > 1 ? true : false}
                   max={30}
                 />
               </div>
