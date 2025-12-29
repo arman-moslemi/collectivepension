@@ -60,13 +60,13 @@ const UserLayout = () => {
         var token = cookies.get('token');
         console.log(token)
         if (!token) {
-          //  navigate("/");
-            // GetData()
+            navigate("/");
+           // GetData()
 
         } else {
             if (cookies.get('Role') != "User" && cookies.get('Role') != "Agent") {
 
-            //    navigate("/");
+                navigate("/");
 
             }
         }
