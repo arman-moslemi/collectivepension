@@ -156,11 +156,11 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
               <ExpertAllRecordsNoWebService id={id}admin={admin}statusId={statusId} />
             </div>
 
-            : expertPensionAmount && statusId != 9 ?
+            // : expertPensionAmount && statusId != 9 ?
 
-              <div className="w-full">
-                <ExpertPensionAmount admin={admin} another={another} id={id} />
-              </div>
+            //   <div className="w-full">
+            //     <ExpertPensionAmount admin={admin} another={another} id={id} />
+            //   </div>
 
               : expertPensionAmount && !webService ?
 

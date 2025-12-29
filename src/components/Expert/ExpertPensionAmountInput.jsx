@@ -21,9 +21,9 @@ const ExpertPensionAmountInput = ({ setShift, id }) => {
 
             const response = await axiosReq("Experts/InsertPension", "put", { UserInsuranceId: id,Amount:cost });
             console.log(response.data)
-            //  alert("با موفقیت ا")
             if(response.status==200){
                 setShift(true)
+                alert("موفقیت آمیز")
 
             }
         } catch (error) {
