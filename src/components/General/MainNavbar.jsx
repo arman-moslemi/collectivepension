@@ -7,7 +7,7 @@ const MainNavbar = () => {
         
             <div className="w-[90%]  mx-auto grid grid-cols-3 md:w-full md:h-fit">
                 <div className="col-span-1 flex items-end md:col-span-2">
-                <img src={Logo} alt="" className="w-[300px] md:w-[200px]"/>
+                <img src={Logo} alt="" className="w-[340px] md:w-[200px]"/>
                 </div>
                 <div className="col-span-1 flex justify-center items-end">
                 <p className="font-Nastaligh text-[40px]  text-white mb-5 md:mb-0 md:text-[25px] q339:text-[18px] z940:ml-2">سامانه مستمری جمع</p>
