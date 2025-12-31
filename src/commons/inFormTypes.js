@@ -1,6 +1,6 @@
 
-export const apiUrl ="http://localhost:5100/api/";
-export const apiAsset ="http://localhost:5100/uploads/";
+export const apiUrl ="https://localhost:44341/api/";
+export const apiAsset ="https://localhost:44341/uploads/";
 
 // export const apiUrl ="https://apiinsu.cokatex.ir/api/";
 // export const apiAsset ="https://apiinsu.cokatex.ir/uploads/";
