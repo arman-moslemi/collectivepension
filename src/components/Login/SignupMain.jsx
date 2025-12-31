@@ -160,7 +160,7 @@ const SignupMain = () => {
                updateOrg                     label="کدملی"
                                     necessary={true}
                                     value={values.nationalCode}
-                                    max={10}
+                                    max={100}
                                     min={10}
                                     onKeyPress={(event) => {
                                         if (/[a-z]/.test(event.key)) {
@@ -213,7 +213,7 @@ const SignupMain = () => {
                                         }
 
                                     }}
-                                    max={11}
+                                    max={100}
                                     min={11}
                                     value={values.phoneNumber}
                                     onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
@@ -273,7 +273,7 @@ const SignupMain = () => {
                                     error={touched.password && errors.password}
                                     errorText={errors.password}
                                     min={8}
-                                    max={12}
+                                    max={100}
                                 />
 
                                 {/* Confirm Password */}
@@ -287,7 +287,7 @@ const SignupMain = () => {
                                     error={touched.confirmPassword && errors.confirmPassword}
                                     errorText={errors.confirmPassword}
                                     min={8}
-                                    max={12}
+                                    max={100}
                                 />
                             </div>
                             <div className="my-4">

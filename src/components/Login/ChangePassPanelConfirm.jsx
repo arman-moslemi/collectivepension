@@ -199,7 +199,7 @@ const ChangePasswordPanelConfirm = () => {
                                         error={touched.password && errors.password}
                                         errorText={errors.password}
                                         min={8}
-                                        max={12} />
+                                        max={100} />
                                 </div>
                                 <div className='mt-[30px]'>
                                     <MainInput label="تکرار رمزعبور"
@@ -211,14 +211,14 @@ const ChangePasswordPanelConfirm = () => {
                                         error={touched.confirmPassword && errors.confirmPassword}
                                         errorText={errors.confirmPassword}
                                         min={8}
-                                        max={12} />
+                                        max={100} />
                                 </div>
 
                                 <div className='mt-[30px] flex items-end'>
                                     <MainInput
                                         onChange={(e) => setFieldValue('captcha', e.target.value)}
                                         label={<div className='flex items-center'
-                                            max={4} onKeyPress={(event) => {
+                                            max={100} onKeyPress={(event) => {
 
                                                 if (/[a-z]/.test(event.key)) {
                                                     event.preventDefault();

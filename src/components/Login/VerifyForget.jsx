@@ -248,7 +248,7 @@ const VerifyForget = ({ forgetpassword }) => {
                         </div>
                         <div className=' flex items-end'>
                             <div className='w-full'>
-                                <MainInput onChange={(e) => setCaptchaIn(e.target.value)} max={4} onKeyPress={(event) => {
+                                <MainInput onChange={(e) => setCaptchaIn(e.target.value)} max={100} onKeyPress={(event) => {
                                   
                                     if (/[a-z]/.test(event.key)) {
                                         event.preventDefault();
