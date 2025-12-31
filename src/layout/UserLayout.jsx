@@ -61,7 +61,7 @@ const UserLayout = () => {
         console.log(token)
         if (!token) {
             navigate("/");
-            // GetData()
+           // GetData()
 
         } else {
             if (cookies.get('Role') != "User" && cookies.get('Role') != "Agent") {
@@ -82,6 +82,7 @@ const UserLayout = () => {
 
         navigate("/");
     }
+    const [noticeOpen, setNoticeOpen] = useState(true);
     return (
         <>
             <ScrollToTop />
@@ -100,6 +101,24 @@ const UserLayout = () => {
                         </svg>
                     </button>
                 </div>
+                {noticeOpen && (
+  <div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2">
+    <button
+      type="button"
+      onClick={() => setNoticeOpen(false)}
+      aria-label="بستن اطلاعیه"
+      className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+    >
+      ✕
+    </button>
+
+    <span className="font-IRANYekanBold text-mainBlue leading-6">
+      کاربر گرامی؛ به دلیل عدم اتصال سامانه به سازمان تأمین اجتماعی، موقتاً امکان ارائه خدمات برای
+      بیمه‌پردازان تأمین اجتماعی وجود ندارد. با تشکر از همراهی شما!
+    </span>
+  </div>
+)}
+
                 <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
 
                     <div className="w-[18%] min-w-[270px] bg-white h-auto relative block b1115:hidden b1115:w-[0%]">

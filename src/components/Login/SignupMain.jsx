@@ -136,7 +136,8 @@ const SignupMain = () => {
 
     return (
         <div className="w-full bg-none flex justify-center">
-            <div className='w-[55%] xl:w-[89%] xl:md:w-[96%]'>
+           {/* <div className='w-[55%] xl:w-[89%] xl:md:w-[96%]'>*/}
+            <div className='w-full'>
                 <div className="w-[100%] bg-none flex justify-end items-center mb-2">
                     <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-1'>حساب کاربری دارید؟</p>
                     <Link to="/login" className='font-IRANYekanExtra text-[14px] text-mainBlue ml-2'> وارد شوید</Link>
