@@ -283,12 +283,7 @@ const ExpertProtestList = () => {
     const getExcel = async () => {
         try {
 
-            const response = await axiosReq("Experts/GetProtestsEXPExcel?search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&userInsuranceStatusId=" + status, "post", {
-
-                // IsEndingInsurance: IsEnding,
-
-
-            });
+            const response = await axiosReq("Experts/GetProtestsEXPExcel?search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&userInsuranceStatusId=" + status, "get");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {

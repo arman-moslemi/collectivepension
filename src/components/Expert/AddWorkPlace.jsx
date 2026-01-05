@@ -11,7 +11,7 @@ import TikIcon from "../../assets/icon/general/TikIcon";
 import { axiosReq } from "../../commons/axiosReq";
 import Cookies from 'universal-cookie';
 
-const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId }) => {
+const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId,setRecheck,reCheck }) => {
   const [mainOpen, setMainOpen] = useState(false);
   const [showDiv, setShowDiv] = useState(true);
   const [openModal, setOpenModal] = useState(false);
@@ -245,6 +245,7 @@ const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId })
       if (response.status === 200) {
         alert("با موفقیت ثبت شد");
         setOpenModal(false);
+       setRecheck(!reCheck)
         // Additional logic for second step if needed
       }
     } catch (err) {

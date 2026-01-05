@@ -36,7 +36,8 @@ const CreateUserInsuranceDes = () => {
     QuitDate: '',
     StartDate: '',
     EndDate: '',
-    UserInsuranceId: 0
+    UserInsuranceId: 0,
+    IsActiveSubscriber:true
   });
 
   const cookies = new Cookies();
@@ -120,6 +121,7 @@ const CreateUserInsuranceDes = () => {
           UserInsuranceId: userInsuranceRes.data[0]?.userInsuranceId || 0,
           InsuranceId: userInsuranceRes.data[0].insuranceId || 0,
           IsEndingInsurance: userInsuranceRes.data[0].isEndingInsurance || false,
+          IsActiveSubscriber:userInsuranceRes.data[0].isActiveSubscriber || false,
           DepartmentName: userInsuranceRes.data[0].departmentName || '',
           CityId: userInsuranceRes.data[0].cityId || 0,
           InsuranceIdNumber: userInsuranceRes.data[0].insuranceIdNumber || '',
@@ -340,11 +342,11 @@ const CreateUserInsuranceDes = () => {
               </div>
               <div className="mb-5 col-span-1 md:col-span-3">
                 <MainRadioInput value1={true} necessary={true}
-                  value2={false} selectedValue={values.IsEndingInsurance}
-                  onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
+                  value2={false} selectedValue={values.IsActiveSubscriber}
+                  onChange={(value) => setFieldValue('IsActiveSubscriber', value)} column={true}
                   title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} />
               </div>
-              {touched.IsEndingInsurance ?
+              {touched.isActiveSubscriber ?
                 <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.IsEndingInsurance}</p>
                 :
                 null}
@@ -388,8 +390,9 @@ const CreateUserInsuranceDes = () => {
               <div className="mb-5 md:col-span-3">
                 <MainInput
                   label={'تاریخ شروع بیمه پردازی'}
-                  value={values.StartDate}
-                  defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
+                   value={values.StartDate}
+                 // value={moment(initialValues.StartDate,"jYYYY/jMM/jDD").toDate()}
+                   defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
                   onChange={(value) => setFieldValue('StartDate', value)}
                   disable={status > 1 ? true : false}
                   necessary={true}
@@ -471,8 +474,8 @@ const CreateUserInsuranceDes = () => {
               <div className="mb-5  md:col-span-3">
                 <MainInput
                   label={<div className="flex items-center">
-                    <p className="font-IRANYekanBold text-[16px]  text-mainBlue">آخرین محل اشتغال به کار</p>
-                    <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p>
+                    <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+                    {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                   </div>}
                   value={values.LastWorkplace}
                   onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}

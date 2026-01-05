@@ -12,9 +12,9 @@ const CreateUserInsuranceOrigin = () => {
     let status = cookies.get("Status");
     const [forms, setForms] = useState([0]);
     const underTakingModalFunction = () => {
-        if(status>3){
+        if (status > 1) {
 
-            navigate('../dashboard') 
+            navigate('../dashboard')
         }
         console.log(forms)
         forms.length < 2 ?

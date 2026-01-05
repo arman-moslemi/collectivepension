@@ -3,6 +3,7 @@ import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headless
 import SelectBoxIcon from "../../assets/icon/general/SelectBoxIcon";
 import SelectBoxIcon2 from "../../assets/icon/general/SelectBoxIcon2";
 import { DatePicker } from "zaman";
+import moment from 'jalali-moment';
 
 
 
@@ -182,8 +183,11 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                   >
                     <DatePicker
                       portal={false}
-                      id="test" defaultValue={defaultVal}
-                      onChange={(e) => onChange(formatDateTime(e.value))} value={value}
+                      id="test"
+                        defaultValue={moment(defaultVal,"jYYYY/jMM/jDD").toDate()}
+  // defaultValue={toDate(defaultVal, "jYYYY/jMM/jDD")}
+                      onChange={(e) => onChange(formatDateTime(e.value))} 
+                      value={value}
                       className="h-[34px] w-full focus-visible:outline-none font-IRANYekanMedium text-[16px]"
                       type="text" name=""
 

@@ -10,7 +10,7 @@ import { axiosReq } from "../../commons/axiosReq";
 import Cookies from 'universal-cookie';
 
 
-const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
+const ExpertAllRecordsNoWebService = ({ id, admin, statusId }) => {
 
     let navigate = useNavigate();
     const [forms, setForms] = useState([3]);
@@ -18,6 +18,7 @@ const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
     const [data, setData] = useState()
     const [dataRec, setDataRec] = useState([])
     const [isLoading, setIsLoading] = useState(true);
+    const [reCheck, setRecheck] = useState(true);
 
 
     const handleAddForm = () => {
@@ -69,7 +70,7 @@ const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
     };
     useEffect(() => {
         GetData()
-    }, [])
+    }, [reCheck])
     if (isLoading) {
         return <div>Loading...</div>; // Add a proper loading indicator
     }
@@ -78,26 +79,26 @@ const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
             <div className="w-full px-[28px] pt-[24px] pb-7 flex justify-end">
                 <div className="w-[151px]">
                     {
-                        statusId<5?
-                        <MainButton onClickFunction={() => handleAddForm()} label={'افزودن محل کار'} />
-                        :
-                        null
+                        statusId < 5 ?
+                            <MainButton onClickFunction={() => handleAddForm()} label={'افزودن محل کار'} />
+                            :
+                            null
                     }
 
-                    </div>
+                </div>
 
             </div>
 
             {forms.map((_, idx) => {
-
+                // console.log(idx)
                 return (
                     dataRec?.length > idx ?
 
-                        <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} data={dataRec[idx]} setYearsData={setYearsData} yearsData={yearsData} statusId={statusId}/></div>
+                        <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} data={dataRec[idx]} setYearsData={setYearsData} yearsData={yearsData} statusId={statusId}setRecheck={setRecheck} reCheck={reCheck} /></div>
                         :
                         idx == dataRec?.length && statusId < 5 ?
 
-                            <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} setYearsData={setYearsData} yearsData={yearsData}statusId={statusId} /></div>
+                            <div className="w-full mb-[25px]"><AddWorkPlace id={id} setForms={setForms} setYearsData={setYearsData} yearsData={yearsData} statusId={statusId} setRecheck={setRecheck} reCheck={reCheck} /></div>
 
                             : null
                 )
@@ -105,7 +106,7 @@ const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
             )
             }
             {
-                admin || statusId>4?
+                admin || statusId > 4 ?
                     null :
                     <div className="w-full flex justify-end my-10">
                         <div className="w-[151px]">
@@ -117,8 +118,8 @@ const ExpertAllRecordsNoWebService = ({ id, admin ,statusId}) => {
             {
                 data ?
                     <div className="w-full mb-[25px]">
-                        <TotalWorkRecords button={statusId > 4?false :true} id={id} data={data}  />
-                        </div>
+                        <TotalWorkRecords button={statusId > 4 ? false : true} id={id} data={data} />
+                    </div>
                     :
                     null
             }

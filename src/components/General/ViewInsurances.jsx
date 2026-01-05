@@ -41,7 +41,7 @@ return(
                     <MainInput label={'میزان سابقه (به روز)'} value={data.trackRecordDays}/>
                 </div>
                 <div className="col-span-2 md:col-span-3">
-                    <MainInput label={'آخرین محل اشتغال به کار (دستگاه اجرایی/کارگاه)'} value={data.lastWorkplace}/>
+                    <MainInput label={' شماره دستگاه اجرایی/کارگاه '} value={data.lastWorkplace}/>
                 </div>
                 
 
@@ -84,7 +84,7 @@ return(
                     <MainInput label={'میزان سابقه (به روز)'} value={data.trackRecordDays}/>
                 </div>
                 <div className="col-span-2 md:col-span-3">
-                    <MainInput label={'آخرین محل اشتغال به کار (دستگاه اجرایی/کارگاه)'} value={data.lastWorkplace}/>
+                    <MainInput label={' شماره دستگاه اجرایی/کارگاه '} value={data.lastWorkplace}/>
                 </div>
                 <div className="col-span-1 md:col-span-3">
                     <MainInput label={'تاریخ خروج از عضویت صندوق'} value={data.quitDate}/>

@@ -535,8 +535,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             <div className="mb-5 md:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
-                  <p className="font-IRANYekanBold text-[16px] text-mainBlue">آخرین محل اشتغال به کار</p>
-                  <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p>
+                  <p className="font-IRANYekanBold text-[16px] text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+                  {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                 </div>}
                 necessary={true}
                 holder={'مثلا 0...'}
