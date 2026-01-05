@@ -229,7 +229,7 @@ const LoginMain = () => {
                     </div>
                     <div>
                         <div>
-                            <MainInput onChange={(e) => setUser(e.target.value)} max={11} error={erUser} errorText={"نام کاربری وارد کنید"} label={'کدملی'} />
+                            <MainInput onChange={(e) => setUser(e.target.value)} max={20} error={erUser} errorText={"نام کاربری وارد کنید"} label={'کدملی'} />
                         </div>
                         <div className='mt-[30px]'>
                             <MainInput password={true} onChange={(e) => setPass(e.target.value)} min={8} max={12} label={'رمز عبور'} error={erPass} errorText={"رمز عبور را وارد کنید"} leftIcon={<PassIcon />} />

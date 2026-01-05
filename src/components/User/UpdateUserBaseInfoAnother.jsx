@@ -26,7 +26,7 @@ const UpdateUserBaseInfoAnother = () => {
         userMobileNumber: '',
         userAddress: '',
         userisRetirement: '', // 'بازنشستگی' or 'از کار افتادگی کلی'
-        userPersonnelCode: '',
+        // userPersonnelCode: '',
         relationship: "",
         agentPhoneNumber: "",
         agentIdcardNumber: "",
@@ -75,7 +75,8 @@ const UpdateUserBaseInfoAnother = () => {
                 MobileNumber: values.userMobileNumber,
                 Address: values.userAddress,
                 IsRetirement: values.userIsRetirement,
-                PersonnelCode: values.userPersonnelCode,
+                // PersonnelCode: values.userPersonnelCode,
+                PersonnelCode:"1",
                 BirthDate: values.userBirthDate,
                 AgentAddress: values.agentAddress,
                 NationalCode: values.userNationalCode,
@@ -308,7 +309,7 @@ const UpdateUserBaseInfoAnother = () => {
                                     />
                                 </div>
 
-                                <div className="col-span-1 md:col-span-3">
+                                {/* <div className="col-span-1 md:col-span-3">
                                     <MainInput
                                         label={'کد پرسنلی'}
                                         value={values.userPersonnelCode}
@@ -332,7 +333,7 @@ const UpdateUserBaseInfoAnother = () => {
 
                                         }}
                                     />
-                                </div>
+                                </div> */}
 
 
                                 {/* </div> */}

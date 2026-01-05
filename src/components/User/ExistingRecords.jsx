@@ -9,7 +9,7 @@ import { axiosReq } from "../../commons/axiosReq";
 const titleRow = ["ردیف", "استان", "شهر", "شعبه", "محل خدمت/نام کارگاه", "شماره دستگاه/کارگاه", "شماره شناسایی بیمه", "سابقه (تعداد روز)", "مشاهده"];
 
 
-const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objYear,repete }) => {
+const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objYear, repete }) => {
 
     const [showAddOriginBoxModal, setShowAddOriginBoxModal] = useState(false);
     const [selectedBox, setSelectedBox] = useState(false);
@@ -94,7 +94,8 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                         item7: item.insuranceIdNumber,
                         item8: item.duration,
                         item9: <div onClick={() => {
-                            console.log(selectedYearBox); setSelectedYearBox(!selectedYearBox); setObjYear({
+                            console.log(selectedYearBox);
+                            setObjYear({
                                 InsuranceId: id,
                                 InsuranceIdNumber: item.insuranceIdNumber,
                                 Branch: item.branch,
@@ -102,6 +103,8 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                                 WorkplaceNumber: item.workplaceNumber,
                                 CityId: item.cityId
                             });
+                            setSelectedYearBox(true);
+
                         }} className='w-[38px] h-[38px] cursor-pointer rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>,
 
                     })
@@ -118,7 +121,7 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
             <div className="w-full flex justify-end">
                 <div className="w-[186px] ml-4"><MainButton onClickFunction={() => { setShowAddOriginBoxModal(true) }} label={'+ افزودن صندوق مبدا'} /></div>
-                <div className="w-[97px]"><MainButton gray={repete?.length>0?true:false} disabled={repete?.length>0?true:false} onClickFunction={() => approve()} label={'تایید سوابق'} /></div>
+                <div className="w-[97px]"><MainButton gray={repete?.length > 0 ? true : false} disabled={repete?.length > 0 ? true : false} onClickFunction={() => approve()} label={'تایید سوابق'} /></div>
             </div>
             <div className="w-full my-3">
                 <MainExplanation text={<div>

@@ -151,9 +151,9 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
                     <MainRadioInput title={'نوع درخواست مستمری جمع'} selectedValue={formData?.isRetirement} value1={true} value2={false} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'}
                         ml={'100'} mr={'30'} disabled={true} />
                 </div>
-                <div className="col-span-1 md:col-span-3">
+                {/* <div className="col-span-1 md:col-span-3">
                     <MainInput label={'کد پرسنلی'} selectedValue={formData?.personnelCode} value={'مثلا 09123333333'} />
-                </div>
+                </div> */}
 
             </div>
             <div className="w-full px-[73px] pb-10  h800:px-0">

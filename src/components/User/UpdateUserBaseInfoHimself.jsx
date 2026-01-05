@@ -21,7 +21,7 @@ const UpdateUserBaseInfoHimself = () => {
         mobileNumber: '',
         address: '',
         isRetirement: '', // 'بازنشستگی' or 'از کار افتادگی کلی'
-        personnelCode: ''
+        // personnelCode: ''
     });
 
     const validationSchema = Yup.object().shape({
@@ -64,7 +64,8 @@ const UpdateUserBaseInfoHimself = () => {
                 mobileNumber: values.mobileNumber,
                 address: values.address,
                 isRetirement: values.isRetirement,
-                personnelCode: values.personnelCode,
+                // personnelCode: values.personnelCode,
+                personnelCode: "1",
                 BirthDate: values.birthDate,
                 // AgentAddress:"",
                 NationalCode: values.nationalCode,
@@ -270,7 +271,7 @@ const UpdateUserBaseInfoHimself = () => {
 
                             />
                         </div>
-                        <div className="col-span-1 md:col-span-3">
+                        {/* <div className="col-span-1 md:col-span-3">
                             <MainInput
                                 label={'کد پرسنلی'}
                                 value={values.personnelCode}
@@ -295,7 +296,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 }}
                                 max={20}
                             />
-                        </div>
+                        </div> */}
                         <div className="col-span-3 mt-[33px] flex justify-end items-center">
                             <div className="w-[140px]">
                                 <MainButton
