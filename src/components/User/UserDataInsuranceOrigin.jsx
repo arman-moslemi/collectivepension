@@ -448,7 +448,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <MainInput
                 label={'تاریخ شروع بیمه پردازی'}
                 value={values.StartDate}
-                defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
+                defaultVal={initialValues.StartDate ? initialValues.StartDate : ""}
                 onChange={(value) => setFieldValue('StartDate', value)}
 
                 necessary={true}
@@ -465,7 +465,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <MainInput
                 label={'تاریخ آخرین بیمه پردازی'}
                 value={values.EndDate}
-                defaultVal={initialValues.EndDate ? initialValues.EndDate : new Date()}
+                defaultVal={initialValues.EndDate ? initialValues.EndDate : ""}
                 onChange={(value) => setFieldValue('EndDate', value)}
 
                 necessary={true}
@@ -572,7 +572,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             <div className={`${inModal ? 'mb-0' : 'mb-5'} md:col-span-3`}>
               <MainInput label={'تاریخ خروج از عضویت صندوق'} necessary={true}
                 value={values.QuitDate}
-                defaultVal={initialValues.QuitDate ? initialValues.QuitDate : new Date()}
+                defaultVal={initialValues.QuitDate ? initialValues.QuitDate : ""}
                 onChange={(value) => setFieldValue('QuitDate', value)}
                 error={touched.QuitDate && errors.QuitDate}
                 errorText={errors.QuitDate}

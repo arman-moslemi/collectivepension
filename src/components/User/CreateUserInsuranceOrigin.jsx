@@ -65,9 +65,9 @@ const CreateUserInsuranceOrigin = () => {
     useEffect(() => {
         GetData();
     }, [reCheck]);
-    if (isLoading) {
-        return <div>Loading...</div>; // Add a proper loading indicator
-    }
+    // if (isLoading) {
+    //     return <div>Loading...</div>; // Add a proper loading indicator
+    // }
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2">

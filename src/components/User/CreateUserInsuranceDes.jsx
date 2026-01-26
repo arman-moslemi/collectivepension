@@ -392,7 +392,7 @@ const CreateUserInsuranceDes = () => {
                   label={'تاریخ شروع بیمه پردازی'}
                    value={values.StartDate}
                  // value={moment(initialValues.StartDate,"jYYYY/jMM/jDD").toDate()}
-                   defaultVal={initialValues.StartDate ? initialValues.StartDate : new Date()}
+                   defaultVal={initialValues.StartDate ? initialValues.StartDate : ""}
                   onChange={(value) => setFieldValue('StartDate', value)}
                   disable={status > 1 ? true : false}
                   necessary={true}
@@ -407,7 +407,7 @@ const CreateUserInsuranceDes = () => {
                 <MainInput
                   label={'تاریخ آخرین بیمه پردازی'}
                   value={values.EndDate}
-                  defaultVal={initialValues.EndDate ? initialValues.EndDate : new Date()}
+                  defaultVal={initialValues.EndDate ? initialValues.EndDate : ""}
                   onChange={(value) => setFieldValue('EndDate', value)}
 
                   necessary={true}
