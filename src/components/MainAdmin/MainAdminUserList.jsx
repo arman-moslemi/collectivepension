@@ -111,7 +111,7 @@ const MainAdminUserList = () => {
   useEffect(() => {
     getProtests();
   }, [name, page, row]);
-
+  
   useEffect(() => {
   const fetchUserDetails = async () => {
     if (showEditModal && editId) {
@@ -366,7 +366,7 @@ const handleEditUser = async (values, { setSubmitting }) => {
 
               {values.isAgent && (
                 <>
-                  <div className="col-span-5 mb-2">
+                  <div className="col-span-4 mb-2">
                     <MainInput
                       label={"کدملی متوفی"}
                       holder={"******02"}
@@ -379,7 +379,7 @@ const handleEditUser = async (values, { setSubmitting }) => {
                     )}
                   </div>
 
-                  <div className="col-span-5 mb-2">
+                  <div className="col-span-4 mb-2">
                     <MainInput
                       label={"تاریخ تولد متوفی"}
                       holder={"1352/05/05"}
@@ -392,6 +392,21 @@ const handleEditUser = async (values, { setSubmitting }) => {
                       <div className="text-errorRed text-xs mt-1">{errors.agentBirthDate}</div>
                     )}
                   </div>
+                  <div className={`col-span-2 ${(touched.agentNationalCode && errors.agentNationalCode) || (touched.agentBirthDate && errors.agentBirthDate) ? 'mb-7':'mb-2'}  flex items-end`}>
+                <MainButton label={"استعلام"}/>
+              </div>
+              <div className="col-span-5 mb-2">
+                <MainInput
+                label={'نام'}
+                disable={true}
+                />
+              </div>
+              <div className="col-span-5 mb-2">
+                <MainInput
+                label={'نام خانوادگی'}
+                disable={true}
+                />
+              </div>
                 </>
               )}
             </div>
