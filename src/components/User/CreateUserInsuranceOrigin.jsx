@@ -65,9 +65,9 @@ const CreateUserInsuranceOrigin = () => {
     useEffect(() => {
         GetData();
     }, [reCheck]);
-    // if (isLoading) {
-    //     return <div>Loading...</div>; // Add a proper loading indicator
-    // }
+    if (isLoading) {
+        return <div>Loading...</div>; // Add a proper loading indicator
+    }
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2">
@@ -79,7 +79,7 @@ const CreateUserInsuranceOrigin = () => {
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
                     <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
-                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در آخرین صندوق بازنشستگی(مقصد)</p>
                     <div className="w-[40px] border-b-[1px] border-dashed border-midGreen md:w-[10px]"></div>
                 </div>
                 <div className="flex justify-start items-center">
@@ -93,6 +93,7 @@ const CreateUserInsuranceOrigin = () => {
                 <div className="w-full md:col-span-3">
                     {forms.map((_, idx) => {
                         console.log(idx)
+                        console.log(data?.length)
                         return (
                             data?.length > idx ?
 

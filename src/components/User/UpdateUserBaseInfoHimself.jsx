@@ -106,7 +106,7 @@ const UpdateUserBaseInfoHimself = () => {
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
                     <div className="rounded-full w-[40px] h-[40px] md:w-[35px] md:h-[35px] bg-mainBlue flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white">2</p></div>
-                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <p className="font-IRANYekanBold text-[15px] text-mainBlue mx-[6px]">اطلاعات در آخرین صندوق بازنشستگی(مقصد)</p>
                     <div className="w-[40px] border-b-[1px] border-dashed border-darkGray md:w-[10px]" ></div>
                 </div>
                 <div className="flex justify-start items-center">

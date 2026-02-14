@@ -101,7 +101,7 @@ const UserLayout = () => {
                         </svg>
                     </button>
                 </div>
-                {noticeOpen && (
+                {/* {noticeOpen && (
   <div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2">
     <button
       type="button"
@@ -117,7 +117,7 @@ const UserLayout = () => {
       بیمه‌پردازان تأمین اجتماعی وجود ندارد. با تشکر از همراهی شما!
     </span>
   </div>
-)}
+)} */}
 
                 <div className="bg-Pic2-bg bg-no-repeat bg-cover flex w-full h-full min-h-[800px]">
 

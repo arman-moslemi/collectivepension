@@ -5,10 +5,10 @@ const SignupPage = () => {
     return(
       
         <div>
-        <div className="grid grid-cols-3 gap-4 w-[70%] mx-auto lg:grid-cols-1 items-center lg:w-[90%]">
-         <div className="col-span-1 py-[30px]">
+           <div className=" w-[60%] mx-auto xl:w-[70%] xl:lg:w-[90%] xl:lg:md:w-[97%] ">
+         {/* <div className="col-span-1 py-[30px]">
              <img src={Banner} className="h-[530px] rounded-[15px] w-full "/>
-         </div>
+         </div> */}
          <div className="col-span-2">
          <SignupMain/>
          </div>

@@ -119,29 +119,27 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
-    StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
-    EndDate: Yup.string()
-      .required('تاریخ آخرین بیمه پردازی الزامی است')
-      .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
-        const { StartDate } = this.parent;
-        if (!StartDate || !value) return true; // let required handle empty fields
-        // if you store as yyyy-mm-dd format:
-        return new Date(value) > new Date(StartDate);
+    // StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
+    // EndDate: Yup.string()
+    //   .required('تاریخ آخرین بیمه پردازی الزامی است')
+    //   .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+    //     const { StartDate } = this.parent;
+    //     if (!StartDate || !value) return true; // let required handle empty fields
+    //     // if you store as yyyy-mm-dd format:
+    //     return new Date(value) > new Date(StartDate);
 
-        // or if you use custom format (e.g., 'YYYY/MM/DD'):
-        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-      }),
+    //     // or if you use custom format (e.g., 'YYYY/MM/DD'):
+    //     // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+    //   }),
     QuitDate: Yup.string()
-      .required('تاریخ خروج الزامی است')
-      .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
-        const { EndDate } = this.parent;
-        if (!EndDate || !value) return true; // let required handle empty fields
-        // if you store as yyyy-mm-dd format:
-        return new Date(value) > new Date(EndDate);
+      .required('تاریخ خروج الزامی است'),
+      // .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
+        // const { EndDate } = this.parent;
+        // if (!EndDate || !value) return true; // let required handle empty fields
+        // return new Date(value) > new Date(EndDate);
 
-        // or if you use custom format (e.g., 'YYYY/MM/DD'):
-        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-      }),
+      // }
+    // ),
     QuitReason: Yup.string().required('علت خروج بیمه پردازی الزامی است'),
 
   });
@@ -152,17 +150,20 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-
+      console.log(values)
+      console.log(moment().locale('fa').format('YYYY/MM/DD'))
       if (status > 3) {
         navigate('../dashboard')
       }
       // Prepare data for API
       const payload = {
         ...values,
-        StartDate: values.StartDate.length > 10 ?
-          moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
-        EndDate: values.EndDate.length > 10 ?
-          moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
+        StartDate:moment().locale('fa').format('YYYY/MM/DD'),
+        EndDate: moment().locale('fa').format('YYYY/MM/DD'),
+        // StartDate: values.StartDate.length > 10 ?
+        //   moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
+        // EndDate: values.EndDate.length > 10 ?
+        //   moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
         QuitDate: values.QuitDate.length > 10 ?
           moment(values.QuitDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.QuitDate,
         EmploymentStatusDescription: des
@@ -224,8 +225,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           EmploymentStatusId: data.employmentStatusId || 0,
           QuitReason: data.quitReason || '',
           QuitDate: data.quitDate || '',
-          StartDate: data.startDate || '',
-          EndDate: data.endDate || '',
+          // StartDate: data.startDate || '',
+          // EndDate: data.endDate || '',
           ProvinceId: data.provinceId || '',
 
         });
@@ -372,7 +373,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 listBox={true}
                 listItems={cities}
                 necessary={true}
-                  defaultVal={values.CityId}
+                defaultVal={values.CityId}
 
                 value={cities.find(c => c.id === values.CityId) || null}
                 onChange={(value) => {
@@ -444,7 +445,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
 
             {/* Started Date */}
-            <div className="mb-5 md:col-span-3">
+            {/* <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'تاریخ شروع بیمه پردازی'}
                 value={values.StartDate}
@@ -458,10 +459,10 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 disable={status > 3 ? true : false}
 
               />
-            </div>
+            </div> */}
 
             {/* End Date */}
-            <div className="mb-5 md:col-span-3">
+            {/* <div className="mb-5 md:col-span-3">
               <MainInput
                 label={'تاریخ آخرین بیمه پردازی'}
                 value={values.EndDate}
@@ -475,7 +476,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 disable={status > 3 ? true : false}
 
               />
-            </div>
+            </div> */}
 
             {/* Quit Date (conditional) */}
 
@@ -488,7 +489,11 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <MainInput
                 label={'نوع سابقه'}
                 value={values.TrackRecordType}
-                onChange={(e) => setFieldValue('TrackRecordType', e.target.value)}
+                 listBox={true}
+                defaultVal={values.TrackRecordType}
+
+                listItems={[{ id: "دولتی", name: "دولتی" },{ id: "غیردولتی", name: "غیردولتی" },  { id: "سایر", name: "سایر" },                  ]}
+                onChange={(value) => setFieldValue('TrackRecordType',  value?.id)}
                 holder={'مثلا رسمی'}
                 necessary={true}
                 error={touched.TrackRecordType && errors.TrackRecordType}
@@ -557,11 +562,21 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
             <div className={`${inModal ? 'mb-0' : 'mb-5'} col-span-3`}>
               <MainInput
-                label={'علت خروج از صندوق (اخراج،استعفا،بازخرید خدمت،انتقال،انفصال دائم و تغییرات ناشی از ادغام، انحلال و واگذاری)'}
+                label={'علت خروج از صندوق '}
                 holder={'مثلا ...'}
+                listBox={true}
+                defaultVal={values.QuitReason}
+
+                listItems={[{ id: "اخراج", name: "اخراج" },
+                { id: "استعفا", name: "استعفا" }, { id: "بازخرید خدمت", name: "بازخرید خدمت" },
+                { id: "انتقال", name: "انتقال" },
+                { id: "انفصال دائم", name: "انفصال دائم" },
+                { id: " تغییرات ناشی از ادغام، انحلال و واگذاری", name: " تغییرات ناشی از ادغام، انحلال و واگذاری" },
+
+                ]}
                 necessary={true}
                 value={values.QuitReason}
-                onChange={(e) => setFieldValue('QuitReason', e.target.value)}
+                onChange={(value) => setFieldValue('QuitReason', value?.id)}
                 error={touched.QuitReason && errors.QuitReason}
                 errorText={errors.QuitReason}
                 disable={status > 3 ? true : false}

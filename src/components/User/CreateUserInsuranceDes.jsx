@@ -22,6 +22,8 @@ const CreateUserInsuranceDes = () => {
   const [cities, setCities] = useState([]);
   const [des, setDes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+      const [noticeOpen, setNoticeOpen] = useState(true);
+
   const [initialValues, setInitialValues] = useState({
     InsuranceId: 0,
     IsEndingInsurance: true,
@@ -53,19 +55,19 @@ const CreateUserInsuranceDes = () => {
     TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
-    StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
+    // StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
     // EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
-    EndDate: Yup.string()
-      .required('تاریخ آخرین بیمه پردازی الزامی است')
-      .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
-        const { StartDate } = this.parent;
-        if (!StartDate || !value) return true; // let required handle empty fields
-        // if you store as yyyy-mm-dd format:
-        return new Date(value) > new Date(StartDate);
+    // EndDate: Yup.string()
+    //   .required('تاریخ آخرین بیمه پردازی الزامی است')
+    //   .test('is-greater', 'تاریخ پایان باید بعد از تاریخ شروع باشد', function (value) {
+    //     const { StartDate } = this.parent;
+    //     if (!StartDate || !value) return true; // let required handle empty fields
+    //     // if you store as yyyy-mm-dd format:
+    //     return new Date(value) > new Date(StartDate);
 
-        // or if you use custom format (e.g., 'YYYY/MM/DD'):
-        // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
-      }),
+    //     // or if you use custom format (e.g., 'YYYY/MM/DD'):
+    //     // return dayjs(value, 'YYYY/MM/DD').isAfter(dayjs(StartDate, 'YYYY/MM/DD'));
+    //   }),
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -77,10 +79,12 @@ const CreateUserInsuranceDes = () => {
       // Prepare data for API
       const payload = {
         ...values,
-        StartDate: values.StartDate.length > 10 ?
-          moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
-        EndDate: values.EndDate.length > 10 ?
-          moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
+                StartDate:moment().locale('fa').format('YYYY/MM/DD'),
+                EndDate: moment().locale('fa').format('YYYY/MM/DD'),
+        // StartDate: values.StartDate.length > 10 ?
+        //   moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
+        // EndDate: values.EndDate.length > 10 ?
+        //   moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
         EmploymentStatusDescription: des
       };
       if (initialValues?.UserInsuranceId == 0) {
@@ -206,6 +210,7 @@ const CreateUserInsuranceDes = () => {
 
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
+     
       {/* Stepper Section - keep unchanged */}
       <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2 mb-2">
         <div className="flex justify-start items-center">
@@ -219,7 +224,7 @@ const CreateUserInsuranceDes = () => {
         <div className="flex justify-start items-center">
           <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-darkGray"></div>
           <div className="rounded-full h-[48px] w-[48px] md:w-[35px] md:h-[35px] flex justify-center items-center p-1 border-[1px] border-dashed border-buttonBlue "><div className="w-full h-full rounded-full bg-buttonBlue flex justify-center items-center"><p className="font-IRANYekanExtra text-[18px] text-white">2</p></div></div>
-          <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+          <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mx-[6px]">اطلاعات در آخرین صندوق بازنشستگی(مقصد)</p>
           <div className="w-[40px] border-b-[1px] border-dashed border-buttonBlue md:w-[10px]" ></div>
         </div>
         <div className="flex justify-start items-center">
@@ -228,6 +233,20 @@ const CreateUserInsuranceDes = () => {
           <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
         </div>
       </div>
+      {noticeOpen && ( <div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2">
+    <button
+      type="button"
+      onClick={() => setNoticeOpen(false)}
+      aria-label="بستن اطلاعیه"
+      className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+    >
+      ✕
+    </button>
+
+    <span className="font-IRANYekanBold text-mainBlue leading-6">
+منظور از آخرین صندوق بازنشستگی، صندوقی است که در حال حاضر در آن عضو هستید و حق بیمه به آن پرداخت می‌کنید
+    </span>
+  </div>)}
       <div className="mt-5">
         <Formik
           initialValues={initialValues}
@@ -387,7 +406,7 @@ const CreateUserInsuranceDes = () => {
 
 
               {/* Started Date */}
-              <div className="mb-5 md:col-span-3">
+              {/* <div className="mb-5 md:col-span-3">
                 <MainInput
                   label={'تاریخ شروع بیمه پردازی'}
                    value={values.StartDate}
@@ -400,10 +419,10 @@ const CreateUserInsuranceDes = () => {
                   errorText={errors.StartDate}
                   date={true}
                 />
-              </div>
+              </div> */}
 
               {/* End Date */}
-              <div className="mb-5 md:col-span-3">
+              {/* <div className="mb-5 md:col-span-3">
                 <MainInput
                   label={'تاریخ آخرین بیمه پردازی'}
                   value={values.EndDate}
@@ -416,7 +435,7 @@ const CreateUserInsuranceDes = () => {
                   date={true}
                   disable={status > 1 ? true : false}
                 />
-              </div>
+              </div> */}
 
               {/* Quit Date (conditional) */}
 

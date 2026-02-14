@@ -25,7 +25,7 @@ console.log(status)
                 <div className="flex justify-start items-center">
                     <div className="ml-[10px] w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
                     <div className="rounded-full w-[40px] h-[40px] bg-midGreen flex justify-center items-center"><p className="font-IRANYekanBold text-[18px] text-white"><OkIcon /></p></div>
-                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در صندوق  بازنشستگی مقصد</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-midGreen mx-[6px]">اطلاعات در آخرین صندوق بازنشستگی(مقصد)</p>
                     <div className="w-[40px] border-b-[1px] border-dashed border-midGreen"></div>
                 </div>
                 <div className="flex justify-start items-center">
