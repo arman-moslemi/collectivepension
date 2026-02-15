@@ -110,7 +110,11 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
 
   const validationSchema = Yup.object().shape({
-    DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
+    DepartmentName: Yup.string().when('InsuranceId', {
+      is: 1,
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required('نام دستگاه اجرایی الزامی است')// or .nullable()
+    }),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
       .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/, ' شماره شناسایی بیمه معتبر نیست'),
@@ -118,7 +122,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
     TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
-    EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
+    // EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     // StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
     // EndDate: Yup.string()
     //   .required('تاریخ آخرین بیمه پردازی الزامی است')
@@ -133,12 +137,12 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     //   }),
     QuitDate: Yup.string()
       .required('تاریخ خروج الزامی است'),
-      // .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
-        // const { EndDate } = this.parent;
-        // if (!EndDate || !value) return true; // let required handle empty fields
-        // return new Date(value) > new Date(EndDate);
+    // .test('is-greater', 'تاریخ خروج باید بعد از تاریخ پایان باشد', function (value) {
+    // const { EndDate } = this.parent;
+    // if (!EndDate || !value) return true; // let required handle empty fields
+    // return new Date(value) > new Date(EndDate);
 
-      // }
+    // }
     // ),
     QuitReason: Yup.string().required('علت خروج بیمه پردازی الزامی است'),
 
@@ -158,7 +162,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
       // Prepare data for API
       const payload = {
         ...values,
-        StartDate:moment().locale('fa').format('YYYY/MM/DD'),
+        StartDate: moment().locale('fa').format('YYYY/MM/DD'),
         EndDate: moment().locale('fa').format('YYYY/MM/DD'),
         // StartDate: values.StartDate.length > 10 ?
         //   moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
@@ -168,6 +172,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           moment(values.QuitDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.QuitDate,
         EmploymentStatusDescription: des
       };
+      payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
+
       if (initialValues.UserInsuranceId == 0) {
         const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
@@ -315,7 +321,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
           <Form className=" w-full grid grid-cols-3 gap-4">
             {/* Department Name */}
-            <div className="mb-5 col-span-1 md:col-span-3">
+            <div className="mb-5 col-span-2 md:col-span-3">
               <MainInput
                 label={'نام صندوق بازنشستگی'}
                 defaultVal={values.InsuranceId}
@@ -334,21 +340,26 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             </div>
 
             {/* City */}
-            <div className="mb-5 col-span-2 md:col-span-3">
-              <MainInput
-                label={'نام دستگاه اجرائی/کارگاه'}
-                onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
-                value={values.DepartmentName}
-                necessary={true}
-                // listBox={true}
-                // listItems={l1}
-                holder={'مثلا وزرات تعاون'}
-                error={touched.DepartmentName && errors.DepartmentName}
-                errorText={errors.DepartmentName}
-                disable={status > 3 ? true : false}
-                max={40}
-              />
-            </div>
+            {
+              values.InsuranceId == 1 ?
+                null
+                :
+                <div className="mb-5 col-span-1 md:col-span-3">
+                  <MainInput
+                    label={'نام دستگاه اجرائی/کارگاه'}
+                    onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
+                    value={values.DepartmentName}
+                    necessary={true}
+                    // listBox={true}
+                    // listItems={l1}
+                    holder={'مثلا وزرات تعاون'}
+                    error={touched.DepartmentName && errors.DepartmentName}
+                    errorText={errors.DepartmentName}
+                    disable={status > 3 ? true : false}
+                    max={40}
+                  />
+                </div>
+            }
             <div className="mb-5 col-span-1 md:col-span-3">
               <MainInput
                 label={'استان محل اشتغال'}
@@ -386,7 +397,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
               />
             </div>
-            <div className="mb-5 col-span-3 md:col-span-3">
+            {/* <div className="mb-5 col-span-3 md:col-span-3">
               <MainRadioInput v value1={1} value2={2} value3={3}
                 onChange={(value) => setFieldValue('EmploymentStatusId', value)} column={true}
                 title={'وضعیت بیمه پردازی'}
@@ -401,7 +412,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
                 :
                 null}
-            </div>
+            </div> */}
             {/* <div className="mb-5 col-span-1">
               <MainRadioInput value1={true} value2={false}selectedValue={values.IsEndingInsurance}
                 onChange={(value) => setFieldValue('IsEndingInsurance', value)} column={true}
@@ -489,11 +500,11 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               <MainInput
                 label={'نوع سابقه'}
                 value={values.TrackRecordType}
-                 listBox={true}
+                listBox={true}
                 defaultVal={values.TrackRecordType}
 
-                listItems={[{ id: "دولتی", name: "دولتی" },{ id: "غیردولتی", name: "غیردولتی" },  { id: "سایر", name: "سایر" },                  ]}
-                onChange={(value) => setFieldValue('TrackRecordType',  value?.id)}
+                listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "سایر", name: "سایر" },]}
+                onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
                 holder={'مثلا رسمی'}
                 necessary={true}
                 error={touched.TrackRecordType && errors.TrackRecordType}
@@ -540,7 +551,12 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             <div className="mb-5 md:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
+                    {values.InsuranceId == 1 ?
+                      <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> کدرمز</p>
+
+                      :
                   <p className="font-IRANYekanBold text-[16px] text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+                  }
                   {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                 </div>}
                 necessary={true}

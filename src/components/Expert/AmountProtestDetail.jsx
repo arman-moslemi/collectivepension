@@ -20,7 +20,36 @@ const AmountProtestDetail = ({role,id}) => {
     const [showDeclined,setShowDeclined] = useState(false);
       const [data, setData] = useState([]);
         const [maindata, setMainData] = useState();
-    
+            const [reason, setReason] = useState(null);
+        const [pension, setPension] = useState();
+        const [file, setFile] = useState();
+        const [files, setFiles] = useState([]);
+          useEffect(() => {
+                handleFileChange()
+            }, [file]);
+            const handleFileChange = () => {
+        
+                if (file?.length > 0) {
+                    console.log("change")
+                    console.log(111)
+                    setFiles([...files, file])
+                }
+            }
+     const disApprove = async (item) => {
+                try {
+                    const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+                        Reason: reason,
+                        UserInsuranceFiles: files
+                    });
+                    if (response.data) {
+                        alert("با موفقیت انجام شد");
+                           navigate("/protestList")
+                    }
+                } catch (err) {
+                    console.error("Error fetching form data:", err);
+                } finally {
+                }
+            };
         const getProtests = async () => {
             try {
     
@@ -67,6 +96,22 @@ const AmountProtestDetail = ({role,id}) => {
                           console.error("Error downloading file:", error);
                       }
                   };
+
+                    const approve = async (item) => {
+                try {
+                    const response = await axiosReq("Experts/AcceptPensionProtest", "put",{
+                        NewPension:pension?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
+                        ProtestId:id
+                    });
+                    if (response.data) {
+                        alert("با موفقیت انجام شد");
+                        navigate("/protestList")
+                    }
+                } catch (err) {
+                    console.error("Error fetching form data:", err);
+                } finally {
+                }
+            };
     return ( <>
     <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
             <div className="col-span-1 md:col-span-2">
@@ -127,12 +172,12 @@ const AmountProtestDetail = ({role,id}) => {
     <br/>
    <div className="my-4">
    <span className="text-mainBlue font-IRANYekanBold text-[14px]">
-        مبلغ اعلام شده توسط سامانه : 2300000 تومان
+        مبلغ اعلام شده توسط سامانه : {maindata?.pension} تومان
     </span>
     <br/>
-    <span className="text-redError font-IRANYekanBold text-[14px]">
+    {/* <span className="text-redError font-IRANYekanBold text-[14px]">
         مبلغ اعلام شده توسط کاربر : 2500000 تومان
-    </span>
+    </span> */}
    </div>
     <p className = "mt-5 text-right font-IRANYekanBold text-mainBlue text-[14px]" >{maindata?.description} </p>
    
@@ -172,38 +217,55 @@ const AmountProtestDetail = ({role,id}) => {
     <div className="w-full border-t border-t-borderGray p-4">
     <p className = "mt-5 text-right font-IRANYekanBold text-mainBlue text-[14px]" > مبلغ مستمری مجددا محاسبه شده را اینجا ثبت کنید. </p>
             <div className="w-[250px] mt-2">
-            <MainInput holder={'12000 تومان'}/>
+            <MainInput onChange={(e)=>setPension(e.target.value)} holder={'12000 تومان'}/>
             </div>
             <div className="w-[140px] mr-auto mt-5">
-                <MainButton label={'ثبت و ارسال'}/>
+                <MainButton onClickFunction={()=>approve()} label={'ثبت و ارسال'}/>
             </div>
     </div>
     </>
     :
     null    
     }            
-    {showDeclined ? 
-<>
-<div className="mt-6 border-t border-t-borderGray p-4">
-                    <div className="w-full">
-                        <MainInput
-                            longText={true}
-                            necessary={true}
-                            label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'}
-                            holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'}/>
-                        <div className='w-full flex items-center lg:flex-wrap mt-4'>
-                            <p className='font-IRANYekanMedium text-[14px] lg:my-2 text-mainBlue ml-3'>انتخاب فایل</p>
-                            <div><UploadFile small={false}/></div>
-                        </div>
-                    </div>
-                </div>
+   {showDeclined ?
+            <>
+                <div className="mt-6 border-t border-t-borderGray p-4">
+                                    <div className="w-full">
+                                        <MainInput
+                                            longText={true}
+                                            onChange={(e)=>setReason(e.target.value)}
+                                            label={'علت رد درخواست خود را بنویسید و در صورت لزوم فایل خود را بارگزاری کنید.'}
+                                            holder={'توضیح خود را اینجا بنویسید تا برای کاربر ارسال شود.'} />
+                                        <div className='w-full flex items-center my-4'>
+                                            <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
+                                            <div><UploadFile small={false} setFile={setFile} /></div>
+                                        </div>
+                                        {
+                                            files.map((item) => {
+                                                return (
+
+                                                    <div onClick={() => download(item)}  className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                                        <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
+                                                        <ExportAgentFileIIcon />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        <div>
+                                            <p className="text-right">با توجه به مدارک بارگزاری شده در پیوست، بازه زمانی بیمه پردازی بنده اشتباه ثبت شده است لطفا مجدد بررسی بفرمایید.</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
                 <div className="w-[140px] mr-auto mt-5">
-                <MainButton label={'ثبت و ارسال'}/>
-            </div>
-</>
-:
-null    
-}    
+                    <MainButton onClickFunction={disApprove} label={'ثبت و ارسال'} />
+                </div>
+            </>
+            :
+            null
+        }
+   
 
          </>
     )

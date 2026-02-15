@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef } from "react";
 import LeftPic from '../../assets/icon/login/LeftPic';
 // import { DateIcon } from "../../assets/icon/general/DateIcon";
 import Reload from '../../assets/icon/login/Return';
+import Cookies from 'universal-cookie';
 
 const VerifyMain = ({ forgetpassword }) => {
 
@@ -23,6 +24,7 @@ const VerifyMain = ({ forgetpassword }) => {
     const [reCap, setRecap] = useState(false);
     const [captcha, setCaptcha] = useState('');
     const [captchaIn, setCaptchaIn] = useState();
+    const [snipper, setSnipper] = useState(false);
 
     const getCaptcha = async () => {
         try {
@@ -142,19 +144,98 @@ const VerifyMain = ({ forgetpassword }) => {
                         CaptchaInput: captchaIn,
                         CaptchaId: CapId
                     })
-                    .then(function (response2) {
+                    .then(function (response) {
                         console.log("verify")
-                        console.log(response2)
-                        console.log(response2?.data)
+                        console.log(response)
+                        console.log(response?.data)
 
-                        if (response2.status == 200) {
-                            alert("ثبت نام با موفقیت انجام شد")
-                            navigate("/login")
-                        }
-                        else {
-                            console.log(response2?.data)
-                            alert(response2?.data)
-                        }
+                        // if (response2.status == 200) {
+                        //     alert("ثبت نام با موفقیت انجام شد")
+                        //     navigate("/login")
+                        // }
+                        // else {
+                        //     console.log(response2?.data)
+                        //     alert(response2?.data)
+                        // }
+                         if (response.request.status == 200) {
+                                                    const cookies = new Cookies();
+                                                    cookies.set('token', response.data.token, { path: '/',
+                                                        //    httpOnly:true,
+                                                            secure:true,
+                                                            sameSite:"Strict", })
+                        
+                                                    // console.log(response.data.token)
+                                                    setSnipper(false)
+                                                    if (response.data.role == "User") {
+                                                        cookies.set('Role', response.data.role, { path: '/',
+                                                                // httpOnly:true,
+                                                            secure:true,
+                                                            sameSite:"Strict",
+                                                            
+                                                        }
+                                                    )
+                                                        cookies.set('Name', response.data.name + " " + response.data.family, { path: '/' ,
+                                                                // httpOnly:true,
+                                                            secure:true,
+                                                            sameSite:"Strict",})
+                                                        cookies.set('Status', response.data.userStatusId, { path: '/',
+                                                                // httpOnly:true,
+                                                            secure:true,
+                                                            sameSite:"Strict", })
+                                                        let status = response.data.userStatusId;
+                                                        if (status == 1) {
+                        
+                                                            navigate("/user/startRequest");
+                                                        }
+                                                        else if (status == 2) {
+                        
+                                                            navigate("/user/dashboardProcess");
+                                                        }
+                                                        else if (status == 4) {
+                        
+                                                            navigate("/user/dashboardRejected");
+                                                        }
+                                                        else if (status == 7) {
+                        
+                                                            navigate("/user/dashboardRejectedReasonEmployment");
+                                                        }
+                                                        else {
+                                                            navigate("/user/dashboard");
+                                                        }
+                                                    }
+                                                    if (response.data.role == "Expert") {
+                                                        cookies.set('Role', response.data.role, { path: '/' })
+                                                        // cookies.set('Role',response.data.role, { path: '/karshenas' })
+                                                        cookies.set('token', response.data.token, { path: '/karshenas' })
+                                                        cookies.set('token', response.data.token, { path: '/karshenas/viewRequest' })
+                        
+                                                        navigate("/Expert/dashboard");
+                                                    }
+                                                    if (response.data.role == "Admin") {
+                                                        cookies.set('Role', response.data.role, { path: '/' })
+                        
+                                                        cookies.set('Role', response.data.role, { path: '/admin' })
+                        
+                                                        navigate("/Expert/dashboard");
+                                                    }
+                                                    if (response.data.role == "SuperAdmin") {
+                                                        cookies.set('Role', response.data.role)
+                        
+                                                        navigate("/mainAdmin/dashboard");
+                                                    }
+                                                    if (response.data.role == "Agent") {
+                                                        cookies.set('Role', response.data.role)
+                        
+                                                        navigate("/user/startRequest");
+                                                    }
+                                                }
+                                                else {
+                                                    // handleClick()
+                                                    alert(response.data.message)
+                                                    setSnipper(false)
+                                                    setRecap(!reCap)
+                        
+                                                }
                     })
 
 

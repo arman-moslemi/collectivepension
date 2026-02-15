@@ -22,7 +22,7 @@ const CreateUserInsuranceDes = () => {
   const [cities, setCities] = useState([]);
   const [des, setDes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-      const [noticeOpen, setNoticeOpen] = useState(true);
+  const [noticeOpen, setNoticeOpen] = useState(true);
 
   const [initialValues, setInitialValues] = useState({
     InsuranceId: 0,
@@ -39,14 +39,18 @@ const CreateUserInsuranceDes = () => {
     StartDate: '',
     EndDate: '',
     UserInsuranceId: 0,
-    IsActiveSubscriber:true
+    IsActiveSubscriber: true
   });
 
   const cookies = new Cookies();
 
   let status = cookies.get("Status");
   const validationSchema = Yup.object().shape({
-    DepartmentName: Yup.string().required('نام دستگاه اجرایی الزامی است'),
+    DepartmentName: Yup.string().when('InsuranceId', {
+      is: 1,
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.required('نام دستگاه اجرایی الزامی است')// or .nullable()
+    }),
     CityId: Yup.number().min(1, 'لطفا شهر محل اشتغال را انتخاب کنید').required('لطفا شهر محل اشتغال را انتخاب کنید'),
     InsuranceIdNumber: Yup.string()
       .required('شماره شناسایی بیمه الزامی است').matches(/[0-9]$/, ' شماره شناسایی بیمه معتبر نیست'),
@@ -54,7 +58,7 @@ const CreateUserInsuranceDes = () => {
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
     TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
     LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
-    EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
+    // EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     // StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
     // EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
     // EndDate: Yup.string()
@@ -72,21 +76,22 @@ const CreateUserInsuranceDes = () => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-
+      console.log(values)
       if (status > 1) {
         navigate('../createUserInsuranceOrigin')
       }
       // Prepare data for API
       const payload = {
         ...values,
-                StartDate:moment().locale('fa').format('YYYY/MM/DD'),
-                EndDate: moment().locale('fa').format('YYYY/MM/DD'),
+        StartDate: moment().locale('fa').format('YYYY/MM/DD'),
+        EndDate: moment().locale('fa').format('YYYY/MM/DD'),
         // StartDate: values.StartDate.length > 10 ?
         //   moment(values.StartDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.StartDate,
         // EndDate: values.EndDate.length > 10 ?
         //   moment(values.EndDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.EndDate,
         EmploymentStatusDescription: des
       };
+      payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
       if (initialValues?.UserInsuranceId == 0) {
         const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
@@ -125,7 +130,7 @@ const CreateUserInsuranceDes = () => {
           UserInsuranceId: userInsuranceRes.data[0]?.userInsuranceId || 0,
           InsuranceId: userInsuranceRes.data[0].insuranceId || 0,
           IsEndingInsurance: userInsuranceRes.data[0].isEndingInsurance || false,
-          IsActiveSubscriber:userInsuranceRes.data[0].isActiveSubscriber || false,
+          IsActiveSubscriber: userInsuranceRes.data[0].isActiveSubscriber || false,
           DepartmentName: userInsuranceRes.data[0].departmentName || '',
           CityId: userInsuranceRes.data[0].cityId || 0,
           InsuranceIdNumber: userInsuranceRes.data[0].insuranceIdNumber || '',
@@ -210,7 +215,7 @@ const CreateUserInsuranceDes = () => {
 
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
-     
+
       {/* Stepper Section - keep unchanged */}
       <div className="flex justify-start px-[32px] items-center overflow-x-auto whitespace-nowrap w-full md:pb-2 mb-2">
         <div className="flex justify-start items-center">
@@ -233,20 +238,20 @@ const CreateUserInsuranceDes = () => {
           <p className="font-IRANYekanBold text-[15px] text-mainBlue mr-[6px] *:">اطلاعات در صندوق‌ بازنشستگی مبدا</p>
         </div>
       </div>
-      {noticeOpen && ( <div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2">
-    <button
-      type="button"
-      onClick={() => setNoticeOpen(false)}
-      aria-label="بستن اطلاعیه"
-      className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
-    >
-      ✕
-    </button>
+      {noticeOpen && (<div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2">
+        <button
+          type="button"
+          onClick={() => setNoticeOpen(false)}
+          aria-label="بستن اطلاعیه"
+          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+        >
+          ✕
+        </button>
 
-    <span className="font-IRANYekanBold text-mainBlue leading-6">
-منظور از آخرین صندوق بازنشستگی، صندوقی است که در حال حاضر در آن عضو هستید و حق بیمه به آن پرداخت می‌کنید
-    </span>
-  </div>)}
+        <span className="font-IRANYekanBold text-mainBlue leading-6">
+          منظور از آخرین صندوق بازنشستگی، صندوقی است که در حال حاضر در آن عضو هستید و حق بیمه به آن پرداخت می‌کنید
+        </span>
+      </div>)}
       <div className="mt-5">
         <Formik
           initialValues={initialValues}
@@ -257,7 +262,7 @@ const CreateUserInsuranceDes = () => {
           {({ values, setFieldValue, isSubmitting, errors, touched }) => (
             <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
               {/* Insurance Dropdown - preselect if initial value exists */}
-              <div className="mb-5 col-span-1 md:col-span-3">
+              <div className="mb-5 col-span-2 md:col-span-3">
                 <MainInput
                   label={'نام صندوق بازنشستگی'}
                   defaultVal={values.InsuranceId}
@@ -275,32 +280,39 @@ const CreateUserInsuranceDes = () => {
               </div>
 
               {/* Department Name - show existing value */}
-              <div className="mb-5 col-span-2 md:col-span-3">
-                <MainInput
-                  // listBox={true}
-                  // listItems={insurances}
-                  label={'نام دستگاه اجرایی/کارگاه'}
-                  onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
-                  value={values.DepartmentName}
-                  necessary={true}
-                  holder={'مثلا وزرات تعاون'}
-                  error={touched.DepartmentName && errors.DepartmentName}
-                  errorText={errors.DepartmentName}
-                  disable={status > 1 ? true : false}
-                  onKeyPress={(event) => {
-                    if (/[a-z]/.test(event.key)) {
-                      event.preventDefault();
-                    }
-                    if (/[A-Z]/.test(event.key)) {
-                      event.preventDefault();
-                    }
+              {
+                values.InsuranceId == 1 ?
+                  null
+                  :
 
 
-                  }}
-                  max={40}
+                  <div className="mb-5 col-span-1 md:col-span-3">
+                    <MainInput
+                      // listBox={true}
+                      // listItems={insurances}
+                      label={'نام دستگاه اجرایی/کارگاه'}
+                      onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
+                      value={values.DepartmentName}
+                      necessary={true}
+                      holder={'مثلا وزرات تعاون'}
+                      error={touched.DepartmentName && errors.DepartmentName}
+                      errorText={errors.DepartmentName}
+                      disable={status > 1 ? true : false}
+                      onKeyPress={(event) => {
+                        if (/[a-z]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                        if (/[A-Z]/.test(event.key)) {
+                          event.preventDefault();
+                        }
 
-                />
-              </div>
+
+                      }}
+                      max={40}
+
+                    />
+                  </div>
+              }
 
               {/* Province - preselect if initial value exists */}
               <div className="mb-5 col-span-1 md:col-span-3">
@@ -341,7 +353,7 @@ const CreateUserInsuranceDes = () => {
                 />
               </div>
 
-              <div className="mb-5 col-span-2 md:col-span-3">
+              {/* <div className="mb-5 col-span-2 md:col-span-3">
                 <MainRadioInput value1={1} value2={2} value3={3}
                   onChange={(value) => setFieldValue('EmploymentStatusId', value)}
                   column={true}
@@ -358,8 +370,8 @@ const CreateUserInsuranceDes = () => {
                   <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.EmploymentStatusId}</p>
                   :
                   null}
-              </div>
-              <div className="mb-5 col-span-1 md:col-span-3">
+              </div> */}
+              {/* <div className="mb-5 col-span-1 md:col-span-3">
                 <MainRadioInput value1={true} necessary={true}
                   value2={false} selectedValue={values.IsActiveSubscriber}
                   onChange={(value) => setFieldValue('IsActiveSubscriber', value)} column={true}
@@ -368,7 +380,7 @@ const CreateUserInsuranceDes = () => {
               {touched.isActiveSubscriber ?
                 <p className='font-IRANYekanBold text-redError text-[12px] mt-1'>{errors?.IsEndingInsurance}</p>
                 :
-                null}
+                null} */}
 
               {/* Insurance ID Number */}
               <div className="mb-5 md:col-span-3">
@@ -493,7 +505,13 @@ const CreateUserInsuranceDes = () => {
               <div className="mb-5  md:col-span-3">
                 <MainInput
                   label={<div className="flex items-center">
-                    <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+                    {values.InsuranceId == 1 ?
+                      <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> کدرمز</p>
+
+                      :
+                      <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+
+                    }
                     {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                   </div>}
                   value={values.LastWorkplace}

@@ -126,9 +126,8 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
             <div className="w-full my-3">
                 <MainExplanation text={<div>
                     <p>در این بخش، فهرستی از صندوق‌هایی که شما در آن‌ها سابقه بیمه‌پردازی داشته‌اید نمایش داده می‌شود. با انتخاب هر صندوق، می‌توانید جزئیات بیمه پردازی خود را به تفکیک سال، ماه و تعداد روز در هر ماه مشاهده کنید.
-همچنین در قسمت «سوابق دارای همپوشانی»، اگر مجموع سوابق ثبت‌شده در دو صندوق طی یک ماه بیش از ۳۰ روز باشد، با انتخاب یکی از صندوق‌ها، تعداد روزهای مازاد از همان صندوق کسر می‌شود و سوابق صندوق دیگر بدون تغییر باقی می‌ماند. 
-در صورتی که به سوابق اعلام‌شده در هر سال اعتراضی دارید، می‌توانید از طریق دکمه «اعتراض» بالای جدول سوابق همان سال، اعتراض خود را ثبت نمایید.
-در صورتی که هنگام تکمیل فرم خوداظهاری، فراموش کرده‌اید صندوقی را اعلام کنید، می‌توانید با استفاده از دکمه «افزودن صندوق جدید» در بالای صفحه، آن صندوق را به سوابق خوداظهاری خود اضافه نمایید.</p>
+                        در صورتی که به سوابق اعلام‌شده در هر سال اعتراضی دارید، می‌توانید از طریق دکمه «اعتراض» بالای جدول سوابق همان سال، اعتراض خود را ثبت نمایید.
+                        در صورتی که هنگام تکمیل فرم خوداظهاری، فراموش کرده‌اید صندوقی را اعلام کنید، می‌توانید با استفاده از دکمه «افزودن صندوق جدید» در بالای صفحه، آن صندوق را به سوابق خوداظهاری خود اضافه نمایید.</p>
                 </div>} />
             </div>
             <div className='w-full flex justify-between items-center mt-3 mb-11 flex-wrap'>
@@ -167,7 +166,8 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
             <div className="w-[490px] xl:w-[90%]">
                 <div className="w-full flex justify-between mb-2 flex-wrap md:justify-center">
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
-                        <DayIcon />
+                        <YearIcon />
+
                         <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.year != "-1" ? initialValues.year + "سال" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
@@ -175,7 +175,7 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                         <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.month != "-1" ? initialValues.month + "ماه" : "درحال بررسی"}</p>
                     </div>
                     <div className="w-[150px] h-[118px] pt-[20px] rounded-[6px] border-[2px] border-dashed border-ddGray flex flex-col items-center md:w-full md:mb-1">
-                        <YearIcon />
+                        <DayIcon />
                         <p className="font-IRANYekanMedium text-[18px] md:text-[14px] text-darkGray mt-2">{initialValues.day != "-1" ? initialValues.day + "روز" : "درحال بررسی"}</p>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                     initialValues?.insuNameDuration?.map((item) => {
                         return (
 
-                            <div className="w-[32%] mt-5 cursor-pointer" onClick={() => getInsurancesProps(item?.insuranceId)}>
+                            <div className="w-[32%] a1475:w-[49%] h800:w-[99%] mt-5 cursor-pointer" onClick={() => getInsurancesProps(item?.insuranceId)}>
                                 <ExistingRecordsMainBox title={item.insuranceName} des={item.duration != -1 ? item.duration + 'روز' : "درحال بررسی"} />
                             </div>
                         )

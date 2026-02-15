@@ -17,14 +17,14 @@ return(
                 <div className="col-span-1 md:col-span-3">
                     <MainInput label={'شهر'} value={data.cityName}/>
                 </div>
-                <div className="col-span-2 md:col-span-3">
+                {/* <div className="col-span-2 md:col-span-3">
                     <MainRadioInput column={true} title={'وضعیت بیمه پردازی'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'سایر'}
                      input={true} inputValue={data.employmentStatusDescription} disabled={true} value1={1} value2={2} value3={3}
                       selectedValue={data.employmentStatusId} />
-                </div>
-                <div className="col-span-1 md:col-span-3">
+                </div> */}
+                {/* <div className="col-span-1 md:col-span-3">
                     <MainRadioInput column={true} title={'مشترک فعال صندوق بازنشستگی'} text1={'بله'} text2={'خیر'} disabled={true} value1={true} value2={false} selectedValue={data.isActiveSubscriber} />
-                </div>
+                </div> */}
                 <div className="col-span-1 md:col-span-3">
                     <MainInput label={'شماره شناسایی بیمه'} value={data.insuranceIdNumber}/>
                 </div>
