@@ -290,9 +290,9 @@ const SignupMain = () => {
                                     max={12}
                                 />
                             </div>
-                            <div className="my-4">
+                             <div className="my-4">
                                 <MainChekbox
-                                    label={"این کاربر نماینده متوفی است."}
+                                    label={"اینجانب درخواست مستمری جمع به عنوان بازمانده را دارم."}
                                     checked={check}
                                     onChange={e => {
                                         const checked = e.target.checked;
@@ -310,7 +310,7 @@ const SignupMain = () => {
                                             اطلاعات متوفی
                                         </span>
                                         <div className="grid grid-cols-2 md:grid-cols-1 gap-4 mt-4">
-                                            {/* National Code */}
+                                        
                                             <MainInput
                                                 label="کدملی"
                                                 necessary={true}
@@ -320,7 +320,7 @@ const SignupMain = () => {
                                                 errorText={errors.deceasedNationalCode}
                                             />
 
-                                            {/* Birth Date */}
+                                         
                                             <MainInput
                                                 label="تاریخ تولد"
                                                 necessary={true}
@@ -334,7 +334,7 @@ const SignupMain = () => {
                                     </div>
                                     :
                                     null
-                            }
+}
                             <div className="mt-[31px] w-[100%] flex justify-center">
                                 <div className="w-[40%] c550:w-[100%]">
                                     <MainButton

@@ -1,14 +1,14 @@
 import {SignupMain} from "../../components"
-import Banner from "../../assets/img/general/banner-tamin2.jpg"
+import Banner2 from "../../assets/img/general/banner2.jpg"
 
 const SignupPage = () => {
     return(
       
         <div>
-           <div className=" w-[60%] mx-auto xl:w-[70%] xl:lg:w-[90%] xl:lg:md:w-[97%] ">
-         {/* <div className="col-span-1 py-[30px]">
-             <img src={Banner} className="h-[530px] rounded-[15px] w-full "/>
-         </div> */}
+           <div className=" w-[80%] gap-2 grid grid-cols-3 mx-auto xl:w-[80%] lg:w-[55%] lg:grid-cols-1  xl:lg:md:w-[97%] ">
+         <div className="col-span-1 py-[30px]">
+             <img src={Banner2} className="h-[530px] rounded-[15px] w-full "/>
+         </div>
          <div className="col-span-2">
          <SignupMain/>
          </div>
