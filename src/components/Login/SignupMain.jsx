@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { MainInput, MainButton, MainRadioInput, MainChekbox } from "../../components";
+import { MainInput, MainButton, MainModal, MainChekbox } from "../../components";
 import PassIcon from "../../assets/icon/general/InputPassIcon";
 import Reload from '../../assets/icon/login/Return';
 import Left from '../../assets/icon/login/LeftPic';
@@ -14,9 +14,12 @@ import { apiUrl } from "../../commons/inFormTypes";
 
 const SignupMain = () => {
     const [captcha, setCaptcha] = useState('');
+    const [checkCon, setCheckCon] = useState(false);
     const [check, setCheck] = useState(false);
     const captchaRef = useRef();
     const navigate = useNavigate();
+const [showModal,setShowModal] = useState(false)
+const [confirm,setConfirm] = useState(false)
 
     // Validation Schema
     const validationSchema = Yup.object().shape({
@@ -142,7 +145,41 @@ const SignupMain = () => {
                     <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-1'>حساب کاربری دارید؟</p>
                     <Link to="/login" className='font-IRANYekanExtra text-[14px] text-mainBlue ml-2'> وارد شوید</Link>
                 </div>
+     {
+            showModal || !confirm?
+            <MainModal big={true} title={'شرایط بهره مندی از مزایای مستمری جمع '} noCross={true} setShowModal={()=>setShowModal(false)}
+            text={<div className="w-full flex flex-col items-start">
 
+                <p className="font-IRANYekanExtra  text-[15px] text-right leading-7">
+                شرایط احراز مستمری جمع برای متقاضیان بشرح بندهای ذیل می‌باشد:
+                    </p>
+                    <p className="font-IRANYekanMedium  text-[15px] text-right leading-7">
+                    1- در زمان ارائه درخواست، در هیچ یک از صندوق‌های بازنشستگی از مزایای مستمری بازنشستگی، ازکارافتادگی کلی و بازماندگان استفاده ننماید.
+<br/>2- در زمان ارایه درخواست، مشترک فعال صندوق بازنشستگی مقصد (آخرین صندوقی که در آن بیمه‌پردازی می‌کند) باشد.
+<br/>3- قبل از لازم‌الاجراشدن این قانون و به موجب قوانین مربوط سوابق بیمه‌ای خود را از یک صندوق بازنشستگی به صندوق بازنشستگی دیگری منتقل نکرده‌ باشد و حق بیمه‌ (کسور بازنشستگی) را مطابق قوانین و مقررات مربوط از صندوق بازنشستگی ذیربط دریافت و تسویه کامل نکرده باشد.
+<br/>4- جزء مشترکان سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات نباشد.
+
+                    </p> 
+                   <div className="mt-4">
+                   <MainChekbox
+                                    label={"اینجانب ضمن مطالعه و پذیرش شرایط مذکور، متقاضی ثبت نام می‌باشم."}
+                                    checked={checkCon}
+                                    onChange={e => {
+                                        const checked = e.target.checked;
+                                        setCheckCon(checked);
+
+                                    }}
+                                />
+                    </div>
+            </div>}
+            modalButton={<div className="w-full flex gap-2 justify-center">
+                <div className="w-[150px]"><MainButton onClickFunction={() =>setConfirm(true)} label={'تایید شرایط'} /></div>
+                {/* <div className="w-[150px]"><MainButton red={true} onClickFunction={() => setShowModal(false)} label={'بستن'} /></div> */}
+
+            </div>}
+        />:
+        null
+          }
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
