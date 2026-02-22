@@ -33,7 +33,7 @@ const CreateUserInsuranceDes = () => {
     TrackRecordType: '',
     TrackRecordDays: '',
     LastWorkplace: '',
-    EmploymentStatusId: 0,
+    EmploymentStatusId: 10,
     QuitReason: '',
     QuitDate: '',
     StartDate: '',
@@ -457,17 +457,22 @@ const CreateUserInsuranceDes = () => {
 
               {/* Track Record Type */}
               <div className="mb-5 md:col-span-3">
-                <MainInput
-                  label={'نوع سابقه'}
-                  value={values.TrackRecordType}
-                  onChange={(e) => setFieldValue('TrackRecordType', e.target.value)}
-                  holder={'مثلا رسمی'}
-                  necessary={true}
-                  error={touched.TrackRecordType && errors.TrackRecordType}
-                  errorText={errors.TrackRecordType}
-                  disable={status > 1 ? true : false}
-                />
-              </div>
+                            <MainInput
+                              label={'نوع سابقه'}
+                              value={values.TrackRecordType}
+                              listBox={true}
+                              defaultVal={values.TrackRecordType}
+              
+                              listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "سایر", name: "سایر" },]}
+                              onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
+                              holder={'مثلا رسمی'}
+                              necessary={true}
+                              error={touched.TrackRecordType && errors.TrackRecordType}
+                              errorText={errors.TrackRecordType}
+                              disable={status > 3 ? true : false}
+              
+                            />
+                          </div>
 
               {/* Track Record Days */}
               <div className="mb-5 md:col-span-3">

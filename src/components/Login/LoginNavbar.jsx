@@ -12,9 +12,9 @@ const LoginNavbar = () => {
             <div className="h-[46px] mt-[-2px] w-full bg-navBlue shadow-navShadow b1115:flex hidden">
             </div>
             <div className="flex justify-center items-center absolute mt-2">
-                <a href="/آیین نامه .pdf" download className="font-IRANYekanMedium text-[14px] text-white">آیین‌نامه</a>
+                <a href="/protocols.pdf" download className="font-IRANYekanMedium text-[14px] text-white">آیین‌نامه</a>
                 <p className="font-IRANYekanBold text-[16px] text-white mx-[30px] z940:mx-[25px] z940:sm:mx-3">.</p>
-                <a href="/طرح ها و لوایح.pdf" download className="font-IRANYekanMedium text-[14px] text-white">طرح‌ها و لوایح</a>
+                <a href="/plans.pdf" download className="font-IRANYekanMedium text-[14px] text-white">طرح‌ها و لوایح</a>
                 <p className="font-IRANYekanBold text-[16px] text-white mx-[30px] z940:mx-[25px] z940:sm:mx-3">.</p>
                 <a href="/userGuide.pdf" download className="font-IRANYekanMedium text-[14px] text-white">راهنمای استفاده از سامانه برای متقاضی</a>
                 <p className="font-IRANYekanBold text-[16px] text-white mx-[30px] z940:mx-[25px] z940:sm:mx-3">.</p>

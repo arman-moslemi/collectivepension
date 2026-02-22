@@ -131,7 +131,7 @@ const VerifyMain = ({ forgetpassword }) => {
             console.log(state)
             console.log(state?.allValues)
             const CapId = captchaWord.captchaId;
-            try {
+         
                 axios
                     .post(apiUrl + "Auth/VerifySignUp", {
                         MobileNumber: state?.Mobile?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
@@ -231,6 +231,8 @@ const VerifyMain = ({ forgetpassword }) => {
                                                 }
                                                 else {
                                                     // handleClick()
+                                                    console.log(88)
+                                                    console.log(response)
                                                     alert(response.data.message)
                                                     setSnipper(false)
                                                     setRecap(!reCap)
@@ -239,11 +241,12 @@ const VerifyMain = ({ forgetpassword }) => {
                     })
 
 
-            } catch (error) {
+             .catch(function (error){
+                console.log(7676)
                 console.log(error)
-                alert(error?.response?.data)
+                alert(error?.response?.data?.message)
                 setRecap(!reCap)
-            }
+               })
         }
 
 

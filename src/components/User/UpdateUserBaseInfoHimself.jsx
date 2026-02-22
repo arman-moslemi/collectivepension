@@ -214,7 +214,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.mobileNumber && errors.mobileNumber}
                                 errorText={errors.mobileNumber}
-                                disable={status > 1 ? true : false}
+                                disable={true}
                                 max={13}
                                 onKeyPress={(event) => {
                                     if (/[a-z]/.test(event.key)) {

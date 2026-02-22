@@ -145,6 +145,9 @@ const ViewProtest = () => {
                 </div>
 
             </div>
+            {
+                maindata?.protestLevel!=4?
+
             <div className='w-full p-[24px]'>
                 <p className='font-IRANYekanExtra text-[15px] text-mainBlue mb-[24px]'>جزئیات اعتراض ثبت شده</p>
                 <div className='w-full mb-7'>
@@ -152,6 +155,9 @@ const ViewProtest = () => {
                     </div>
 
             </div>
+                :
+                null
+            }
         </div>
     )
 }

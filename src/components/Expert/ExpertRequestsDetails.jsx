@@ -93,7 +93,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
 
       {expertPensionRequestForm ?
         <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
-          {statusId == 2 ?
+          {statusId == 2 && webService==true?
             <MainExplanation color={'green'}
               text={
 

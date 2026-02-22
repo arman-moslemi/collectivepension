@@ -146,10 +146,10 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>کد ملی :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.nationalCode}</p>
                     </div>
-                    <div className='flex'>
+                    {/* <div className='flex'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>کد پرسنلی :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.personnelCode}</p>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='flex flex-col items-end'>
                     <div className='flex mb-[14px]'>
