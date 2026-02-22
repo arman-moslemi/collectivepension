@@ -57,7 +57,7 @@ const CreateUserInsuranceDes = () => {
     // .matches(/^[0-9]+$/, 'شماره شناسایی بیمه باید عددی باشد'),
     TrackRecordType: Yup.string().required('نوع سابقه الزامی است'),
     TrackRecordDays: Yup.string().required('میزان سابقه الزامی است').matches(/[0-9]$/, '  میزان سابقه معتبر نیست'),
-    LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
+    // LastWorkplace: Yup.string().required('آخرین محل اشتغال الزامی است'),
     // EmploymentStatusId: Yup.number().min(1, 'وضعیت اشتغال الزامی است').required('وضعیت اشتغال الزامی است'),
     // StartDate: Yup.string().required('تاریخ شروع بیمه پردازی الزامی است'),
     // EndDate: Yup.string().required('تاریخ آخرین بیمه پردازی الزامی است')
@@ -252,7 +252,7 @@ const CreateUserInsuranceDes = () => {
           منظور از آخرین صندوق بازنشستگی، صندوقی است که در حال حاضر در آن عضو هستید و حق بیمه به آن پرداخت می‌کنید
         </span>
       </div>)}
-      <div className="mt-5">
+      <div className="mt-5 w-full">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -260,7 +260,7 @@ const CreateUserInsuranceDes = () => {
           enableReinitialize // This allows Formik to update when initialValues changes
         >
           {({ values, setFieldValue, isSubmitting, errors, touched }) => (
-            <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
+            <Form className="px-[50px] w-full grid grid-cols-3 gap-4 md:px-1">
               {/* Insurance Dropdown - preselect if initial value exists */}
               <div className="mb-5 col-span-2 md:col-span-3">
                 <MainInput
@@ -463,7 +463,7 @@ const CreateUserInsuranceDes = () => {
                               listBox={true}
                               defaultVal={values.TrackRecordType}
               
-                              listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "سایر", name: "سایر" },]}
+                              listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
                               onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
                               holder={'مثلا رسمی'}
                               necessary={true}
@@ -522,7 +522,7 @@ const CreateUserInsuranceDes = () => {
                   value={values.LastWorkplace}
                   onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
                   holder={'مثلا 0...'}
-                  necessary={true}
+                  necessary={values.InsuranceId == 1 ?true:false}
                   error={touched.LastWorkplace && errors.LastWorkplace}
                   errorText={errors.LastWorkplace}
                   disable={status > 1 ? true : false}
@@ -534,12 +534,12 @@ const CreateUserInsuranceDes = () => {
               {/* Last Workplace */}
 
 
-              <div className="col-span-3">
+              {/* <div className="col-span-3">
                 <MainExplanation
                   color={'yellow'}
                   text={'چنانچه صندوق بازنشستگی مقصد، مربوط به سازمان تأمین اجتماعی نیروهای مسلح و صندوق بازنشستگی وزارت اطلاعات باشد، متقاضی (بیمه‌شده اصلی، بازمانده/وظیفه بگیر بیمه شده اصلی) از شمول درخواست مستمری جمع خارج است.'}
                 />
-              </div>
+              </div> */}
 
               <div className="col-span-3 mt-[33px] flex justify-end items-center">
                 <div className="flex">

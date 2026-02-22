@@ -129,6 +129,21 @@ const UpdateUserBaseInfoHimself = () => {
                 {({ values, setFieldValue, isSubmitting, errors, touched }) => (
                     <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
                         {/* Read-only fields */}
+                         <div className="col-span-3 md:col-span-3">
+                            <MainRadioInput
+                                title={'نوع درخواست مستمری جمع'}
+                                radioName={'isRetirement'}
+                                text1={'بازنشستگی'}
+                                value1={true}
+                                text2={'از کار افتادگی کلی'}
+                                value2={false}
+
+                                onChange={(value) => setFieldValue('isRetirement', value)}
+                                selectedValue={values.isRetirement}
+                                disable={status > 1 ? true : false}
+
+                            />
+                        </div>
                         <div className="mb-5 md:col-span-3">
                             <MainInput label={'نام'} value={values.name} necessary={true} disable={true} />
                         </div>
@@ -256,21 +271,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 max={120}
                             />
                         </div>
-                        <div className="col-span-2 md:col-span-3">
-                            <MainRadioInput
-                                title={'نوع درخواست مستمری جمع'}
-                                radioName={'isRetirement'}
-                                text1={'بازنشستگی'}
-                                value1={true}
-                                text2={'از کار افتادگی کلی'}
-                                value2={false}
-
-                                onChange={(value) => setFieldValue('isRetirement', value)}
-                                selectedValue={values.isRetirement}
-                                disable={status > 1 ? true : false}
-
-                            />
-                        </div>
+                       
                         {/* <div className="col-span-1 md:col-span-3">
                             <MainInput
                                 label={'کد پرسنلی'}

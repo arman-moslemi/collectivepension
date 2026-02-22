@@ -161,6 +161,7 @@ const MainAdminUserList = () => {
         password: values.password,
         deceasedNationalCode: values.isAgent ? values.agentNationalCode : undefined,
         deceasedBirthDate: values.isAgent ? values.agentBirthDate : undefined,
+        code:"1234"
       });
       setShowAddModal(false);
       getProtests();
@@ -178,6 +179,7 @@ const MainAdminUserList = () => {
         isAgent: editIsAgent,
         mobileNumber: values.mobile,
         password: values.password || "", // optional
+      
       });
       setShowEditModal(false);
       getProtests(); // Refresh list
@@ -309,7 +311,7 @@ const MainAdminUserList = () => {
               {({ isSubmitting, setFieldValue, values, errors, touched }) => (
                 <Form>
                   <div className="grid grid-cols-10 gap-2">
-                    <div className="col-span-4 mb-2">
+                    <div className="col-span-5 mb-2">
                       <MainInput
                         label={"کدملی"}
                         holder={"******02"}
@@ -337,7 +339,7 @@ const MainAdminUserList = () => {
                       )}
                     </div>
 
-                    <div className="col-span-4 mb-2">
+                    <div className="col-span-5 mb-2">
                       <MainInput
                         label={"تاریخ تولد"}
                         holder={"1352/05/05"}
@@ -350,10 +352,10 @@ const MainAdminUserList = () => {
                         <div className="text-errorRed text-xs mt-1">{errors.birthDate}</div>
                       )}
                     </div>
-                    <div className={`col-span-2 ${(touched.nationalCode && errors.nationalCode) || (touched.birthDate && errors.birthDate) ? 'mb-7' : 'mb-2'}  flex items-end`}>
+                    {/* <div className={`col-span-2 ${(touched.nationalCode && errors.nationalCode) || (touched.birthDate && errors.birthDate) ? 'mb-7' : 'mb-2'}  flex items-end`}>
                       <MainButton label={"استعلام"} />
-                    </div>
-                    <div className="col-span-5 mb-2">
+                    </div> */}
+                    {/* <div className="col-span-5 mb-2">
                       <MainInput
                         label={'نام'}
                         disable={true}
@@ -364,7 +366,7 @@ const MainAdminUserList = () => {
                         label={'نام خانوادگی'}
                         disable={true}
                       />
-                    </div>
+                    </div> */}
 
                     <div className="col-span-5 mb-2">
                       <MainInput

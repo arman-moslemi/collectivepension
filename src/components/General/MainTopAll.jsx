@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import { MainModal, MainButton,MainInput } from "../../components";
 import Cookies from 'universal-cookie';
 import { axiosReq } from "../../commons/axiosReq";
@@ -17,6 +17,7 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
             const [showInputModal, setShowInputModal] = useState(false);
     const [nationalCode, setNationalCode] = useState("");
     const [birthDate, setBirthDate] = useState("");
+    const [name, setName] = useState("");
         const handleSubmit = async (type) => {
     
             console.log(type)
@@ -47,7 +48,11 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
     
     
         };
-    
+        
+     useEffect(() => {
+        setName(cookies.get('Name'))
+              
+    }, []);
     return (
         <div className="flex w-full justify-between items-center md:block">
             <div className="flex justify-start items-center">
@@ -68,15 +73,15 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
                         : role === 'expert' ?
                             <div className='flex w-full justify-center items-center'>
                                 {adminRole ?
-                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>ادمین صندوق  خوش آمدید !</p>
+                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>{name}  خوش آمدید !</p>
                                     :
-                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>کارشناس صندوق  خوش آمدید !</p>
+                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>{name}  خوش آمدید !</p>
                                 }
                             </div>
                             : role === 'mainAdmin' ?
                                 <div className='flex w-full justify-center items-center'>
 
-                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>ادمین کل سامانه خوش آمدید !</p>
+                                    <p className='font-IRANYekanExtra text-[15px] text-mainBlue md:text-[10px]'>{name} خوش آمدید !</p>
 
                                 </div>
                                 : null

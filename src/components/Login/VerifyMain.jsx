@@ -279,17 +279,19 @@ const VerifyMain = ({ forgetpassword }) => {
     return (
         <div className="w-full bg-none flex justify-center">
             <div className='w-[35%] xl:w-[55%] xl:md:w-[85%] xl:md:xs:w-[96%]'>
-                {forgetpassword ?
+                {/* {forgetpassword ? */}
+                <div className='flex'>
                     <div className="w-[100%] bg-none flex justify-end items-center mb-2">
                         <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-1'>حساب کاربری ندارید؟</p>
                         <Link className='font-IRANYekanExtra text-[14px] text-mainBlue ml-2'> ثبت نام کنید</Link>
                     </div>
-                    :
+                    {/* // :  */}
+                    
                     <div className="w-[100%] bg-none flex justify-end items-center mb-2">
                         <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-1'>حساب کاربری دارید؟</p>
-                        <Link className='font-IRANYekanExtra text-[14px] text-mainBlue ml-2'> وارد شوید</Link>
+                        <Link to={"/"} className='font-IRANYekanExtra text-[14px] text-mainBlue ml-2'> وارد شوید</Link>
                     </div>
-                }
+                    </div>
                 <div className="w-[100%] bg-white shadow-mainBoxShadow h-[450px] py-[35px] px-[24px] mb-2 rounded-[15px]">
                     <div className='flex justify-center mb-[39px]'>
                         <p className='font-IRANYekanExtra text-[20px] text-mainBlue'>ثبت کد تایید</p>

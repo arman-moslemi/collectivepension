@@ -503,7 +503,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 listBox={true}
                 defaultVal={values.TrackRecordType}
 
-                listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "سایر", name: "سایر" },]}
+                listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
                 onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
                 holder={'مثلا رسمی'}
                 necessary={true}
@@ -559,7 +559,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                   }
                   {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                 </div>}
-                necessary={true}
+                necessary={values.InsuranceId == 1 ?true:false}
                 holder={'مثلا 0...'}
                 value={values.LastWorkplace}
                 onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
