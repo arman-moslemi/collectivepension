@@ -13,6 +13,8 @@ const UpdateUserBaseInfoAnother = () => {
     let navigate = useNavigate();
     const [file, setFile] = useState();
     const [files, setFiles] = useState([]);
+    const [postal, setPostal] = useState();
+
     const [initialValues, setInitialValues] = useState({
         userName: '',
         userFamily: '',
@@ -32,7 +34,8 @@ const UpdateUserBaseInfoAnother = () => {
         agentIdcardNumber: "",
         agentMobileNumber: "",
         agentName: "",
-        agentFamily: ""
+        agentFamily: "",
+        postalCode: ""
     });
 
     const validationSchema = Yup.object().shape({
@@ -76,9 +79,10 @@ const UpdateUserBaseInfoAnother = () => {
                 Address: values.userAddress,
                 IsRetirement: values.userIsRetirement,
                 // PersonnelCode: values.userPersonnelCode,
-                PersonnelCode:"1",
+                PersonnelCode: "1",
                 BirthDate: values.userBirthDate,
                 AgentAddress: values.agentAddress,
+                PostalCode: values.postalCode,
                 NationalCode: values.userNationalCode,
                 Relationship: values.relationship,
                 AgentPhoneNumber: values.agentPhoneNumber,
@@ -143,6 +147,20 @@ const UpdateUserBaseInfoAnother = () => {
             console.error("Error downloading file:", error);
         }
     };
+    const getAddress = async (postal) => {
+          try {
+              const response = await axiosReq("Auth/GetAddress?postalCode=" + postal, "get");
+              console.log(response);
+  
+              if (response?.status === 200 || response?.status === 204) {
+                  // setFieldValue('address',response.data.data);
+                  return response.data.data
+             
+              }
+          } catch (error) {
+              console.error("Error fetching address:", error);
+          }
+      };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             <div className="flex justify-start px-[32px] items-center">
@@ -407,6 +425,51 @@ const UpdateUserBaseInfoAnother = () => {
                                             error={touched.relationship && errors.relationship}
                                             errorText={errors.relationship} />
                                     </div>
+                                    <div className="mb-5 col-span-1 flex justify-between">
+                                        <MainInput
+                                            label={'کدپستی'}
+                                            value={values.postalCode}
+                                            onChange={(e) => { setFieldValue('postalCode', e.target.value); setPostal(e.target.value) }} holder={'مثلا 9484466552'}
+                                            necessary={true}
+                                            error={touched.postalCode && errors.postalCode}
+                                            errorText={errors.postalCode}
+                                            // disable={status > 1 ? true : false}
+                                            max={10}
+                                            onKeyPress={(event) => {
+                                                if (/[a-z]/.test(event.key)) {
+                                                    event.preventDefault();
+                                                }
+                                                if (/[A-Z]/.test(event.key)) {
+                                                    event.preventDefault();
+                                                }
+                                                if (/[۱-۹]/.test(event.key)) {
+                                                    event.preventDefault();
+                                                }
+                                                if (/[آ-ی]/.test(event.key)) {
+                                                    event.preventDefault();
+                                                }
+
+                                            }}
+                                        />
+
+                                    </div>
+                                    <div className="col-span-1 mb-5 flex items-end">
+   <MainButton
+                                type="button"
+                                label={"استعلام"}
+                                onClickFunction={async () => {
+
+                                    // Get postal code value from formik values
+                                    const postalCode = values.postalCode; // or wherever you store postal code
+                                    if (postalCode) {
+                                        var postt = await getAddress(postalCode);
+                                        console.log(333)
+                                        console.log(postt)
+                                        setFieldValue("address", postt)
+                                    }
+                                }}
+                                className="mb-2"
+                            />                                    </div>
                                     <div className="mb-5 col-span-2 md:col-span-3">
                                         <MainInput label={'آدرس'} holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'}
                                             value={values.agentAddress}

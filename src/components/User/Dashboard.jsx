@@ -139,10 +139,10 @@ const Dashboard = () => {
                     <img src={DashboardPic3} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
                 </div>
-                <div onClick={() => getBank()} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center cursor-pointer  justify-center">
+                {/* <div onClick={() => getBank()} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center cursor-pointer  justify-center">
                     <img src={DashboardPic4} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعلام حساب بانکی</p>
-                </div>
+                </div> */}
                 <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] cursor-pointer  md:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">آخرین سوابق</p>
                     <div className="w-full h-full ">
@@ -172,7 +172,7 @@ const Dashboard = () => {
                     <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
                 </div>
             </div>
-            {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
+            {/* {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
                     <div><MainInput onChange={(e) => setBankName(e.target.value)} max={20} value={bankName} label={'نام بانک'} /></div>
                     <div><MainInput onChange={(e) => setBranch(e.target.value)} max={20} value={branch} label={'نام شعبه'} /></div>
@@ -182,7 +182,7 @@ const Dashboard = () => {
                 modalButton={<div className="w-full flex justify-center">
                     <div className="w-[140px]"><MainButton onClickFunction={bankAccount} label={'ثبت'} /></div>
                 </div>}
-            /> : null}
+            /> : null} */}
         </div>
     )
 }
