@@ -53,7 +53,7 @@ const ExpertDashboard = () => {
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px] md:px-[10px]">
       <div className="w-full mb-[15px]"><MainExplanation color={'red'} text={'شما دارای ' + count?.expiredCount + ' درخواست با مهلت در حال اتمام هستید.لطفاً در اسرع وقت نسبت به بررسی و رسیدگی به این درخواست‌ها اقدام نمایید تا از بروز تأخیر جلوگیری شود.'} /></div>
       <div className="w-full grid grid-cols-3 gap-4 md:gap-2">
-        <div onClick={() => navigate('/expert/requestsPension')} className="col-span-1 hover:cursor-pointer md:col-span-3 h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+        <div onClick={() => navigate('/expert/requestsPension')} className="col-span-1 hover:cursor-pointer z940:col-span-3 h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
           <ExportDashboardIcon1 />
           <div className="flex items-center mt-[15px]" >
             <p className="font-IRANYekanExtra text-[15px] text-mainBlue h800:text-[14px] ">درخواست‌های بازنشستگی</p>
@@ -62,11 +62,11 @@ const ExpertDashboard = () => {
             </div>
           </div>
         </div>
-        <div onClick={() => navigate('/expert/requests')} className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+        <div onClick={() => navigate('/expert/requests')} className="col-span-1 z940:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
           <ExportDashboardIcon2 />
           <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">درخواست‌ ها</p>
         </div>
-        <div onClick={() => navigate('/expert/protestList')} className="col-span-1 md:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
+        <div onClick={() => navigate('/expert/protestList')} className="col-span-1 z940:col-span-3 hover:cursor-pointer h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between p-[20px]">
           <ExportDashboardIcon3 />
           <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-[15px] h800:text-[14px] ">اعتراضات رسیده</p>
         </div>
@@ -76,7 +76,7 @@ const ExpertDashboard = () => {
                 </div> */}
         <div className="h-auto p-6 px-2 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] mb-[30px]">
           <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">گزارش عملکرد</p>
-          <div className="w-full overflow-x-auto">
+          <div className="w-full flex justify-center overflow-x-auto">
             <div className="min-w-[600px] h-[350px]">
               <ResponsiveContainer width={1000} height={300}>
                 <BarChart

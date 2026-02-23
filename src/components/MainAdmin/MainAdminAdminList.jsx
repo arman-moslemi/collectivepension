@@ -248,7 +248,7 @@ const MainAdminAdminList = () => {
   }
   const handleAdminReport = async (id) => {
     try {
-      const response = await axiosReq("SuperAdmins/GetAdminReport?adminId="+id, "get");
+      const response = await axiosReq("SuperAdmins/GetAdminReport?adminId=" + id, "get");
       setReportResponse(response.data);
       alert("ok" + response.data);
       if (response?.status === 200) {
@@ -266,7 +266,7 @@ const MainAdminAdminList = () => {
       console.log(response)
       if (response?.status === 200 || response?.status === 204) {
         alert("موفقیت آمیز")
-       download(response.data)
+        download(response.data)
 
       }
     } catch (error) {
@@ -274,40 +274,40 @@ const MainAdminAdminList = () => {
     }
   };
 
- const download = async (name) => {
-        try {
-            const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
-                responseType: "blob", // important!
-            });
+  const download = async (name) => {
+    try {
+      const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
+        responseType: "blob", // important!
+      });
 
-            if (response.status === 200) {
-                // Create a blob from the response
-                const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                const url = window.URL.createObjectURL(blob);
+      if (response.status === 200) {
+        // Create a blob from the response
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const url = window.URL.createObjectURL(blob);
 
-                // Create a temporary link element
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = name; // you can also extract filename from headers if needed
-                document.body.appendChild(a);
-                a.click();
+        // Create a temporary link element
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name; // you can also extract filename from headers if needed
+        document.body.appendChild(a);
+        a.click();
 
-                // Cleanup
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            }
-        } catch (error) {
-            console.error("Error downloading file:", error);
-        }
-    };
+        // Cleanup
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
 
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
       <div className="w-full mb-[15px]">
         <div className="grid grid-cols-12 gap-4 justify-between">
-          <div className='col-span-8 md:col-span-12 w-full ml-3'><MainInput onChange={(e) => setName(e.target.value)} search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon />} /></div>
+          <div className='col-span-8 h800:col-span-12 w-full ml-3'><MainInput onChange={(e) => setName(e.target.value)} search={true} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon />} /></div>
 
-          <div className="flex col-span-4 mt-2 md:col-span-12 md:justify-center">
+          <div className="flex col-span-4 mt-2 h800:col-span-12 h800:justify-center">
             <div className="w-[120px]">
               <MainButton label={'+ تعریف ادمین'} onClickFunction={() => setShowAddModal(true)} />
             </div>

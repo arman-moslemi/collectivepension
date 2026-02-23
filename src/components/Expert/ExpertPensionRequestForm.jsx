@@ -52,9 +52,9 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     };
     const disApprove = async () => {
         try {
-            const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put",{
-                Reason:reason,
-                UserInsuranceFiles:files
+            const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put", {
+                Reason: reason,
+                UserInsuranceFiles: files
             });
             if (response.data) {
                 alert("با موفقیت انجام شد");
@@ -66,17 +66,17 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
             setLoading(false);
         }
     };
-     useEffect(() => {
-            handleFileChange()
-        }, [file]);
-        const handleFileChange = () => {
-    
-            if (file?.length > 0) {
-                console.log("change")
-                console.log(111)
-                setFiles([...files, file])
-            }
+    useEffect(() => {
+        handleFileChange()
+    }, [file]);
+    const handleFileChange = () => {
+
+        if (file?.length > 0) {
+            console.log("change")
+            console.log(111)
+            setFiles([...files, file])
         }
+    }
     if (loading) {
         return <div className="w-full flex justify-center py-10">در حال بارگزاری...</div>;
     }
@@ -84,32 +84,32 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     if (error) {
         return <div className="w-full flex justify-center py-10 text-redError font-IRANYekanBold">{error}</div>;
     }
-       const download = async (name) => {
-                      try {
-                          const response = await axiosReq(`Users/download/${name}`, "get", {
-                              responseType: "blob", // important!
-                          });
-              
-                          if (response.status === 200) {
-                              // Create a blob from the response
-                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                              const url = window.URL.createObjectURL(blob);
-              
-                              // Create a temporary link element
-                              const a = document.createElement('a');
-                              a.href = url;
-                              a.download = name; // you can also extract filename from headers if needed
-                              document.body.appendChild(a);
-                              a.click();
-              
-                              // Cleanup
-                              a.remove();
-                              window.URL.revokeObjectURL(url);
-                          }
-                      } catch (error) {
-                          console.error("Error downloading file:", error);
-                      }
-                  };
+    const download = async (name) => {
+        try {
+            const response = await axiosReq(`Users/download/${name}`, "get", {
+                responseType: "blob", // important!
+            });
+
+            if (response.status === 200) {
+                // Create a blob from the response
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name; // you can also extract filename from headers if needed
+                document.body.appendChild(a);
+                a.click();
+
+                // Cleanup
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
 
     return (
         <div className="w-full">
@@ -149,7 +149,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
                 </div>
                 <div className="col-span-2 md:col-span-3">
                     <MainRadioInput title={'نوع درخواست مستمری جمع'} selectedValue={formData?.isRetirement} value1={true} value2={false} text1={'بازنشستگی'} text2={'از کار افتادگی کلی'}
-                        ml={'100'} mr={'30'} disabled={true} />
+                        ml={'30'} mr={'30'} disabled={true} />
                 </div>
                 {/* <div className="col-span-1 md:col-span-3">
                     <MainInput label={'کد پرسنلی'} selectedValue={formData?.personnelCode} value={'مثلا 09123333333'} />
@@ -176,7 +176,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
 
             <div className="border-t-[2px] border-dGray border-dashed pb-9 mx-[73px]"></div>
 
-            {des && !webService && !admin &&  (formData?.userStatusId==2||formData?.userStatusId==5)?
+            {des && !webService && !admin && (formData?.userStatusId == 2 || formData?.userStatusId == 5) ?
                 <div className="w-full px-[120px] flex justify-end items-center lg:px-0 lg:justify-center">
                     <div className="w-[107px] ml-[10px]"><MainButton onClickFunction={() => submit()} label={'تایید'} /></div>
                     <div className="w-[107px]"><MainButton onClickFunction={() => setDisapproval(true)} label={'عدم تایید'} red={true} /></div>
@@ -198,7 +198,7 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
                             files.map((item) => {
                                 return (
 
-                                    <div onClick={() => download(item)}  className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                    <div onClick={() => download(item)} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
                                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                                         <ExportAgentFileIIcon />
                                     </div>

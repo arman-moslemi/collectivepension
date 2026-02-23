@@ -140,8 +140,8 @@ const MainAdminExpertActivity = () => {
             setReportResponse(response.data);
             if (response?.status === 200) {
                 alert("موفقیت آمیز")
-               // window.open(apiAsset + response.data, '_blank')
-download(response.data)
+                // window.open(apiAsset + response.data, '_blank')
+                download(response.data)
                 // getProtests();
             }
         } catch (error) {
@@ -156,8 +156,14 @@ download(response.data)
             <div className="w-full mb-[15px]">
                 <div className='w-full grid gap-2 grid-cols-12 mb-[28px]'>
 
-                    <div className='col-span-4 w-full lg:col-span-12'><div className="mb-4 flex justify-between items-center">
-                        <span className="font-IRANYekanBold min-w-[110px] text-[15px] text-black">
+                    <div className=" hidden md:flex justify-end col-span-12">
+                        <div className="w-[123px] mt-2">
+                            <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
+                        </div>
+                    </div>
+
+                    <div className='col-span-10 md:col-span-12 md:mt-3 w-full'><div className="mb-4 flex xs:flex-col xs:items-start justify-start items-center">
+                        <span className="font-IRANYekanBold min-w-[103px] text-[15px] text-black">
                             انتخاب صندوق
                         </span>
                         <div className="w-full">
@@ -179,7 +185,7 @@ download(response.data)
                     <div className='col-span-2 md:col-span-12'><MainInput date={true} holder={'تا تاریخ'} leftIcon={<DateIcon />} /></div> */}
 
 
-                    <div className=" flex justify-end col-span-8">
+                    <div className=" flex justify-end col-span-2 md:hidden">
                         <div className="w-[123px] mt-2">
                             <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
                         </div>

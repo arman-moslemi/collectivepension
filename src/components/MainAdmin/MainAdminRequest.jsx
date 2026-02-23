@@ -147,13 +147,18 @@ const MainAdminRequest = () => {
 
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
+            <div className="w-full flex justify-end mb-3">
+                <div className="w-[100px]">
+                    <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
+                </div>
+            </div>
             <div className='w-full grid grid-cols-12 mb-[28px] gap-2'>
 
-                <div className='w-full col-span-5 lg:col-span-12 ml-3'><MainInput search={true} onChange={(e) => setName(e.target.value)} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon />} /></div>
-                <div className='grid grid-cols-3 gap-1 col-span-6 lg:col-span-12 '>
-                    <div className='ml-3 w-full col-span-1 lg:col-span-3'><MainInput holder={'از تاریخ'} value={startDate} onChange={(val1) => setStartDate(val1)} date={true} leftIcon={<DateIcon />} /></div>
-                    <div className='ml-3 w-full col-span-1 lg:col-span-3'><MainInput holder={'تا تاریخ'} value={endDate} onChange={(val2) => setEndDate(val2)} date={true} leftIcon={<DateIcon />} /></div>
-                    <div className='w-full col-span-1 lg:col-span-3'>
+                <div className='w-full col-span-4 xl:col-span-12 ml-3'><MainInput search={true} onChange={(e) => setName(e.target.value)} holder={'جستجو بر اساس نام یا کدملی'} leftIcon={<SearchIcon />} /></div>
+                <div className='grid grid-cols-5 lg:grid-cols-2 gap-1 col-span-8 xl:col-span-12 '>
+                    <div className='ml-3 w-full col-span-1 lg:col-span-1 lg:q339:col-span-2'><MainInput holder={'از تاریخ'} value={startDate} onChange={(val1) => setStartDate(val1)} date={true} leftIcon={<DateIcon />} /></div>
+                    <div className='ml-3 w-full col-span-1 lg:col-span-1 lg:q339:col-span-2'><MainInput holder={'تا تاریخ'} value={endDate} onChange={(val2) => setEndDate(val2)} date={true} leftIcon={<DateIcon />} /></div>
+                    <div className='w-full col-span-3 lg:col-span-2'>
                         <MainInput
                             listBoxM1={true}
                             listItems={statues}
@@ -167,9 +172,7 @@ const MainAdminRequest = () => {
                     </div>
                 </div>
 
-                <div className="w-full col-span-1 mt-2 lg:col-span-12">
-                    <MainButton onClickFunction={() => getExcel()} label={'گزارش‌ گیری'} />
-                </div>
+
             </div>
             <div className='w-full mb-[10px]'>
                 <MainTable ic={false} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
