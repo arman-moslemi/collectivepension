@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 
 const UpdateUserBaseInfoHimself = () => {
     const navigate = useNavigate();
+    const [postal, setPostal] = useState();
     const [initialValues, setInitialValues] = useState({
         name: '',
         family: '',
@@ -20,6 +21,7 @@ const UpdateUserBaseInfoHimself = () => {
         phoneNumber: '',
         mobileNumber: '',
         address: '',
+        postalCode: "",
         isRetirement: '', // 'بازنشستگی' or 'از کار افتادگی کلی'
         // personnelCode: ''
     });
@@ -54,7 +56,20 @@ const UpdateUserBaseInfoHimself = () => {
             console.error("Error fetching user data:", error);
         }
     };
+    const getAddress = async (postal) => {
+        try {
+            const response = await axiosReq("Auth/GetAddress?postalCode=" + postal, "get");
+            console.log(response);
 
+            if (response?.status === 200 || response?.status === 204) {
+                // setFieldValue('address',response.data.data);
+                return response.data.data
+           
+            }
+        } catch (error) {
+            console.error("Error fetching address:", error);
+        }
+    };
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
             // Prepare only editable fields for API
@@ -69,6 +84,7 @@ const UpdateUserBaseInfoHimself = () => {
                 BirthDate: values.birthDate,
                 // AgentAddress:"",
                 NationalCode: values.nationalCode,
+                PostalCode: values.postalCode,
                 // Relationship:"",
                 // AgentPhoneNumber:"",
                 // AgentIdcardNumber:"",
@@ -129,7 +145,7 @@ const UpdateUserBaseInfoHimself = () => {
                 {({ values, setFieldValue, isSubmitting, errors, touched }) => (
                     <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
                         {/* Read-only fields */}
-                         <div className="col-span-3 md:col-span-3">
+                        <div className="col-span-3 md:col-span-3">
                             <MainRadioInput
                                 title={'نوع درخواست مستمری جمع'}
                                 radioName={'isRetirement'}
@@ -247,6 +263,54 @@ const UpdateUserBaseInfoHimself = () => {
 
                                 }}
                             />
+
+                        </div>
+                        <div className="mb-5 col-span-2 flex justify-between">
+                            <MainInput
+                                label={'کدپستی'}
+                                value={values.postalCode}
+                                onChange={(e) => { setFieldValue('postalCode', e.target.value); setPostal(e.target.value) }}
+                                holder={'مثلا 9484466552'}
+                                necessary={true}
+                                error={touched.postalCode && errors.postalCode}
+                                errorText={errors.postalCode}
+                                disable={status > 1 ? true : false}
+                                max={10}
+                                onKeyPress={(event) => {
+                                    if (/[a-z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[A-Z]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[۱-۹]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+                                    if (/[آ-ی]/.test(event.key)) {
+                                        event.preventDefault();
+                                    }
+
+                                }}
+                            />
+
+                        </div>
+                        <div className="col-span-1 mb-5 flex items-end">
+                            <MainButton
+                                type="button"
+                                label={"استعلام"}
+                                onClickFunction={async () => {
+
+                                    // Get postal code value from formik values
+                                    const postalCode = values.postalCode; // or wherever you store postal code
+                                    if (postalCode) {
+                                        var postt = await getAddress(postalCode);
+                                        console.log(333)
+                                        console.log(postt)
+                                        setFieldValue("address", postt)
+                                    }
+                                }}
+                                className="mb-2"
+                            />
                         </div>
                         <div className="col-span-3 mb-5">
                             <MainInput
@@ -257,7 +321,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 necessary={true}
                                 error={touched.address && errors.address}
                                 errorText={errors.address}
-                                disable={status > 1 ? true : false}
+                                disable={true}
                                 onKeyPress={(event) => {
                                     if (/[a-z]/.test(event.key)) {
                                         event.preventDefault();
@@ -268,10 +332,10 @@ const UpdateUserBaseInfoHimself = () => {
 
 
                                 }}
-                                max={120}
+                                max={180}
                             />
                         </div>
-                       
+
                         {/* <div className="col-span-1 md:col-span-3">
                             <MainInput
                                 label={'کد پرسنلی'}

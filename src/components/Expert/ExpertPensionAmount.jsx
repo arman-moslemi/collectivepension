@@ -159,7 +159,7 @@ const ExpertPensionAmountInput = ({ another, id,admin }) => {
                 <p className="font-IRANYekanExtra text-[20px] lg:text-[18px] text-mainBlue">{data?.totalPension} تومان</p>
             </div>
             {/* {another? null: */}
-            <div className="w-full flex flex-col items-center justify-center  mb-[22px]">
+            {/* <div className="w-full flex flex-col items-center justify-center  mb-[22px]">
                 <p className="text-[18px] lg:text-[14px] text-mainBlue font-IRANYekanExtra mb-5">اطلاعات حساب بانکی</p>
                 <div className="flex justify-center flex-wrap items-center">
                     <div className="ml-[120px] lg:ml-1">
@@ -175,7 +175,7 @@ const ExpertPensionAmountInput = ({ another, id,admin }) => {
                         <p className="text-[15px] lg:text-[13px] font-IRANYekanMedium">{data?.bankBranch}</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* } */}
             <div className="w-full flex justify-center">
                 <div className="w-[75%]"><MainTable cen6={true} list={dataTable} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} /></div>
