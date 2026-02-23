@@ -76,6 +76,7 @@ const MainAdminProtestList = () => {
                             <button onClick={() => navigate("/mainAdmin/protestDetail", {
                                 state: {
                                     id: item.protestId,
+                                    name: item.insuranceName,
                                     type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
                                 }
                             })}>

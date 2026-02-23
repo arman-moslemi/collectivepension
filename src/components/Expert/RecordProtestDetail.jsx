@@ -10,7 +10,7 @@ import { apiAsset } from "../../commons/inFormTypes";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 import { useNavigate } from "react-router-dom";
 
-const RecordProtestDetail = ({ role }) => {
+const RecordProtestDetail = ({ role,insuName }) => {
     const isAdmin = role === roles.mainAdmin;
     const isExpert = role === roles.expert;
     const titleRow = ["نوع", "سال", "ماه", "بازه بیمه پردازی", "تعداد روز", "وضعیت", "عملیات"];
@@ -281,8 +281,7 @@ const RecordProtestDetail = ({ role }) => {
                         <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                             نام صندوق :
                             <span className="font-IRANYekanBold mr-1">
-                                {maindata
-                                    ?.name}
+                                {insuName}
                             </span>
                         </span>
                     </div>

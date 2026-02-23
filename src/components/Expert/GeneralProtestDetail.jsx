@@ -8,7 +8,7 @@ import { apiAsset } from "../../commons/inFormTypes";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 import { useNavigate } from "react-router-dom";
 
-const GeneralProtestDetail = ({ role,id }) => {
+const GeneralProtestDetail = ({ role,id,insuName}) => {
     const location = useLocation();
     const isAdmin = role === roles.mainAdmin;
     const isExpert = role === roles.expert;
@@ -151,8 +151,7 @@ const GeneralProtestDetail = ({ role,id }) => {
                         <span className="font-IRANYekanExtra text-[15px] text-mainBlue">
                             نام صندوق :
                             <span className="font-IRANYekanBold mr-1">
-                                {maindata
-                                    ?.name}
+                                {insuName}
                             </span>
                         </span>
                     </div>
