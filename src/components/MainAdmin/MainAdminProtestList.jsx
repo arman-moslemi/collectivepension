@@ -1,5 +1,5 @@
-import {MainButton, MainInput, MainTable,MainModal} from "..";
-import {useNavigate, Link} from "react-router-dom";
+import { MainButton, MainInput, MainTable, MainModal } from "..";
+import { useNavigate, Link } from "react-router-dom";
 import SearchIcon from "../../assets/icon/general/SearchIcon";
 import DateIcon from "../../assets/icon/general/DateIcon";
 import { axiosReq } from "../../commons/axiosReq";
@@ -27,25 +27,25 @@ const MainAdminProtestList = () => {
     let navigate = useNavigate();
     const [startDate,
         setStartDate] = useState("");
-        const [endDate,
-            setEndDate] = useState("");
+    const [endDate,
+        setEndDate] = useState("");
 
-        const [statues, setStatues] = useState([]);
-        const [levels, setLevels] = useState([]);
-        const [name, setName] = useState("");
-        const [protestLevelId, setProtestLevelId] = useState("");
-        const [protestStatusId, setProtestStatusId] = useState("");
-        const [count, setCount] = useState();
-        const [page, setPage] = useState(1);
-        const [row, setRow] = useState(10);
-        const [data, setData] = useState([]);
+    const [statues, setStatues] = useState([]);
+    const [levels, setLevels] = useState([]);
+    const [name, setName] = useState("");
+    const [protestLevelId, setProtestLevelId] = useState("");
+    const [protestStatusId, setProtestStatusId] = useState("");
+    const [count, setCount] = useState();
+    const [page, setPage] = useState(1);
+    const [row, setRow] = useState(10);
+    const [data, setData] = useState([]);
 
 
 
-        const getProtests = async () => {
+    const getProtests = async () => {
         try {
 
-            const response = await axiosReq("SuperAdmins/GetProtestsSP?page=" + page + "&&pageSize=" + row+"&&search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&protestStatusId="+protestStatusId+"&&protestLevelId="+protestLevelId, "post");
+            const response = await axiosReq("SuperAdmins/GetProtestsSP?page=" + page + "&&pageSize=" + row + "&&search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&protestStatusId=" + protestStatusId + "&&protestLevelId=" + protestLevelId, "post");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
@@ -64,25 +64,25 @@ const MainAdminProtestList = () => {
                         item6: item.protestStatus,
                         item7: item.insuranceName,
                         item8: (
-    //     <Link
-    //     to={`/mainAdmin/protestList/${item.id}`}
-    //     state={{ type: item.protestType, data: item }}
-    //   >
-    //     <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
-    //       <DetailTableIcon />
-    //     </div>
-    //   </Link>
+                            //     <Link
+                            //     to={`/mainAdmin/protestList/${item.id}`}
+                            //     state={{ type: item.protestType, data: item }}
+                            //   >
+                            //     <div className="w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center">
+                            //       <DetailTableIcon />
+                            //     </div>
+                            //   </Link>
 
-       <button onClick={() => navigate("/mainAdmin/protestDetail", {
-                                    state: {
-                                        id: item.protestId,
-                                        type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
-                                    }
-                                })}>
-                                    <div
-                                        className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
-                                </button>
-    ), 
+                            <button onClick={() => navigate("/mainAdmin/protestDetail", {
+                                state: {
+                                    id: item.protestId,
+                                    type: item.protestLevelId == 2 ? "RECORD" : item.protestLevelId == 4 ? "AMOUNT" : "GENERAL"
+                                }
+                            })}>
+                                <div
+                                    className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'><DetailTableIcon /></div>
+                            </button>
+                        ),
 
                     })
                 })
@@ -97,72 +97,72 @@ const MainAdminProtestList = () => {
         getProtests();
     }, [name, protestLevelId, protestStatusId, page, row, startDate, endDate]);
 
-        const getFiltersLevels = async () => {
-                try {
-        
-        
-                    const response3 = await axiosReq("SuperAdmins/GetProtestLevels", "get");
-                    
-                    if (response3?.status === 200 || response3?.status === 204) {
-                        var sta = []
-                        response3.data?.map((item, index) => {
-                            sta.push({
-                                id: item.protestLevelId,
-                                name: item.protestLevel,
-                            })
-                        })
-                        setLevels(sta);
-                        
-                    }
-        
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
-            };
-            const getFiltersStatuses = async () => {
-                try {
-        
-        
-                    const response4 = await axiosReq("SuperAdmins/GetProtestStatuses", "get");
-        
-                    if (response4?.status === 200 || response4?.status === 204) {
-                        var sta = []
-                        response4.data?.map((item, index) => {
-                            sta.push({
-                                id: item.protestStatusId,
-                                name: item.statusDescription,
-                            })
-                        })
-                        setStatues(sta);
-                    }
-        
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
-            };
-            useEffect(() => {
-                getFiltersLevels();
-                getFiltersStatuses();
-                
-            }, []);
-
-            const getExcel = async () => {
+    const getFiltersLevels = async () => {
         try {
 
-            const response = await axiosReq("SuperAdmins/GetProtestsSPExcel?search="+name+"&&endDate="+endDate+"&&startDate="+startDate+"&&protestStatusId="+protestStatusId+"&&protestLevelId="+protestLevelId, "post");
-            console.log(response)
 
-            if (response?.status === 200 || response?.status === 204) {
-                alert("موفقیت آمیز")
-                                    download(response.data)
-                
+            const response3 = await axiosReq("SuperAdmins/GetProtestLevels", "get");
+
+            if (response3?.status === 200 || response3?.status === 204) {
+                var sta = []
+                response3.data?.map((item, index) => {
+                    sta.push({
+                        id: item.protestLevelId,
+                        name: item.protestLevel,
+                    })
+                })
+                setLevels(sta);
+
             }
 
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
- const download = async (name) => {
+    const getFiltersStatuses = async () => {
+        try {
+
+
+            const response4 = await axiosReq("SuperAdmins/GetProtestStatuses", "get");
+
+            if (response4?.status === 200 || response4?.status === 204) {
+                var sta = []
+                response4.data?.map((item, index) => {
+                    sta.push({
+                        id: item.protestStatusId,
+                        name: item.statusDescription,
+                    })
+                })
+                setStatues(sta);
+            }
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+    useEffect(() => {
+        getFiltersLevels();
+        getFiltersStatuses();
+
+    }, []);
+
+    const getExcel = async () => {
+        try {
+
+            const response = await axiosReq("SuperAdmins/GetProtestsSPExcel?search=" + name + "&&endDate=" + endDate + "&&startDate=" + startDate + "&&protestStatusId=" + protestStatusId + "&&protestLevelId=" + protestLevelId, "post");
+            console.log(response)
+
+            if (response?.status === 200 || response?.status === 204) {
+                alert("موفقیت آمیز")
+                download(response.data)
+
+            }
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+    const download = async (name) => {
         try {
             const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
                 responseType: "blob", // important!
@@ -192,26 +192,31 @@ const MainAdminProtestList = () => {
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
+            <div className="w-full flex justify-end mb-3">
+                <div className="w-[100px]">
+                    <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
+                </div>
+            </div>
             <div className="w-full grid grid-cols-12 gap-2 items-end mb-2">
 
-                <div className="col-span-3 b1115:col-span-12 flex items-center">
+                <div className="col-span-4  b1115:col-span-12 flex items-center">
                     <MainInput
                         search={true}
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                         holder={"جستجو بر اساس نام یا کدملی"}
-                        leftIcon={< SearchIcon />}/>
+                        leftIcon={< SearchIcon />} />
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12 ">
                     <MainInput date={true} value={startDate}
-                        onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />}/>
+                        onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />} />
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
                     <MainInput date={true} value={endDate}
-                        onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />}/>
+                        onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />} />
                 </div>
-                <div className="col-span-2 b1115:col-span-6">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
                     <MainInput
                         listBoxM1={true}
                         listItems={levels}
@@ -219,34 +224,32 @@ const MainAdminProtestList = () => {
                         value={levels.find(i => String(i.id) === String(protestLevelId)) || ""}
                         // On change, always store only the id (as string) in Formik
                         onChange={(value) =>
-                          setProtestLevelId(value.id)}
-                        listBoxHolder={"نوع اعتراض"}/>
+                            setProtestLevelId(value.id)}
+                        listBoxHolder={"نوع اعتراض"} />
                 </div>
-                <div className="col-span-2 b1115:col-span-6">
-                    <MainInput 
-                    listBoxM1={true} 
-                    listItems={statues}
-                    // For display, pass the selected object (or "" if not selected)
-                    value={statues.find(i => String(i.id) === String(protestStatusId)) || ""}
-                    // On change, always store only the id (as string) in Formik
-                    onChange={(value) =>
-                        setProtestStatusId(value.id)} 
-                    listBoxHolder={"وضعیت"}/>
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
+                    <MainInput
+                        listBoxM1={true}
+                        listItems={statues}
+                        // For display, pass the selected object (or "" if not selected)
+                        value={statues.find(i => String(i.id) === String(protestStatusId)) || ""}
+                        // On change, always store only the id (as string) in Formik
+                        onChange={(value) =>
+                            setProtestStatusId(value.id)}
+                        listBoxHolder={"وضعیت"} />
                 </div>
                 <div className="col-span-1  mb-[1px]">
-            <div className="w-full">
-            <MainButton onClickFunction={()=>getExcel()} label={"گزارش‌ گیری"} />
-            </div>
-            </div>
 
-            
+                </div>
+
+
 
             </div>
-            
+
             <div className='w-full my-[20px]'>
-                <MainTable center1={false} ic={false} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow}/>
+                <MainTable center1={false} ic={false} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
             </div>
-        
+
         </div>
     )
 }

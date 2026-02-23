@@ -161,7 +161,7 @@ const MainAdminUserList = () => {
         password: values.password,
         deceasedNationalCode: values.isAgent ? values.agentNationalCode : undefined,
         deceasedBirthDate: values.isAgent ? values.agentBirthDate : undefined,
-        code:"1234"
+        code: "1234"
       });
       setShowAddModal(false);
       getProtests();
@@ -179,7 +179,7 @@ const MainAdminUserList = () => {
         isAgent: editIsAgent,
         mobileNumber: values.mobile,
         password: values.password || "", // optional
-      
+
       });
       setShowEditModal(false);
       getProtests(); // Refresh list
@@ -264,8 +264,8 @@ const MainAdminUserList = () => {
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
       <div className="w-full mb-[15px]">
-        <div className="flex justify-between">
-          <div className="w-[440px] ml-3">
+        <div className="flex md:flex-col-reverse justify-between items-end">
+          <div className="w-[440px] md:w-full md:ml-0 md:mt-3 ml-3">
             <MainInput
               search={true}
               onChange={(e) => setName(e.target.value)}
@@ -275,10 +275,10 @@ const MainAdminUserList = () => {
           </div>
 
           <div className="flex">
-            <div className="w-[120px]">
+            <div className="w-[120px] q339:w-[100px]">
               <MainButton label={"+ تعریف کاربر"} onClickFunction={() => setShowAddModal(true)} />
             </div>
-            <div className="w-[120px] mr-3">
+            <div className="w-[120px] q339:w-[100px] mr-3">
               <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
             </div>
           </div>

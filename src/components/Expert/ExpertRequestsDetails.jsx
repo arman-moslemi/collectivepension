@@ -53,7 +53,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
       </div>
       <div className="w-full px-[20px] mb-[20px]">
         <div className="w-full overflow-x-auto">
-          <div className="min-w-[800px] md:min-w-[500px] flex justify-center">
+          <div className=" md:min-w-[500px] flex justify-center">
             <div
               onClick={expertPensionRequestFormOnClick}
               className={`w-[186px] h800:w-fit h800:px-3 h800:h-fit h800:py-2 cursor-pointer h-[41px] ${expertPensionRequestForm ? 'bg-buttonBlue' : 'bg-mainBlue'} rounded-t-[6px] ml-4 h800:ml-2 flex justify-center items-center`}
@@ -93,7 +93,7 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
 
       {expertPensionRequestForm ?
         <div className="w-full px-[16px] pt-[10px] mb-4 lg:px-0">
-          {statusId == 2 && webService==true?
+          {statusId == 2 && webService == true ?
             <MainExplanation color={'green'}
               text={
 
@@ -137,35 +137,35 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
         <div className="w-full">
           <ExpertPensionRequestForm admin={admin} webService={webService} des={des} id={id} />
         </div>
-      : expertLeftovers ?
-
-                      <div className="w-full">
-                        <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
-                      </div>
-        : (expertAllRecords && webService) || (expertAllRecords && admin) ?
+        : expertLeftovers ?
 
           <div className="w-full">
-            {/* <ExpertAllRecordsWithWebService id={id} /> */}
-                          <ExpertAllRecordsNoWebService id={id} admin={admin}statusId={statusId}/>
-
+            <ExpertAgents admin={admin} webService={webService} des={des} id={id} />
           </div>
-
-          : expertAllRecords && !webService && !admin ?
+          : (expertAllRecords && webService) || (expertAllRecords && admin) ?
 
             <div className="w-full">
-              <ExpertAllRecordsNoWebService id={id}admin={admin}statusId={statusId} />
+              {/* <ExpertAllRecordsWithWebService id={id} /> */}
+              <ExpertAllRecordsNoWebService id={id} admin={admin} statusId={statusId} />
+
             </div>
 
-            // : expertPensionAmount && statusId != 9 ?
+            : expertAllRecords && !webService && !admin ?
 
-            //   <div className="w-full">
-            //     <ExpertPensionAmount admin={admin} another={another} id={id} />
-            //   </div>
+              <div className="w-full">
+                <ExpertAllRecordsNoWebService id={id} admin={admin} statusId={statusId} />
+              </div>
+
+              // : expertPensionAmount && statusId != 9 ?
+
+              //   <div className="w-full">
+              //     <ExpertPensionAmount admin={admin} another={another} id={id} />
+              //   </div>
 
               : expertPensionAmount && !webService ?
 
                 // expertPensionShift &&  
-                statusId == 9 && !admin?
+                statusId == 9 && !admin ?
 
                   <div className="w-full">
                     <ExpertPensionAmount another={another} id={id} admin={admin} />
@@ -177,9 +177,9 @@ const ExpertRequestsDetails = ({ admin, webService, des, another, id, statusId }
                       <ExpertPensionAmountInput admin={admin} setShift={setExpertPensionShift} id={id} />
                     </div>
 
-              
 
-                      : null : null}
+
+                    : null : null}
 
     </div>
   )

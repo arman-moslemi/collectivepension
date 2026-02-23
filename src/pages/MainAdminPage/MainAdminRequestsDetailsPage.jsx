@@ -6,12 +6,12 @@ import { useLocation } from "react-router-dom";
 
 const MainAdminRequestsDetailsPage = () => {
 
-       const [adminRole, setAdminRole] = useState(true);
+    const [adminRole, setAdminRole] = useState(true);
     const [withWebService, setWithWebService] = useState(false);
     const [desBox, setDesBox] = useState(true);
     const [anotherPerson, setAnotherPerson] = useState(true);
     const { state } = useLocation();
-        console.log(99)
+    console.log(99)
     console.log(state)
     return (
         <div className="b1115:pl-[20px] md:py-[25px] pr-[20px] pl-[60px] py-[55px]">
