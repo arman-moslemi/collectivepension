@@ -23,11 +23,11 @@ const MainAdminProtestDetailPage = () =>{
   const renderDetailComponent = () => {
     switch (type) {
       case "RECORD":
-        return <RecordProtestDetail data={state.data} role={userRole} id={state.id} />;
+        return <RecordProtestDetail data={state.data} role={userRole} id={state.id} insuName={state.name} />;
       case "AMOUNT":
-        return <AmountProtestDetail data={state.data} role={userRole} id={state.id} />;
+        return <AmountProtestDetail data={state.data} role={userRole} id={state.id} insuName={state.name}/>;
       case "GENERAL":
-        return <GeneralProtestDetail data={state.data} role={userRole} id={state.id}/>;
+        return <GeneralProtestDetail data={state.data} role={userRole} id={state.id}insuName={state.name}/>;
       default:
         return <div>نوع اعتراض مشخص نیست</div>;
     }
