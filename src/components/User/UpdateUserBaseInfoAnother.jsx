@@ -148,19 +148,19 @@ const UpdateUserBaseInfoAnother = () => {
         }
     };
     const getAddress = async (postal) => {
-          try {
-              const response = await axiosReq("Auth/GetAddress?postalCode=" + postal, "get");
-              console.log(response);
-  
-              if (response?.status === 200 || response?.status === 204) {
-                  // setFieldValue('address',response.data.data);
-                  return response.data.data
-             
-              }
-          } catch (error) {
-              console.error("Error fetching address:", error);
-          }
-      };
+        try {
+            const response = await axiosReq("Auth/GetAddress?postalCode=" + postal, "get");
+            console.log(response);
+
+            if (response?.status === 200 || response?.status === 204) {
+                // setFieldValue('address',response.data.data);
+                return response.data.data
+
+            }
+        } catch (error) {
+            console.error("Error fetching address:", error);
+        }
+    };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[32px] py-[40px]">
             <div className="flex justify-start px-[32px] items-center">
@@ -454,22 +454,22 @@ const UpdateUserBaseInfoAnother = () => {
 
                                     </div>
                                     <div className="col-span-1 mb-5 flex items-end">
-   <MainButton
-                                type="button"
-                                label={"استعلام"}
-                                onClickFunction={async () => {
+                                        <MainButton
+                                            type="button"
+                                            label={"استعلام"}
+                                            onClickFunction={async () => {
 
-                                    // Get postal code value from formik values
-                                    const postalCode = values.postalCode; // or wherever you store postal code
-                                    if (postalCode) {
-                                        var postt = await getAddress(postalCode);
-                                        console.log(333)
-                                        console.log(postt)
-                                        setFieldValue("address", postt)
-                                    }
-                                }}
-                                className="mb-2"
-                            />                                    </div>
+                                                // Get postal code value from formik values
+                                                const postalCode = values.postalCode; // or wherever you store postal code
+                                                if (postalCode) {
+                                                    var postt = await getAddress(postalCode);
+                                                    console.log(333)
+                                                    console.log(postt)
+                                                    setFieldValue("address", postt)
+                                                }
+                                            }}
+                                            className="mb-2"
+                                        />                                    </div>
                                     <div className="mb-5 col-span-2 md:col-span-3">
                                         <MainInput label={'آدرس'} holder={'مثلا تهران،تهران،خیابان آزادی،پلاک 12،واحد 0'}
                                             value={values.agentAddress}
