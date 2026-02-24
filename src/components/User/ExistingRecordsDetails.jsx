@@ -81,7 +81,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
   const [file, setFile] = useState();
   const [files, setFiles] = useState([]);
   const [des, setDes] = useState();
- 
+
   const getInsurancesMonth = async () => {
     try {
       console.log('month')
@@ -117,7 +117,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
   };
   useEffect(() => {
     getInsurancesMonth();
-  }, [selectedMonthBox,objMonth]);
+  }, [selectedMonthBox, objMonth]);
   const createProtest = async () => {
     try {
       console.log('month')
@@ -142,7 +142,7 @@ const ExistingRecordsDetails = ({ objMonth, selectedMonthBox }) => {
         console.log(response)
 
         if (response?.status === 200 || response?.status === 204) {
-setShowDeclined(false)
+          setShowDeclined(false)
           alert("اعتراض شما به سابقه اعلامی این صندوق با موفقیت ثبت شد.نتیجه ی اعتراض شما، از طریق پیامک اطلاع رسانی خواهد شد.")
           window.location.reload()
         }
@@ -162,32 +162,32 @@ setShowDeclined(false)
       setFiles([...files, file])
     }
   }
- const download = async (name) => {
-        try {
-            const response = await axiosReq(`Users/download/${name}`, "get", {
-                responseType: "blob", // important!
-            });
+  const download = async (name) => {
+    try {
+      const response = await axiosReq(`Users/download/${name}`, "get", {
+        responseType: "blob", // important!
+      });
 
-            if (response.status === 200) {
-                // Create a blob from the response
-                const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                const url = window.URL.createObjectURL(blob);
+      if (response.status === 200) {
+        // Create a blob from the response
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const url = window.URL.createObjectURL(blob);
 
-                // Create a temporary link element
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = name; // you can also extract filename from headers if needed
-                document.body.appendChild(a);
-                a.click();
+        // Create a temporary link element
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name; // you can also extract filename from headers if needed
+        document.body.appendChild(a);
+        a.click();
 
-                // Cleanup
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            }
-        } catch (error) {
-            console.error("Error downloading file:", error);
-        }
-    };
+        // Cleanup
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[20px] py-[24px]">
       <div className="w-full flex justify-end items-center mb-[21px]">
@@ -195,13 +195,13 @@ setShowDeclined(false)
           <div className="w-[97px] flex">
             <MainButton onClickFunction={() => setProtestMode(!protestMode)} label={'اعتراض'} red={true} />
           </div> : null}
-        <div className="w-[150px] flex mr-10">
+        <div className={`w-[150px] ${protestMode ? 'flex' : 'hidden'} mr-10`}>
 
           {protestMode ? <MainButton onClickFunction={() => setShowDeclined(true)} label={'ثبت نهایی اعتراض'} green={true} /> : null}
         </div>
       </div>
       {protestMode ?
-        <div className="w-full  grid grid-cols-2 gap-4">
+        <div className="w-full  grid grid-cols-2 md:grid-cols-1 gap-4">
           {data?.map((item) => {
             return (
               <div><ExistingRecordsDetailsMonthsEdit list2={item} setData={setData} setProtest={setProtest} data={data} /></div>
@@ -211,7 +211,7 @@ setShowDeclined(false)
         </div>
         :
 
-        <div className="w-full grid grid-cols-2 gap-4">
+        <div className="w-full grid grid-cols-2 md:grid-cols-1 gap-4">
           {
             data?.map((item) => {
               return (
@@ -226,7 +226,7 @@ setShowDeclined(false)
       {showDeclined && (
 
         <MainModal
-          big={false}
+          big={true}
           title={"ثبت اعتراض"}
           setShowModal={setShowDeclined}
           text={
@@ -248,7 +248,7 @@ setShowDeclined(false)
                   files.map((item) => {
                     return (
 
-                      <div  onClick={() => download(item)} className="h-[36px] w-fit rounded-full bg-backBlue my-2 flex items-center pr-[20px] pl-[17px]">
+                      <div onClick={() => download(item)} className="h-[36px] w-fit rounded-full bg-backBlue my-2 flex items-center pr-[20px] pl-[17px]">
                         <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{item}</p>
                         <ExportAgentFileIIcon />
                       </div>

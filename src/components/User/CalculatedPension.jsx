@@ -61,7 +61,7 @@ const CalculatedPension = () => {
             if (response?.status === 200 || response?.status === 204) {
                 BankInformationModalFunction()
             }
-            else{
+            else {
                 alert(response?.data)
             }
 
@@ -93,7 +93,7 @@ const CalculatedPension = () => {
                 }
             }
 
-            else{
+            else {
                 alert("همه موارد را وارد نمایید")
             }
 
@@ -110,7 +110,7 @@ const CalculatedPension = () => {
         }
     }
 
-     const download = async (name) => {
+    const download = async (name) => {
         try {
             const response = await axiosReq(`Users/download/${name}`, "get", {
                 responseType: "blob", // important!
@@ -156,7 +156,7 @@ const CalculatedPension = () => {
                 </div>
 
             </div>
-            <div className="w-full grid grid-cols-2 gap-4 mb-16">
+            <div className="w-full grid grid-cols-2 z940:grid-cols-1 gap-4 mb-16">
                 {
                     data?.insurancePensions?.map((item) => {
                         return (
@@ -169,10 +169,10 @@ const CalculatedPension = () => {
             </div>
 
             {showProtestModal ?
-                <MainModal title={'ثبت اعتراض'} setShowModal={setShowProtestModal}
+                <MainModal big={true} title={'ثبت اعتراض'} setShowModal={setShowProtestModal}
                     text={<div className="w-full flex flex-col items-center">
                         <div className='w-full'><MainInput onChange={(e) => setDes(e.target.value)} longText={true} label={'متن اعتراض خود را بنویسید تا برای کارشناس مربوطه ارسال شود.'} /></div>
-                        <div className='w-full flex items-center mt-4'><p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
+                        <div className='w-full flex items-center md:flex-wrap mt-4'><p className='font-IRANYekanMedium text-[14px] md:mb-2 text-mainBlue ml-3'>انتخاب فایل</p>
                             <div><UploadFile small={true} setFile={setFile} /></div></div>
                         {
                             files?.map((item) => {

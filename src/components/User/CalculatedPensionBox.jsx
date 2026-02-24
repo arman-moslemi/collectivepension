@@ -1,12 +1,12 @@
-import {MainButton, MainModal,} from "../../components";
+import { MainButton, MainModal, } from "../../components";
 
-const CalculatedPensionBox = ({title,days,price,func}) => {
+const CalculatedPensionBox = ({ title, days, price, func }) => {
 
     return (
         <div className="w-full h-[224px] shadow-calculbox flex  rounded-[8px] bg-white mb-4">
             <div className="h-full w-[8px] bg-buttonBlue rounded-r-[8px]"></div>
             <div className="w-full flex flex-col items-center">
-                <div className="w-[350px] h-[47px] rounded-[5px] bg-mainBlue flex justify-center items-center mt-[-14px]">
+                <div className="w-[350px] xs:w-[200px] h-[47px] xs:h-fit xs:p-2 rounded-[5px] bg-mainBlue flex justify-center items-center mt-[-14px]">
                     <p className="text-white text-[14px] font-IRANYekanBold">{title}</p>
                 </div>
                 <div className="w-full flex justify-between items-center pr-2 pl-[15px] mt-[20px] mb-[10px]">
@@ -26,7 +26,7 @@ const CalculatedPensionBox = ({title,days,price,func}) => {
 
                 </div>
                 <div className="w-[100px]">
-                <MainButton onClickFunction={func} label={'اعتراض'} red={true}/>
+                    <MainButton onClickFunction={func} label={'اعتراض'} red={true} />
                 </div>
             </div>
 

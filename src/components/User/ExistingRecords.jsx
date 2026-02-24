@@ -130,19 +130,19 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                         در صورتی که هنگام تکمیل فرم خوداظهاری، فراموش کرده‌اید صندوقی را اعلام کنید، می‌توانید با استفاده از دکمه «افزودن صندوق جدید» در بالای صفحه، آن صندوق را به سوابق خوداظهاری خود اضافه نمایید.</p>
                 </div>} />
             </div>
-            <div className='w-full flex justify-between items-center mt-3 mb-11 flex-wrap'>
+            <div className='w-full flex justify-between items-center mt-3 mb-11 h800:flex-col h800:items-start'>
                 <div>
-                    <div className='flex mb-[14px]'>
+                    <div className='flex mb-[14px] h800:mb-[5px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>نام و نام خانوادگی :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.fullname}</p>
                     </div>
-                    <div className='flex'>
+                    <div className='flex h800:mb-[5px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>جنسیت :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.isMan ? "مرد" : "زن"}</p>
                     </div>
                 </div>
                 <div>
-                    <div className='flex mb-[14px]'>
+                    <div className='flex mb-[14px] h800:mb-[5px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>کد ملی :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.nationalCode}</p>
                     </div>
@@ -151,12 +151,12 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.personnelCode}</p>
                     </div> */}
                 </div>
-                <div className='flex flex-col items-end'>
-                    <div className='flex mb-[14px]'>
+                <div className='flex flex-col items-end h800:items-start '>
+                    <div className='flex mb-[14px] h800:mb-[5px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>تاریخ تولد :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.birthDate}</p>
                     </div>
-                    <div className='flex'>
+                    <div className='flex h800:mb-[5px]'>
                         <p className='text-[15px] text-mainBlue font-IRANYekanExtra ml-[6px]'>تاریخ ثبت درخواست :</p>
                         <p className='text-[15px] text-mainBlue font-IRANYekanMedium'>{initialValues.requestDate}</p>
                     </div>
@@ -184,12 +184,12 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
                     <p className="font-IRANYekanExtra text-[15px] md:text-[12px] text-darkGray">{initialValues.totalDuration != "-1" ? initialValues.totalDuration + "روز" : "درحال بررسی"}</p>
                 </div>
             </div>
-            <div className="w-full flex flex-wrap justify-between mt-14 mb-14">
+            <div className="w-full flex flex-wrap justify-between   mt-14 mb-14">
                 {
                     initialValues?.insuNameDuration?.map((item) => {
                         return (
 
-                            <div className="w-[32%] a1475:w-[49%] h800:w-[99%] mt-5 cursor-pointer" onClick={() => getInsurancesProps(item?.insuranceId)}>
+                            <div className=" w-[49%] a1475:w-[49.5%] z940:w-[99%] mt-5 cursor-pointer " onClick={() => getInsurancesProps(item?.insuranceId)}>
                                 <ExistingRecordsMainBox title={item.insuranceName} des={item.duration != -1 ? item.duration + 'روز' : "درحال بررسی"} />
                             </div>
                         )
