@@ -115,7 +115,7 @@ const ExpertRequests = ({ IsEnding }) => {
                         item6: item.statusDescription,
                         item7:
                             <div className="flex justify-between">
-                                <button onClick={() => navigate("/expert/requestsDetails", { state: { id: item.userInsuranceId,statusId:item.userInsuranceStatusId } })} >
+                                <button onClick={() => navigate("/expert/requestsDetails", { state: { id: item.userInsuranceId, statusId: item.userInsuranceStatusId } })} >
                                     <div
                                         className='w-[38px] h-[38px] mx-auto rounded-full bg-backBlue flex justify-center items-center'>
                                         <DetailTableIcon />
@@ -174,7 +174,7 @@ const ExpertRequests = ({ IsEnding }) => {
     useEffect(() => {
         getFilters();
     }, []);
-     const download = async (name) => {
+    const download = async (name) => {
         try {
             const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
                 responseType: "blob", // important!
@@ -214,9 +214,9 @@ const ExpertRequests = ({ IsEnding }) => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
-                    // window.open(apiAsset + "LogAll.xlsx", '_blank')
-                   // window.open(apiAsset + response.data, '_blank')
-       download(response.data)
+                // window.open(apiAsset + "LogAll.xlsx", '_blank')
+                // window.open(apiAsset + response.data, '_blank')
+                download(response.data)
             }
 
         } catch (error) {
@@ -226,13 +226,13 @@ const ExpertRequests = ({ IsEnding }) => {
     const returnReq = async (id) => {
         try {
 
-            const response = await axiosReq("Experts/Return?userInsuranceId="+id, "put");
+            const response = await axiosReq("Experts/Return?userInsuranceId=" + id, "put");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
             }
-            else{
+            else {
                 alert(response)
             }
 
@@ -244,9 +244,15 @@ const ExpertRequests = ({ IsEnding }) => {
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
             <div
+                className="w-full flex justify-end mb-3">
+                <div className="w-[100px]">
+                    <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
+                </div>
+            </div>
+            <div
                 className="w-full grid grid-cols-12  gap-4 items-end mb-7">
 
-                <div className="lg:col-span-12 xs:col-span-12 col-span-3">
+                <div className="lg:col-span-12 xs:col-span-12 col-span-6">
                     <MainInput
                         search={true}
                         onChange={(e) => setName(e.target.value)}
@@ -254,7 +260,7 @@ const ExpertRequests = ({ IsEnding }) => {
                         leftIcon={< SearchIcon />} />
                 </div>
 
-                <div className="lg:col-span-6 xs:col-span-12 col-span-2">
+                <div className="lg:col-span-6 xs:col-span-12 col-span-3">
                     <div className="font-IRANYekanBold">
                         <MainInput
                             holder={'از تاریخ'}
@@ -266,7 +272,7 @@ const ExpertRequests = ({ IsEnding }) => {
                     </div>
                 </div>
 
-                <div className="lg:col-span-6 xs:col-span-12 col-span-2">
+                <div className="lg:col-span-6 xs:col-span-12 col-span-3">
                     <div className="font-IRANYekanBold">
                         <MainInput
                             holder={'تا تاریخ'}
@@ -278,16 +284,11 @@ const ExpertRequests = ({ IsEnding }) => {
                     </div>
                 </div>
 
-                <div className="col-span-6 xs:col-span-12">
+                <div className="col-span-12 xs:col-span-12">
                     <MainInput listBoxM1={true} listItems={statues} onChange={(e) => setStatus(e.id)} listBoxHolder={"وضعیت"} />
                 </div>
 
-                <div
-                    className="lg:col-span-6 xs:col-span-12 col-span-3 justify-self-end sm:justify-self-end">
-                    <div className="w-[150px]">
-                        <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
-                    </div>
-                </div>
+
             </div>
 
             <div className='w-full mb-[10px]'>

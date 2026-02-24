@@ -64,7 +64,7 @@ const UpdateUserBaseInfoHimself = () => {
             if (response?.status === 200 || response?.status === 204) {
                 // setFieldValue('address',response.data.data);
                 return response.data.data
-           
+
             }
         } catch (error) {
             console.error("Error fetching address:", error);
@@ -145,7 +145,7 @@ const UpdateUserBaseInfoHimself = () => {
                 {({ values, setFieldValue, isSubmitting, errors, touched }) => (
                     <Form className="px-[90px] w-full grid grid-cols-3 gap-4 md:px-1">
                         {/* Read-only fields */}
-                        <div className="col-span-3 md:col-span-3">
+                        <div className="col-span-3 z940::col-span-3">
                             <MainRadioInput
                                 title={'نوع درخواست مستمری جمع'}
                                 radioName={'isRetirement'}
@@ -160,27 +160,27 @@ const UpdateUserBaseInfoHimself = () => {
 
                             />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'نام'} value={values.name} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'نام خانوادگی'} value={values.family} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'نام پدر'} value={values.fatherName} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'تاریخ تولد'} value={values.birthDate} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'کدملی'} value={values.nationalCode} necessary={true} disable={true} />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput label={'جنسیت'} value={values.isMan ? "مرد" : "زن"} necessary={true} disable={true} />
                         </div>
 
                         {/* Editable fields */}
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput
                                 label={'شماره شناسنامه'}
                                 value={values.idcardNumber}
@@ -208,7 +208,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 }}
                             />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput
                                 label={'شماره تلفن ثابت'}
                                 value={values.phoneNumber}
@@ -236,7 +236,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 }}
                             />
                         </div>
-                        <div className="mb-5 md:col-span-3">
+                        <div className="mb-5 z940:col-span-3">
                             <MainInput
                                 label={'شماره تلفن همراه'}
                                 value={values.mobileNumber}

@@ -262,7 +262,7 @@ const CreateUserInsuranceDes = () => {
           {({ values, setFieldValue, isSubmitting, errors, touched }) => (
             <Form className="px-[50px] w-full grid grid-cols-3 gap-4 md:px-1">
               {/* Insurance Dropdown - preselect if initial value exists */}
-              <div className="mb-5 col-span-2 md:col-span-3">
+              <div className="mb-5 col-span-2 z940:col-span-3">
                 <MainInput
                   label={'نام صندوق بازنشستگی'}
                   defaultVal={values.InsuranceId}
@@ -286,7 +286,7 @@ const CreateUserInsuranceDes = () => {
                   :
 
 
-                  <div className="mb-5 col-span-1 md:col-span-3">
+                  <div className="mb-5 col-span-1 z940:col-span-3">
                     <MainInput
                       // listBox={true}
                       // listItems={insurances}
@@ -315,7 +315,7 @@ const CreateUserInsuranceDes = () => {
               }
 
               {/* Province - preselect if initial value exists */}
-              <div className="mb-5 col-span-1 md:col-span-3">
+              <div className="mb-5 col-span-1 z940:col-span-3">
                 <MainInput
                   label={'استان محل اشتغال'}
                   listBox={true}
@@ -334,7 +334,7 @@ const CreateUserInsuranceDes = () => {
               </div>
 
               {/* City - preselect if initial value exists */}
-              <div className="mb-5 col-span-1 md:col-span-3">
+              <div className="mb-5 col-span-1 z940:col-span-3">
                 <MainInput
                   label={'شهر'}
                   listBox={true}
@@ -353,7 +353,7 @@ const CreateUserInsuranceDes = () => {
                 />
               </div>
 
-              {/* <div className="mb-5 col-span-2 md:col-span-3">
+              {/* <div className="mb-5 col-span-2 z940:col-span-3">
                 <MainRadioInput value1={1} value2={2} value3={3}
                   onChange={(value) => setFieldValue('EmploymentStatusId', value)}
                   column={true}
@@ -371,7 +371,7 @@ const CreateUserInsuranceDes = () => {
                   :
                   null}
               </div> */}
-              {/* <div className="mb-5 col-span-1 md:col-span-3">
+              {/* <div className="mb-5 col-span-1 z940:col-span-3">
                 <MainRadioInput value1={true} necessary={true}
                   value2={false} selectedValue={values.IsActiveSubscriber}
                   onChange={(value) => setFieldValue('IsActiveSubscriber', value)} column={true}
@@ -383,7 +383,7 @@ const CreateUserInsuranceDes = () => {
                 null} */}
 
               {/* Insurance ID Number */}
-              <div className="mb-5 md:col-span-3">
+              <div className="mb-5 z940:col-span-3">
                 <MainInput
                   label={'شماره شناسایی بیمه'}
                   value={values.InsuranceIdNumber}
@@ -418,7 +418,7 @@ const CreateUserInsuranceDes = () => {
 
 
               {/* Started Date */}
-              {/* <div className="mb-5 md:col-span-3">
+              {/* <div className="mb-5 z940:col-span-3">
                 <MainInput
                   label={'تاریخ شروع بیمه پردازی'}
                    value={values.StartDate}
@@ -434,7 +434,7 @@ const CreateUserInsuranceDes = () => {
               </div> */}
 
               {/* End Date */}
-              {/* <div className="mb-5 md:col-span-3">
+              {/* <div className="mb-5 z940:col-span-3">
                 <MainInput
                   label={'تاریخ آخرین بیمه پردازی'}
                   value={values.EndDate}
@@ -456,26 +456,26 @@ const CreateUserInsuranceDes = () => {
 
 
               {/* Track Record Type */}
-              <div className="mb-5 md:col-span-3">
-                            <MainInput
-                              label={'نوع سابقه'}
-                              value={values.TrackRecordType}
-                              listBox={true}
-                              defaultVal={values.TrackRecordType}
-              
-                              listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
-                              onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
-                              holder={'مثلا رسمی'}
-                              necessary={true}
-                              error={touched.TrackRecordType && errors.TrackRecordType}
-                              errorText={errors.TrackRecordType}
-                              disable={status > 3 ? true : false}
-              
-                            />
-                          </div>
+              <div className="mb-5 z940:col-span-3">
+                <MainInput
+                  label={'نوع سابقه'}
+                  value={values.TrackRecordType}
+                  listBox={true}
+                  defaultVal={values.TrackRecordType}
+
+                  listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
+                  onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
+                  holder={'مثلا رسمی'}
+                  necessary={true}
+                  error={touched.TrackRecordType && errors.TrackRecordType}
+                  errorText={errors.TrackRecordType}
+                  disable={status > 3 ? true : false}
+
+                />
+              </div>
 
               {/* Track Record Days */}
-              <div className="mb-5 md:col-span-3">
+              <div className="mb-5 z940:col-span-3">
                 <MainInput
                   label={<div className="flex items-center">
                     <p className="font-IRANYekanBold text-[16px] text-mainBlue">میزان سابقه</p>
@@ -507,7 +507,7 @@ const CreateUserInsuranceDes = () => {
                 />
               </div>
 
-              <div className="mb-5  md:col-span-3">
+              <div className="mb-5  z940:col-span-3">
                 <MainInput
                   label={<div className="flex items-center">
                     {values.InsuranceId == 1 ?
@@ -522,7 +522,7 @@ const CreateUserInsuranceDes = () => {
                   value={values.LastWorkplace}
                   onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
                   holder={'مثلا 0...'}
-                  necessary={values.InsuranceId == 1 ?true:false}
+                  necessary={values.InsuranceId == 1 ? true : false}
                   error={touched.LastWorkplace && errors.LastWorkplace}
                   errorText={errors.LastWorkplace}
                   disable={status > 1 ? true : false}

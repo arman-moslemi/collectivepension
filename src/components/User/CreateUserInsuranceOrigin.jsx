@@ -119,7 +119,7 @@ const CreateUserInsuranceOrigin = () => {
                         <p className="font-IRANYekanBold text-[15px] text-mainBlue mb-3">اگر در صندوق مبدا دیگری بیمه پردازی داشتید،روی دکمه زیر کلیک کرده و اطلاعات خود را تکمیل کنید.</p>
                         <div className="w-[217px]"><MainButton onClickFunction={handleAddForm} label={'افزودن صندوق مبدا بعدی'} /></div>
                     </div>
-                    <div className="flex md:mt-5">
+                    <div className="flex w-full justify-end z940:mt-5">
                         <div className="w-[140px] ml-4"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام قبلی'} /></div>
                         <div className="w-[140px]"><MainButton onClickFunction={underTakingModalFunction} label={'گام بعدی'} /></div>
                     </div>

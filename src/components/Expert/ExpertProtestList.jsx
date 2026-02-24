@@ -172,8 +172,8 @@ const ExpertProtestList = () => {
                                     item.isReturned == true ?
                                         <div className="mr-2 rounded-full bg-yellowError h-[25px] w-[25px] flex justify-center items-center"><IcReloadIcon /></div>
                                         :
-                                     
-                                            null
+
+                                        null
                                 }
 
                             </div>
@@ -254,7 +254,7 @@ const ExpertProtestList = () => {
     useEffect(() => {
         getFilters();
     }, []);
-     const download = async (name) => {
+    const download = async (name) => {
         try {
             const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
                 responseType: "blob", // important!
@@ -288,8 +288,8 @@ const ExpertProtestList = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 alert("موفقیت آمیز")
-                                  //  window.open(apiAsset + response.data, '_blank')
-                       download(response.data)
+                //  window.open(apiAsset + response.data, '_blank')
+                download(response.data)
 
             }
 
@@ -300,43 +300,43 @@ const ExpertProtestList = () => {
     return (
         <div
             className="w-full flex flex-col items-center rounded-[6px] bg-white px-[24px] pt-[24px] pb-[38px]">
-            <div className="w-full grid grid-cols-12 gap-2 items-end mb-2">
+            <div className="flex justify-end w-full mb-3">
+                <div className="w-[100px]">
+                    <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
+                </div>
+            </div>
+            <div className="w-full grid grid-cols-12 gap-2 items-end mb-3 ">
 
-                <div className="col-span-3 b1115:col-span-12 flex items-center">
+                <div className="col-span-4 b1115:col-span-12 flex items-center">
                     <MainInput
                         search={true}
                         holder={"جستجو بر اساس نام یا کدملی"}
                         leftIcon={< SearchIcon />} />
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
                     <MainInput date={true} value={startDate}
                         onChange={(val1) => setStartDate(val1)} holder={"از تاریخ"} leftIcon={< DateIcon />} />
                 </div>
 
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
                     <MainInput date={true} value={endDate}
                         onChange={(val2) => setEndDate(val2)} holder={"تا تاریخ"} leftIcon={< DateIcon />} />
                 </div>
-                <div className="col-span-2 b1115:col-span-6 md:col-span-12">
+                <div className="col-span-2 b1115:col-span-6 b1115:xs:col-span-12">
                     <MainInput
                         listBoxM1={true}
                         listItems={types}
                         listBoxHolder={"نوع اعتراض"} />
                 </div>
-                <div className="col-span-2 md:col-span-12 b1115:col-span-6 ">
+                <div className="col-span-2 b1115:xs:col-span-12 b1115:col-span-6 ">
                     <MainInput listBoxM1={true} listItems={statues} listBoxHolder={"وضعیت"} />
                 </div>
 
 
 
             </div>
-            <div className="flex justify-end w-full mb-2
-            ">
-                <div className="w-[150px]">
-                    <MainButton onClickFunction={() => getExcel()} label={"گزارش‌ گیری"} />
-                </div>
-            </div>
+
             <div className='w-full mb-[10px]'>
                 <MainTable center1={true} list={data} titleRow={titleRow} count={count} page={page} setPage={setPage} row={row} setRow={setRow} />
             </div>

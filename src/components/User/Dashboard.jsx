@@ -125,48 +125,50 @@ const Dashboard = () => {
     };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">
-            <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={"وضعیت درخواست: "+user} /></div>
+            <div className="w-full mb-[15px]"><MainExplanation color={'yellow'} text={"وضعیت درخواست: " + user} /></div>
             <div className="w-full grid grid-cols-4 gap-4">
-                <div onClick={() => navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
-                    <img src={DashboardPic1} alt="pic" />
-                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">کلیه سوابق موجود</p>
+                <div onClick={() => navigate("/user/existingRecords")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between cursor-pointer z940:col-span-4">
+                    <img className="pt-3" src={DashboardPic1} alt="pic" />
+                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-6">کلیه سوابق موجود</p>
                 </div>
-                <div onClick={() => navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer md:col-span-4">
+                <div onClick={() => navigate("/user/calculatedPension")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between cursor-pointer z940:col-span-4">
                     <img src={DashboardPic2} alt="pic" />
-                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">مستمری محاسبه شده</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-6">مستمری محاسبه شده</p>
                 </div>
-                <div onClick={() => navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center cursor-pointer  md:col-span-4">
-                    <img src={DashboardPic3} alt="pic" />
-                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعتراضات</p>
+                <div onClick={() => navigate("/user/registeredProtests")} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-between cursor-pointer  z940:col-span-4">
+                    <img className="pt-3" src={DashboardPic3} alt="pic" />
+                    <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-6">اعتراضات</p>
                 </div>
                 {/* <div onClick={() => getBank()} className="h-[156px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center cursor-pointer  justify-center">
                     <img src={DashboardPic4} alt="pic" />
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mt-3">اعلام حساب بانکی</p>
                 </div> */}
-                <div className="h-[323px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] cursor-pointer  md:col-span-4">
+                <div className="h-[343px] p-6 col-span-3 border-ddGray border-[1px] border-dashed rounded-[6px] cursor-pointer  z940:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-7">آخرین سوابق</p>
-                    <div className="w-full h-full ">
-                        <ResponsiveContainer width="100%" height="90%">
-                            <BarChart
-                                width={500}
-                                height={300}
-                                data={data}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis tickMargin={6} dataKey="name" />
-                                <YAxis tickMargin={16} />
-                                <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
-                            </BarChart>
-                        </ResponsiveContainer>
+                    <div className="w-full overflow-x-auto h-[90%]">
+                        <div className="min-w-[600px] w-full h-full ">
+                            <ResponsiveContainer width="100%" height="90%">
+                                <BarChart
+                                    width={500}
+                                    height={300}
+                                    data={data}
+                                    margin={{
+                                        top: 5,
+                                        right: 50,
+                                        left: 20,
+                                        bottom: 50,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis tickMargin={6} dataKey="name" interval={0} angle={-10} textAnchor="end" tick={{ dx: -70, dy: 30 }} />
+                                    <YAxis tickMargin={24} />
+                                    <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
                 </div>
-                <div className="h-[323px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center md:col-span-4">
+                <div className="h-[343px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center z940:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-[15px]">حکم بازنشستگی</p>
                     <img src={DashboardPic5} alt="pic" />
                     <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>

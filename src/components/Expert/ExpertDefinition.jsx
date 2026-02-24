@@ -63,7 +63,7 @@ const ExpertDefinition = () => {
             console.log(response)
             if (response?.status === 200 || response?.status === 204) {
                 alert(response.data)
-setExpertDefinitionModal(false)
+                setExpertDefinitionModal(false)
                 setThereIsExpert(!thereIsExpert);
             }
         } catch (error) {
@@ -158,7 +158,7 @@ setExpertDefinitionModal(false)
 
                     <div className="w-full border-t-[1px] border-borderGray py-8 mt-8"></div>
                     <div className="w-full overflow-x-auto">
-                        <div className="min-w-[600px]">
+                        <div className="min-w-[600px] h-[350px]">
                             <ResponsiveContainer width="100%" height={300}>
                                 <BarChart
                                     width={600}
@@ -168,16 +168,12 @@ setExpertDefinitionModal(false)
                                         top: 5,
                                         right: 30,
                                         left: 20,
-                                        bottom: 5,
+                                        bottom: 30,
                                     }}
                                 >
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis
-                                        tickMargin={5}
-                                        dataKey="name"
-                                        tick={{
-                                            fontSize: 8
-                                        }} />
+                                        tickMargin={6} dataKey="name" interval={0} angle={-15} textAnchor="end" tick={{ dx: -50, dy: 35 }} />
                                     <YAxis tickMargin={24} />
                                     <Bar dataKey="uv" barSize={30} fill="#00c1b2" />
                                 </BarChart>
