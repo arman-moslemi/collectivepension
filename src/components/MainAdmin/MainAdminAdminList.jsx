@@ -10,7 +10,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Block from "../../assets/icon/main/Block";
 import UnBlock from "../../assets/icon/main/UnBlock";
-import { apiAsset } from "../../commons/inFormTypes";
+import { apiAsset, apiUrl } from "../../commons/inFormTypes";
+import Cookies from "universal-cookie";
 const listItems = [
   {
     id: 1,
@@ -274,32 +275,57 @@ const MainAdminAdminList = () => {
     }
   };
 
-  const download = async (name) => {
-    try {
-      const response = await axiosReq(`Users/downloadExcel/${name}`, "get", {
-        responseType: "blob", // important!
-      });
-
-      if (response.status === 200) {
-        // Create a blob from the response
-        const blob = new Blob([response.data], { type: response.headers['content-type'] });
-        const url = window.URL.createObjectURL(blob);
-
-        // Create a temporary link element
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = name; // you can also extract filename from headers if needed
-        document.body.appendChild(a);
-        a.click();
-
-        // Cleanup
-        a.remove();
-        window.URL.revokeObjectURL(url);
-      }
-    } catch (error) {
-      console.error("Error downloading file:", error);
-    }
-  };
+ const download = async (name) => {
+     try {
+             const cookies = new Cookies();
+         
+         // const token = localStorage.getItem('token'); // or wherever you store your token
+         const response = await fetch(`${apiUrl}Users/downloadExcel/${name}`, {
+             method: 'GET',
+             headers: {
+                  'Authorization': `Bearer ${cookies.get('token')}`, // if needed
+                 'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+             }
+         });
+ 
+         if (!response.ok) {
+             throw new Error(`HTTP error! status: ${response.status}`);
+         }
+ 
+         const blob = await response.blob();
+         
+         // Get filename from Content-Disposition header
+         const contentDisposition = response.headers.get('content-disposition');
+         let filename = name;
+         if (contentDisposition) {
+             const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+             if (filenameMatch && filenameMatch[1]) {
+                 filename = filenameMatch[1].replace(/['"]/g, '');
+             }
+         }
+ 
+         // Ensure filename has correct extension
+         if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
+             filename += '.xlsx';
+         }
+ 
+         const url = window.URL.createObjectURL(blob);
+         const a = document.createElement('a');
+         a.href = url;
+         a.download = filename;
+         document.body.appendChild(a);
+         a.click();
+         
+         // Cleanup
+         setTimeout(() => {
+             document.body.removeChild(a);
+             window.URL.revokeObjectURL(url);
+         }, 100);
+         
+     } catch (error) {
+         console.error("Error downloading file:", error);
+     }
+ };
 
   return (
     <div className="w-full flex flex-col items-center rounded-[6px] bg-white px-[25px] py-[17px]">

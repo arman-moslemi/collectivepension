@@ -9,7 +9,8 @@ import DetailTableIcon from "../../assets/icon/general/DetailTableIcon";
 import DownSide from "../../assets/icon/general/DownSide";
 import { axiosReq } from "../../commons/axiosReq";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
-import { apiAsset } from "../../commons/inFormTypes";
+import { apiAsset, apiUrl } from "../../commons/inFormTypes";
+import Cookies from "universal-cookie";
 
 const ExpertAgents = ({ admin, webService, des, id }) => {
 
@@ -97,32 +98,57 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
         return <div className="w-full flex justify-center py-10 text-redError font-IRANYekanBold">{error}</div>;
     }
 
-      const download = async (name) => {
-                      try {
-                          const response = await axiosReq(`Users/download/${name}`, "get", {
-                              responseType: "blob", // important!
-                          });
+     const download = async (name) => {
+          try {
+                  const cookies = new Cookies();
               
-                          if (response.status === 200) {
-                              // Create a blob from the response
-                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                              const url = window.URL.createObjectURL(blob);
+              // const token = localStorage.getItem('token'); // or wherever you store your token
+              const response = await fetch(`${apiUrl}Users/download/${name}`, {
+                  method: 'GET',
+                  headers: {
+                       'Authorization': `Bearer ${cookies.get('token')}`, // if needed
+                      'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                  }
+              });
+      
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+      
+              const blob = await response.blob();
               
-                              // Create a temporary link element
-                              const a = document.createElement('a');
-                              a.href = url;
-                              a.download = name; // you can also extract filename from headers if needed
-                              document.body.appendChild(a);
-                              a.click();
+              // Get filename from Content-Disposition header
+              const contentDisposition = response.headers.get('content-disposition');
+              let filename = name;
+              if (contentDisposition) {
+                  const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                  if (filenameMatch && filenameMatch[1]) {
+                      filename = filenameMatch[1].replace(/['"]/g, '');
+                  }
+              }
+      
+              // Ensure filename has correct extension
+              if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
+                  filename += '.xlsx';
+              }
+      
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = filename;
+              document.body.appendChild(a);
+              a.click();
               
-                              // Cleanup
-                              a.remove();
-                              window.URL.revokeObjectURL(url);
-                          }
-                      } catch (error) {
-                          console.error("Error downloading file:", error);
-                      }
-                  };
+              // Cleanup
+              setTimeout(() => {
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);
+              }, 100);
+              
+          } catch (error) {
+              console.error("Error downloading file:", error);
+          }
+      };
     return (
         <div className="w-full py-4 px-[70px] lg:px-0">
             {des && !admin ?

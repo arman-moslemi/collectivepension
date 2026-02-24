@@ -94,12 +94,12 @@ const CreateUserInsuranceDes = () => {
       payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
       if (initialValues?.UserInsuranceId == 0) {
         const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
-
+console.log(response)
         if (response?.status === 200) {
           navigate('../createUserInsuranceOrigin');
         }
         else {
-          alert(response)
+          alert(response?.data)
         }
       }
       else {
@@ -109,7 +109,7 @@ const CreateUserInsuranceDes = () => {
           navigate('../createUserInsuranceOrigin');
         }
         else {
-          alert(response)
+          alert(response?.data)
         }
       }
     } catch (error) {

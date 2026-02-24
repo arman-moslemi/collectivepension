@@ -63,7 +63,7 @@ const UpdateUserBaseInfoHimself = () => {
 
             if (response?.status === 200 || response?.status === 204) {
                 // setFieldValue('address',response.data.data);
-                return response.data.data
+                return response.data
 
             }
         } catch (error) {

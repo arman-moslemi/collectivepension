@@ -4,9 +4,10 @@ import { MainButton, MainInput, UploadFile, roles } from "..";
 import { useState,useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import DateIcon from "../../assets/icon/general/DateIcon";
-import { apiAsset } from "../../commons/inFormTypes";
+import { apiAsset, apiUrl } from "../../commons/inFormTypes";
 import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const GeneralProtestDetail = ({ role,id,insuName}) => {
     const location = useLocation();
@@ -78,32 +79,57 @@ const GeneralProtestDetail = ({ role,id,insuName}) => {
                 } finally {
                 }
             };
-              const download = async (name) => {
-                      try {
-                          const response = await axiosReq(`Users/download/${name}`, "get", {
-                              responseType: "blob", // important!
-                          });
-              
-                          if (response.status === 200) {
-                              // Create a blob from the response
-                              const blob = new Blob([response.data], { type: response.headers['content-type'] });
-                              const url = window.URL.createObjectURL(blob);
-              
-                              // Create a temporary link element
-                              const a = document.createElement('a');
-                              a.href = url;
-                              a.download = name; // you can also extract filename from headers if needed
-                              document.body.appendChild(a);
-                              a.click();
-              
-                              // Cleanup
-                              a.remove();
-                              window.URL.revokeObjectURL(url);
+             const download = async (name) => {
+                  try {
+                          const cookies = new Cookies();
+                      
+                      // const token = localStorage.getItem('token'); // or wherever you store your token
+                      const response = await fetch(`${apiUrl}Users/download/${name}`, {
+                          method: 'GET',
+                          headers: {
+                               'Authorization': `Bearer ${cookies.get('token')}`, // if needed
+                              'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                           }
-                      } catch (error) {
-                          console.error("Error downloading file:", error);
+                      });
+              
+                      if (!response.ok) {
+                          throw new Error(`HTTP error! status: ${response.status}`);
                       }
-                  };
+              
+                      const blob = await response.blob();
+                      
+                      // Get filename from Content-Disposition header
+                      const contentDisposition = response.headers.get('content-disposition');
+                      let filename = name;
+                      if (contentDisposition) {
+                          const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                          if (filenameMatch && filenameMatch[1]) {
+                              filename = filenameMatch[1].replace(/['"]/g, '');
+                          }
+                      }
+              
+                      // Ensure filename has correct extension
+                      if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
+                          filename += '.xlsx';
+                      }
+              
+                      const url = window.URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = filename;
+                      document.body.appendChild(a);
+                      a.click();
+                      
+                      // Cleanup
+                      setTimeout(() => {
+                          document.body.removeChild(a);
+                          window.URL.revokeObjectURL(url);
+                      }, 100);
+                      
+                  } catch (error) {
+                      console.error("Error downloading file:", error);
+                  }
+              };
     return (<>
      <div className="grid grid-cols-2 gap-4 border-b-[1px] border-borderGray pb-4">
             <div className="col-span-1 md:col-span-2">
