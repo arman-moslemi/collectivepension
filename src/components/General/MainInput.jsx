@@ -145,7 +145,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
 
                   <ListboxOptions
                     transition
-                    className="absolute z-10 mt-1 max-h-56  overflow-auto w-max min-w-full overflow-x-auto overflow-y-auto whitespace-nowrap rounded-md bg-white  text-base shadow-lg ring-1 ring-black/5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
+                    className="absolute z-10 mt-1 max-h-56 w-full overflow-auto overflow-x-auto overflow-y-auto whitespace-nowrap rounded-md bg-white  text-base shadow-lg ring-1 ring-black/5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
                   >
                     {listItems?.map((item) => (
                       <ListboxOption
@@ -154,7 +154,7 @@ const MainInput = ({ label, leftIcon, necessary, disable, value, holder, listBox
                         className="group relative cursor-default select-none py-[7px] px-3 text-gray-900 border-b-[1px] border-black/5 text-[12px] data-[focus]:bg-bgGray"
                       >
                         <div className="flex items-center">
-                          <span className="ml-3 inline-block min-w-max font-IRANYekanMedium text-[14px]  group-data-[selected]:font-IRANYekanBold">
+                          <span className="ml-3 whitespace-nowrap font-IRANYekanMedium text-[14px]  group-data-[selected]:font-IRANYekanBold">
                             {item.name}
                           </span>
                         </div>
