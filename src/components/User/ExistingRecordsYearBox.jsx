@@ -1,6 +1,6 @@
-const ExistingRecordsYearBox = ({data}) => {
+const ExistingRecordsYearBox = ({ data }) => {
     return (
-        <div className="w-full shadow-sandoghShadow rounded-[5px] flex">
+        <div className="w-full min-w-[100px] shadow-sandoghShadow rounded-[5px] flex">
             <div className=" w-[6px] rounded-r-[5px] bg-buttonBlue"></div>
             <div className="w-full pr-[6px] pl-[12px] py-[6px] ">
                 <div className="w-full flex justify-between items-start mb-1">
@@ -18,10 +18,10 @@ const ExistingRecordsYearBox = ({data}) => {
                     <p className="font-IRANYekanMedium text-[10px] text-darkGray">تومان</p>
                 </div>
             </div>
-            
+
 
         </div>
     );
-  };
-  
-  export default ExistingRecordsYearBox;
+};
+
+export default ExistingRecordsYearBox;

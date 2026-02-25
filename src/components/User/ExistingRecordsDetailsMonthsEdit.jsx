@@ -87,22 +87,22 @@ const ExistingRecordsDetailsMonthsEdit = ({ list2, setData, setProtest, data }) 
     //     );
     // };
 
-    
 
-      const addProtest = () => {
+
+    const addProtest = () => {
         // list2.item2.map((item) => {
-            console.log(99)
-            console.log(duration)
-            setProtest(prevData => [...prevData, {
-                MonthId: list2.item4, 
-                ProtestDuration: duration 
-                // protestDays: [
-                //     {
-                //         ProtestStartDay: item.startDay,
-                //         ProtestEndDay: item.endDay
-                //     }
-                // ]
-            }])
+        console.log(99)
+        console.log(duration)
+        setProtest(prevData => [...prevData, {
+            MonthId: list2.item4,
+            ProtestDuration: duration
+            // protestDays: [
+            //     {
+            //         ProtestStartDay: item.startDay,
+            //         ProtestEndDay: item.endDay
+            //     }
+            // ]
+        }])
 
         // })
         alert("به اعتراضها اضافه شد")
@@ -188,7 +188,7 @@ const ExistingRecordsDetailsMonthsEdit = ({ list2, setData, setProtest, data }) 
 
                 </div>
                 :
-                <div className="w-full py-[15px] px-[20px] flex justify-around items-center border-b-[1px] border-dashed border-borderGray">
+                <div className="w-full py-[15px] px-[20px] flex u390:flex-wrap justify-around items-center border-b-[1px] border-dashed border-borderGray">
                     <p className="font-IRANYekanMedium w-[65px] text-[15px]">{list2.item1}</p>
                     {/* <div className='flex items-center'>
                         <div className='w-[66px]'><MainInput holder={'01/31'} value={startDate} onChange={(e) => { setStartDate(e.target.value); updateData(list2.item4, 0, "start", e.target.value) }} Custom1={true} /></div>
@@ -198,11 +198,11 @@ const ExistingRecordsDetailsMonthsEdit = ({ list2, setData, setProtest, data }) 
                     <div className='flex items-center'>
                         <div className='w-[49px]'><MainInput holder={list2.item3} Custom1={true} value={duration} onChange={(e) => setDuration(e.target.value)} /></div>
                         <p className="font-IRANYekanMedium text-[15px] mr-2">روز</p>
-                        </div>
-                        {/* <div className='w-7 h-7 mr-4 bg-buttonBlue rounded-full flex justify-center items-center cursor-pointer' onClick={() => addNewTimeFrame(list2.item4)}><p className='text-white text-[26px] font-IRANYekanBold mt-[2px]'>+</p></div> */}
-                        <div onClick={() => addProtest()} className=' w-24 h-7 mr-4 bg-buttonBlue  flex justify-center items-center cursor-pointer'>
-                            <p className='text-white  text-[12px] font-IRANYekanBold mt-[2px]'>ثبت اعتراض</p>
-                        </div>
+                    </div>
+                    {/* <div className='w-7 h-7 mr-4 bg-buttonBlue rounded-full flex justify-center items-center cursor-pointer' onClick={() => addNewTimeFrame(list2.item4)}><p className='text-white text-[26px] font-IRANYekanBold mt-[2px]'>+</p></div> */}
+                    <div onClick={() => addProtest()} className=' w-24 h-7 u390:mt-3 mr-4 bg-buttonBlue  flex justify-center items-center cursor-pointer'>
+                        <p className='text-white  text-[12px] font-IRANYekanBold mt-[2px]'>ثبت اعتراض</p>
+                    </div>
                     {/* </div> */}
                 </div>
             }

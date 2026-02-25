@@ -89,7 +89,7 @@ const CreateUserInsuranceOrigin = () => {
                 </div>
             </div>
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} /></div>
-            <div className="px-[90px] w-full md:px-1">
+            <div className="px-[40px] w-full z940:px-1">
                 <div className="w-full md:col-span-3">
                     {forms.map((_, idx) => {
                         console.log(idx)

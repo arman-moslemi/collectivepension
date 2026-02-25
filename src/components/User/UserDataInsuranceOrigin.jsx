@@ -304,7 +304,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     }
   }
   return (
-    <div className="w-full border-b-[2px] border-borderGray">
+    <div className="w-full border-b-[2px] pb-3 border-borderGray">
       <div className={`w-full ${inModal ? 'mb-[22px]' : 'mb-[30px]'}  flex justify-between items-center`}>
         <p className="font-IRANYekanExtra text-[16px] text-mainBlue">اطلاعات فرد در صندوق بازنشستگی مبدا (شماره {number})</p>
         {number === 1 || inModal ? null : <button onClick={handleRemoveLastForm}><Cross /></button>}
@@ -321,7 +321,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
         {({ values, setFieldValue, isSubmitting, errors, touched }) => (
           <Form className=" w-full grid grid-cols-3 gap-4">
             {/* Department Name */}
-            <div className="mb-5 col-span-2 md:col-span-3">
+            <div className="mb-5 col-span-2 b1115:col-span-3">
               <MainInput
                 label={'نام صندوق بازنشستگی'}
                 defaultVal={values.InsuranceId}
@@ -344,7 +344,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               values.InsuranceId == 1 ?
                 null
                 :
-                <div className="mb-5 col-span-1 md:col-span-3">
+                <div className="mb-5 col-span-1 b1115:col-span-3">
                   <MainInput
                     label={'نام دستگاه اجرائی/کارگاه'}
                     onChange={(e) => setFieldValue('DepartmentName', e.target.value)}
@@ -360,7 +360,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                   />
                 </div>
             }
-            <div className="mb-5 col-span-1 md:col-span-3">
+            <div className="mb-5 col-span-1 b1115:col-span-3">
               <MainInput
                 label={'استان محل اشتغال'}
                 listBox={true}
@@ -378,7 +378,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
               />
             </div>
-            <div className="mb-5 col-span-1 md:col-span-3">
+            <div className="mb-5 col-span-1 b1115:col-span-3">
               <MainInput
                 label={'شهر'}
                 listBox={true}
@@ -397,7 +397,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
               />
             </div>
-            {/* <div className="mb-5 col-span-3 md:col-span-3">
+            {/* <div className="mb-5 col-span-3 b1115:col-span-3">
               <MainRadioInput v value1={1} value2={2} value3={3}
                 onChange={(value) => setFieldValue('EmploymentStatusId', value)} column={true}
                 title={'وضعیت بیمه پردازی'}
@@ -420,7 +420,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             </div> */}
 
             {/* Insurance ID Number */}
-            <div className="mb-5 md:col-span-3">
+            <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={'شماره شناسایی بیمه'}
                 value={values.InsuranceIdNumber}
@@ -456,7 +456,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
 
             {/* Started Date */}
-            {/* <div className="mb-5 md:col-span-3">
+            {/* <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={'تاریخ شروع بیمه پردازی'}
                 value={values.StartDate}
@@ -473,7 +473,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             </div> */}
 
             {/* End Date */}
-            {/* <div className="mb-5 md:col-span-3">
+            {/* <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={'تاریخ آخرین بیمه پردازی'}
                 value={values.EndDate}
@@ -496,7 +496,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
 
             {/* Track Record Type */}
-            <div className="mb-5 md:col-span-3">
+            <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={'نوع سابقه'}
                 value={values.TrackRecordType}
@@ -515,7 +515,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             </div>
 
             {/* Track Record Days */}
-            <div className="mb-5 md:col-span-3">
+            <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
                   <p className="font-IRANYekanBold text-[16px] text-mainBlue">میزان سابقه</p>
@@ -548,18 +548,18 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               />
             </div>
 
-            <div className="mb-5 md:col-span-3">
+            <div className="mb-5 b1115:col-span-3">
               <MainInput
                 label={<div className="flex items-center">
-                    {values.InsuranceId == 1 ?
-                      <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> کدرمز</p>
+                  {values.InsuranceId == 1 ?
+                    <p className="font-IRANYekanBold text-[16px]  text-mainBlue"> کدرمز</p>
 
-                      :
-                  <p className="font-IRANYekanBold text-[16px] text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
+                    :
+                    <p className="font-IRANYekanBold text-[16px] text-mainBlue"> شماره دستگاه اجرایی/کارگاه</p>
                   }
                   {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mr-[3px]">(دستگاه اجرایی/کارگاه)</p> */}
                 </div>}
-                necessary={values.InsuranceId == 1 ?true:false}
+                necessary={values.InsuranceId == 1 ? true : false}
                 holder={'مثلا 0...'}
                 value={values.LastWorkplace}
                 onChange={(e) => setFieldValue('LastWorkplace', e.target.value)}
@@ -600,7 +600,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
               />
             </div>
-            <div className={`${inModal ? 'mb-0' : 'mb-5'} md:col-span-3`}>
+            <div className={`${inModal ? 'mb-0' : 'mb-5'} b1115:col-span-3`}>
               <MainInput label={'تاریخ خروج از عضویت صندوق'} necessary={true}
                 value={values.QuitDate}
                 defaultVal={initialValues.QuitDate ? initialValues.QuitDate : ""}
@@ -613,8 +613,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               />
             </div>
             {data ?
-              <div className="col-span-2 md:col-span-3">
-                <div className="w-full h-full pb-6 flex justify-end items-end">
+              <div className="col-span-2 b1115:col-span-3">
+                <div className="w-full h-full  flex justify-end items-end">
                   <div className="w-[138px] ml-4">
                     <MainButton red={true} disabled={status > 1 ? true : false} onClickFunction={() => deleteInsu()}
                       label={'حذف صندوق'} />
@@ -630,8 +630,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 </div>
               </div>
               :
-              <div className="col-span-2 md:col-span-3">
-                <div className="w-full h-full pb-6 flex justify-end items-end">
+              <div className="col-span-2 b1115:col-span-3">
+                <div className="w-full h-full  flex justify-end items-end">
                   <div className="w-[138px]">
                     <MainButton
                       type="submit"

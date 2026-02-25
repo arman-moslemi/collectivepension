@@ -138,7 +138,7 @@ const UploadFile = (props) => {
           //   marginBottom:10
           // }}>choose file</a>
           <div
-            className={`${Styles["image-upload__preview"]} bg-backGray cursor-pointer rounded-full border-[1px] border-dashed border-darkGray ${props.small ? 'w-[346px] lg:w-full' : 'w-[463px] lg:w-full'} h-[36px]`}
+            className={`${Styles["image-upload__preview"]} bg-backGray cursor-pointer rounded-full border-[1px] border-dashed border-darkGray ${props.small ? 'w-[346px] lg:w-full' : 'w-[463px] lg:w-full'} h-fit py-3`}
             style={{ display: 'flex', flexDirection: 'column' }}
           // onClick={pickImageHandler}
           >
