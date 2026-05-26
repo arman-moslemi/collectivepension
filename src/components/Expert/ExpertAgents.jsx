@@ -52,7 +52,8 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
     }, []);
     const approve = async (item) => {
         try {
-            const response = await axiosReq("Experts/ApproveAgent?agentId=" + item, "put");
+            // const response = await axiosReq("Experts/ApproveAgent?agentId=" + item, "put");
+            const response = await axiosReq("Experts/ApproveAgent?agentId=" + item, "post");
             if (response.data) {
                 alert("با موفقیت انجام شد");
             }
@@ -65,7 +66,8 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
     };
     const disApprove = async (item) => {
         try {
-            const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "put", {
+            // const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "put", {
+            const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "post", {
                 Reason: reason,
                 UserInsuranceFiles: files
             });

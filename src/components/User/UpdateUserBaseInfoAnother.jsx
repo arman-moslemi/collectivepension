@@ -95,7 +95,8 @@ const UpdateUserBaseInfoAnother = () => {
 
             };
 
-            const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+            // const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+            const response = await axiosReq("Users/UpdateUserInfo", "post", updateData);
             if (response?.status === 200) {
                 navigate('../createUserInsuranceDes');
             }

@@ -1,10 +1,12 @@
-import { MainExplanation, MainInput, MainButton, MainRadioInput } from "../../components";
+import { MainExplanation, MainInput, MainButton, MainRadioInput, UploadFile } from "../../components";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Cookies from 'universal-cookie';
+import { apiUrl } from "../../commons/inFormTypes";
+import ExportAgentFileIIcon from "../../assets/icon/expert/ExportAgentFileIIcon";
 
 const UpdateUserBaseInfoHimself = () => {
     const navigate = useNavigate();
@@ -25,6 +27,8 @@ const UpdateUserBaseInfoHimself = () => {
         isRetirement: '', // 'بازنشستگی' or 'از کار افتادگی کلی'
         // personnelCode: ''
     });
+    const [file, setFile] = useState();
+    const [file2, setFile2] = useState();
 
     const validationSchema = Yup.object().shape({
         idcardNumber: Yup.string().matches(/[0-9]$/, 'شماره شناسنامه معتبر نیست')
@@ -51,9 +55,62 @@ const UpdateUserBaseInfoHimself = () => {
                     ...response.data,
                     // Map API response to our form fields if needed
                 }));
+                setFile(response.data.idCardFirstPage);
+                setFile2(response.data.idCardDescPage);
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
+        }
+    };
+    const download = async (name) => {
+        try {
+            const cookies = new Cookies();
+
+            // const token = localStorage.getItem('token'); // or wherever you store your token
+            const response = await fetch(`${apiUrl}Users/download/${name}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${cookies.get('token')}`, // if needed
+                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+
+            // Get filename from Content-Disposition header
+            const contentDisposition = response.headers.get('content-disposition');
+            let filename = name;
+            if (contentDisposition) {
+                const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                if (filenameMatch && filenameMatch[1]) {
+                    filename = filenameMatch[1].replace(/['"]/g, '');
+                }
+            }
+
+            // Ensure filename has correct extension
+            // if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
+            //     filename += '.xlsx';
+            // }
+
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+
+            // Cleanup
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+
+        } catch (error) {
+            console.error("Error downloading file:", error);
         }
     };
     const getAddress = async (postal) => {
@@ -85,6 +142,8 @@ const UpdateUserBaseInfoHimself = () => {
                 // AgentAddress:"",
                 NationalCode: values.nationalCode,
                 PostalCode: values.postalCode,
+                IdCardFirstPage: file,
+                IdCardDescPage: file2
                 // Relationship:"",
                 // AgentPhoneNumber:"",
                 // AgentIdcardNumber:"",
@@ -93,8 +152,12 @@ const UpdateUserBaseInfoHimself = () => {
             if (status > 1) {
                 navigate('../createUserInsuranceDes')
             }
+            else if (!file && !file2) {
+                alert("لطفا تصاویر شناسنامه را آپلود کنید");
+            }
             else {
-                const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+                // const response = await axiosReq("Users/UpdateUserInfo", "put", updateData);
+                const response = await axiosReq("Users/UpdateUserInfo", "post", updateData);
                 if (response?.status === 200) {
                     navigate('../createUserInsuranceDes');
                 }
@@ -362,6 +425,38 @@ const UpdateUserBaseInfoHimself = () => {
                                 max={20}
                             />
                         </div> */}
+                        <div className="flex flex-col gap-2 justify-between">
+                            <div className=' flex flex-col  my-4'>
+                                <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3 mb-2 '>تصویر صفحه اول شناسنامه</p>
+                                <div>
+                                    <UploadFile small={true} setFile={setFile} />
+                                </div>
+                            </div>
+                                   {
+                                file?
+                            <div onClick={() => download(file)} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{file}</p>
+                                <ExportAgentFileIIcon />
+                            </div>
+                            :null}
+                            <div className='w-full flex flex-col my-4'>
+                                <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3 mb-2'>تصویر صفحه توضیحات شناسنامه </p>
+                                <div>
+                                    <UploadFile small={true} setFile={setFile2} />
+                                </div>
+                            </div>
+                            {
+                                file2?
+
+                             <div onClick={() => download(file2)} className="h-[36px] w-fit rounded-full bg-backBlue flex items-center pr-[20px] pl-[17px]">
+                                <p className="text-[16px] font-IRANYekanBold text-buttonBlue ml-[28px] cursor-pointer">{file2}</p>
+                                <ExportAgentFileIIcon />
+                            </div>
+                                :
+                                null
+                            }
+                        </div>
+
                         <div className="col-span-3 mt-[33px] flex justify-end items-center">
                             <div className="w-[140px]">
                                 <MainButton

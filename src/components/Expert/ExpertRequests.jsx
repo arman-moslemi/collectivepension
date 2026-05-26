@@ -313,7 +313,8 @@ const getExcel = async () => {
     const returnReq = async (id) => {
         try {
 
-            const response = await axiosReq("Experts/Return?userInsuranceId=" + id, "put");
+            // const response = await axiosReq("Experts/Return?userInsuranceId=" + id, "put");
+            const response = await axiosReq("Experts/Return?userInsuranceId=" + id, "post");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {

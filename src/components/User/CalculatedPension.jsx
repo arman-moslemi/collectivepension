@@ -79,7 +79,7 @@ const CalculatedPension = () => {
             if (bankName != "" && branch != "" && account != "") {
 
 
-                const response = await axiosReq("Users/BankAccount", "put", {
+                const response = await axiosReq("Users/BankAccount", "post", {
                     BankName: bankName,
                     BankBranch: branch,
                     BankAccount: account,

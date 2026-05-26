@@ -187,7 +187,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
         }
       }
       else {
-        const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
+        // const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
+        const response = await axiosReq("Users/UpdateUserInsurance", "post", payload);
 
         if (response?.status === 200) {
           alert('عملیات با موفقیت انجام شد');
@@ -306,8 +307,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
   return (
     <div className="w-full border-b-[2px] pb-3 border-borderGray">
       <div className={`w-full ${inModal ? 'mb-[22px]' : 'mb-[30px]'}  flex justify-between items-center`}>
-        <p className="font-IRANYekanExtra text-[16px] text-mainBlue">اطلاعات فرد در صندوق بازنشستگی مبدا (شماره {number})</p>
-        {number === 1 || inModal ? null : <button onClick={handleRemoveLastForm}><Cross /></button>}
+        <p className="font-IRANYekanExtra text-[16px] text-mainBlue">اطلاعات فرد در صندوق بازنشستگی مبدا (شماره {number+1})</p>
+        {/* {number === 1 || inModal ? null : <button onClick={handleRemoveLastForm}><Cross /></button>} */}
       </div>
 
       {/* <div className="w-full grid grid-cols-3 gap-4"> */}
@@ -615,10 +616,10 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
             {data ?
               <div className="col-span-2 b1115:col-span-3">
                 <div className="w-full h-full  flex justify-end items-end">
-                  <div className="w-[138px] ml-4">
+                  {/* <div className="w-[138px] ml-4">
                     <MainButton red={true} disabled={status > 1 ? true : false} onClickFunction={() => deleteInsu()}
                       label={'حذف صندوق'} />
-                  </div>
+                  </div> */}
                   <div className="w-[138px]">
                     <MainButton
                       type="submit"

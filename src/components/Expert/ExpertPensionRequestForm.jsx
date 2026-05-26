@@ -40,7 +40,8 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     }, []);
     const submit = async () => {
         try {
-            const response = await axiosReq("Experts/Approve?userInsuranceId=" + id, "put");
+            // const response = await axiosReq("Experts/Approve?userInsuranceId=" + id, "put");
+            const response = await axiosReq("Experts/Approve?userInsuranceId=" + id, "post");
             if (response.data) {
                 alert("با موفقیت انجام شد");
             }
@@ -53,7 +54,8 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     };
     const disApprove = async () => {
         try {
-            const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put", {
+            // const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put", {
+            const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "post", {
                 Reason: reason,
                 UserInsuranceFiles: files
             });

@@ -103,7 +103,8 @@ console.log(response)
         }
       }
       else {
-        const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
+        // const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
+        const response = await axiosReq("Users/UpdateUserInsurance", "post", payload);
 
         if (response?.status === 200) {
           navigate('../createUserInsuranceOrigin');

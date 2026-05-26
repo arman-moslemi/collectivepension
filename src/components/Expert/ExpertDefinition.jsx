@@ -60,7 +60,8 @@ const ExpertDefinition = () => {
                 expertId: id
 
             };
-            const response = await axiosReq(id == 0 ? "Experts/CreateExpert" : "Experts/UpdateExpert", id == 0 ? "post" : "put", payload);
+            // const response = await axiosReq(id == 0 ? "Experts/CreateExpert" : "Experts/UpdateExpert", id == 0 ? "post" : "put", payload);
+            const response = await axiosReq(id == 0 ? "Experts/CreateExpert" : "Experts/UpdateExpert",  "post" , payload);
 
             console.log(response)
             if (response?.status === 200 || response?.status === 204) {

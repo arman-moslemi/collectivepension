@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { MainExplanation, MainButton, UserDataInsuranceOrigin, MainModal, MainChekbox } from "../../components";
+import { MainExplanation, MainButton, UserDataInsuranceOrigin, MainModal, MainChekbox, MainTable } from "../../components";
 import { useNavigate } from "react-router-dom";
 import OkIcon from "../../assets/icon/general/OkIcon";
 import { axiosReq } from "../../commons/axiosReq";
 import Cookies from 'universal-cookie';
-
+import Trash from "../../assets/icon/main/Trash";
+import Pencil from "../../assets/icon/main/Pencil";
 const CreateUserInsuranceOrigin = () => {
     const [showUnderTakingModal, setShowUnderTakingModal] = useState(false);
     const cookies = new Cookies();
@@ -22,12 +23,63 @@ const CreateUserInsuranceOrigin = () => {
             setShowUnderTakingModal(true)
 
     }
+    const titleRow = [
+        "ردیف",
+        'نام صندوق بازنشستگی',
+        'نام دستگاه اجرائی/کارگاه',
+        'استان محل اشتغال',
+        'شهر',
+        'شماره شناسایی بیمه',
+        'نوع سابقه',
+        'میزان سابقه',
+        'شماره دستگاه اجرایی/کارگاه',
+        'علت خروج از صندوق ',
+        'تاریخ خروج از عضویت صندوق',
+        'عملیات'
+    ];
+
+    const list = [
+        {
+            id: "1",
+            fullName: "علی علیزاده",
+            nationalCode: "0020163258",
+            date: "1402/02/08",
+            protestType: "RECORD",
+            protestTypeLabel: "اعتراض به سابقه اعلامی",
+            status: "در انتظار بررسی",
+        },
+        {
+            id: "2",
+            fullName: "علی علیزاده",
+            nationalCode: "0020163258",
+            date: "1402/02/08",
+            protestType: "AMOUNT",
+            protestTypeLabel: "اعتراض به مبلغ مستمری",
+            status: "در انتظار بررسی",
+        },
+        {
+            id: "3",
+            fullName: "علی علیزاده",
+            nationalCode: "0020163258",
+            date: "1402/02/08",
+            protestType: "GENERAL",
+            protestTypeLabel: "اعتراض به احراز شرایط",
+            status: "در انتظار بررسی",
+        },
+    ];
+
+
+
     let navigate = useNavigate();
     const [data, setData] = useState([]);
+    const [dataTable, setDataTable] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [reCheck, setRecheck] = useState(true);
     const [promise, setPromise] = useState(false);
-
+    const [showDelete, setShowDelete] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [editId, setEditId] = useState("");
+    const [deleteId, setDeleteId] = useState("");
     const handleAddForm = () => {
         setForms(prev => [...prev, prev.length]);
     };
@@ -47,7 +99,43 @@ const CreateUserInsuranceOrigin = () => {
                 // setForms(userInsuranceRes.data.length)
                 setForms(prev => [...prev, userInsuranceRes.data.length]);
                 setData(userInsuranceRes.data)
+                var prot = []
 
+                userInsuranceRes.data?.map((item, index) => {
+                    prot.push({
+                        item1: index + 1,
+                        item2: item.name,
+                        item3: item.departmentName,
+                        item4: item.provinceName,
+                        item5: item.cityName,
+                        item6: item.insuranceIdNumber,
+                        // item6: item.employmentStatus,
+                        item7: item.trackRecordType,
+                        item8: item.trackRecordDays,
+                        item9: item.lastWorkplace,
+                        item10: item.quitReason,
+
+                        // item11: item.endDate,
+                        item11: item.quitDate,
+                        item12: <div className="flex justify-center">
+
+                            <div className="relative group hover:cursor-pointer" onClick={() => { setShowEdit(true); setEditId(index); }}>
+                                <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Pencil /></div>
+                                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+                                    ویرایش
+                                </div>
+                            </div>
+                            <div className="relative group hover:cursor-pointer" onClick={() => { setShowDelete(true); setDeleteId(item.userInsuranceId); }}>
+                                <div className='w-[38px] h-[38px] mx-auto rounded-full bg-backYellow flex justify-center items-center ml-1'><Trash /></div>
+                                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 z-10 whitespace-nowrap">
+                                    حذف
+                                </div>
+                            </div>
+                        </div>
+                        ,
+                    })
+                })
+                setDataTable(prot)
             }
 
 
@@ -62,6 +150,15 @@ const CreateUserInsuranceOrigin = () => {
 
         }
     };
+     const deleteInsu = async () => {
+        const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + deleteId, "delete");
+        if (response.status == 200) {
+          alert("با موفقیت حذف شد")
+          setShowDelete(false)
+          setRecheck(!reCheck)
+    
+        }
+      }
     useEffect(() => {
         GetData();
     }, [reCheck]);
@@ -91,34 +188,20 @@ const CreateUserInsuranceOrigin = () => {
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} /></div>
             <div className="px-[40px] w-full z940:px-1">
                 <div className="w-full md:col-span-3">
-                    {forms.map((_, idx) => {
-                        console.log(idx)
-                        console.log(data?.length)
-                        return (
-                            data?.length > idx ?
-
-                                <div key={idx} className="mb-6 ">
-                                    <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} />
+                    <div className="mb-6">
+                        <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={data?.length + 1} handleRemoveLastForm={handleRemoveLastForm} />
+                    </div>
+                    <div  className="mb-6 ">
+                                    {/* <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} /> */}
+                                    <MainTable list={dataTable} titleRow={titleRow} />
                                 </div>
-                                :
-                                idx == data?.length ?
-                                    <div key={idx} className="mb-6">
-                                        <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} handleRemoveLastForm={handleRemoveLastForm} />
-                                    </div>
-                                    :
-                                    null
-
-                        )
-                    }
-
-
-                    )}
+                    
                 </div>
                 <div className="w-full flex items-end justify-between my-5 flex-wrap">
-                    <div className="w-fit max-w-[434px] ">
+                    {/* <div className="w-fit max-w-[434px] ">
                         <p className="font-IRANYekanBold text-[15px] text-mainBlue mb-3">اگر در صندوق مبدا دیگری بیمه پردازی داشتید،روی دکمه زیر کلیک کرده و اطلاعات خود را تکمیل کنید.</p>
                         <div className="w-[217px]"><MainButton onClickFunction={handleAddForm} label={'افزودن صندوق مبدا بعدی'} /></div>
-                    </div>
+                    </div> */}
                     <div className="flex w-full justify-end z940:mt-5">
                         <div className="w-[140px] ml-4"><MainButton onClickFunction={() => navigate('../createUserInsuranceDes')} label={'گام قبلی'} /></div>
                         <div className="w-[140px]"><MainButton onClickFunction={underTakingModalFunction} label={'گام بعدی'} /></div>
@@ -161,8 +244,42 @@ const CreateUserInsuranceOrigin = () => {
                 )}
 
             </div>
+            {showEdit ? (
+           <MainModal
+             big={true}
+             title={'ویرایش صندوق'}
+             setShowModal={() => { setShowEdit(false);  }}
+             text={<UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={editId} data={data[editId]} handleRemoveLastForm={handleRemoveLastForm} /> }
+           />
+         ) : null}
+          {showDelete  ? (
+        <MainModal
+          big={false}
+          title={ "حذف صندوق"}
+          setShowModal={() => setShowDelete(false)}
+          text={
+           "آیا از حذف صندوق انتخاب شده اطمینان دارید؟"
+          }
+          modalButton={
+            <div className="w-full flex justify-center">
+              <div className="w-[140px]">
+                <MainButton onClickFunction={deleteInsu} label={"بله"} />
+              </div>
+              <div className="w-[140px] mr-2">
+                <MainButton
+                  onClickFunction={() => setShowDelete(false)}
+                  red={true}
+                  label={"خیر"}
+                />
+              </div>
+            </div>
+          }
+        />
+      ) : null}
         </div>
     );
+
+    
 };
 
 export default CreateUserInsuranceOrigin;

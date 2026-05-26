@@ -1,4 +1,4 @@
-import { MainInput, MainButton, MainModal, MainExplanation } from "../../components";
+import { MainInput, MainButton, MainModal, MainExplanation, UploadFile } from "../../components";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
@@ -39,10 +39,13 @@ const Dashboard = () => {
     let navigate = useNavigate();
     const [data, setData] = useState([]);
     const [bankInformationModal, setBankInformationModal] = useState(false);
+    const [leaveWorkModal, setLeaveWorkModal] = useState(false);
     const [bankName, setBankName] = useState();
     const [branch, setBranch] = useState();
     const [account, setAcount] = useState();
     const [user, setUser] = useState();
+            const [file, setFile] = useState();
+
     const BankInformationModalFunction = () => {
         setBankInformationModal(false);
     }
@@ -50,10 +53,36 @@ const Dashboard = () => {
         try {
             if (bankName != "" && branch != "" && account != "") {
 
-                const response = await axiosReq("Users/BankAccount", "put", {
+                // const response = await axiosReq("Users/BankAccount", "put", {
+                const response = await axiosReq("Users/BankAccount", "post", {
                     BankName: bankName,
                     BankBranch: branch,
                     BankAccount: account,
+                });
+                console.log(response)
+
+                if (response?.status === 200 || response?.status === 204) {
+                    alert("با موفقیت انجام شد")
+                }
+                else {
+                    alert(response)
+                }
+
+            }
+            else {
+                alert("همه موارد را وارد نمایید")
+
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+     const InsertQuittingDoc = async () => {
+        try {
+            if (file) {
+
+                const response = await axiosReq("Users/InsertQuittingDoc", "post", {
+                    fileName: file
                 });
                 console.log(response)
 
@@ -171,7 +200,8 @@ const Dashboard = () => {
                 <div className="h-[343px] border-ddGray border-[1px] border-dashed rounded-[6px] flex flex-col items-center justify-center z940:col-span-4">
                     <p className="font-IRANYekanExtra text-[15px] text-mainBlue mb-[15px]">حکم بازنشستگی</p>
                     <img src={DashboardPic5} alt="pic" />
-                    <div className="w-[162px] mt-10"><MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
+                    <div className="w-[162px] mt-10">
+                        <MainButton onClickFunction={() => navigate('../verdictsIssued')} label={'مشاهده احکام'} /></div>
                 </div>
             </div>
             {/* {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
@@ -185,6 +215,18 @@ const Dashboard = () => {
                     <div className="w-[140px]"><MainButton onClickFunction={bankAccount} label={'ثبت'} /></div>
                 </div>}
             /> : null} */}
+
+                 {leaveWorkModal ? <MainModal title={'آپلود ترک کار'} setShowModal={setLeaveWorkModal} big={false}
+                text={<div className="w-full ">
+                     <div className='w-full flex items-center my-4'>
+                                            <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3'>انتخاب فایل</p>
+                                            <div className=""><UploadFile small={true} setFile={setFile} /></div>
+                                        </div>
+                </div>}
+                modalButton={<div className="w-full flex justify-center">
+                    <div className="w-[140px]"><MainButton onClickFunction={InsertQuittingDoc} label={'ثبت'} /></div>
+                </div>}
+            /> : null}
         </div>
     )
 }

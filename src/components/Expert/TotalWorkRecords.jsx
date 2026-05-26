@@ -19,7 +19,8 @@ const TotalWorkRecords = ({button,id,data}) => {
         try {
     
     
-          const response = await axiosReq("Experts/ApproveRecord?userInsuranceId="+id, "put", { userInsuranceId: id });
+        //   const response = await axiosReq("Experts/ApproveRecord?userInsuranceId="+id, "put", { userInsuranceId: id });
+          const response = await axiosReq("Experts/ApproveRecord?userInsuranceId="+id, "post", { userInsuranceId: id });
           console.log(response.data)
         alert("با موفقیت انجام شد منتظر تایید کاربر بمانید ")
     

@@ -54,7 +54,8 @@ const GeneralProtestDetail = ({ role,id,insuName}) => {
             }
             const disApprove = async (item) => {
                 try {
-                    const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+                    // const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+                    const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "post", {
                         Reason: reason,
                         UserInsuranceFiles: files
                     });
@@ -69,7 +70,8 @@ const GeneralProtestDetail = ({ role,id,insuName}) => {
             };
              const approve = async (item) => {
                 try {
-                    const response = await axiosReq("Experts/AcceptProtest?protestId=" + id, "put");
+                    // const response = await axiosReq("Experts/AcceptProtest?protestId=" + id, "put");
+                    const response = await axiosReq("Experts/AcceptProtest?protestId=" + id, "post");
                     if (response.data) {
                         alert("با موفقیت انجام شد");
                         navigate("/protestList")

@@ -196,7 +196,7 @@ const RecordProtestDetail = ({ role,insuName }) => {
     }
     const disApprove = async (item) => {
         try {
-            const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+            const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "post", {
                 Reason: reason,
                 UserInsuranceFiles: files
             });

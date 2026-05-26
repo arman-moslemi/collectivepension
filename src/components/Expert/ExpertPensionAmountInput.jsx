@@ -19,7 +19,8 @@ const ExpertPensionAmountInput = ({ setShift, id }) => {
         try {
 
 
-            const response = await axiosReq("Experts/InsertPension", "put", { UserInsuranceId: id,Amount:cost });
+            // const response = await axiosReq("Experts/InsertPension", "put", { UserInsuranceId: id,Amount:cost });
+            const response = await axiosReq("Experts/InsertPension", "post", { UserInsuranceId: id,Amount:cost });
             console.log(response.data)
             if(response.status==200){
                 setShift(true)

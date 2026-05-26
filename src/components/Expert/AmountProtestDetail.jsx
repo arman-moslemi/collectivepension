@@ -38,7 +38,8 @@ const AmountProtestDetail = ({role,id,insuName}) => {
             }
      const disApprove = async (item) => {
                 try {
-                    const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+                    // const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
+                    const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "post", {
                         Reason: reason,
                         UserInsuranceFiles: files
                     });
@@ -125,7 +126,8 @@ const AmountProtestDetail = ({role,id,insuName}) => {
 
                     const approve = async (item) => {
                 try {
-                    const response = await axiosReq("Experts/AcceptPensionProtest", "put",{
+                    // const response = await axiosReq("Experts/AcceptPensionProtest", "put",{
+                    const response = await axiosReq("Experts/AcceptPensionProtest", "post",{
                         NewPension:pension?.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)),
                         ProtestId:id
                     });

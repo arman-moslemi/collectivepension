@@ -59,7 +59,8 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
     };
     const approve = async () => {
         try {
-            const response = await axiosReq("Users/Approve", "put");
+            // const response = await axiosReq("Users/Approve", "put");
+            const response = await axiosReq("Users/Approve", "post");
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
