@@ -47,33 +47,34 @@ const UserRamz = ({ inModal, reCheck, setRecheck, code ,setRamz,ramz}) => {
       // 1. Fetch user insurance data
 
       const data = await axiosReq("Users/GetTaminRecords?passCode="+code, "get");
+      // const data = await axiosReq("Users/GetTaminRecords?nationalCode=0020121873&&passCode=3377360109906", "get");
 
       // 2. Set initial values from API response
       if (data?.status == 200) {
         console.log(8888)
         console.log(data)
         var prot = []
-        data.data?.map((item, index) => {
+        data.data?.data?.map((item, index) => {
           prot.push({
 
             // i: data.Id || 0,
             item1: data.Year || 0,
             item2: data.RecordType || "",
             item3: data.BranchName || '',
-            item4: data.WorkplaceNumber || 0,
+            item4: data.WorkplaceNumber || "",
             item5: data.WorkplaceName || '',
-            item6: data.Month1 || '',
-            item7: data.Month2 || '',
-            item8: data.Month3 || '',
+            item6: data.Month1 || 0,
+            item7: data.Month2 || 0,
+            item8: data.Month3 || 0,
             item9: data.Month4 || 0,
-            item10: data.Month5 || '',
-            item11: data.Month6 || '',
-            item12: data.Month7 || '',
-            item13: data.Month8 || '',
-            item14: data.Month9 || '',
-            item15: data.Month10 || '',
-            item16: data.Month11 || '',
-            item17: data.Month12 || '',
+            item10: data.Month5 || 0,
+            item11: data.Month6 || 0,
+            item12: data.Month7 || 0,
+            item13: data.Month8 || 0,
+            item14: data.Month9 || 0,
+            item15: data.Month10 || 0,
+            item16: data.Month11 || 0,
+            item17: data.Month12 || 0,
 
 
           })
