@@ -9,6 +9,7 @@ import Pencil from "../../assets/icon/main/Pencil";
 const CreateUserInsuranceOrigin = () => {
     const [showUnderTakingModal, setShowUnderTakingModal] = useState(false);
     const cookies = new Cookies();
+  const [taminNoticeOpen, setTaminNoticeOpen] = useState(true);
 
     let status = cookies.get("Status");
     const [forms, setForms] = useState([0]);
@@ -151,7 +152,7 @@ const CreateUserInsuranceOrigin = () => {
         }
     };
      const deleteInsu = async () => {
-        const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + deleteId, "delete");
+        const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + deleteId, "post");
         if (response.status == 200) {
           alert("با موفقیت حذف شد")
           setShowDelete(false)
@@ -186,10 +187,24 @@ const CreateUserInsuranceOrigin = () => {
                 </div>
             </div>
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} /></div>
+              {taminNoticeOpen && (<div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2 mb-5">
+        <button
+          type="button"
+          onClick={() => setTaminNoticeOpen(false)}
+          aria-label="بستن اطلاعیه"
+          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+        >
+          ✕
+        </button>
+
+        <span className="font-IRANYekanBold text-mainBlue leading-6">
+متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
+        </span>
+      </div>)}
             <div className="px-[40px] w-full z940:px-1">
                 <div className="w-full md:col-span-3">
                     <div className="mb-6">
-                        <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={data?.length + 1} handleRemoveLastForm={handleRemoveLastForm} />
+                        <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={data?.length + 1} handleRemoveLastForm={handleRemoveLastForm} setTaminNoticeOpen={setTaminNoticeOpen} />
                     </div>
                     <div  className="mb-6 ">
                                     {/* <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} /> */}

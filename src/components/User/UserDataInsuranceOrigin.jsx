@@ -1,4 +1,4 @@
-import { MainButton, MainInput, MainRadioInput, } from "../../components";
+import { MainButton, MainInput, MainModal, MainRadioInput, } from "../../components";
 import Cross from "../../assets/icon/general/Cross";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import moment from 'jalali-moment';
 import Cookies from 'universal-cookie';
+import UserRamz from "./UserRamz";
 
 const listItems = [
   {
@@ -81,7 +82,7 @@ const cityList = [
   },
 ]
 
-const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, reCheck, setRecheck }) => {
+const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, reCheck, setRecheck,setTaminNoticeOpen }) => {
 
   const navigate = useNavigate();
   const [provinces, setProvinces] = useState([])
@@ -91,6 +92,8 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
   const [des, setDes] = useState('')
   const [isok, setIsok] = useState(true)
   const [isLoading, setIsLoading] = useState(true);
+   const [ramzModal, setRamzModal] = useState(false);
+    const [ramz, setRamz] = useState(false);
   const [initialValues, setInitialValues] = useState({
     InsuranceId: 0,
     IsEndingInsurance: false,
@@ -297,7 +300,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
     return <div>Loading...</div>; // Add a proper loading indicator
   }
   const deleteInsu = async () => {
-    const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + data.userInsuranceId, "delete");
+    const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + data.userInsuranceId, "post");
     if (response.status == 200) {
       alert("با موفقیت حذف شد")
       setRecheck(!reCheck)
@@ -327,7 +330,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 label={'نام صندوق بازنشستگی'}
                 defaultVal={values.InsuranceId}
                 value={insurances.find(i => i.id === values.InsuranceId) || null}
-                onChange={(value) => setFieldValue('InsuranceId', value?.id || 0)}
+                onChange={(value) => {setFieldValue('InsuranceId', value?.id || 0);value?.id==1?setTaminNoticeOpen(true):setTaminNoticeOpen(false)}}
                 holder={'مثلا وزارت تعاون'}
                 listBox={true}
                 listItems={insurances}
@@ -549,7 +552,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
               />
             </div>
 
-            <div className="mb-5 b1115:col-span-3">
+            <div className="mb-5 flex items-end b1115:col-span-3 gap-2">
               <MainInput
                 label={<div className="flex items-center">
                   {values.InsuranceId == 1 ?
@@ -570,6 +573,18 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 max={40}
 
               />
+                  {values.InsuranceId == 1?
+                              <div className="w-[200px] flex items-end ">
+              
+                                <MainButton
+                    onClickFunction={() => values.LastWorkplace!="" ?setRamzModal(true):alert("کد رمز را وارد نمایید")}
+                                  type={"button"}
+                                  label={'استعلام کد رمز '}
+                                />
+              
+              
+                              </div>
+                              : null}
             </div>
 
             {/* Last Workplace */}
@@ -642,6 +657,31 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
 
 
                 </div>
+                 {ramzModal && (
+                <MainModal
+                  title={'جزییات'}
+                  big={true}
+
+                  // noCross={true}
+                  setShowModal={setRamzModal}
+                  text={
+                    <UserRamz code={values.LastWorkplace} setRamz={setRamz} ramz={ramz} />
+                  }
+                  modalButton={
+                    <div className="w-[140px] flex">
+
+                      <MainButton
+                        onClickFunction={() => ramz ? setRamzModal(false) : alert("لطفا تایید نمایید")}
+                        type="button"
+
+                        label={'تایید '}
+                      />
+
+
+                    </div>
+                  }
+                />
+              )}
               </div>
             }
           </Form>

@@ -230,7 +230,7 @@ const CalculatedPension = () => {
             /> : null}
 
 
-            {/* {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
+            {bankInformationModal ? <MainModal title={'ثبت اطلاعات بانکی'} setShowModal={setBankInformationModal}
                 text={<div className="w-full grid grid-cols-2 gap-4">
                     <div><MainInput onChange={(e) => setBankName(e.target.value)} label={'نام بانک'} /></div>
                     <div><MainInput onChange={(e) => setBranch(e.target.value)} label={'نام شعبه'} /></div>
@@ -240,7 +240,7 @@ const CalculatedPension = () => {
                 modalButton={<div className="w-full flex justify-center">
                     <div className="w-[140px]"><MainButton onClickFunction={bankAccount} label={'ثبت'} /></div>
                 </div>}
-            /> : null} */}
+            /> : null}
         </div>
     )
 }

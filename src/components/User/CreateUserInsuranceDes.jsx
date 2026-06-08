@@ -1,4 +1,4 @@
-import { MainExplanation, MainInput, MainButton, MainRadioInput, MainRadioInput2 } from "../../components";
+import { MainExplanation, MainInput, MainButton, MainRadioInput, MainRadioInput2, MainModal } from "../../components";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { axiosReq } from "../../commons/axiosReq";
@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import OkIcon from "../../assets/icon/general/OkIcon";
 import moment from 'jalali-moment';
 import Cookies from 'universal-cookie';
+import UserRamz from "./UserRamz";
 
 const employmentStatusOptions = [
   { id: 1, name: 'مشمول قانون مدیریت خدمات کشوری' },
@@ -23,6 +24,9 @@ const CreateUserInsuranceDes = () => {
   const [des, setDes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [noticeOpen, setNoticeOpen] = useState(true);
+  const [taminNoticeOpen, setTaminNoticeOpen] = useState(true);
+  const [ramzModal, setRamzModal] = useState(false);
+  const [ramz, setRamz] = useState(false);
 
   const [initialValues, setInitialValues] = useState({
     InsuranceId: 0,
@@ -92,25 +96,33 @@ const CreateUserInsuranceDes = () => {
         EmploymentStatusDescription: des
       };
       payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
-      if (initialValues?.UserInsuranceId == 0) {
-        const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
-console.log(response)
-        if (response?.status === 200) {
-          navigate('../createUserInsuranceOrigin');
-        }
-        else {
-          alert(response?.data)
+      if (values.InsuranceId == 1) {
+        if (ramz != true) {
+          return alert("کد رمز را تایید کنید")
         }
       }
       else {
-        // const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
-        const response = await axiosReq("Users/UpdateUserInsurance", "post", payload);
 
-        if (response?.status === 200) {
-          navigate('../createUserInsuranceOrigin');
+        if (initialValues?.UserInsuranceId == 0) {
+          const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
+          console.log(response)
+          if (response?.status === 200) {
+            navigate('../createUserInsuranceOrigin');
+          }
+          else {
+            alert(response?.data)
+          }
         }
         else {
-          alert(response?.data)
+          // const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
+          const response = await axiosReq("Users/UpdateUserInsurance", "post", payload);
+
+          if (response?.status === 200) {
+            navigate('../createUserInsuranceOrigin');
+          }
+          else {
+            alert(response?.data)
+          }
         }
       }
     } catch (error) {
@@ -253,6 +265,20 @@ console.log(response)
           منظور از آخرین صندوق بازنشستگی، صندوقی است که در حال حاضر در آن عضو هستید و حق بیمه به آن پرداخت می‌کنید
         </span>
       </div>)}
+      {taminNoticeOpen && (<div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2 mt-5">
+        <button
+          type="button"
+          onClick={() => setTaminNoticeOpen(false)}
+          aria-label="بستن اطلاعیه"
+          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+        >
+          ✕
+        </button>
+
+        <span className="font-IRANYekanBold text-mainBlue leading-6">
+          متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
+        </span>
+      </div>)}
       <div className="mt-5 w-full">
         <Formik
           initialValues={initialValues}
@@ -268,7 +294,7 @@ console.log(response)
                   label={'نام صندوق بازنشستگی'}
                   defaultVal={values.InsuranceId}
                   value={insurances.find(i => i.id === values.InsuranceId) || null}
-                  onChange={(value) => setFieldValue('InsuranceId', value?.id || 0)}
+                  onChange={(value) => { setFieldValue('InsuranceId', value?.id || 0); value?.id == 1 ? setTaminNoticeOpen(true) : setTaminNoticeOpen(false) }}
                   holder={'مثلا وزارت تعاون'}
                   listBox={true}
                   listItems={insurances}
@@ -508,7 +534,7 @@ console.log(response)
                 />
               </div>
 
-              <div className="mb-5  z940:col-span-3">
+              <div className="mb-5 flex items-end  z940:col-span-3  justify-between gap-1">
                 <MainInput
                   label={<div className="flex items-center">
                     {values.InsuranceId == 1 ?
@@ -530,8 +556,44 @@ console.log(response)
                   max={40}
 
                 />
-              </div>
+              {values.InsuranceId == 1  ?
+                <div className="w-[200px] flex items-end ">
 
+                  <MainButton
+                    onClickFunction={() => values.LastWorkplace!="" ?setRamzModal(true):alert("کد رمز را وارد نمایید")}
+                    type={"button"}
+                    label={'استعلام کد رمز '}
+                  />
+
+
+                </div>
+                : null}
+              </div>
+              {ramzModal && (
+                <MainModal
+                  title={'جزییات'}
+                  big={true}
+
+                  // noCross={true}
+                  setShowModal={setRamzModal}
+                  text={
+                    <UserRamz code={values.LastWorkplace} setRamz={setRamz} ramz={ramz} />
+                  }
+                  modalButton={
+                    <div className="w-[140px] flex">
+
+                      <MainButton
+                        onClickFunction={() => ramz ? setRamzModal(false) : alert("لطفا تایید نمایید")}
+                        type="button"
+
+                        label={'تایید '}
+                      />
+
+
+                    </div>
+                  }
+                />
+              )}
               {/* Last Workplace */}
 
 
@@ -563,8 +625,10 @@ console.log(response)
 
             </Form>
           )}
+
         </Formik>
       </div>
+
     </div>
   );
 };
