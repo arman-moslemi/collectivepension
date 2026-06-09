@@ -15,6 +15,7 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
     const [selectedBox, setSelectedBox] = useState(false);
     const [recheck, setRecheck] = useState(false);
     const [props, setProps] = useState([]);
+  const [taminNoticeOpen, setTaminNoticeOpen] = useState(true);
 
     const AddOriginBoxModalFunction = () => {
         setShowAddOriginBoxModal(false);
@@ -208,7 +209,7 @@ const ExistingRecords = ({ setObjYear, setSelectedYearBox, selectedYearBox, objY
 
             {showAddOriginBoxModal ? <MainModal big={true} title={'ثبت اطلاعات صندوق مبدا فراموش شده'} setShowModal={setShowAddOriginBoxModal}
                 text={<div className="w-full flex flex-col items-center">
-                    <UserDataInsuranceOrigin inModal={true} />
+                    <UserDataInsuranceOrigin inModal={true} setTaminNoticeOpen={setTaminNoticeOpen}/>
                 </div>}
                 modalButton={<div className="w-full flex justify-center">
                     <div className="w-[140px]"><MainButton onClickFunction={AddOriginBoxModalFunction} label={'ثبت'} /></div>

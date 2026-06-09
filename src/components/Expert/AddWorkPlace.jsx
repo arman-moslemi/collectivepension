@@ -35,7 +35,8 @@ const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId,se
     Branch: data?.branch || "",
     Workplace: data?.workplace || "",
     WorkplaceNumber: data?.workplaceNumber || "",
-    TimeFrames: data?.timeFrames || []
+    TimeFrames: data?.timeFrames || [],
+    TrackRecordType:data?.trackRecordType ||0
   });
 
   const [currentTimeFrame, setCurrentTimeFrame] = useState({
@@ -299,7 +300,8 @@ const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId,se
         Branch: data.branch || "",
         Workplace: data.workplace || "",
         WorkplaceNumber: data.workplaceNumber || "",
-        TimeFrames: data.timeFrames || []
+        TimeFrames: data.timeFrames || [],
+        TrackRecordType:data?.trackRecordType|| 0
       }));
     }
   }, [data]);
@@ -402,6 +404,22 @@ const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId,se
               onChange={(e) => handleInputChange('WorkplaceNumber', e.target.value)}
             />
           </div>
+            <div className="mb-5 z940:col-span-3">
+                <MainInput
+                  label={'نوع سابقه'}
+                  value={formData.TrackRecordType}
+                  listBox={true}
+                  defaultVal={formData.TrackRecordType}
+
+                  listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
+                  onChange={(value) => handleInputChange('TrackRecordType', value?.id)}
+                  holder={'مثلا رسمی'}
+                  necessary={true}
+                  // error={formData.TrackRecordType && errors.TrackRecordType}
+
+
+                />
+              </div>
         </div>
       </div>
 

@@ -264,7 +264,7 @@ const CreateUserInsuranceOrigin = () => {
              big={true}
              title={'ویرایش صندوق'}
              setShowModal={() => { setShowEdit(false);  }}
-             text={<UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={editId} data={data[editId]} handleRemoveLastForm={handleRemoveLastForm} /> }
+             text={<UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={editId} data={data[editId]} handleRemoveLastForm={handleRemoveLastForm}setTaminNoticeOpen={setTaminNoticeOpen} /> }
            />
          ) : null}
           {showDelete  ? (

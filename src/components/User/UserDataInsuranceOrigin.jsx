@@ -176,7 +176,14 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
         EmploymentStatusDescription: des
       };
       payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
+  if (values.InsuranceId == 1 && ramz != true) {
+        console.log(11000)
 
+      
+          return alert("کد رمز را تایید کنید")
+        
+      }
+      else {
       if (initialValues.UserInsuranceId == 0) {
         const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
 
@@ -203,6 +210,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           alert(response)
         }
       }
+    }
     } catch (error) {
       console.error("Error creating insurance:", error);
     }

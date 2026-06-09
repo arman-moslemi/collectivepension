@@ -96,13 +96,19 @@ const CreateUserInsuranceDes = () => {
         EmploymentStatusDescription: des
       };
       payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
-      if (values.InsuranceId == 1) {
-        if (ramz != true) {
+              console.log(10000)
+              console.log(ramz)
+              console.log(values.InsuranceId)
+
+      if (values.InsuranceId == 1 && ramz != true) {
+        console.log(11000)
+
+      
           return alert("کد رمز را تایید کنید")
-        }
+        
       }
       else {
-
+console.log(20000)
         if (initialValues?.UserInsuranceId == 0) {
           const response = await axiosReq("Users/CreateUserInsurance", "post", payload);
           console.log(response)
@@ -114,6 +120,8 @@ const CreateUserInsuranceDes = () => {
           }
         }
         else {
+          console.log(111111)
+
           // const response = await axiosReq("Users/UpdateUserInsurance", "put", payload);
           const response = await axiosReq("Users/UpdateUserInsurance", "post", payload);
 
