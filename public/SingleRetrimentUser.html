@@ -139,7 +139,8 @@
           headers: {
             "Content-Type": "application/json",
             "Authorization": token ? `Bearer ${token}` : "",
-            "Document":  getCookie("user") ?? "" // هدر سفارشی
+            // "Document":  getCookie("user") ?? "" // هدر سفارشی
+            "Document":  userId // هدر سفارشی
           }
         });
         console.log(response)
@@ -169,27 +170,30 @@
           </tr>
         `;
         });
-        var HTML_Width = $(".html-content").width();
-        var HTML_Height = $(".html-content").height();
-        var top_left_margin = 15;
-        var PDF_Width = HTML_Width + (top_left_margin * 2);
-        var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-        var canvas_image_width = HTML_Width;
-        var canvas_image_height = HTML_Height;
+      // Get element without jQuery
+var htmlContent = document.querySelector('.html-content');
+var HTML_Width = htmlContent.offsetWidth;
+var HTML_Height = htmlContent.offsetHeight;
+var top_left_margin = 15;
+var PDF_Width = HTML_Width + (top_left_margin * 2);
+var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+var canvas_image_width = HTML_Width;
+var canvas_image_height = HTML_Height;
 
-        var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-        html2canvas($(".html-content")[0]).then(function (canvas) {
-          var imgData = canvas.toDataURL("image/jpeg", 1.0);
-          var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-          for (var i = 1; i <= totalPDFPages; i++) {
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-          }
-          pdf.save("حکم-بازنشستگی.pdf");
-          // $(".html-content").hide();
-        });
+// Use vanilla JS for html2canvas
+html2canvas(htmlContent).then(function (canvas) {
+  var imgData = canvas.toDataURL("image/jpeg", 1.0);
+  var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
+  pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+  for (var i = 1; i <= totalPDFPages; i++) {
+    pdf.addPage(PDF_Width, PDF_Height);
+    pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+  }
+  pdf.save("حکم-بازنشستگی.pdf");
+  // If you want to hide the element: htmlContent.style.display = "none";
+});
       } catch (err) {
         document.getElementById("pension-text").innerText = "❌ خطا در دریافت اطلاعات";
         console.error(err);

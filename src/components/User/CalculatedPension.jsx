@@ -87,7 +87,9 @@ const CalculatedPension = () => {
                 console.log(response)
 
                 if (response?.status === 200 || response?.status === 204) {
-                    ProtestModalFunction()
+                  setBankInformationModal(false)
+                    // ProtestModalFunction()
+                    alert("با موفقیت انجام شد")
                 }
                 else {
                     alert(response)
