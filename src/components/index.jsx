@@ -21,6 +21,9 @@ export {default as ForgetpasswordVerifyPage} from "../pages/LoginPage/Forgetpass
 export {default as ChangePasswordPage} from "../pages/LoginPage/ChangePasswordPage";
 export {default as ChangePasswordConfirmPage} from "../pages/LoginPage/ChangePassPanelConfirmPage";
 export {default as VerifyChangePage} from "../pages/LoginPage/VerifyChangePage";
+export {default as Guide} from "../pages/LoginPage/Guide";
+export {default as Educate} from "../pages/LoginPage/Educate";
+export {default as Faq} from "../pages/LoginPage/Faq";
 
 // ----------[user]----------
 

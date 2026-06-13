@@ -60,7 +60,7 @@ const MainTopAll = ({ icon, title, text, adminRole,role }) => {
                 <p className="font-IRANYekanExtra text-mainBlue text-[15px] mr-2">{title}</p>
             </div>
             <div className='flex items-center md:justify-end md:flex-wrap'>
-                <Link className="font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px] md:mb-2">راهنمای استفاده از سامانه</Link>
+                <a  href="/ExpertGuide.pdf" download className="font-IRANYekanMedium text-[12px] text-mainBlue border-b-[1px] border-dashed border-mainBlue pb-[2px] md:mb-2">راهنمای استفاده از سامانه</a>
                 <div className="w-fit h-[40px] bg-white py-[7px] px-[12px] rounded-[6px] mr-[11px] md:mr-0 flex md:w-full">
                     {role === 'user' ?
                         <div className='flex w-[320px] justify-between items-center md:w-full'>

@@ -411,7 +411,7 @@ const AddWorkPlace = ({ id, setForms, setYearsData, yearsData, data, statusId,se
                   listBox={true}
                   defaultVal={formData.TrackRecordType}
 
-                  listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
+                  listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "هردو", name: "هردو" }]}
                   onChange={(value) => handleInputChange('TrackRecordType', value?.id)}
                   holder={'مثلا رسمی'}
                   necessary={true}

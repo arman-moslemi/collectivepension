@@ -7,9 +7,9 @@ import { LoginLayout, LoginPageMain, SignupPage, ForgetpasswordPage, VerifyPage,
     CalculatedPensionPage, RegisteredProtestsPage, ViewProtestPage, VerdictsIssuedPage,
     ExpertLayout, ExpertDashboardPage, ExpertRequestsPage, ExpertRequestsDetailsPage, 
     ExpertRequestsPensionPage,ExpertProtestListPage,ExpertProtestDetailPage, ExpertInsurancePremiumPage,
-    MainAdminDashboardPage,ExpertDefinitionPage,
+    MainAdminDashboardPage,ExpertDefinitionPage,Guide,Educate,
     MainAdminLayout,MainAdminExpertActivityPage,MainAdminAdminListPage,MainAdminUserListPage,
-    MainAdminRequestPage,MainAdminRequestsDetailsPage,MainAdminProtestListPage,MainAdminProtestDetailPage,VerifyChangePage
+    MainAdminRequestPage,MainAdminRequestsDetailsPage,MainAdminProtestListPage,MainAdminProtestDetailPage,VerifyChangePage,Faq
 } from "../components";
 import ChangePassPanelPage from "../pages/LoginPage/ChangePassPanelPage";
 import ChangePassPanelConfirmPage from "../pages/LoginPage/ChangePassPanelConfirmPage";
@@ -76,6 +76,21 @@ export const router =createBrowserRouter([
             {
                 path:'/VerifyChange',
                 element:<VerifyChangePage/>,
+             
+            },
+                {
+                path:'/guide',
+                element:<Guide/>,
+             
+            },
+             {
+                path:'/educate',
+                element:<Educate/>,
+             
+            },
+              {
+                path:'/faq',
+                element:<Faq/>,
              
             },
         ],

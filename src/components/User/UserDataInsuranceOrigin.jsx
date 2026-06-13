@@ -515,7 +515,7 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
                 listBox={true}
                 defaultVal={values.TrackRecordType}
 
-                listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }]}
+                listItems={[{ id: "دولتی", name: "دولتی" }, { id: "غیردولتی", name: "غیردولتی" }, { id: "هردو", name: "هردو" }]}
                 onChange={(value) => setFieldValue('TrackRecordType', value?.id)}
                 holder={'مثلا رسمی'}
                 necessary={true}

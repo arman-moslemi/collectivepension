@@ -191,6 +191,7 @@ const VerifyForget = ({ forgetpassword }) => {
 
         // Render a countdown
         if (completed) {
+
             return <Addsms />
         }
         else
@@ -278,7 +279,7 @@ const VerifyForget = ({ forgetpassword }) => {
                         {/* <p className='font-IRANYekanBold text-[16px] text-buttonBlue mt-[25px]'>00 : 45</p> */}
                         <Countdown
                             key={k}
-                            date={Date.now() + 90000}
+                            date={Date.now() + 30000}
                             renderer={renderer}
                             //  onComplete={onCompleteTimeFun}
                             className='font-IRANYekanBold text-[16px] text-buttonBlue mt-[25px]'
