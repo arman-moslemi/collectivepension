@@ -53,6 +53,14 @@ export default function TrainingVideosPage() {
               >
                 راهنمای استفاده از سامانه برای کارشناس و ادمین صندوق              </a>
             </li>
+            <li>
+              <a
+                href="/codeRamz.pdf"
+                download
+                className="hover:underline"
+              >
+                راهنمای دریافت کد رمز از تامین اجتماعی              </a>
+            </li>
 
           </ul>
         </div>

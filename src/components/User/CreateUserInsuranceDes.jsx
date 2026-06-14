@@ -99,7 +99,6 @@ const CreateUserInsuranceDes = () => {
               console.log(10000)
               console.log(ramz)
               console.log(values.InsuranceId)
-  let status = cookies.get("Status");
 
       if (values.InsuranceId == 1 && ramz != true && status==1) {
         console.log(11000)
@@ -285,7 +284,7 @@ console.log(20000)
         </button>
 
         <span className="font-IRANYekanBold text-mainBlue leading-6">
-          متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
+          متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://eservices.tamin.ir با توجه به<a href="/codeRamz.pdf" download className=" border-b"> فایل راهنما</a> اقدام نمایید!
         </span>
       </div>)}
       <div className="mt-5 w-full">

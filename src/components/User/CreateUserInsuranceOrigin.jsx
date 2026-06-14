@@ -215,7 +215,7 @@ const CreateUserInsuranceOrigin = () => {
                 </button>
 
                 <span className="font-IRANYekanBold text-mainBlue leading-6">
-                    متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
+          متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://eservices.tamin.ir با توجه به<a href="/codeRamz.pdf" download className=" border-b"> فایل راهنما</a> اقدام نمایید!
                 </span>
             </div>)}
             <div className="px-[40px] w-full z940:px-1">
