@@ -112,12 +112,12 @@ const ExpertLayout = () => {
                 {isActive("/expert/requestsPension") ? (
                   <>
                     <PensionRequestIcon color={'#00c1b2'} />
-                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">درخواست‌های بازنشستگی</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">درخواست‌های بازنشستگی (مقصد)</p>
                   </>
                 ) : (
                   <>
                     <PensionRequestIcon color={'#ffffff'} />
-                    <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">درخواست‌های بازنشستگی</p>
+                    <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">درخواست‌های بازنشستگی (مقصد)</p>
                   </>
                 )}
               </Link>
@@ -126,12 +126,12 @@ const ExpertLayout = () => {
                 {isActive("/expert/requests") ? (
                   <>
                     <ExistingRecordsIcon color={'#00c1b2'} />
-                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">درخواست‌ ها</p>
+                    <p className="font-IRANYekanExtra text-[15px] text-buttonBlue mr-8">درخواست‌ ها (مبدا)</p>
                   </>
                 ) : (
                   <>
                     <ExistingRecordsIcon color={'#ffffff'} />
-                    <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">درخواست‌ ها</p>
+                    <p className="font-IRANYekanMedium text-[15px] text-mainBlue mr-8">درخواست‌ ها (مبدا)</p>
                   </>
                 )}
               </Link>

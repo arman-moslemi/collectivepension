@@ -9,7 +9,7 @@ import Pencil from "../../assets/icon/main/Pencil";
 const CreateUserInsuranceOrigin = () => {
     const [showUnderTakingModal, setShowUnderTakingModal] = useState(false);
     const cookies = new Cookies();
-  const [taminNoticeOpen, setTaminNoticeOpen] = useState(true);
+    const [taminNoticeOpen, setTaminNoticeOpen] = useState(true);
 
     let status = cookies.get("Status");
     const [forms, setForms] = useState([0]);
@@ -151,15 +151,32 @@ const CreateUserInsuranceOrigin = () => {
 
         }
     };
-     const deleteInsu = async () => {
+    const deleteInsu = async () => {
         const response = await axiosReq("Users/DeleteUserInsurance?UserInsuranceId=" + deleteId, "post");
         if (response.status == 200) {
-          alert("با موفقیت حذف شد")
-          setShowDelete(false)
-          setRecheck(!reCheck)
-    
+            alert("با موفقیت حذف شد")
+            setShowDelete(false)
+            setRecheck(!reCheck)
+
         }
-      }
+    }
+    const AssignUserStatus = async () => {
+               if(promise) {
+
+        const response = await axiosReq("Users/AssignUserStatus", "post");
+        if (response.status == 200) {
+           navigate('../dashboard')
+
+        }
+        else {
+            alert("عملیات با خطا روبروشد")
+            console.log(response)
+        }
+    }
+    else{
+       alert("لطفا موارد را تایید نمایید")
+    }
+    }
     useEffect(() => {
         GetData();
     }, [reCheck]);
@@ -187,30 +204,30 @@ const CreateUserInsuranceOrigin = () => {
                 </div>
             </div>
             <div className="w-full mt-[32px] mb-[40px]"><MainExplanation text={'خواهشمند است فرم زیر را با نهایت دقت تکمیل فرمایید. اطلاعات ثبت‌شده مبنای ارزیابی اولیه کارشناسان جهت بررسی درخواست مستمری جمع خواهد بود. لازم به ذکر است که تکمیل تمامی موارد فرم زیر، اجباری است !'} /></div>
-              {taminNoticeOpen && (<div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2 mb-5">
-        <button
-          type="button"
-          onClick={() => setTaminNoticeOpen(false)}
-          aria-label="بستن اطلاعیه"
-          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
-        >
-          ✕
-        </button>
+            {taminNoticeOpen && (<div className="w-full min-h-[60px] flex items-center justify-center bg-[#2A78DD38] text-center relative px-10 py-2 mb-5">
+                <button
+                    type="button"
+                    onClick={() => setTaminNoticeOpen(false)}
+                    aria-label="بستن اطلاعیه"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded hover:bg-black/5"
+                >
+                    ✕
+                </button>
 
-        <span className="font-IRANYekanBold text-mainBlue leading-6">
-متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
-        </span>
-      </div>)}
+                <span className="font-IRANYekanBold text-mainBlue leading-6">
+                    متقاضی گرامی، در صورتی که در صندوق تامین اجتماعی عضو بوده‌اید لازم است پیش از ثبت درخواست مستمری جمع، نسبت به دریافت کد رمز تامین اجتماعی به صورت حضوری یا از طریق سامانه https://es.tamin.ir اقدام نمایید!
+                </span>
+            </div>)}
             <div className="px-[40px] w-full z940:px-1">
                 <div className="w-full md:col-span-3">
                     <div className="mb-6">
                         <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={data?.length + 1} handleRemoveLastForm={handleRemoveLastForm} setTaminNoticeOpen={setTaminNoticeOpen} />
                     </div>
-                    <div  className="mb-6 ">
-                                    {/* <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} /> */}
-                                    <MainTable list={dataTable} titleRow={titleRow} />
-                                </div>
-                    
+                    <div className="mb-6 ">
+                        {/* <UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={idx + 1} data={data[idx]} handleRemoveLastForm={handleRemoveLastForm} /> */}
+                        <MainTable list={dataTable} titleRow={titleRow} />
+                    </div>
+
                 </div>
                 <div className="w-full flex items-end justify-between my-5 flex-wrap">
                     {/* <div className="w-fit max-w-[434px] ">
@@ -248,7 +265,10 @@ const CreateUserInsuranceOrigin = () => {
                             <div className="w-[140px] flex">
 
                                 <MainButton
-                                    onClickFunction={() => promise ? navigate('../dashboard') : alert("لطفا موارد را تایید نمایید")}
+                                    onClickFunction={() =>
+
+                                        AssignUserStatus()
+                                    }
                                     label={'ثبت و ارسال'}
                                 />
 
@@ -260,41 +280,41 @@ const CreateUserInsuranceOrigin = () => {
 
             </div>
             {showEdit ? (
-           <MainModal
-             big={true}
-             title={'ویرایش صندوق'}
-             setShowModal={() => { setShowEdit(false);  }}
-             text={<UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={editId} data={data[editId]} handleRemoveLastForm={handleRemoveLastForm}setTaminNoticeOpen={setTaminNoticeOpen} /> }
-           />
-         ) : null}
-          {showDelete  ? (
-        <MainModal
-          big={false}
-          title={ "حذف صندوق"}
-          setShowModal={() => setShowDelete(false)}
-          text={
-           "آیا از حذف صندوق انتخاب شده اطمینان دارید؟"
-          }
-          modalButton={
-            <div className="w-full flex justify-center">
-              <div className="w-[140px]">
-                <MainButton onClickFunction={deleteInsu} label={"بله"} />
-              </div>
-              <div className="w-[140px] mr-2">
-                <MainButton
-                  onClickFunction={() => setShowDelete(false)}
-                  red={true}
-                  label={"خیر"}
+                <MainModal
+                    big={true}
+                    title={'ویرایش صندوق'}
+                    setShowModal={() => { setShowEdit(false); }}
+                    text={<UserDataInsuranceOrigin reCheck={reCheck} setRecheck={setRecheck} number={editId} data={data[editId]} handleRemoveLastForm={handleRemoveLastForm} setTaminNoticeOpen={setTaminNoticeOpen} />}
                 />
-              </div>
-            </div>
-          }
-        />
-      ) : null}
+            ) : null}
+            {showDelete ? (
+                <MainModal
+                    big={false}
+                    title={"حذف صندوق"}
+                    setShowModal={() => setShowDelete(false)}
+                    text={
+                        "آیا از حذف صندوق انتخاب شده اطمینان دارید؟"
+                    }
+                    modalButton={
+                        <div className="w-full flex justify-center">
+                            <div className="w-[140px]">
+                                <MainButton onClickFunction={deleteInsu} label={"بله"} />
+                            </div>
+                            <div className="w-[140px] mr-2">
+                                <MainButton
+                                    onClickFunction={() => setShowDelete(false)}
+                                    red={true}
+                                    label={"خیر"}
+                                />
+                            </div>
+                        </div>
+                    }
+                />
+            ) : null}
         </div>
     );
 
-    
+
 };
 
 export default CreateUserInsuranceOrigin;

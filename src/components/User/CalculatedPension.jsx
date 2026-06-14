@@ -87,7 +87,7 @@ const CalculatedPension = () => {
                 console.log(response)
 
                 if (response?.status === 200 || response?.status === 204) {
-                  setBankInformationModal(false)
+                    setBankInformationModal(false)
                     // ProtestModalFunction()
                     alert("با موفقیت انجام شد")
                 }
@@ -114,56 +114,59 @@ const CalculatedPension = () => {
     }
 
     const download = async (name) => {
-         try {
-                 const cookies = new Cookies();
-             
-             // const token = localStorage.getItem('token'); // or wherever you store your token
-             const response = await fetch(`${apiUrl}Users/download/${name}`, {
-                 method: 'GET',
-                 headers: {
-                      'Authorization': `Bearer ${cookies.get('token')}`, // if needed
-                     'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                 }
-             });
-     
-             if (!response.ok) {
-                 throw new Error(`HTTP error! status: ${response.status}`);
-             }
-     
-             const blob = await response.blob();
-             
-             // Get filename from Content-Disposition header
-             const contentDisposition = response.headers.get('content-disposition');
-             let filename = name;
-             if (contentDisposition) {
-                 const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-                 if (filenameMatch && filenameMatch[1]) {
-                     filename = filenameMatch[1].replace(/['"]/g, '');
-                 }
-             }
-     
-             // Ensure filename has correct extension
-             if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
-                 filename += '.xlsx';
-             }
-     
-             const url = window.URL.createObjectURL(blob);
-             const a = document.createElement('a');
-             a.href = url;
-             a.download = filename;
-             document.body.appendChild(a);
-             a.click();
-             
-             // Cleanup
-             setTimeout(() => {
-                 document.body.removeChild(a);
-                 window.URL.revokeObjectURL(url);
-             }, 100);
-             
-         } catch (error) {
-             console.error("Error downloading file:", error);
-         }
-     };
+        try {
+            const cookies = new Cookies();
+
+            // const token = localStorage.getItem('token'); // or wherever you store your token
+            const response = await fetch(`${apiUrl}Users/download/${name}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${cookies.get('token')}`, // if needed
+                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+
+            // Get filename from Content-Disposition header
+            const contentDisposition = response.headers.get('content-disposition');
+            let filename = name;
+            if (contentDisposition) {
+                const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                if (filenameMatch && filenameMatch[1]) {
+                    filename = filenameMatch[1].replace(/['"]/g, '');
+                }
+            }
+
+            // Ensure filename has correct extension
+            if (!filename.endsWith('.xlsx') && !filename.endsWith('.xls')) {
+                filename += '.xlsx';
+            }
+
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+
+            // Cleanup
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };
+    const formatNumber = (num, separator = ',') => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[20px]">
             <div className="w-full flex justify-end mb-[16px]">
@@ -178,7 +181,7 @@ const CalculatedPension = () => {
                 <div className="mr-[17px]">
                     <p className="font-IRANYekanExtra text-[18px] text-mainBlue mb-1 md:text-[14px]">مجموع مستمری محاسبه شده :</p>
                     <div className="flex">
-                        <p className="font-IRANYekanBold text-[16px] text-mainBlue ml-1 md:text-[12px]">{data?.totalPension}</p>
+                        <p className="font-IRANYekanBold text-[16px] text-mainBlue ml-1 md:text-[12px]">{formatNumber(data?.totalPension, ',')}</p>
                         <p className="font-IRANYekanBold text-[16px] text-mainBlue md:text-[12px]">تومان</p>
                     </div>
                 </div>

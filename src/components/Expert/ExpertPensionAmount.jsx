@@ -65,7 +65,7 @@ const list2 = [
 
 
 
-const ExpertPensionAmountInput = ({ another, id,admin }) => {
+const ExpertPensionAmountInput = ({ another, id, admin }) => {
 
     let navigate = useNavigate();
     const [dataTable, setDataTable] = useState([]);
@@ -142,21 +142,24 @@ const ExpertPensionAmountInput = ({ another, id,admin }) => {
             console.log(response)
 
             if (response?.status === 200 || response?.status === 204) {
-                            const cookies = new Cookies();
-                                                        cookies.set('user', response.data, { path: '/' })
+                const cookies = new Cookies();
+                cookies.set('user', response.data, { path: '/' })
 
-                window.location.href="../../SingleRetriment.html";
+                window.location.href = "../../SingleRetriment.html";
             }
 
         } catch (error) {
             console.error("Error fetching user data:", error);
         }
     };
+    const formatNumber = (num, separator = ',') => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    };
     return (
         <div className="w-full py-4 px-6 lg:px-0">
             <div className="w-full flex justify-center items-center mb-12 mt-8 lg:flex-col">
                 <p className="font-IRANYekanExtra text-[18px] lg:text-[16px] text-mainBlue ml-3">مجموع مستمری محاسبه شده :</p>
-                <p className="font-IRANYekanExtra text-[20px] lg:text-[18px] text-mainBlue">{data?.totalPension} تومان</p>
+                <p className="font-IRANYekanExtra text-[20px] lg:text-[18px] text-mainBlue">{formatNumber(data?.totalPension, ",")} تومان</p>
             </div>
             {/* {another? null: */}
             {/* <div className="w-full flex flex-col items-center justify-center  mb-[22px]">
@@ -186,15 +189,15 @@ const ExpertPensionAmountInput = ({ another, id,admin }) => {
                     <div className="w-[90%]"><MainTable cen6={true} list={dataAgent} count={countAgent} titleRow={titleRow2} page={pageAgent} setPage={setPageAgent} row={rowAgent} setRow={setRowAgent} /></div>
                 </div>
                 : null}
-                {
-                    !admin?
-            <div className="mt-[30px] mb-[107px] w-full flex justify-end">
-                <div className="w-[190px]">
-                    <MainButton onClickFunction={() => exportDoc()} label={'صدور حکم بازنشستگی'} /></div>
-            </div>
+            {
+                !admin ?
+                    <div className="mt-[30px] mb-[107px] w-full flex justify-end">
+                        <div className="w-[190px]">
+                            <MainButton onClickFunction={() => exportDoc()} label={'صدور حکم بازنشستگی'} /></div>
+                    </div>
                     :
                     null
-                }
+            }
 
 
         </div>

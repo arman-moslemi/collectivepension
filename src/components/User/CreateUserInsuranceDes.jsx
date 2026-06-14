@@ -99,8 +99,9 @@ const CreateUserInsuranceDes = () => {
               console.log(10000)
               console.log(ramz)
               console.log(values.InsuranceId)
+  let status = cookies.get("Status");
 
-      if (values.InsuranceId == 1 && ramz != true) {
+      if (values.InsuranceId == 1 && ramz != true && status==1) {
         console.log(11000)
 
       

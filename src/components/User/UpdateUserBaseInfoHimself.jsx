@@ -425,7 +425,7 @@ const UpdateUserBaseInfoHimself = () => {
                                 max={20}
                             />
                         </div> */}
-                        <div className="flex flex-col gap-2 justify-between">
+                        <div className="flex flex-col gap-2 col-span-3 justify-between">
                             <div className=' flex flex-col  my-4'>
                                 <p className='font-IRANYekanMedium text-[14px] text-mainBlue ml-3 mb-2 '>تصویر صفحه اول شناسنامه</p>
                                 <div>

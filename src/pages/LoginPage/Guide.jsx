@@ -195,7 +195,7 @@ export default function TrainingVideosPage() {
                   title={video.title}
                   src={video.embedUrl}
                   allowFullScreen
-                  className="w-full h-[500px] rounded-xl border"
+                  className="w-full h-[700px] rounded-xl border"
                 />
               </div>
             </div>

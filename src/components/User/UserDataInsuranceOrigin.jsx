@@ -175,8 +175,10 @@ const UserDataInsuranceOrigin = ({ number, handleRemoveLastForm, inModal, data, 
           moment(values.QuitDate?.split("T")[0].replace("-", "/"), 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') : values.QuitDate,
         EmploymentStatusDescription: des
       };
+        let status = cookies.get("Status");
+
       payload.DepartmentName = values.InsuranceId == 1 ? "تامین" : values.DepartmentName;
-  if (values.InsuranceId == 1 && ramz != true) {
+  if (values.InsuranceId == 1 && ramz != true &&  status<4 ) {
         console.log(11000)
 
       

@@ -1,7 +1,9 @@
 import { MainButton, MainModal, } from "../../components";
 
 const CalculatedPensionBox = ({ title, days, price, func }) => {
-
+  const formatNumber = (num, separator = ',') => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+};
     return (
         <div className="w-full h-[224px] shadow-calculbox flex  rounded-[8px] bg-white mb-4">
             <div className="h-full w-[8px] bg-buttonBlue rounded-r-[8px]"></div>
@@ -20,7 +22,7 @@ const CalculatedPensionBox = ({ title, days, price, func }) => {
                 <div className="w-full flex justify-between items-center pr-2 pl-[15px] mb-[35px]">
                     <p className="font-IRANYekanExtra text-[18px] text-mainBlue">مبلغ مستمری </p>
                     <div className="flex items-center">
-                        <p className="font-IRANYekanBold text-[18px] text-darkGray">{price}</p>
+                        <p className="font-IRANYekanBold text-[18px] text-darkGray">{formatNumber(price,",")}</p>
                         <p className="font-IRANYekanMedium text-[15px] text-darkGray mr-2"> تومان</p>
                     </div>
 

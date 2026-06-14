@@ -1,4 +1,7 @@
 const ExistingRecordsYearBox = ({ data }) => {
+      const formatNumber = (num, separator = ',') => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    };
     return (
         <div className="w-full min-w-[100px] shadow-sandoghShadow rounded-[5px] flex">
             <div className=" w-[6px] rounded-r-[5px] bg-buttonBlue"></div>
@@ -14,7 +17,7 @@ const ExistingRecordsYearBox = ({ data }) => {
                 <p className="font-IRANYekanMedium text-[10px] text-darkGray mb-1">{data.insuranceRate}</p> */}
                 {/* <p className="font-IRANYekanMedium text-[10px] text-mainBlue mb-1">دستمزد مشمول کسر حق بیمه</p> */}
                 <div className="flex">
-                    <p className="font-IRANYekanMedium text-[10px] text-darkGray ml-1">{data.wage}</p>
+                    <p className="font-IRANYekanMedium text-[10px] text-darkGray ml-1">{formatNumber(data.wage,",")}</p>
                     <p className="font-IRANYekanMedium text-[10px] text-darkGray">تومان</p>
                 </div>
             </div>

@@ -3,12 +3,12 @@ import React from "react";
 const videos = [
   {
     id: 1,
-    title: "دوره آموزش مستمری جمع",
-    subtitle: "قسمت اول - کلیات",
-    presenter: "حسین باقری زرین قبائی",
+    title: "آمورش سامانه",
+    subtitle: "کلیات",
+    presenter: "",
     embedUrl:
-      "https://www.aparat.com/video/video/embed/videohash/ArgNF/vt/frame",
-    aparatUrl: "https://www.aparat.com/v/ArgNF",
+      "https://www.aparat.com/video/video/embed/videohash/rltttka/vt/frame",
+    aparatUrl: "https://www.aparat.com/v/rltttka",
   },
 
 
@@ -90,7 +90,7 @@ export default function TrainingVideosPage() {
                   title={video.title}
                   src={video.embedUrl}
                   allowFullScreen
-                  className="w-full h-[500px] rounded-xl border"
+                  className="w-full h-[700px] rounded-xl border"
                 />
               </div>
             </div>
