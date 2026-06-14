@@ -153,7 +153,7 @@ const ExpertPensionAmountInput = ({ another, id, admin }) => {
         }
     };
     const formatNumber = (num, separator = ',') => {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+        return num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
     };
     return (
         <div className="w-full py-4 px-6 lg:px-0">

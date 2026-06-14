@@ -165,7 +165,7 @@ const CalculatedPension = () => {
         }
     };
     const formatNumber = (num, separator = ',') => {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+        return num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
     };
     return (
         <div className="w-full flex flex-col items-center rounded-[6px] bg-white p-[20px]">

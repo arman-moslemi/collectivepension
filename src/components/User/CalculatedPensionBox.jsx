@@ -2,7 +2,7 @@ import { MainButton, MainModal, } from "../../components";
 
 const CalculatedPensionBox = ({ title, days, price, func }) => {
   const formatNumber = (num, separator = ',') => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+  return num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 };
     return (
         <div className="w-full h-[224px] shadow-calculbox flex  rounded-[8px] bg-white mb-4">

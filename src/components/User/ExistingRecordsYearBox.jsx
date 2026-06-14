@@ -1,6 +1,6 @@
 const ExistingRecordsYearBox = ({ data }) => {
       const formatNumber = (num, separator = ',') => {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+        return num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
     };
     return (
         <div className="w-full min-w-[100px] shadow-sandoghShadow rounded-[5px] flex">
