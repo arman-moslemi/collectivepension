@@ -67,13 +67,19 @@ const ExpertAgents = ({ admin, webService, des, id }) => {
     const disApprove = async (item) => {
         try {
             // const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "put", {
-            const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "post", {
+            if(reason){
+  const response = await axiosReq("Experts/DisapproveAgent?agentId=" + id, "post", {
                 Reason: reason,
                 UserInsuranceFiles: files
             });
             if (response.data) {
                 alert("با موفقیت انجام شد");
             }
+            }
+            else{
+                alert("لطفت دلیل را وارد کنید.")
+            }
+          
         } catch (err) {
             console.error("Error fetching form data:", err);
             setError("خطا در دریافت اطلاعات ");

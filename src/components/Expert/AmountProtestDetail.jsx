@@ -38,6 +38,7 @@ const AmountProtestDetail = ({role,id,insuName}) => {
             }
      const disApprove = async (item) => {
                 try {
+                      if(reason){
                     // const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "put", {
                     const response = await axiosReq("Experts/DenyProtest?protestId=" + id, "post", {
                         Reason: reason,
@@ -47,6 +48,10 @@ const AmountProtestDetail = ({role,id,insuName}) => {
                         alert("با موفقیت انجام شد");
                            navigate("/protestList")
                     }
+                  }else{
+                                alert("لطفت دلیل را وارد کنید.")
+
+            }
                 } catch (err) {
                     console.error("Error fetching form data:", err);
                 } finally {

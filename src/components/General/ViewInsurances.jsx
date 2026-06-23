@@ -28,12 +28,12 @@ const ViewInsurances = ({ isEnding, data }) => {
                 <div className="col-span-2 md:col-span-3">
                     <MainInput label={'شماره شناسایی بیمه'} value={data.insuranceIdNumber} />
                 </div>
-                <div className="col-span-3 md:col-span-3">
+                {/* <div className="col-span-3 md:col-span-3">
                     <MainInput label={'تاریخ شروع بیمه پردازی'} value={data.startDate} />
                 </div>
                 <div className="col-span-3 md:col-span-3">
                     <MainInput label={'تاریخ آخرین بیمه پردازی'} value={data.endDate} />
-                </div>
+                </div> */}
                 <div className="col-span-3 md:col-span-3">
                     <MainInput label={'نوع سابقه'} value={data.trackRecordType} />
                 </div>

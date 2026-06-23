@@ -19,7 +19,7 @@ const CreateUserInsuranceOrigin = () => {
             navigate('../dashboard')
         }
         console.log(forms)
-        forms.length < 2 ?
+        dataTable.length < 1 ?
             alert("حداقل یک صندوق اضافه کنید") :
             setShowUnderTakingModal(true)
 

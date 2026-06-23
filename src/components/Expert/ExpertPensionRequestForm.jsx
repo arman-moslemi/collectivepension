@@ -55,12 +55,17 @@ const ExpertPensionRequestForm = ({ admin, webService, des, id }) => {
     const disApprove = async () => {
         try {
             // const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "put", {
+               if(reason){
             const response = await axiosReq("Experts/Disapprove?userInsuranceId=" + id, "post", {
                 Reason: reason,
                 UserInsuranceFiles: files
             });
             if (response.data) {
                 alert("با موفقیت انجام شد");
+            }
+            }else{
+                                alert("لطفت دلیل را وارد کنید.")
+
             }
         } catch (err) {
             console.error("Error fetching form data:", err);

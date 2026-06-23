@@ -159,6 +159,57 @@ export default function TrainingVideosPage() {
               </a>
             </li>
 
+
+    <li>
+              <a
+                href="/eslah.pdf"
+                download
+                className="hover:underline"
+              >
+               اصلاح آیین نامه
+              </a>
+            </li>
+            <li>
+              <a
+                href="/taserrsabegh.pdf"
+                download
+                className="hover:underline"
+              >
+                قانون نحوۀ تأثیر سوابق خدمت غیردولتی کارکنان دولت
+              </a>
+            </li>
+            <li>
+              <a
+                href="/monghele.pdf"
+                download
+                className="hover:underline"
+              >
+قانون نحوه تأثیر سوابق منتقله به سازمان تأمین اجتماعی              </a>
+            </li>
+            <li>
+              <a
+                href="/mazaya.pdf"
+                download
+                className="hover:underline"
+              >
+دادنامه هیات تخصصی اعتبار قانون نحوه تأثیر سوابق منتقله بر سازمان تأمین اجتماعی برای استفاده از مزایای مقرر در قانون تأمین اجتماعی              </a>
+            </li>
+            <li>
+              <a
+                href="/ebtall.pdf"
+                download
+                className="hover:underline"
+              >
+دادنامه هیات تخصصی عدم ابطال  ماده واحده قانون نحوه تأثیر سوابق خدمت غیر دولتی در احتساب حقوق بازنشستگی و وظیفه و مستمری كاركنان دول            </a>
+            </li>
+            <li>
+              <a
+                href="/tanfeez.pdf"
+                download
+                className="hover:underline"
+              >
+دادنامه هیات تخصصی دیوان عدالت اداری تنفیذ تاریخ 19 اسفند 1402 برای اجرای قانون نقل و انتقال سوابق بیمه بین صندوقهای بازنشستگی         </a>
+            </li>
           </ul>
         </div>
         {/* Videos */}
