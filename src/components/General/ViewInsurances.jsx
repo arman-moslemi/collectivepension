@@ -60,18 +60,9 @@ const ViewInsurances = ({ isEnding, data }) => {
                 <div className="col-span-3 md:col-span-3">
                     <MainInput label={'شهر'} value={data.cityName} />
                 </div>
-                <div className="col-span-6 md:col-span-3">
-                    <MainRadioInput column={true} title={'وضعیت بیمه پردازی'} text1={'مشمول قانون  مدیریت خدمات کشوری و سایر مقررات استخدامی'} text2={'مشمول قانون کار'} text3={'سایر'}
-                        input={true} inputValue={data.employmentStatusDescription} disabled={true} value1={1} value2={2} value3={3}
-                        selectedValue={data.employmentStatusId} />
-                </div>
+               
 
-                <div className="col-span-3 md:col-span-3">
-                    <MainInput label={'تاریخ شروع بیمه پردازی'} value={data.startDate} />
-                </div>
-                <div className="col-span-3 md:col-span-3">
-                    <MainInput label={'تاریخ آخرین بیمه پردازی'} value={data.endDate} />
-                </div>
+               
                 <div className="col-span-2 md:col-span-3">
                     <MainInput label={'شماره شناسایی بیمه'} value={data.insuranceIdNumber} />
                 </div>
