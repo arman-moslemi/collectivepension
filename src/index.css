@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./assets/fonts/stylesheet.css"; 
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* حذف اسلایدر عدد در مرورگرهای فایرفاکس */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+  margin:auto !important;
+  display: block;
+}
+/* استایل سفارشی برای اسکرول‌بار */
+::-webkit-scrollbar {
+  width: 8px; /* عرض اسکرول‌بار */
+  height: 8px; /* ارتفاع اسکرول‌بار برای اسکرول افقی */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b3b3b3; /* رنگ دسته اسکرول */
+  border-radius: 10px; /* گرد کردن گوشه‌ها */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a8a8a; /* رنگ هنگام هاور */
+}
+
+::-webkit-scrollbar-track {
+  background: #f4f4f4; /* رنگ زمینه اسکرول‌بار */
+  border-radius: 10px; /* گرد کردن گوشه‌ها */
+}
+
+/* برای سایر مرورگرها */
+.scrollable {
+  scrollbar-color: #b3b3b3 #f4f4f4; /* رنگ دسته و زمینه */
+  scrollbar-width: thin; /* باریک کردن اسکرول */
+}
+#myRounded > div > div  {
+  border-radius: 50px !important;
+  height: 35px !important;
+}
+#myRounded input{
+font-size: 12px;
+}
+#detailBox{
+  box-shadow: 0 1px 30px 5px rgba(166, 166, 166, 0.15), 0 1px 30px 5px rgba(166, 166, 166, 0.15);
+}
+.dynamic-padding {
+  transition: padding-right 0.3s ease;
+}
+.dynamic-padding.menu-open {
+  padding-right: 350px !important;
+}
+.dynamic-padding.menu-closed {
+  padding-right: 120px !important;
+}
+/* تغییر رنگ نوار فعال (مقدار انتخاب‌شده) */
+.range-slider__track--active {
+  background-color: #ffc727 !important; /* رنگ زرد */
+}
+
+/* تغییر رنگ دستگیره‌ها */
+.range-slider__thumb {
+  background-color: #ffc727 !important;
+  width:9px !important;
+  height:9px !important; /* رنگ زرد */
+  border: none !important; /* اضافه کردن حاشیه */
+}
+.range-slider{
+  height:4px !important;
+}
+/* تغییر رنگ نوار غیر فعال (خاکستری) */
+.range-slider__track {
+  background-color: #d9d9d9 !important; /* رنگ خاکستری */
+}
+.range-slider .range-slider__range{
+  background-color: #ffc727 !important;
+}
+.pageTitle{
+  font-family: IRANYekanExtra;
+  color:#2e3f59;
+  font-size:15px;
+  margin-right:10px;
+  margin-left:5px;
+}
+@keyframes fadeInSlide {
+  0% {
+		transform: scale(0.5);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+
+
+.modal-success {
+  animation: fadeInSlide 2s ease 0s 1 normal forwards;
+}
+
+.recharts-text{
+  font-family:IRANYekanNormal;
+  font-size: 10px !important;
+}
+.recharts-default-legend{
+  margin-top:15px;
+}
+.recharts-legend-wrapper{
+  bottom:-15px !important;
+}
+.recharts-legend-item-text{
+  font-family: IRANYekanBold !important;
+}
+.recharts-default-tooltip{
+  font-family: IRANYekanMedium !important;
+}
+
+input:disabled{
+  background-color: #f1f1f1 !important;
+}
+
+#test input:focus-visible{
+	outline-color: transparent !important;
+}
+#modalDatepicker .datepicker-plot-area {
+	z-index: 1151 !important;
+}
+#modalDatepicker {
+	z-index: 100000 !important;
+}
+.css-1m8qzkt{
+  z-index: 10000 !important;
+  /* top:10% !important; */
+}
+
+.zaman-datepicker-container {
+  top: auto !important;
+  bottom: auto !important;
+  inset: unset !important; 
+  z-index: 9999 !important;
+}
+
+.dateInput input{
+  width:80% !important;
+}
+.dateInput input:focus-visible{
+  outline: none !important;
+}

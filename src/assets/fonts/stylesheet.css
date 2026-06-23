@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'IRANYekanBold';
+    src: url('IRANYekanFN-Bold.eot');
+    src: url('IRANYekanFN-Bold.eot?#iefix') format('embedded-opentype'),
+        url('IRANYekanFN-Bold.woff2') format('woff2'),
+        url('IRANYekanFN-Bold.woff') format('woff'),
+        url('IRANYekanFN-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IRANYekanExtra';
+    src: url('IRANYekanFN-ExtraBold.eot');
+    src: url('IRANYekanFN-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('IRANYekanFN-ExtraBold.woff2') format('woff2'),
+        url('IRANYekanFN-ExtraBold.woff') format('woff'),
+        url('IRANYekanFN-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IRANYekanLight';
+    src: url('IRANYekanFN-Light.eot');
+    src: url('IRANYekanFN-Light.eot?#iefix') format('embedded-opentype'),
+        url('IRANYekanFN-Light.woff2') format('woff2'),
+        url('IRANYekanFN-Light.woff') format('woff'),
+        url('IRANYekanFN-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IRANYekanNormal';
+    src: url('IRANYekanFN.eot');
+    src: url('IRANYekanFN.eot?#iefix') format('embedded-opentype'),
+        url('IRANYekanFN.woff2') format('woff2'),
+        url('IRANYekanFN.woff') format('woff'),
+        url('IRANYekanFN.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IRANYekanMedium';
+    src: url('IRANYekanFN-Medium.eot');
+    src: url('IRANYekanFN-Medium.eot?#iefix') format('embedded-opentype'),
+        url('IRANYekanFN-Medium.woff2') format('woff2'),
+        url('IRANYekanFN-Medium.woff') format('woff'),
+        url('IRANYekanFN-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TimesNewRoman';
+    src: url('times new roman bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nastaligh';
+    src : url('Nastaligh.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* hello */
